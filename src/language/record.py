@@ -4,12 +4,12 @@ from config import RECORD_LENGTH, SILENCE_LENGTH, SILENCE_THRESH
 import os
 
 
-async def record_until_thresh(filename):
+def record_until_thresh(filename):
     """Create the folders leading to filename, then record audio to file. Will start
     audio recording, then record until silence threshold is met, then stop and save
     to file.
     """
-    await _create_subfolders_for_file(filename)
+    _create_subfolders_for_file(filename)
 
     # Load the shared library
     libfile = pathlib.Path(__file__).parent / "record_audio.so"
@@ -28,7 +28,7 @@ async def record_until_thresh(filename):
     return result == 0
 
 
-async def _create_subfolders_for_file(file_path):
+def _create_subfolders_for_file(file_path):
     directory = os.path.dirname(file_path)
 
     if directory and not os.path.exists(directory):

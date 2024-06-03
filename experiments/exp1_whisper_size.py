@@ -1,13 +1,8 @@
-from src.language import whisper
+from src.language.whisper import Whisper
 
 
 def run():
-    __download_models()
-
-
-def __download_models():
-    for model_size in whisper.WHISPER_SIZES:
-        whisper.download_whisper(model_size)
+    pass
 
 
 if __name__ == "__main__":

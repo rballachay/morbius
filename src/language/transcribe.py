@@ -2,9 +2,9 @@ from src.language.record import record_until_thresh
 from src.language.whisper import Whisper
 from config import CACHE_RECORDINGS, RECORDINGS_DIR
 import time
+import os
 
-
-async def listen_transcribe(model_size="tiny"):
+def listen_transcribe(model_size="tiny"):
     """This listens to audio until silence, then transcribes audio to text
     using whisper.
     """
@@ -14,21 +14,20 @@ async def listen_transcribe(model_size="tiny"):
     else:
         filename = f"{RECORDINGS_DIR}/_temp_audio.wav"
 
-    recording_successful = await record_until_thresh(filename)
+    recording_successful = record_until_thresh(filename)
     if not recording_successful:
         print("Failed to transcribe audio, check shared library record_audio.so")
         return ""
 
-    return await transcribe_audio(filename, model_size)
+    results = transcribe_audio(filename, model_size)
 
+    if not CACHE_RECORDINGS:
+        os.remove(filename)
 
-async def load_model_async(model_size):
-    whisper = Whisper(model_size)
-    return whisper
+    return results
 
-
-async def transcribe_audio(filename, model_size="tiny"):
+def transcribe_audio(filename, model_size="tiny"):
     """Transcribe the audio file using Whisper."""
-    whisper = await load_model_async(model_size)
+    whisper = Whisper(model_size)
     text = whisper.transcribe(filename)
     return text
