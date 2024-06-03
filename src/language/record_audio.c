@@ -160,19 +160,20 @@ int record(const char *filename, const int nSeconds,
     if (err != paNoError) goto done;
 
     // Save recorded audio to file
+    int recordedSamples = data.frameIndex;
     FILE *file = fopen(filename, "wb");
     if (!file) {
         printf("Error: could not open file for writing.\n");
         goto done;
     }
-    writeWavHeader(file, SAMPLE_RATE, NUM_CHANNELS, numSamples);
+    writeWavHeader(file, SAMPLE_RATE, NUM_CHANNELS, recordedSamples);
     
     // Convert float samples to int16_t samples
-    int16_t *intSamples = (int16_t *) malloc(numSamples * sizeof(int16_t));
-    for (int i = 0; i < numSamples; i++) {
+    int16_t *intSamples = (int16_t *) malloc(recordedSamples * sizeof(int16_t));
+    for (int i = 0; i < recordedSamples; i++) {
         intSamples[i] = (int16_t) (data.recordedSamples[i] * 32767.0f);
     }
-    fwrite(intSamples, sizeof(int16_t), numSamples, file);
+    fwrite(intSamples, sizeof(int16_t), recordedSamples, file);
     fclose(file);
     free(intSamples);
     printf("Recording saved to %s.\n", filename);
