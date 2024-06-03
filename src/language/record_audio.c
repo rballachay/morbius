@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <portaudio.h>
+#include <stdint.h>
+#include <string.h>
 #include <math.h>
 
 #define SAMPLE_RATE 44100
 #define FRAMES_PER_BUFFER 512
 #define NUM_CHANNELS 1
-#define NUM_SECONDS 10
-#define SILENCE_THRESHOLD 0.1f  // Adjust as needed
-#define SILENCE_DURATION  2      // Duration in seconds
 
 typedef struct {
     float *recordedSamples;
@@ -16,7 +15,52 @@ typedef struct {
     int maxFrameIndex;
     int silenceFrameCount;
     float maxAmplitude;
+    float silenceThresh;
+    int silenceDuration;
 } paData;
+
+#pragma pack(push, 1)
+typedef struct {
+    char chunkID[4];       // "RIFF"
+    uint32_t chunkSize;    // Size of the entire file minus 8 bytes
+    char format[4];        // "WAVE"
+    char subchunk1ID[4];   // "fmt "
+    uint32_t subchunk1Size;// 16 for PCM
+    uint16_t audioFormat;  // PCM = 1
+    uint16_t numChannels;  // Number of channels
+    uint32_t sampleRate;   // Sample rate
+    uint32_t byteRate;     // SampleRate * NumChannels * BitsPerSample/8
+    uint16_t blockAlign;   // NumChannels * BitsPerSample/8
+    uint16_t bitsPerSample;// Bits per sample
+    char subchunk2ID[4];   // "data"
+    uint32_t subchunk2Size;// Number of bytes in data
+} WavHeader;
+#pragma pack(pop)
+
+void writeWavHeader(FILE *file, int sampleRate, int numChannels, int numSamples) {
+    WavHeader header;
+    
+    // RIFF header
+    memcpy(header.chunkID, "RIFF", 4);
+    header.chunkSize = 36 + numSamples * numChannels * sizeof(int16_t);
+    memcpy(header.format, "WAVE", 4);
+    
+    // fmt subchunk
+    memcpy(header.subchunk1ID, "fmt ", 4);
+    header.subchunk1Size = 16;
+    header.audioFormat = 1; // PCM
+    header.numChannels = numChannels;
+    header.sampleRate = sampleRate;
+    header.byteRate = sampleRate * numChannels * sizeof(int16_t);
+    header.blockAlign = numChannels * sizeof(int16_t);
+    header.bitsPerSample = 16;
+    
+    // data subchunk
+    memcpy(header.subchunk2ID, "data", 4);
+    header.subchunk2Size = numSamples * numChannels * sizeof(int16_t);
+    
+    fwrite(&header, sizeof(WavHeader), 1, file);
+}
 
 static int recordCallback(const void *inputBuffer, void *outputBuffer,
                           unsigned long framesPerBuffer,
@@ -54,7 +98,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
 
             }
 
-            if (fabs(rptr[i]) < data->maxAmplitude * SILENCE_THRESHOLD) {
+            if (fabs(rptr[i]) < data->maxAmplitude * data->silenceThresh) {
                 silentFrames++;
             }
         }
@@ -64,7 +108,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
 
     // Check for silence
     data->silenceFrameCount += silentFrames;
-    if (data->silenceFrameCount >= SILENCE_DURATION * SAMPLE_RATE) {
+    if (data->silenceFrameCount >= data->silenceDuration * SAMPLE_RATE) {
         printf("Silence detected.\n");
         finished = paComplete; 
     }
@@ -72,34 +116,21 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
     return finished;
 }
 
-int detect_silence(float *samples, int numSamples, int sampleRate) {
-    int silentFrames = 0;
-    int silentThreshold = sampleRate * SILENCE_DURATION;
+int record(const char *filename, const int nSeconds, 
+            const float silenceThresh, const int silenceDuration) {
 
-    for (int i = 0; i < numSamples; i++) {
-        if (fabs(samples[i]) < SILENCE_THRESHOLD) {
-            silentFrames++;
-            if (silentFrames >= silentThreshold) {
-                return 1;  // Silence detected
-            }
-        } else {
-            silentFrames = 0;  // Reset counter if noise detected
-        }
-    }
-    return 0;  // No silence detected
-}
-
-int record(const char *filename) {
     PaError err = paNoError;
     PaStream *stream;
     paData data;
-    int numSamples = NUM_SECONDS * SAMPLE_RATE;
+    int numSamples = nSeconds * SAMPLE_RATE;
     int numBytes = numSamples * sizeof(float);
     data.recordedSamples = (float *) malloc(numBytes);
     data.frameIndex = 0;
     data.maxFrameIndex = numSamples;
     data.silenceFrameCount = 0;
     data.maxAmplitude = 0.0f;
+    data.silenceThresh=silenceThresh;
+    data.silenceDuration=silenceDuration;
 
     if (data.recordedSamples == NULL) {
         printf("Could not allocate memory for audio data.\n");
@@ -117,7 +148,7 @@ int record(const char *filename) {
     err = Pa_StartStream(stream);
     if (err != paNoError) goto done;
 
-    printf("Recording for %d seconds.\n", NUM_SECONDS);
+    printf("Recording for %d seconds.\n", nSeconds);
     while (Pa_IsStreamActive(stream)) {
         Pa_Sleep(100);  // Sleep for a short duration
     }
@@ -134,8 +165,16 @@ int record(const char *filename) {
         printf("Error: could not open file for writing.\n");
         goto done;
     }
-    fwrite(data.recordedSamples, sizeof(float), numSamples, file);
+    writeWavHeader(file, SAMPLE_RATE, NUM_CHANNELS, numSamples);
+    
+    // Convert float samples to int16_t samples
+    int16_t *intSamples = (int16_t *) malloc(numSamples * sizeof(int16_t));
+    for (int i = 0; i < numSamples; i++) {
+        intSamples[i] = (int16_t) (data.recordedSamples[i] * 32767.0f);
+    }
+    fwrite(intSamples, sizeof(int16_t), numSamples, file);
     fclose(file);
+    free(intSamples);
     printf("Recording saved to %s.\n", filename);
 done:
     Pa_Terminate();

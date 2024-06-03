@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdlib.h": "c",
+        "stdexcept": "c",
+        "string": "c",
+        "compare": "c",
+        "cstdint": "c",
+        "math.h": "c"
+    }
+}

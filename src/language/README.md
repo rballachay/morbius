@@ -9,3 +9,6 @@ __Notes on real-time transcription__: Whisper is not developed to transcribe in 
 
 I will need to add a build file that uses the following:
 `brew install portaudio`, or whatever the linux equivalent is
+
+I will also need to add the following step to build the extension
+`gcc -shared -o record_audio.so -fPIC record_audio.c -lportaudio`
