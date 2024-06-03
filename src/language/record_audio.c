@@ -89,7 +89,7 @@ int detect_silence(float *samples, int numSamples, int sampleRate) {
     return 0;  // No silence detected
 }
 
-int main() {
+int record(const char *filename) {
     PaError err = paNoError;
     PaStream *stream;
     paData data;
@@ -128,6 +128,15 @@ int main() {
     err = Pa_CloseStream(stream);
     if (err != paNoError) goto done;
 
+    // Save recorded audio to file
+    FILE *file = fopen(filename, "wb");
+    if (!file) {
+        printf("Error: could not open file for writing.\n");
+        goto done;
+    }
+    fwrite(data.recordedSamples, sizeof(float), numSamples, file);
+    fclose(file);
+    printf("Recording saved to %s.\n", filename);
 done:
     Pa_Terminate();
     if (data.recordedSamples) free(data.recordedSamples);
