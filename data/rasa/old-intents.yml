@@ -1,0 +1,369 @@
+
+
+# - intent: say_goal_object
+#   examples: |
+#     - and [exit]{"entity": "object"}.
+#     - Can you take me to an [exit]{"entity": "object"}
+#     - Exit the building. A [door]{"entity": "object"}.
+#     - Go to the [door]{"entity": "object"}.
+#     - Can you move towards the [door]{"entity": "object"}?
+#     - A [glass]{"entity": "adjective"} [door]{"entity": "object"}
+#     - To the [exit]{"entity": "object"} [door]{"entity": "object"}
+#     - Last [Door]{"entity": "object"}
+#     - Go to a clear [door]{"entity": "object"} 
+#     - Take me to an automatic [door]{"entity": "object"} 
+#     - to the [door]{"entity": "object"}.
+#     - A [sofa]{"entity": "object", "role": "target"} near a [soap]{"entity": "object"} [dispenser]{"entity": "object", "role": "reference"}
+#     - Let's go to [so far]{"value":"sofa", "entity": "object", "role": "target"} on the left of another [sofa]{"entity": "object", "role": "reference"}
+#     - [so fair]{"value":"sofa", "entity": "object"}
+#     - [so fast]{"value":"sofa", "entity": "object"}
+#     -  with [SOFA]{"value":"sofa","entity": "object"} with [SOFA]{"value":"sofa","entity": "object"}
+#     - A [sofa]{"entity": "object"} next to a [soap]{"entity": "object"} [dispenser]{"entity": "object"}
+#     - a [sofa]{"entity": "object", "role": "target"} next to a [temperature controller]{"value":"thermostat", "entity": "object", "role": "reference"}
+#     - [so fine]{"value":"sofa","entity": "object"}
+#     - Can you bring me to the [sofa]{"entity": "object"}?
+#     - Can it take me to [Sulfa]{"value":"sofa","entity": "object"}?
+#     - into a [sulfur]{"value":"sofa","entity": "object"} can you take me to a [solar]{"value":"sofa","entity": "object"}
+#     - [Sulfur]{"value":"sofa","entity": "object"}. [Sulfur]{"value":"sofa","entity": "object"}. 
+#     - Can you guide me to [solve it]{"value":"sofa","entity": "object"}?
+#     - I want to go to [software]{"value":"sofa","entity": "object"}.
+#     - [So far]{"value":"sofa","entity": "object"}, [so far]{"value":"sofa","entity": "object"}.
+#     - Guide me to a [chair]{"entity": "object", "role": "target"} next to a [sink]{"entity": "object", "role": "reference"} in the [dining room]{"entity": "kitchen"}
+#     - Some [cheers]{"value":"chair","entity": "object"} 
+#     - A [sink]{"entity": "object"} with some [soaks]{"value": "soap", "entity": "object"}
+#     - Guide me to a [think]{"value":"sink","entity": "object"} at the [dining place]{"entity": "kitchen"}
+#     - Go to a [sync]{"value":"sink","entity": "object"}.
+#     - Can you take me to a [think]{"value":"sink","entity": "object"}?
+#     -  the [sink]{"entity": "object"}.
+#     - A water [sink]{"entity": "object"}
+#     -  of what her [sink]{"entity": "object"}.
+#     - Take me to a [table]{"entity": "object"} in the [kitchen]{"entity": "kitchen"}.
+#     - I wanna go to a [table]{"entity": "object"} and [chairs]{"entity": "object"}
+#     - A [table]{"entity": "object", "role": "target"} and some [chairs]{"entity": "object", "role": "target"} in front of [a coca cola machine]{"value": "vending machine", "entity": "object", "role": "reference"}.
+#     - A paper towel [dispenser]{"entity": "object"}, a [sink]{"entity": "object"}, and some [soaps]{"entity": "object"} and [dinning utensils]{"value": "bowl", "entity": "object"}.
+#     - A [table]{"entity": "object", "role": "target"} and some [chairs]{"entity": "object", "role": "target"} in front of a [microwave oven]{"entity": "object", "role": "reference"} and a [paper towel dispenser]{"value":"dispenser", "entity": "object", "role": "reference"}.
+#     - I want to go to a [TV]{"value":"television set","entity": "object"} that is turned off.
+#     - Would you take me to a [television]{"value":"television set","entity": "object"}, please?
+#     - Take me to a [TV]{"value":"television set","entity": "object", "role": "target"} between two [desks]{"entity": "object", "role": "reference"}
+#     - Can you bring me to the [television]{"value":"television set","entity": "object"}?
+#     - Move to a [kitchen]{"entity": "kitchen"} with a [table]{"entity": "object"} and some [chairs]{"entity": "object"}.
+#     - Bring me to a [television]{"value":"television set","entity": "object"}.
+#     - A [hallway]{"entity": "object"} with glass [doors]{"entity": "object"} with tile floor.
+#     - Can you take me to an empty [hallway]{"entity": "object"}?
+#     - A corridor{"entity": "object"}
+#     - I want to go to a [hallway]{"entity": "object"} instead
+#     - Go to an empty [hallway]{"entity": "object"}
+#     - Let's go to some water [kettles]{"entity": "object"} in the [dining area]{"entity": "kitchen"}.
+#     - Can you take me to a [vending machine]{"entity": "object", "role": "target"} behind tables{"entity": "object", "role": "reference"} and chairs{"entity": "object", "role": "reference"}?
+#     - The [vending machine]{"entity": "object"}
+#     - A [vending washing]{"value": "vending machine", "entity": "object"}
+#     - [venue machine]{"value": "vending machine", "entity": "object"} that sells soda.
+#     - [vtubing machine]{"value": "vending machine", "entity": "object"}
+#     - A [vending machine]{"entity": "object"}.
+#     - [Vandy machine]{"value": "vending machine", "entity": "object"}
+#     - Take me to a [machine]{"value": "vending machine", "entity": "object"}
+#     - Now you take me to the [vending machine]{"entity": "object"}.
+#     - me to a [vending machine]{"entity": "object"}
+#     - Just lead me towards [vending machine]{"entity": "object"}
+#     - Two [sofas]{"value":"sofa", "entity": "object"} next to a glass [door]{"entity": "object"}.
+#     - Two [monitors]{"value":"computer monitor", "entity": "object", "role": "target"} and a [computer]{"value":"computer monitor", "entity": "object", "role": "target"} on a [desk]{"entity": "object", "role": "reference"}.
+#     - A [computer]{"value":"computer monitor", "entity": "object"} [desk]{"entity": "object"}
+#     - A [computer]{"value":"computer monitor", "entity": "object", "role": "target"} desk with [monitors]{"value":"computer monitor", "entity": "object", "role": "reference"}
+#     - Can I go to the [desk]{"entity": "object"}?
+#     - A [computer]{"value":"computer monitor", "entity": "object"}.
+#     - [screen]{"value":"computer monitor", "entity": "object"}
+#     - I want to sit down on a [kitchen]{"entity": "kitchen"} [chair]{"entity": "object"}
+#     - Can you take me to a different [sofa]{"entity": "object"}?
+#     - A [chair]{"entity": "object"}, a place to sit. Take me to the [sofa]{"entity": "object"}.
+#     - Go to [wooden]{"entity": "adjective"} [chair]{"entity": "object"}
+#     - The [wooden]{"entity": "adjective"} one
+#     - Please take me to a [chair]{"entity": "object"} made of [wood]{"entity": "adjective"}
+#     - A [fabric]{"entity": "adjective"} [chair]{"entity": "object"}, please
+#     - One made of [fabric]{"entity": "adjective"}
+#     - Can you go to a [fabric]{"entity": "adjective"} [sofa]
+#     - Go do a [chair]{"entity": "object"} made of [leather]{"entity": "adjective"}
+#     - For [dining]{"entity": "adjective"}
+#     - I want to [eat]{"entity": "verb"} my food
+#     - I want to go there for [relaxing]{"entity": "adjective"}
+#     - To [relax]{"entity": "verb"} myself in the [entrance]{"entity": "object"}
+#     - To sit down and [relax]{"entity": "verb"} a bit
+#     - A [wooden]{"entity": "adjective"} [chair]{"entity": "object"} in the [cafeteria]{"entity": "kitchen"} for [dining]{"entity": "adjective"}
+#     - A [gaming]{"entity": "adjective"} [chair]{"entity": "object"} that is made of [leather]{"entity": "adjective"}
+#     - Please, take me to a [leather]{"entity": "adjective"} [chair]{"entity": "object"}
+#     - I want to get my [work]{"entity": "verb"} done
+#     - Can I choose the one with [fiber]{"entity": "adjective"}
+#     - I want the [fabric]{"entity": "adjective"} one
+#     - A table for [working]{"entity": "adjective"}, please
+#     - A [round]{"entity": "adjective"} one in the [kitchen]{"entity": "kitchen"}
+#     - Can you take me to a [chair]{"entity": "object"} made of [leather]{"entity": "adjective"}?
+#     - The [leather]{"entity": "adjective"} [chair]{"entity": "object"}
+#     - A [wooden]{"entity": "adjective"} one
+#     - Can we go to A [computer]{"value":"computer monitor", "entity": "object"} [desk]{"entity": "object"}
+#     - To a [dining]{"entity": "adjective"} [chair]{"entity": "object"}
+#     - A [relaxing]{"entity": "adjective"} one.
+#     - One for [working]{"entity": "adjective"}
+#     - To [play]{"entity": "verb"} games
+#     - For [gaming]{"entity": "adjective"}
+#     - I need to [work]{"entity": "verb"} there
+#     - To [work]{"entity": "verb"}
+#     - To [eat]{"entity": "verb"}.
+#     - A [round]{"entity": "adjective"} [table]{"entity": "object"}
+#     - A [rectangular]{"entity": "adjective"} one
+#     - For [dining]{"entity": "adjective"}
+#     - I want to [work]{"entity": "verb"} at there
+#     - I'm looking for a [TV]{"entity": "object"}
+#     - You take me to a [chair]{"entity": "object"}.
+#     - Two [television sets]{"entity": "object"}.
+#     - [Chair]{"entity": "object"}. Can you take it?
+#     - me to a [chair]{"entity": "object"}.
+#     - A [sofa]{"entity": "object"} chair
+#     - Go to a [sofa]{"entity": "object"} chair please
+#     - A [faucet]{"entity": "object"}
+#     - Go to a [faucet]{"entity": "object"}
+#     - Can you bring me to a water [faucet]{"entity": "object"}
+#     - I want to go to the [Coca Cola]{"entity": "object"}.
+#     - I want to go to the [coke machine]{"entity": "object"}.
+#     - I want to go to the [refrigerator]{"entity": "object"}.
+#     - Take me to a [fridge]{"entity": "object"}, will you?
+#     - A [refrigerator]{"entity": "object"}.
+#     - to her [desk]{"entity": "object"}.
+#     - Sit on the [sofa]{"entity": "object"}.
+#     - I want to sit on the [sofa]{"entity": "object"}.
+
+#     - I would like to go to the [entrance]{"entity": "object"}.
+#     - Can you take me back to the [entrance]{"entity": "object"}?
+#     - I want to go to the [exit]{"entity": "object"} closest to the lab and the office
+#     - Take me to the place close to the [entrance]{"entity": "object"}. 
+#     - Guide me to the [doorway]{"entity": "object"} to [exit]{"entity": "object"} this building.
+#     - Take me to the [entrance]{"entity": "object"}
+#     - Go to the [exit]{"entity": "object"}
+#     - The [entrance]{"entity": "object"}.
+#     - I want to sit on the [sofa]{"entity": "object"}.
+#     - Let me choose the [desk]{"entity": "object"} by the [computer]{"entity": "object"}.
+#     - [Four sets]{"value":"faucet","entity": "object"}
+#     - Take me to [four sets]{"value":"faucet","entity": "object"}
+#     - Go to a [four set]{"value":"faucet","entity": "object"}
+#     - Take me to the [desk]{"entity": "object", "role": "target"} in front of the [computer]{"entity": "object", "role": "reference"}.
+#     - Take me to the [computer monitor]{"entity": "object"}
+#     - Take me to the [chair]{"entity": "object", "role": "target"} in front of the [computer]{"entity": "object", "role": "reference"}.
+#     - Can you take me to your [desk]{"entity": "object", "role": "target"} with [computer]{"entity": "object", "role": "reference"}?
+#     - I want to wash my hands at the [water pipe]{"entity": "object"}
+#     - To a washing [basin]{"entity": "object"}.
+#     - I wanna use the hand [basin]{"entity": "object"}?
+#     - A water [basil]{"value": "basin", "entity": "object"}. That's it.
+#     - To the [basic]{"value": "basin", "entity": "object"}. 
+#     - I have to find a [base]{"value": "basin", "entity": "object"}. 
+#     - Go to a water [tap]{"entity": "object"}
+#     - I want to find some hand [soap]{"entity": "object"}
+#     - I want to use a hand [soap]{"entity": "object"}
+#     - Find me a [tap]{"entity": "object"}
+#     - Can you take me to a wash [basin]{"entity": "object"}?
+#     - May I wash my hands at a [pipe]{"entity": "object"}?
+#     - Lead me to a [tab]{"value": "tap", "entity": "object"}
+#     - Take me to a [Watertop]{"value": "water tap", "entity": "object"}
+#     - Me to a [Water cap]{"value": "water tap", "entity": "object"}
+#     - Would you guide me to a Water [basic]{"value": "basin", "entity": "object"}
+#     - I wanna use some [Sope]{"value": "soap", "entity": "object"}
+#     - Can we go to a bottle of [Sop]{"value": "soap", "entity": "object"}
+#     - Take me to somewhere with hand [so]{"value": "soap", "entity": "object"}
+#     - You lead me to some hand [sold]{"value": "soap", "entity": "object"} please
+#     - Can you help me find a water [tab]{"value": "tap", "entity": "object"}
+#     - Please to a water [top]{"value": "tap", "entity": "object"}
+#     - Please to a water [cap]{"value": "tap", "entity": "object"}
+#     - Can you find me some hand [sanitizer]{"entity": "object"}?
+#     - [Sanitizers]{"entity": "object"}
+
+
+# - intent: say_goal_location
+#   examples: |
+#     - Where is the [lounge]{"entity": "lounge"}?
+#     - I would like to go to the [waiting area]{"entity": "lounge"}.
+#     - Could you please take me to the [office]{"entity": "office"}?
+#     - I need to go to the [lab]{"entity": "office"}
+#     - Let’s go to the [laboratory]{"entity": "office"}
+#     - Can you take me back to the [lounge]{"entity": "lounge"}?
+#     - Where is the [sitting room]{"entity": "lounge"}?
+#     - Take me to the [lab]{"entity": "office"}
+#     - I need to work{"entity": "verb"} in [our lab]{"entity": "office"} so take me there
+#     - I need to study{"entity": "verb"} in the [office]{"entity": "office"}
+#     - Let’s take a lunch break in the [dining room]{"entity": "kitchen"}
+#     - Escort me to the [lobby]{"entity": "lounge"}.
+#     - Can you show me to the [kitchen]{"entity": "kitchen"} by the office?
+#     - Just take me to the [dining area]{"entity": "kitchen"}
+#     - Guide me to the [lunch area]{"entity": "kitchen"} please
+#     - I want to eat{"entity": "verb"} my sandwich in the [dining hall]{"entity": "kitchen"}
+#     - I should get to the [HCA lab]{"entity": "office"} now
+#     - Find a way to [Katie's lab]{"entity": "office"} near the dining room
+#     - Lead me to the [Human-Centered Automony lab]{"entity": "office"} beside the entrance
+#     - How should I go to the [sitting area]{"entity": "lounge"} near the restroom?
+#     - Find a path to the closest [doorway]{"entity": "lounge"}
+#     - Take me to the [eating area]{"entity": "kitchen"} now
+#     - Guide me to the [cafeteria]{"entity": "kitchen"} at the end of the corridor 
+#     - please take me to [Professor Katie's lab]{"entity": "office"}
+#     - I want to go to your [lab]{"entity": "office"}
+#     - Move me to the [HCA lab]{"entity": "office"} please
+#     - Can we go to the [your office]{"entity": "office"} next to the lab
+#     - I want to study{"entity": "verb"} in the [lab]{"entity": "office"}
+#     - Guide me to to the [dining place]{"entity": "kitchen"}
+#     - How do we go to the from here to the [living room]{"entity": "lounge"} near the lab
+#     - I want to go to the [waiting room]{"entity": "lounge"} closest to the lab and the office
+#     - Take me to the nearest [the robotics lab]{"entity": "office"}
+#     - The [student office]{"entity": "office"} please
+#     - I’d really like to see the [your guys' office]{"entity": "office"}. 
+#     - How do I get to the [your guys' lab]{"entity": "office"}? 
+#     - Take me to the place close to the [sitting area]{"entity": "lounge"}. 
+#     - I’d like to use the [lunch place]{"entity": "kitchen"} please. 
+#     - Can I be taken to the [lunch room]{"entity": "kitchen"} by the study? 
+#     - Take me to the [office room]{"entity": "office"} next to the office. 
+#     - Please direct me to the [study]{"entity": "office"} close to the conference room. 
+#     - Can I be directed to the [office]{"entity": "office"} near the restroom? 
+#     - Let’s go to the [relaxing room]{"entity": "lounge"} near the lab.
+#     - Guide me to the [room for relaxing]{"entity": "lounge"}.
+#     - Please show me the way to the [lab of Katie's group]{"entity": "office"}!
+#     - I want to eat{"entity": "verb"} my lunch in the [cafeteria]{"entity": "kitchen"}
+#     - Can we go back?
+#     - I would like to change my destination
+#     - I want to change my change my goal
+#     - Can you lead me to another place
+#     - I want to change my previous plan
+#     - Go to another place
+#     - Go to somewhere else
+#     - Can I go to somewhere else
+#     - Can you take me to the the the the
+#     - Can we go there?
+#     - Go there
+#     - Reroute me to another place
+#     - Can we get a drink?
+#     - I want to wash my hands
+#     - Can I go somewhere to sit down?
+#     - To the [kitchen]{"entity": "kitchen"}
+#     - Go to the [kitchen]{"entity": "kitchen"}
+#     - Take me to the [lobby]{"entity": "lounge"}
+#     - Go to the [lobby area]{"entity": "lounge"}
+#     - Take me to the [lounge]{"entity": "lounge"}
+#     - Go to the [lounge]{"entity": "lounge"} place
+#     - A [kitchen]{"entity": "kitchen"} and a dining area, please.
+
+
+# - intent: say_goal_object+say_goal_location
+#   examples: |
+#     - Go to a clear [door]{"entity": "object"} in the [lounge]{"entity": "lounge"} area
+#     - A glass [door]{"entity": "object"} in the [entrance]{"entity": "lounge"}
+#     - Take me to an automatic [door]{"entity": "object"} in the [lounge area]{"entity": "lounge"}
+#     - Can I be taken to a [sofa]{"entity": "object"} in the [entrance]{"entity": "lounge"} area?
+#     - In the [lounge]{"entity": "lounge"}, can you find me a [sofa chair]{"entity": "object"}?
+#     - To a [table]{"entity": "object"} and [chairs]{"entity": "object"} in the [lab]{"entity": "office"}
+#     - Can you take me to a [television]{"value":"television set","entity": "object"} in the [lab]{"entity": "office"}?
+#     - A [television]{"value":"television set","entity": "object"} in our [office]{"entity": "office"}.
+#     - Go to the [hallway]{"entity": "object"} near our [office]{"entity": "office"}.
+#     - A [leather]{"entity": "adjective"} [chair]{"entity": "object"} in the [office]{"entity": "office"}
+#     - A [computer]{"value":"computer monitor", "entity": "object"} [desk]{"entity": "object"} in the [lab]{"entity": "office"}
+#     - I wanna [work]{"entity": "verb"} in our [lab]{"entity": "office"}
+#     - Take me to a [table]{"entity": "object"} in the [kitchen]{"entity": "kitchen"}.
+#     - Guide me to a [chair]{"entity": "object", "role": "target"} next to a [sink]{"entity": "object", "role": "reference"} in the [dining room]{"entity": "kitchen"}
+#     - a [think]{"value":"sink","entity": "object"} at the [dining place]{"entity": "kitchen"}
+#     - A [kitchen]{"entity": "kitchen"} with a [table]{"entity": "object"} and a [chair]{"entity": "object"}.
+#     - Lead me to some water [kettles]{"entity": "object"} in the [dining area]{"entity": "kitchen"}.
+#     - I want to sit down on a [kitchen]{"entity": "kitchen"} [chair]{"entity": "object"}
+#     - A [wooden]{"entity": "adjective"} [chair]{"entity": "object"} in the [cafeteria]{"entity": "kitchen"} for [dining]{"entity": "adjective"}
+#     - A [round]{"entity": "adjective"} one in the [kitchen]{"entity": "kitchen"}
+#     - To the [entrance]{"entity": "lounge"}. A [door]{"entity": "object"}.
+#     - and all the take me to the [kitchen]{"entity": "kitchen"} [sink]{"entity": "object"}
+#     - All right, please take me to the [kitchen]{"entity": "kitchen"} [sink]{"entity": "object"}
+#     - Take me to the [kitchen]{"entity": "kitchen"} [faucet]{"entity": "object"}.
+#     - Can you Take me to the [chair]{"entity": "object"} in the [living room]{"entity": "lounge"}?
+#     - I want to watch the [television]{"value":"television set","entity": "object"} in the [dining place]{"entity": "kitchen"}.
+#     - Can I wash my hands using the [sync]{"value": "sink", "entity": "object"} near the [kitchen]{"entity": "kitchen"}
+#     - Can I use some hand [soaps]{"entity": "object"} in the [kitchen]{"entity": "kitchen"} place?
+#     - Would you take me to a water [tab]{"value":"tap","entity": "object"} in the dining place
+
+
+# - intent: say_goal_object+affirm
+#   examples: |
+#     - I want to go to the [door]{"entity": "object"}. Yes.
+#     - Yes, take me to the [sink]{"entity": "object"}, please
+#     - Correct, a [dining]{"entity": "adjective"} [chair]{"entity": "object"}.
+#     - Yes, a [vending machine]{"entity": "object"}. Yes.
+#     - Of course, I want a [sofa]{"entity": "object"}
+#     - A [TV]{"value":"television set","entity": "object"}. Sure. 
+#     - A [dining]{"entity": "adjective"} [table]{"entity": "object"} sounds good to me.
+#     - Yep. A [computer]{"value":"computer monitor", "entity": "object"} [desk]{"entity": "object"}.
+#     - Umm, yeah, to the exit [door]{"entity": "object"}
+#     - Right, a [gaming]{"entity": "adjective"} [chair]{"entity": "object"}
+#     - You're correct, a [round]{"entity": "adjective"} [table]{"entity": "object"}
+#     - A [wooden]{"entity": "adjective"} [chair]{"entity": "object"} is correct, let's go.
+#     - [Sofa]{"entity": "object"}. Yes.
+#     - Correct, a [tape]{"value":"tap","entity": "object"}
+
+# - intent: say_goal_object+deny
+#   examples: |
+#     - No, I want to go to a glass [door]{"entity": "object"} instead.
+#     - Nope. Go to a [faucet]{"entity": "object"}.
+#     - No, no, no. A [television]{"value":"television set","entity": "object"}.
+#     - No, take me to a blue [sofa]{"entity": "object"}.
+#     - No, a [so far]{"value":"sofa", "entity": "object"}.
+#     - Not quite, a [vending machine]{"entity": "object"}.
+#     - That's wrong, go to a [chair]{"entity": "object"}, made of [leather]{"entity": "adjective"}.
+#     - Negative. I said [relaxing]{"entity": "adjective"} [chair]{"entity": "object"}.
+#     - Don't go there, go to a water [sync]{"value":"sink", "entity": "object"} instead.
+#     - Sorry, can you take me to an [office]{"entity": "office"} [desk]{"entity": "object"}
+#     - Sorry that's wrong. I meant an exit [door]{"entity": "object"}
+#     - No. Denied. A [table]{"entity": "object"} with a [computer]{"value":"computer monitor", "entity": "object"}
+#     - Never ever. I wanna go to the [desk]{"entity": "object"}
+#     - Not true, I wanna a [fridge]{"entity": "object"} 
+#     -  Take me to the [exit]{"entity": "object"}. No.
+#     - No, I mean a [sold]{"value":"soap","entity": "object"}. Hand [soap]{"entity": "object"}!
+
+# - intent: say_goal_object+greet
+#   examples: |
+#     - Hello robot, can you take me to a [sofa]{"entity": "object"}?
+#     - Hey, I want to go to the [entrance]{"entity": "object"}
+#     - Hi robot, please take me to a [sync]{"value":"faucet", "entity": "object"}
+#     - Good afternoon, can you guide me to your [door]{"entity": "object"}?
+#     - Robot, hey, I want to find a [door]{"entity": "object"}
+#     - Hi, to a [hallway]{"entity": "object"}
+#     - Hey, can you hear me? Take me to a [faucet]{"entity": "object"}
+#     - Hey there, Take me to the [computer monitor]{"entity": "object"}
+#     - Morning, can you lead me to a [vending machine]{"entity": "object"}?
+#     - Wake up, robot. I wanna go to a [table]{"entity": "object"}
+#     - Hello. Robot. I would like to go to the [exit]{"entity": "object"}.
+#     - Hi, hi, hi. An [sulfur]{"value":"sofa","entity": "object"}. Hello.
+#     - Can you travel to [hallway]{"entity": "object"}. Hi.
+#     - Hi, Robert. I want to use the [basil]{"value":"basin","entity": "object"}
+
+# - intent: say_goal_location+greet
+#   examples: |
+#     - Hello robot, can you take me to the [kitchen]{"entity": "kitchen"}?
+#     - Hello. Hello. I want to go to the [lab]{"entity": "office"}
+#     - Hi robot,  I want to be in the [kitchen]{"entity": "kitchen"}
+#     - Hey, please Go to the [lounge]{"entity": "lounge"}
+#     - Hello. Robot. Can't you take me to the [lobby]{"entity": "lounge"}
+#     - Hi. Go to the [lobby area]{"entity": "lounge"}
+#     - Hey robot, Take me to the [lounge]{"entity": "lounge"}
+#     - Good morning robot, I wish to rest  in the [lounge]{"entity": "lounge"} place
+#     - Good afternoon, to a [kitchen]{"entity": "kitchen"}, please.
+#     - Hello. Hi, take me a [lobby]{"entity": "lounge"}
+#     - Can you Take me to the HCA [laboratory]{"entity": "office"}? Hi robot.
+#     - Robot, go to the [lunch room]{"entity": "kitchen"}
+#     - Can I be taken to your [office]{"entity": "office"}, robot?
+
+# - intent: say_goal_object+say_goal_location+greet
+#   examples: |
+#     - Hello. Robot. can you guide me to the [sink]{"entity": "object"} of the [kitchen]{"entity": "kitchen"}?
+#     - Hey, can you hear me? Take me to a [desk]{"entity": "object"} in the [office]{"entity": "office"}
+#     - Hi there. Go to a clear [door]{"entity": "object"} in the [lounge]{"entity": "lounge"} 
+#     - Hi robot, take me to the [table]{"value":"faucet", "entity": "object"}, which is in the [kitchen]{"entity": "kitchen"}
+#     - Hello. I want to go to a [kitchen]{"entity": "kitchen"} [chair]{"entity": "object"}
+#     - Hi, take me to a [sofa]{"entity": "object"} in the [lobby]{"entity": "lounge"}
+#     - Hello? Hello, robot? A [vending machine]{"entity": "object"} in the [cafeteria]{"entity": "kitchen"}
+#     - Hey there! Lead me to an [office]{"entity": "office"} [chair]{"entity": "object"}
+#     - Hi. Robot. can you take me to a [lounge]{"entity": "lounge"} [chair]{"entity": "object"}?
+#     - Greetings! A [computer]{"entity": "object"} near the [lab]{"entity": "office"}.
+#     - Hey you. Can you Take me to the [TV]{"value":"television set","entity": "object"} in the [lab]{"entity": "office"}
+#     - Can you Take me to the [chair]{"entity": "object"} in the [living room]{"entity": "lounge"} ? Hi robot.
+#     - Hi. A [lounge]{"entity": "lounge"} [sofa]{"entity": "object"}
+#     - Hey, a [dining]{"entity": "adjective"} [table]{"entity": "object"}. Hello.
+#     - Can you Take me to the [sulfa]{"value":"sofa","entity": "object"} in HCA [laboratory]{"entity": "office"}? Hi robot.
+#     - Hi! Could we go to the [desk]{"entity": "object"} in the [dining place]{"entity": "kitchen"}?
+#     - Good evening, robot. I have to go to an exit [door]{"entity": "object"} at the end of the [resting room]{"entity": "lounge"} 
+#     - Hi, Robert. Can I go to the water [basin]{"entity": "object"} in the the [kitchen]{"entity": "kitchen"}?
