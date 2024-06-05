@@ -1,4 +1,4 @@
-version: "1.0"
+version: "3.1"
 
 nlu:
 
@@ -469,7 +469,6 @@ nlu:
     - secondary research is a factor of executive purposes
     - D
     - Can it take...
-    - Can you take me
     - Can you go to...
     - Go to a
     -  Take me to. 
@@ -480,7 +479,6 @@ nlu:
     -  Go to it.
     - Go to the right.
     - I need to. 
-    - Can you take me to...
     - Sair This Port SofaONT Sair Sair Sair GB GA Sair GSaton resistance Sair CNN Sair SC FL Hole SC software Sair V AR product
     - Trauma closes
     - to follow a normal.
@@ -533,6 +531,22 @@ nlu:
     - You'll be more useful waiting out in the [hallway]{"entity":"corridor"}
     - A [hallway]{"entity":"corridor"} now
 
+    - Get the [doctor]{"entity":"person"} 
+    - Track down the [doctor]{"entity":"person"} when you can
+    - Would you be able to bring the [doctor]{"entity":"person"} here
+    - I need the [doctor]{"entity":"person"}
+    - The [doctor]{"entity":"person"} would be useful right now
+    - Uh, it's, probably good for us to get the [doctor]{"entity":"person"}
+    - Bring the [doc]{"entity":"person"} over here, would you 
+    - [doctor]{"entity":"person"} is needed
+    
+    - Go over to the [nurse]{"entity":"person"} when you can
+    - I would like one of the [nurses]{"entity":"person"}
+    - navigate to the nearest [nurse]{"entity":"person"}
+    - Would we be able to find that [nursing lady]{"entity":"person"}
+    - About time we got [nurse]{"entity":"person"} jacobs in here
+    - Hmm, I think we should find the [nurse]{"entity":"person"} who's in charge of this
+
     - Can you go back?
     - I would like you to change destinations
     - I want to change my change your goal
@@ -544,7 +558,6 @@ nlu:
     - Can we go there?
     - Go there
     - Get out of here
-
 
 - intent: bring_something
   examples: |
@@ -571,22 +584,8 @@ nlu:
     - Track down the [first aid kit]{"entity":"object", "role":"target"}  in the [hallway]{"entity":"object", "role":"reference"} that we've been looking for
     - [sanitizers]{"entity":"object"}
     - box of [gloves]{"entity":"object"}
-
-    - Get the [doctor]{"entity":"person"} 
-    - Track down the [doctor]{"entity":"person"} when you can
-    - Would you be able to bring the [doctor]{"entity":"person"} here
-    - I need the [doctor]{"entity":"person"}
-    - The [doctor]{"entity":"person"} would be useful right now
-    - Uh, it's, probably good for us to get the [doctor]{"entity":"person"}
-    - Bring the [doc]{"entity":"person"} over here, would you 
-    - [doctor]{"entity":"person"} is needed
-    
-    - Go over to the [nurse]{"entity":"person"} when you can
-    - I would like one of the [nurses]{"entity":"person"}
-    - navigate to the nearest [nurse]{"entity":"person"}
-    - Would we be able to find that [nursing lady]{"entity":"person"}
-    - About time we got [nurse]{"entity":"person"} jacobs in here
-    - Hmm, I think we should find the [nurse]{"entity":"person"} who's in charge of this
+    - Would you do me a favour an bring me that [bottle of sanitizer]{"entity":"object"}
+    - The, uhhh, [thing of tools]{"entity":"object", "role":"target"}, over by the uhh [door]{"entity":"object","role":"reference"} over there
 
     - Please bring it
     - Fetch
@@ -594,3 +593,59 @@ nlu:
     - Pick it up 
     - Go get that
     - Get it
+    - Can you go pick that up
+
+
+- intent: take_something
+  examples: |
+    - Bring this [set of scrubs]{"entity":"object"} to the [doctor]{"entity":"person","role":"target"} over in the [changing room]{"entity":"room","role":"reference"} please
+    - Be a lamb and take this over to the [assistant]{"entity":"person"} over there
+    - I think it would be helpful if you could navigate this [prescription]{"entity":"object"} to the [patient]{"entity":"person","role":"target"} in [room five fourty one]{"entity":"room","role":"reference"}
+    - As quick as you can, take these [forceps]{"entity":"object"}
+    - Please bring [Miss Johnson]{"entity":"person","role":"target"} at the [end of the hallway]{"entity":"corridor","role":"reference"} 
+    - The [doctor]{"entity":"person","role":"target"} in the [operating theatre]{"entity":"lab","role":"reference"} needs this [scalpel]{"entity":"object"}
+    - The [group]{"entity":"person","role":"target"} in the [waiting room]{"entity":"lounge","role":"reference"}, bring them this box of masks [box of masks]{"entity"}
+    - Carry [nurse Afaf]{"entity":"person"} her [lunch box]{"entity":"object"}
+    - I, uh, would like if you could possible take [her]{"entity":"person"} [this]{"entity":"object"}
+    
+    - Take this
+    - Bring it to [them]{"entity":"person"} when you have a chance
+    - Take it away. 
+
+
+- intent: come_here
+  examples: |
+    - Robot, come here
+    - Come to me
+    - Get over here
+    - Hurry up and come here
+    - I need your help robot 
+    - It's, uh, I would like you to come 
+    - Beckon
+    - come to my voice
+    - When you can, uh, robot, come pick this up
+    - I need a hand 
+    - Would it be possible to stop over here
+    - Please, when you can, come hither
+    - here now
+    - come 
+
+
+- intent: bring_something+affirm
+  examples: |
+    - that's right! I want you to bring me a [scalpel]{"entity":"object"}
+    - uh huh, i need my [shoes]{"entity":"object"}
+    - in effect, yeah, I want you to get the [bottle]{"entity":"object"} from over there
+    - [soap]{"entity":"object"}, yup
+    - umm, i guess so, thats the thing i wanted you to bring
+    - yes sir, I need the [pair of slippers]{"entity":"object","role":"target"} over on that [carpet]{"entity":"object","role":"reference"}
+    - can you bring that [surgical cap]{"entity":"object","role":"target"} from the [waiting room]{"entity":"lounge","role":"reference"}, yes
+    - that's the idea, I need that [box]{"entity":"object"}
+    - indeed, bring that thing
+    - the [oxygen machine]{"entity":"object","role":"target"} from [Mrs Debois's room]{"entity":"room","role":"reference"}, indeed
+    - um, yes. the little [computer]{"entity":"object","role":"target"} from the [staff lounge]{"entity":"object","role":"reference"}
+
+
+- intent: take_something+deny
+  examples: |
+    - 
