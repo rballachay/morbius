@@ -4,10 +4,12 @@
 #include <stdint.h>
 #include <string.h>
 #include <math.h>
+#include <fvad.h>
 
-#define SAMPLE_RATE 44100
-#define FRAMES_PER_BUFFER 512
+#define SAMPLE_RATE 16000
+#define FRAMES_PER_BUFFER 160
 #define NUM_CHANNELS 1
+#define VAD_MODE 2
 
 typedef struct {
     float *recordedSamples;
@@ -17,6 +19,7 @@ typedef struct {
     float maxAmplitude;
     float silenceThresh;
     int silenceDuration;
+    Fvad *vad;
 } paData;
 
 #pragma pack(push, 1)
@@ -74,6 +77,8 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
     long i;
     int finished;
     int silentFrames = 0;
+    int vadres = -1;
+    int16_t *intBuf = NULL;
 
     if (data->frameIndex + framesPerBuffer > data->maxFrameIndex) {
         framesToCalc = data->maxFrameIndex - data->frameIndex;
@@ -90,18 +95,29 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
     } else {
         for (i = 0; i < framesToCalc; i++) {
             *wptr++ = *rptr++;
-
-            // Update maximum amplitude
-            if (fabs(*rptr) > data->maxAmplitude) {
-                data->maxAmplitude = fabs(*rptr);
-                data->silenceFrameCount=0; // reset silence count if new theshold
-
-            }
-
-            if (fabs(rptr[i]) < data->maxAmplitude * data->silenceThresh) {
-                silentFrames++;
-            }
         }
+
+    }
+
+    if (framesToCalc > SIZE_MAX / sizeof (float)
+            || !(intBuf = malloc(framesToCalc * sizeof *intBuf))) {
+        fprintf(stderr, "failed to allocate buffers\n");
+        return -1;
+    }
+
+    for (size_t i = 0; i < framesToCalc; i++){
+        intBuf[i] = data->recordedSamples[data->frameIndex+i] * INT16_MAX;
+    }
+
+    // this returns for n number of frames if the speaker is talking or not.
+    // we know this corresponds to 160/16000 s, so we can see if the speaker
+    // is done talking or not
+    vadres = fvad_process(data->vad, intBuf, framesToCalc);
+
+    if (vadres==0){
+        silentFrames+=framesToCalc;
+    }else{
+        data->silenceFrameCount=0;
     }
 
     data->frameIndex += framesToCalc;
@@ -119,6 +135,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
 int record(const char *filename, const int nSeconds, 
             const float silenceThresh, const int silenceDuration) {
 
+    Fvad *vad = NULL;
     PaError err = paNoError;
     PaStream *stream;
     paData data;
@@ -131,6 +148,15 @@ int record(const char *filename, const int nSeconds,
     data.maxAmplitude = 0.0f;
     data.silenceThresh=silenceThresh;
     data.silenceDuration=silenceDuration;
+
+    vad = fvad_new();
+    if (!vad) {
+        fprintf(stderr, "out of memory\n");
+        return -1;
+    }
+    fvad_set_mode(vad, VAD_MODE);
+    fvad_set_sample_rate(vad, FRAMES_PER_BUFFER);
+    data.vad = vad;
 
     if (data.recordedSamples == NULL) {
         printf("Could not allocate memory for audio data.\n");

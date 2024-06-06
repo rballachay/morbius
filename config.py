@@ -11,9 +11,9 @@ RECORDINGS_DIR = f"{DATA_PATH}/recordings"
 """TRANSCRIBE"""
 
 """RECORDING"""
-RECORD_LENGTH = 30  # the length of the recording to use, ignoring silence
+RECORD_LENGTH = 10  # the length of the recording to use, ignoring silence
 SILENCE_LENGTH = 3  # length of silence before cutting recording
-SILENCE_THRESH = 0.05  # threshold of maximum amplitude to be considered silence
+SILENCE_THRESH = 5  # threshold of maximum amplitude to be considered silence
 """RECORDING"""
 
 """WHISPER"""
