@@ -11,6 +11,7 @@ pipeline:
 # # If you'd like to customize it, uncomment and adjust the pipeline.
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.
 - name: WhitespaceTokenizer
+  intent_tokenization_flag: true
   intent_split_symbol: "+"
 - name: RegexFeaturizer
 - name: LexicalSyntacticFeaturizer
@@ -36,9 +37,9 @@ policies:
 # # No configuration for policies was provided. The following default policies were used to train your model.
 # # If you'd like to customize them, uncomment and adjust the policies.
 # # See https://rasa.com/docs/rasa/policies for more information.
-#   - name: MemoizationPolicy
-#   - name: TEDPolicy
-#     max_history: 5
-#     epochs: 100
+- name: MemoizationPolicy
+- name: TEDPolicy
+  max_history: 5
+  epochs: 100
 - name: RulePolicy
-assistant_id: 20240604-140458-extremal-monoid
+assistant_id: 20240606-095349-median-bin

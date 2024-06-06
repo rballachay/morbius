@@ -1,0 +1,5 @@
+rules:
+- rule: say hello back
+  steps:
+  - intent: greet
+  - action: utter_greet
