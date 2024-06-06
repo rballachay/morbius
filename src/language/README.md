@@ -18,7 +18,7 @@ You can then build the record_audio shared library by coming to this directory a
 
 ```bash
 [[ $OSTYPE == 'darwin'* ]] && brew portaudio || apt install portaudio
-gcc -shared -o record_audio.so -fPIC record_audio.c -lportaudio
+gcc -shared -o record_audio.so -fPIC record_audio.c -lportaudio -lfvad
 ```
 
 ### Whisper.cpp

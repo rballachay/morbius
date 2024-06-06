@@ -1,6 +1,6 @@
 import pathlib
 import ctypes
-from config import RECORD_LENGTH, SILENCE_LENGTH, SILENCE_THRESH
+from config import RECORD_LENGTH, SILENCE_LENGTH, VAD_MODE
 import os
 
 
@@ -16,12 +16,12 @@ def record_until_thresh(filename):
     lib = ctypes.CDLL(str(libfile))
 
     # Define the argument and return types of the function
-    lib.record.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_float, ctypes.c_int]
+    lib.record.argtypes = [ctypes.c_char_p, ctypes.c_int, ctypes.c_int, ctypes.c_int]
     lib.record.restype = ctypes.c_int
 
     # Call the main function
     result = lib.record(
-        filename.encode("utf-8"), RECORD_LENGTH, SILENCE_THRESH, SILENCE_LENGTH
+        filename.encode("utf-8"), RECORD_LENGTH, SILENCE_LENGTH, VAD_MODE
     )
 
     # will return zero if success

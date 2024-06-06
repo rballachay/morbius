@@ -6,18 +6,21 @@
 #include <math.h>
 #include <fvad.h>
 
+// apparently the internal bitrate of vfad is 8000, so it will be downsampled 
+// when running that library, but this is 16 kHz for our recording at least
+// https://github.com/dpirch/libfvad/blob/master/include/fvad.h#L70
 #define SAMPLE_RATE 16000
+
+// this has to be a multiple of 80, 160 or 240
+// https://github.com/dpirch/libfvad/blob/master/include/fvad.h#L82
 #define FRAMES_PER_BUFFER 160
 #define NUM_CHANNELS 1
-#define VAD_MODE 2
 
 typedef struct {
     float *recordedSamples;
     int frameIndex;
     int maxFrameIndex;
     int silenceFrameCount;
-    float maxAmplitude;
-    float silenceThresh;
     int silenceDuration;
     Fvad *vad;
 } paData;
@@ -133,7 +136,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
 }
 
 int record(const char *filename, const int nSeconds, 
-            const float silenceThresh, const int silenceDuration) {
+            const int silenceDuration, const int vadMode) {
 
     Fvad *vad = NULL;
     PaError err = paNoError;
@@ -145,8 +148,6 @@ int record(const char *filename, const int nSeconds,
     data.frameIndex = 0;
     data.maxFrameIndex = numSamples;
     data.silenceFrameCount = 0;
-    data.maxAmplitude = 0.0f;
-    data.silenceThresh=silenceThresh;
     data.silenceDuration=silenceDuration;
 
     vad = fvad_new();
@@ -154,7 +155,7 @@ int record(const char *filename, const int nSeconds,
         fprintf(stderr, "out of memory\n");
         return -1;
     }
-    fvad_set_mode(vad, VAD_MODE);
+    fvad_set_mode(vad, vadMode);
     fvad_set_sample_rate(vad, FRAMES_PER_BUFFER);
     data.vad = vad;
 
