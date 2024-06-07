@@ -520,27 +520,13 @@ nlu:
     - I'd like if you could navigate to the [room on the left]{"entity":"room"}
     - Go to the [patients room]{"entity":"room"} now
     - Over to the [room two thousand]{"entity":"room"} robot! 
-    - To the [hallway]{"entity":"corridor"} now
-    - Get out and into the [corridor]{"entity":"corridor"} please 
-    - Alright, you can go back into the [nearest hallway]{"entity":"corridor"} now
-    - That's enough, back into the [hallway]{"entity":"corridor"}
-    - I would prefer if you waited in the [corridor]{"entity":"corridor"}, thanks
-    - You'll be more useful waiting out in the [hallway]{"entity":"corridor"}
-    - A [hallway]{"entity":"corridor"} now
-    - Get the [doctor]{"entity":"person"} 
-    - Track down the [doctor]{"entity":"person"} when you can
-    - Would you be able to bring the [doctor]{"entity":"person"} here
-    - I need the [doctor]{"entity":"person"}
-    - The [doctor]{"entity":"person"} would be useful right now
-    - Uh, it's, probably good for us to get the [doctor]{"entity":"person"}
-    - Bring the [doc]{"entity":"person"} over here, would you 
-    - [doctor]{"entity":"person"} is needed
-    - Go over to the [nurse]{"entity":"person"} when you can
-    - I would like one of the [nurses]{"entity":"person"}
-    - navigate to the nearest [nurse]{"entity":"person"}
-    - Would we be able to find that [nursing lady]{"entity":"person"}
-    - About time we got [nurse]{"entity":"person"} jacobs in here
-    - Hmm, I think we should find the [nurse]{"entity":"person"} who's in charge of this
+    - To the [hallway]{"entity":"room"} now
+    - Get out and into the [corridor]{"entity":"room"} please 
+    - Alright, you can go back into the [nearest hallway]{"entity":"room"} now
+    - That's enough, back into the [hallway]{"entity":"room"}
+    - I would prefer if you waited in the [corridor]{"entity":"room"}, thanks
+    - You'll be more useful waiting out in the [hallway]{"entity":"room"}
+    - A [hallway]{"entity":"room"} now
     - Can you go back?
     - I would like you to change destinations
     - I want to change my change your goal
@@ -587,6 +573,20 @@ nlu:
     - Go get that
     - Get it
     - Can you go pick that up
+    - Get the [doctor]{"entity":"person"} 
+    - Track down the [doctor]{"entity":"person"} when you can
+    - Would you be able to bring the [doctor]{"entity":"person"} here
+    - I need the [doctor]{"entity":"person"}
+    - The [doctor]{"entity":"person"} would be useful right now
+    - Uh, it's, probably good for us to get the [doctor]{"entity":"person"}
+    - Bring the [doc]{"entity":"person"} over here, would you 
+    - [doctor]{"entity":"person"} is needed
+    - Go over to the [nurse]{"entity":"person"} when you can
+    - I would like one of the [nurses]{"entity":"person"}
+    - navigate to the nearest [nurse]{"entity":"person"}
+    - Would we be able to find that [nursing lady]{"entity":"person"}
+    - About time we got [nurse]{"entity":"person"} jacobs in here
+    - Hmm, I think we should find the [nurse]{"entity":"person"} who's in charge of this
 
 
 - intent: take_something
@@ -595,7 +595,7 @@ nlu:
     - Be a lamb and take this over to the [assistant]{"entity":"person"} over there
     - I think it would be helpful if you could navigate this [prescription]{"entity":"object"} to the [patient]{"entity":"person","role":"target"} in [room five fourty one]{"entity":"room","role":"reference"}
     - As quick as you can, take these [forceps]{"entity":"object"}
-    - Please bring [Miss Johnson]{"entity":"person","role":"target"} at the [end of the hallway]{"entity":"corridor","role":"reference"} 
+    - Please bring [Miss Johnson]{"entity":"person","role":"target"} at the [end of the hallway]{"entity":"room","role":"reference"} 
     - The [doctor]{"entity":"person","role":"target"} in the [operating theatre]{"entity":"room","role":"reference"} needs this [scalpel]{"entity":"object"}
     - The [group]{"entity":"person","role":"target"} in the [waiting room]{"entity":"room","role":"reference"}, bring them this box of masks [box of masks]{"entity":"object"}
     - Carry [nurse Afaf]{"entity":"person"} her [lunch box]{"entity":"object"}
@@ -629,52 +629,52 @@ nlu:
     - lets go 
 
 
-- intent: bring_something+affirm
+#- intent: bring_something+affirm
+#  examples: |
+#    - that's right! I want you to bring me a [scalpel]{"entity":"object"}
+#    - uh huh, i need my [shoes]{"entity":"object"}
+#    - in effect, yeah, I want you to get the [bottle]{"entity":"object"} from over there
+#   - [soap]{"entity":"object"}, yup
+#    - umm, i guess so, thats the thing i wanted
+#    - yes sir, I need the [pair of slippers]{"entity":"object","role":"target"} over on that [carpet]{"entity":"object","role":"reference"}
+#    - can you bring that [surgical cap]{"entity":"object","role":"target"} from the [waiting room]{"entity":"room","role":"reference"}, yes
+#    - that's the idea, I need that [box]{"entity":"object"}
+#    - indeed, bring that thing
+#    - the [oxygen machine]{"entity":"object","role":"target"} from [Mrs Debois's room]{"entity":"room","role":"reference"}, indeed
+#    - um, yes. the little [computer]{"entity":"object","role":"target"} from the [staff lounge]{"entity":"object","role":"reference"}
+#    - Correct, I want the [IV bag]{"entity":"object"} from the [storage cabinet]{"entity":"object","role":"reference"}.
+#    - Indeed, fetch the [bandages]{"entity":"object"} from the [treatment room]{"entity":"room","role":"reference"}
+#    - Exactly, I need the [blood pressure cuff]{"entity":"object"} from the [exam room]{"entity":"room","role":"reference"}
+
+
+#- intent: take_something+deny
+#  examples: |
+#    - no, not the [documents]{"entity":"object"}, i need you to take the [clip board]{"entity":"object"}
+#    - hmm, yeah, not quite. I meant you need to bring [them]{"entity":"person"} the [stethescope]{"entity":"object"} from here
+#    - No, not the [wheelchair]{"entity":"object"}. You should take the [crutches]{"entity":"object"} instead.
+#    - I don't think the [computer]{"entity":"object"} is small enough. You'll need to take the [laptop]{"entity":"object"}
+#    - If only, uh, i think you'll be better off bringing the [vials]{"entity":"object"} when you have a chance
+#    - Are you serious? You need to take the [whole box]{"entity":"object"}, not just that.
+#    - Nah, take them to [Doctor Mialsim]{"entity":"person","role":"target"} waiting [with the patient]{"entity":"person","role":"reference"} in the [lobby]{"entity":"room","role":"reference"}
+#    - No, not there. You should bring the [blood samples]{"entity":"object"} to [Dr. Lee]{"entity":"person","role":"target"} in the [laboratory]{"entity":"room","role":"reference"}.
+#    - No, don't take that
+#    - yeesh, heck no. don't bring them that
+
+
+- intent: go_there+bring_something
   examples: |
-    - that's right! I want you to bring me a [scalpel]{"entity":"object"}
-    - uh huh, i need my [shoes]{"entity":"object"}
-    - in effect, yeah, I want you to get the [bottle]{"entity":"object"} from over there
-    - [soap]{"entity":"object"}, yup
-    - umm, i guess so, thats the thing i wanted
-    - yes sir, I need the [pair of slippers]{"entity":"object","role":"target"} over on that [carpet]{"entity":"object","role":"reference"}
-    - can you bring that [surgical cap]{"entity":"object","role":"target"} from the [waiting room]{"entity":"room","role":"reference"}, yes
-    - that's the idea, I need that [box]{"entity":"object"}
-    - indeed, bring that thing
-    - the [oxygen machine]{"entity":"object","role":"target"} from [Mrs Debois's room]{"entity":"room","role":"reference"}, indeed
-    - um, yes. the little [computer]{"entity":"object","role":"target"} from the [staff lounge]{"entity":"object","role":"reference"}
-    - Correct, I want the [IV bag]{"entity":"object"} from the [storage cabinet]{"entity":"object","role":"reference"}.
-    - Indeed, fetch the [bandages]{"entity":"object"} from the [treatment room]{"entity":"room","role":"reference"}
-    - Exactly, I need the [blood pressure cuff]{"entity":"object"} from the [exam room]{"entity":"room","role":"reference"}
-
-
-- intent: take_something+deny
-  examples: |
-    - no, not the [documents]{"entity":"object"}, i need you to take the [clip board]{"entity":"object"}
-    - hmm, yeah, not quite. I meant you need to bring [them]{"entity":"person"} the [stethescope]{"entity":"object"} from here
-    - No, not the [wheelchair]{"entity":"object"}. You should take the [crutches]{"entity":"object"} instead.
-    - I don't think the [computer]{"entity":"object"} is small enough. You'll need to take the [laptop]{"entity":"object"}
-    - If only, uh, i think you'll be better off bringing the [vials]{"entity":"object"} when you have a chance
-    - Are you serious? You need to take the [whole box]{"entity":"object"}, not just that.
-    - Nah, take them to [Doctor Mialsim]{"entity":"person","role":"target"} waiting [with the patient]{"entity":"person","role":"reference"} in the [lobby]{"entity":"room","role":"reference"}
-    - No, not there. You should bring the [blood samples]{"entity":"object"} to [Dr. Lee]{"entity":"person","role":"target"} in the [laboratory]{"entity":"room","role":"reference"}.
-    - No, don't take that
-    - yeesh, heck no. don't bring them that
-
-
-- intent: go_there+bring_something+greet
-  examples: |
-    - Good morning, robot. I need you to go to [room 205A]{"entity":"room"} and bring me the [patient's file]{"entity":"object"}.
+    - I need you to go to [room 205A]{"entity":"room"} and bring me the [patient's file]{"entity":"object"}.
     - It's uh, sorry. Hey dude, good morning. Please go to the [seating room]{"entity":"room"} and see if there are patients. Get their [forms]{"entity":"object"} and bring em back.
-    - HEY listen! Go to the lab and find the [phlebotomist]{"entity":"person"}. If she has [results]{"entity":"object"} to give you, bring them back here.
-    - Hello, robot. Navigate to [the corridor]{"entity": "corridor"} and bring the [nurse]{"entity": "person"} here, please.
-    - Fill up with all the [prescription]{"entity":"object"} you can carry. Well, you'll need to go get them from the [pharmacy]{"entity":"room"}. Good morning.
-    - Good afternoon. I think I left my [stethescope]{"entity":"object","role":"target"} next to the [patient's bed]{"entity":"object","role":"reference"} in room [A19]{"entity":"room","role":"target"}. Go there, get it and come back here.
+    - Go to the lab and find the [phlebotomist]{"entity":"person"}. If she has [results]{"entity":"object"} to give you, bring them back here.
+    - Navigate to [the corridor]{"entity": "room"} and bring the [nurse]{"entity": "person"} here, please.
+    - Fill up with all the [prescription]{"entity":"object"} you can carry. Well, you'll need to go get them from the [pharmacy]{"entity":"room"}.
+    - I think I left my [stethescope]{"entity":"object","role":"target"} next to the [patient's bed]{"entity":"object","role":"reference"} in room [A19]{"entity":"room","role":"target"}. Go there, get it and come back here.
     - sup, robot. I need you to go to [the supply closet]{"entity": "room"} and bring me the [box of gloves]{"entity": "object"}. Make sure to hurry back.
     - Salutations my friend. If you can get there, go down to the [cafeteria]{"entity":"room"}, see the [lady]{"entity":"person"} and bring me back a [coffee]{"entity":"object"}
-    - Good to see you again, robot. Navigate to [the storeroom]{"entity": "room"} and bring the [emergency medical kit]{"entity": "object"} on the right side. It's better to have it nearby, just in case.
+    - Navigate to [the storeroom]{"entity": "room"} and bring the [emergency medical kit]{"entity": "object"} on the right side. It's better to have it nearby, just in case.
     - Hello, buddy. If you could, please go to [the waiting area]{"entity": "room"} and find [Mrs. Jones]{"entity": "person"}. Ask her for the [patient's file]{"entity": "object"} and bring it back here.
-    - Hey, pal. Rush over to [the supply closet]{"entity": "room"} and grab a [box of bandages]{"entity": "object"} for me, please. We're running low. 
-    - Wakey, wakey. To the [staff lounge]{"entity":"room"}, find the first [nurse]{"entity":"person"} you can find and bring them here
+    - Hey, pal. Rush over to [the supply closet]{"entity": "room"} and grab a [box of bandages]{"entity": "object"} for me, please.
+    - To the [staff lounge]{"entity":"room"}, find the first [nurse]{"entity":"person"} you can find and bring them here
 
 
 - intent: help

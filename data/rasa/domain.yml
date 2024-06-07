@@ -2,21 +2,20 @@ version: '3.1'
 
 intents:
 - affirm
-- bring_something
-- come_here
 - deny
-- go_there
 - greet
 - pause
 - resume
 - sleep
-- take_something
 - unknown
 - help
+- come_here # no entities
+- go_there # this can have one entity: room
+- bring_something # bring something can also be combined with go there+bring_something
+- take_something # this has to have two parts: bring something to somewhere
 
 entities:
-- room
-- corridor
+- room # room refers to lounge, lab, corridor... etc. anywhere robot needs to navigate # this can have two entities: take object to room
 - object
 - person
 
@@ -46,10 +45,6 @@ responses:
   - text: How can I be of assistance? 
   - text: I am at your disposal!
 
-  utter_go_where:
-  - text: It sounds like you want me to go somewhere, where is it you want me to go?
-  - text: Where is it you would like me to go?
-
   utter_unknown:
   - text: Hmm, I didn't quite understand your request. Please repeat.
   - text: I didn't quite catch that, could you please try again?
@@ -59,17 +54,36 @@ responses:
   utter_confirm_room:
   - text: You would like me to go to {room}?
 
-  utter_confirm_corridor:
-  - text: You would like me to go to {corridor}?
-
   utter_confirm_person:
   - text: You would like me to go get {person}?
 
   utter_confirm_object:
-  - text: You would like me to go get {object}?
+  - text: You would like me to go get the {object}?
 
   utter_confirm_object_room:
   - text: You would like me to go get {object} from {room}?
+
+  utter_confirm_come:
+  - text: You would like me to come to you?
+
+  utter_lets_try_again:
+  - text: Oops, lets try again. What can I do for you?
+  - text: Sorry about that, what is it that you wanted me to do?
+  - text: Oh, I see. What was your original command?
+  - text: I misunderstood! What is it you wanted me to do?
+
+  utter_go_to_sleep:
+  - text: You would like me to go to sleep? 
+
+  utter_good_night:
+  - text: Okay, good night 
+
+  utter_confirm_pause:
+  - text: You'd like me to pause what I'm doing?
+
+  utter_pause:
+  - text: Okay, I'll pause any ongoing tasks
+
 
 slots:
   room:
@@ -89,7 +103,11 @@ slots:
   object:
     type: text
     influence_conversation: false
+    # can com from a target or regular object
     mappings:
+      - type: from_entity
+        entity: object
+        role: target
       - type: from_entity
         entity: object
 
@@ -100,11 +118,11 @@ slots:
       - type: from_entity
         entity: corridor
 
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
   
+
 actions:
 - utter_bring_what
 - utter_greet
@@ -114,9 +132,21 @@ actions:
 - action_move_robot
 - utter_go_where
 - validate_retrieve_room
+- validate_retrieve_object
+- utter_confirm_come
+- utter_lets_try_again
+- utter_go_to_sleep
+- utter_good_night
+- utter_confirm_pause
+- utter_pause
+
 
 forms:
   retrieve_room:
     required_slots:
       - room
+    
+  retrieve_object:
+    required_slots:
+      - object
     

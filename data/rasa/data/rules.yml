@@ -34,3 +34,60 @@ rules:
   - action: action_move_robot
 
 
+- rule: Bring something
+  steps:
+  - intent: bring_something
+  - action: retrieve_object
+  - active_loop: retrieve_object
+
+
+- rule: Submit form object
+  condition:
+  # Condition that form is active.
+  - active_loop: retrieve_object
+  steps:
+  # Form is deactivated
+  - action: retrieve_object
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_confirm_object
+  - intent: affirm
+  - action: utter_okay
+  - action: action_move_robot
+
+- rule: Come here
+  condition:
+  - active_loop: null  # Check if no active loop
+  steps:
+  - intent: come_here
+  - action: utter_confirm_come
+  - intent: affirm
+  - action: action_move_robot
+
+- rule: Handle deny
+  condition:
+  - active_loop: null  # Check if no active loop
+  steps:
+  - intent: deny
+  - action: utter_lets_try_again
+
+- rule: Handle unknown
+  steps:
+  - intent: unknown
+  - action: utter_clarify
+
+- rule: Sleep 
+  steps:
+  - intent: sleep
+  - action: utter_go_to_sleep
+  - intent: affirm
+  - action: utter_good_night
+
+- rule: Pause
+  steps:
+  - intent: pause
+  - action: utter_confirm_pause
+  - intent: affirm
+  - action: utter_pause
