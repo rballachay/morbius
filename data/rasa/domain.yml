@@ -12,19 +12,22 @@ intents:
 - sleep
 - take_something
 - unknown
+- help
 
 entities:
-- lab
 - room
-- lounge
 - corridor
 - object
 - person
 
 responses:
+  utter_okay:
+  - text: Okay! Starting task...
 
   utter_bring_what:
   - text: What can I get for you?
+  - text: What do you need me to grab?
+  - text: What can I bring?
 
   utter_greet:
   - text: Hey!
@@ -37,6 +40,67 @@ responses:
   - text: I didn't catch that, do you mind repeating?
   - text: Sorry, can you repeat?
 
+  utter_can_help:
+  - text: How can I help? 
+  - text: What can I do for you? 
+  - text: How can I be of assistance? 
+  - text: I am at your disposal!
+
+  utter_go_where:
+  - text: It sounds like you want me to go somewhere, where is it you want me to go?
+  - text: Where is it you would like me to go?
+
+  utter_unknown:
+  - text: Hmm, I didn't quite understand your request. Please repeat.
+  - text: I didn't quite catch that, could you please try again?
+  - text: I'm not sure I follow, do you mind re-phrasing?
+  - text: Could you please repeat your command? I didn't understand.
+
+  utter_confirm_room:
+  - text: You would like me to go to {room}?
+
+  utter_confirm_corridor:
+  - text: You would like me to go to {corridor}?
+
+  utter_confirm_person:
+  - text: You would like me to go get {person}?
+
+  utter_confirm_object:
+  - text: You would like me to go get {object}?
+
+  utter_confirm_object_room:
+  - text: You would like me to go get {object} from {room}?
+
+slots:
+  room:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: room
+
+  person:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: person
+
+  object:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: object
+
+  corridor:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: corridor
+
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
@@ -44,3 +108,15 @@ session_config:
 actions:
 - utter_bring_what
 - utter_greet
+- utter_clarify
+- utter_confirm_room 
+- utter_can_help
+- action_move_robot
+- utter_go_where
+- validate_retrieve_room
+
+forms:
+  retrieve_room:
+    required_slots:
+      - room
+    

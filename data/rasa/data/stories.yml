@@ -1,20 +1,3 @@
-stories:
+version: "3.1"
 
-- story: interactive_story_1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: bring_something
-  - action: action_default_fallback
-  - intent: bring_something
-  - action: utter_bring_what
-  - action: action_default_fallback
-  - intent: go_there
-    entities:
-    - room: room 215
-    - object: box of
-  - intent: go_there+bring_something
-    entities:
-    - room: room 215
-    - object: box of
-  - action: action_default_fallback
+stories:

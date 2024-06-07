@@ -1,5 +1,36 @@
+version: "3.1"
+
 rules:
 - rule: say hello back
   steps:
   - intent: greet
   - action: utter_greet
+
+- rule: what can i do
+  steps:
+  - intent: help
+  - action: utter_can_help
+
+- rule: Find room destination
+  steps:
+  - intent: go_there
+  - action: retrieve_room
+  - active_loop: retrieve_room
+
+- rule: Submit form room
+  condition:
+  # Condition that form is active.
+  - active_loop: retrieve_room
+  steps:
+  # Form is deactivated
+  - action: retrieve_room
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_confirm_room
+  - intent: affirm
+  - action: utter_okay
+  - action: action_move_robot
+
+
