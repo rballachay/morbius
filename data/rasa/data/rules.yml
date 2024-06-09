@@ -91,3 +91,28 @@ rules:
   - action: utter_confirm_pause
   - intent: affirm
   - action: utter_pause
+
+
+- rule: Go there and bring something
+  steps:
+  - intent: go_there+bring_something
+  - action: retrieve_object_in_location
+  - active_loop: retrieve_object_in_location
+
+
+- rule: Submit form room
+  condition:
+  # Condition that form is active.
+  - active_loop: retrieve_object_in_location
+  steps:
+  # Form is deactivated
+  - action: retrieve_object_in_location
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  # The actions we want to run when the form is submitted.
+  - action: utter_confirm_obj_from_room
+  - intent: affirm
+  - action: utter_okay
+  - action: action_move_robot
+

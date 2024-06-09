@@ -84,6 +84,9 @@ responses:
   utter_pause:
   - text: Okay, I'll pause any ongoing tasks
 
+  utter_confirm_obj_from_room:
+  - text: You would like me to go get {object} from {room}?
+
 
 slots:
   room:
@@ -139,7 +142,8 @@ actions:
 - utter_good_night
 - utter_confirm_pause
 - utter_pause
-
+- utter_confirm_obj_from_room
+- validate_retrieve_object_in_location
 
 forms:
   retrieve_room:
@@ -148,5 +152,10 @@ forms:
     
   retrieve_object:
     required_slots:
+      - object
+
+  retrieve_object_in_location:
+    required_slots:
+      - room
       - object
     

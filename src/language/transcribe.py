@@ -4,7 +4,7 @@ from config import CACHE_RECORDINGS, RECORDINGS_DIR
 import time
 import os
 
-def listen_transcribe(model_size="tiny"):
+def listen_transcribe(whisper:Whisper):
     """This listens to audio until silence, then transcribes audio to text
     using whisper.
     """
@@ -19,15 +19,13 @@ def listen_transcribe(model_size="tiny"):
         print("Failed to transcribe audio, check shared library record_audio.so")
         return ""
 
-    results = transcribe_audio(filename, model_size)
+    results = transcribe_audio(filename, whisper)
 
     if not CACHE_RECORDINGS:
         os.remove(filename)
 
     return results
 
-def transcribe_audio(filename, model_size="tiny"):
+def transcribe_audio(filename, whisper):
     """Transcribe the audio file using Whisper."""
-    whisper = Whisper(model_size)
-    text = whisper.transcribe(filename)
-    return text
+    return whisper.transcribe(filename)

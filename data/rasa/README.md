@@ -29,8 +29,24 @@ For more documentation about the the `config.yml` that is provided by rasa, see 
 - Example: `NYC` and `New York City` both mapping to value of `nyc` for entity `city`
 
 [ResponseSelector](https://rasa.com/docs/rasa/components/#responseselector)
-- 
+- This is used for chit-chat, in which the model can be used to predict what will be said next
+- We won't be using this, as we want rules to govern everything that will be said (at least at the start)
 
+[FallbackClassifier](https://rasa.com/docs/rasa/components/#fallbackclassifier)
+- Classifier that determines whether the real intent classifier will be used, or if nlu_fallback will be chosen
+- If nlu_fallback is chosen, we can then write an action that tells the user what all the model is capable of doing
+
+
+### Policies
+
+Policies are way of dealing with messages after inference. It is the way the state of the dialogue is handled.
+
+[MemoizationPolicy](https://rasa.com/docs/rasa/policies/#memoization-policy)
+- Will use matches from stories to determine what to do next
+- Will take the last max_history number of turns into account
+
+[TEDPolicy](https://rasa.com/docs/rasa/policies/#ted-policy)
+- 
 
 NOTE that for the multi-intent classification, you must give explicit examples. From the documents: _The model will not predict any combination of intents for which examples are not explicitly given in training data. As accounting for every possible intent combination would result in combinatorial explosion of the number of intents, you should only add those combinations of intents for which you see enough examples coming in from real users._ 
 

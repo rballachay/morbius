@@ -84,6 +84,64 @@ class ValidateRetrieveObject(FormValidationAction):
         return [SlotSet(slot, value) for slot, value in custom_slots.items()]
             
 
+class ValidateRetrieveObjectFromLocation(FormValidationAction):
+    """
+    This will try to ensure we want to go to a location to retrieve 
+    an object.
+    """
+    quote="\"Bring me a {object} from the {room}\""
+
+    def name(self) -> Text:
+        return "validate_retrieve_object_in_location"
+
+    # override super class
+    async def get_extraction_events(
+        self,
+        dispatcher: "CollectingDispatcher",
+        tracker: "Tracker",
+        domain: "DomainDict",
+    ) -> List[EventType]:
+        custom_slots = {}
+
+        slots_to_extract = await self.required_slots(
+            self.domain_slots(domain), dispatcher, tracker, domain
+        )
+
+        for slot in slots_to_extract:
+            extraction_output = await self._extract_slot(
+                slot, dispatcher, tracker, domain
+            )
+                
+            custom_slots.update(extraction_output)
+            tracker.slots.update(extraction_output)
+
+        _object = None
+        if 'object' in tracker.slots.keys():
+            _object = tracker.slots['object']
+
+        _room = None
+        if 'room' in tracker.slots.keys():
+            _room = tracker.slots['room']
+
+    
+        if (_object is None) and (_room is None):
+            dispatcher.utter_message(
+                text=f"What do you want me to get, and from what room?\
+                    Say something like... {self.quote.format(object='scalpel',room='lab')}"
+            )
+        elif (_room is None):
+            dispatcher.utter_message(
+                text=f"What room do I get {_object} from?\
+                    Say something like... {self.quote.format(object=_object,room='lab')}"
+            )
+        elif (_object is None):
+            dispatcher.utter_message(
+                text=f"What object do you want from {_room}?\
+                    Say something like... {self.quote.format(object='scalpel',room=_room)}"
+            )
+
+        return [SlotSet(slot, value) for slot, value in custom_slots.items()]
+    
 class ActionMoveRobot(Action):
     """
     This is a custom action that should communicate with our robot, 

@@ -3,6 +3,7 @@ import os
 """GLOBAL"""
 DATA_PATH = "data"
 MODEL_PATH = "models"
+LOG_PATH = ".logs"
 """GLOBAL"""
 
 """TRANSCRIBE"""
@@ -28,3 +29,11 @@ WHISPER_URL = (
     "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-{model_size}.en.bin"
 )
 """WHISPER"""
+
+
+"""RASA"""
+RASA_MODEL_PATH="models/rasa-model-june-9.tar.gz"
+RASA_ACTIONS_PATH="data.rasa.actions"
+RASA_PORT=5005
+ACTIONS_PORT=5055
+"""RASA"""
