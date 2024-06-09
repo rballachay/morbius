@@ -30,7 +30,6 @@ WHISPER_URL = (
 )
 """WHISPER"""
 
-
 """RASA"""
 RASA_MODEL_PATH="models/rasa-model-june-9.tar.gz"
 RASA_ACTIONS_PATH="data.rasa.actions"

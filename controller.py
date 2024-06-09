@@ -5,6 +5,11 @@ import subprocess
 import time
 import os
 import requests
+import uuid
+
+# silent, for development, allows us to write in verbal commands via
+# the shell instead of saying them, to make it easier
+SILENT=True
 
 class VoiceController:
     """Object for orchestrating voice dialogue system. 
@@ -20,7 +25,7 @@ class VoiceController:
         os.makedirs(os.path.dirname(rasa_logs), exist_ok=True)
         
         # init everything related to rasa + then wait to launch
-        self.rasa_url = f"http://0.0.0.0:{rasa_port}/webhooks/rest/webhook"
+        self.rasa_url = f"http://0.0.0.0:{rasa_port}"
         self.actions_url = f"http://0.0.0.0:{actions_port}"
         self.rasa_port = rasa_port
         self.actions_port=actions_port
@@ -33,36 +38,47 @@ class VoiceController:
 
     
     def run(self):
-        input("Press Enter to start running program...")
-
         while True:
-            results = listen_transcribe(self.whisper_agent)
-            print(results)
+            input("Press Enter to start a conversation...")
+            conversation = Conversation(self.rasa_url)
 
+            # w
+            while conversation.open():
+                if SILENT:
+                    results = input("(dev mode) Type next command: ")
+                else:
+                    results = listen_transcribe(self.whisper_agent)
+
+                
 
     def __run_rasa(self, model_path, action_path, rasa_logs, rasa_port, actions_port):
+        """Launches the two rasa processes: action server and dialogue server.
+        """
         rasa_cmd = f"rasa run --enable-api -p {rasa_port} --model {model_path}"
         action_cmd = f"rasa run actions --actions {action_path} -p {actions_port}"
 
         with open(rasa_logs, 'a') as log_file:
             rasa_process = subprocess.Popen(rasa_cmd, shell=True, stdout=subprocess.PIPE, stderr=log_file)
-            print(f"Rasa server started with PID: {rasa_process.pid}")
+            print(f"Rasa server launched with PID: {rasa_process.pid}")
 
             action_process = subprocess.Popen(action_cmd, shell=True, stdout=subprocess.PIPE, stderr=log_file)
-            print(f"Rasa action server started with PID: {action_process.pid}")
+            print(f"Rasa action server launched with PID: {action_process.pid}")
 
             self.__await_rasa_launch()
 
             return rasa_process, action_process
         
-
     def __await_rasa_launch(self):
+        """subprocess.Popen will launch the subprocess. 
+        Need to wait until the endpoints are active before starting 
+        the rest of the controller.
+        """
         rasa_status=False
         actions_status=False
         while True:
             try:
                 if not rasa_status:
-                    response = requests.get(self.rasa_url.split('webhooks')[0]+'status')
+                    response = requests.get(self.rasa_url+'/status')
                     if response.status_code==200:
                         rasa_status=True
 
@@ -70,16 +86,44 @@ class VoiceController:
                     response = requests.get(self.actions_url+'/health')
                     if response.status_code==200:
                         actions_status=True
-            except Exception as e:
-                print(f"Exception calling rasa actions:\n\t{e}")
+            except:
+                print(f"Finishing launching rasa servers...")
 
             if rasa_status and actions_status:
                 break
             
-            print(f"{rasa_status} and {actions_status}")
             time.sleep(1)
 
+class Conversation:
+    """Manages a single conversation + the state, without 
+    needing to reference the 
+    """
+    def __init__(self, rasa_url):
+        # uuid is used as the 
+        self.uuid=uuid.uuid4().hex
+        self.rasa_url = rasa_url
 
+        self.message_history=[]
+        self.resposne_history=[]
+
+    def __call__(self, message=""):
+
+        url = self.rasa_url+'/webhooks/rest/webhook'
+
+        response = requests.post(url,json={"message":message,"sender":self.uuid})
+
+        if not response.status_code==200:
+            raise Exception("Failed calling rasa endpoint")
+    
+        results = response.json()["text"]
+
+        return results
+
+
+
+
+
+    
 
 if __name__ == "__main__":
     vc=None
