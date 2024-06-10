@@ -1,0 +1,6 @@
+[submodule "submodules/FastSpeech2"]
+	path = submodules/FastSpeech2
+	url = https://github.com/ming024/FastSpeech2
+[submodule "submodules/whisper.cpp"]
+	path = submodules/whisper.cpp
+	url = https://github.com/ggerganov/whisper.cpp

@@ -6,11 +6,12 @@ import time
 import os
 import requests
 import uuid
+import sys
+from submodules.fast_speech import FastSpeech
 
 # silent, for development, allows us to write in verbal commands via
 # the shell instead of saying them, to make it easier
 SILENT = True
-
 
 class VoiceController:
     """Object for orchestrating voice dialogue system."""
@@ -44,6 +45,8 @@ class VoiceController:
 
         self.ros_controller = RosController()
 
+        self.fast_speech = FastSpeech()
+
     def run(self):
         """This is a loop that continues until it is shut down. When
         a conversation is finished, you can press enter to re-start.
@@ -52,6 +55,9 @@ class VoiceController:
         while True:
             input("Press Enter to start a conversation...")
             conversation = Conversation(self.rasa_url)
+
+            # if its asleep, wake it up
+            self.ros_controller.wake_up()
 
             while conversation.open():
                 if SILENT:
@@ -217,7 +223,7 @@ class RosController:
     def action_move_robot(self, room):
         self.print(f"Moving robot to room {room}")
 
-    def action_find_robot(self, object):
+    def action_find_object(self, object):
         self.print(f"Searching for object {object}")
 
     def action_come_here(self):
@@ -237,6 +243,9 @@ class RosController:
 
     def awake(self):
         return self.state
+    
+    def wake_up(self):
+        self.state=True
 
 
 if __name__ == "__main__":

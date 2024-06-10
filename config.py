@@ -4,6 +4,7 @@ import os
 DATA_PATH = "data"
 MODEL_PATH = "models"
 LOG_PATH = ".logs"
+DEVICE='cpu'
 """GLOBAL"""
 
 """TRANSCRIBE"""
@@ -36,3 +37,11 @@ RASA_ACTIONS_PATH = "data.rasa.actions"
 RASA_PORT = 5005
 ACTIONS_PORT = 5055
 """RASA"""
+
+"""FASTSPEECH"""
+PREPROCESS_CONFIG='submodules/FastSpeech2/config/LJSpeech/preprocess.yaml'
+MODEL_CONFIG='submodules/FastSpeech2/config/LJSpeech/model.yaml'
+HIFIGAN_CONFIG='submodules/FastSpeech2/hifigan/config.json'
+HIFIGAN_MODEL='submodules/FastSpeech2/hifigan/generator_LJSpeech.pth.tar'
+FAST_MODEL_PATH='models/fastspeech-model.pth.tar'
+"""FASTSPEECH"""
