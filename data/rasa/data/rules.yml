@@ -55,7 +55,8 @@ rules:
   - action: utter_confirm_object
   - intent: affirm
   - action: utter_okay
-  - action: action_move_robot
+  - action: action_find_object
+  - action: action_come_here
 
 - rule: Come here
   condition:
@@ -64,7 +65,8 @@ rules:
   - intent: come_here
   - action: utter_confirm_come
   - intent: affirm
-  - action: action_move_robot
+  - action: utter_okay
+  - action: action_come_here
 
 - rule: Handle deny
   condition:
@@ -84,6 +86,7 @@ rules:
   - action: utter_go_to_sleep
   - intent: affirm
   - action: utter_good_night
+  - action: action_sleep
 
 - rule: Pause
   steps:
@@ -91,7 +94,15 @@ rules:
   - action: utter_confirm_pause
   - intent: affirm
   - action: utter_pause
+  - action: action_pause
 
+- rule: Resume
+  steps:
+  - intent: resume
+  - action: utter_confirm_resume
+  - intent: affirm
+  - action: utter_resume
+  - action: action_resume
 
 - rule: Go there and bring something
   steps:
@@ -114,5 +125,9 @@ rules:
   - action: utter_confirm_obj_from_room
   - intent: affirm
   - action: utter_okay
+
+  # to retrieve an object in location, we first need to navigate
+  # to that location, then search for the object
   - action: action_move_robot
+  - action: action_find_object
 

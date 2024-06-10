@@ -4,7 +4,8 @@ from config import CACHE_RECORDINGS, RECORDINGS_DIR
 import time
 import os
 
-def listen_transcribe(whisper:Whisper):
+
+def listen_transcribe(whisper: Whisper):
     """This listens to audio until silence, then transcribes audio to text
     using whisper.
     """
@@ -25,6 +26,7 @@ def listen_transcribe(whisper:Whisper):
         os.remove(filename)
 
     return results
+
 
 def transcribe_audio(filename, whisper):
     """Transcribe the audio file using Whisper."""

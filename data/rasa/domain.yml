@@ -87,6 +87,12 @@ responses:
   utter_confirm_obj_from_room:
   - text: You would like me to go get {object} from {room}?
 
+  utter_confirm_resume:
+  - text: You would like me to resume paused tasks?
+
+  utter_resume:
+  - text: Okay, I'll resume any paused ongoing tasks
+
 
 slots:
   room:
@@ -124,7 +130,6 @@ slots:
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
-  
 
 actions:
 - utter_bring_what
@@ -132,18 +137,29 @@ actions:
 - utter_clarify
 - utter_confirm_room 
 - utter_can_help
-- action_move_robot
 - utter_go_where
-- validate_retrieve_room
-- validate_retrieve_object
 - utter_confirm_come
 - utter_lets_try_again
 - utter_go_to_sleep
 - utter_good_night
 - utter_confirm_pause
 - utter_pause
+- utter_resume
+- utter_confirm_resume
 - utter_confirm_obj_from_room
+
+# validate
+- validate_retrieve_room
+- validate_retrieve_object
 - validate_retrieve_object_in_location
+
+# actions
+- action_move_robot
+- action_find_object
+- action_pause
+- action_sleep
+- action_resume
+- action_come_here
 
 forms:
   retrieve_room:
