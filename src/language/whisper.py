@@ -1,5 +1,5 @@
 from config import WHISPER_DIR, WHISPER_LOCAL, WHISPER_SIZES, WHISPER_URL
-from src.utils import download_file
+from src.file_utils import download_file
 import os
 from whisper_cpp_python import Whisper as WhisperCPP
 from scipy.io import wavfile

@@ -4,3 +4,6 @@
 [submodule "submodules/whisper.cpp"]
 	path = submodules/whisper.cpp
 	url = https://github.com/ggerganov/whisper.cpp
+[submodule "submodules/StyleTTS2"]
+	path = submodules/StyleTTS2
+	url = https://github.com/yl4579/StyleTTS2.git

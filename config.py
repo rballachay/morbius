@@ -38,6 +38,12 @@ RASA_PORT = 5005
 ACTIONS_PORT = 5055
 """RASA"""
 
+# this is the active model for text-to-speech.
+"""TTS CONFIG"""
+ACTIVE_TTS='styleTTS2' # also can be fast_speech
+TTS_MODELS=['styleTTS2','fast_speech']
+"""TTS CONFIG"""
+
 """FASTSPEECH"""
 PREPROCESS_CONFIG='submodules/FastSpeech2/config/LJSpeech/preprocess.yaml'
 MODEL_CONFIG='submodules/FastSpeech2/config/LJSpeech/model.yaml'
@@ -45,3 +51,8 @@ HIFIGAN_CONFIG='submodules/FastSpeech2/hifigan/config.json'
 HIFIGAN_MODEL='submodules/FastSpeech2/hifigan/generator_LJSpeech.pth.tar'
 FAST_MODEL_PATH='models/fastspeech-model.pth.tar'
 """FASTSPEECH"""
+
+"""STYLETTS2"""
+LJ_CONFIG="models/LJSpeech/config.yml"
+LJ_MODEL="models/LJSpeech/epoch_2nd_00100.pth"
+"""STYLETTS2"""

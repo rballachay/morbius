@@ -6,12 +6,11 @@ import time
 import os
 import requests
 import uuid
-import sys
-from submodules.fast_speech import FastSpeech
+from src.language.tts.text_to_speech import TextToSpeech
 
 # silent, for development, allows us to write in verbal commands via
 # the shell instead of saying them, to make it easier
-SILENT = True
+SILENT = False
 
 class VoiceController:
     """Object for orchestrating voice dialogue system."""
@@ -45,7 +44,7 @@ class VoiceController:
 
         self.ros_controller = RosController()
 
-        self.fast_speech = FastSpeech()
+        self.text_to_speech = TextToSpeech()
 
     def run(self):
         """This is a loop that continues until it is shut down. When
@@ -69,6 +68,7 @@ class VoiceController:
 
                 # report the messages
                 self.print("\n".join(message_out))
+                self.text_to_speech.speak('.'.join(message_out))
 
                 self.__run_actions(actions_out)
 
