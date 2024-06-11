@@ -1,9 +1,12 @@
 from src.language.record import record_until_thresh
 from src.file_utils import download_file
 from config import CACHE_RECORDINGS, RECORDINGS_DIR, \
-    WHISPER_DIR, WHISPER_LOCAL, WHISPER_SIZES, WHISPER_URL
+    WHISPER_DIR, WHISPER_LOCAL, WHISPER_SIZES, WHISPER_URL, SAMPLE_RATE
 import os
 from whisper_cpp_python import Whisper as WhisperCPP
+import time
+from scipy.io.wavfile import write
+import numpy as np
 
 class Whisper:
     def __init__(self, model_size: str):
@@ -41,26 +44,29 @@ def listen_transcribe(whisper: Whisper):
     using whisper.
     """
 
-    #if CACHE_RECORDINGS:
-    #    filename = f"{RECORDINGS_DIR}/morbius_recording_{int(time.time())}.wav"
-    #else:
-    #    filename = f"{RECORDINGS_DIR}/_temp_audio.wav"
+    if CACHE_RECORDINGS:
+        filename = f"{RECORDINGS_DIR}/morbius_recording_{int(time.time())}.wav"
+        _create_subfolders_for_file(filename)
 
     try:
         data = record_until_thresh()
     except Exception as e:
-        raise Exception(e)
         print("Failed to transcribe audio, check shared library record_audio.so")
         return ""
 
-    results = transcribe_audio(data, whisper)
+    results = whisper.transcribe(data)
 
-    #if not CACHE_RECORDINGS:
-    #    os.remove(filename)
+    if CACHE_RECORDINGS:
+        scaled = np.int16(data / np.max(np.abs(data)) * 32767)
+        write(filename, SAMPLE_RATE, scaled)
 
     return results
 
+def _create_subfolders_for_file(file_path):
+    directory = os.path.dirname(file_path)
 
-def transcribe_audio(data, whisper):
-    """Transcribe the audio file using Whisper."""
-    return whisper.transcribe(data)
+    if directory and not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f"Directories created for {directory}")
+    else:
+        print(f"Directory {directory} already exists")

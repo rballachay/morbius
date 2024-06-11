@@ -23,6 +23,7 @@ typedef struct {
     int silenceFrameCount;
     int silenceDuration;
     int sampleRate;
+    int vocalFrames;
     Fvad *vad;
 } paData;
 
@@ -79,12 +80,16 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
         silentFrames+=framesToCalc;
     }else{
         data->silenceFrameCount=0;
+        data->vocalFrames+=1;
     }
 
     data->frameIndex += framesToCalc;
 
-    // Check for silence
-    data->silenceFrameCount += silentFrames;
+    // if we have had 10 frames of voice, we can start adding silence
+    if (data->vocalFrames > 10){
+        data->silenceFrameCount += silentFrames;
+    }
+
     if (data->silenceFrameCount >= data->silenceDuration * data->sampleRate) {
         printf("Silence detected.\n");
         finished = paComplete; 
@@ -107,6 +112,7 @@ int record(const int sampleRate, float *array, const int nSeconds,
     data.silenceFrameCount = 0;
     data.silenceDuration=silenceDuration;
     data.sampleRate=sampleRate;
+    data.vocalFrames = 0;
 
     vad = fvad_new();
     if (!vad) {

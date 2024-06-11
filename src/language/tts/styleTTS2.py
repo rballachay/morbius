@@ -13,6 +13,7 @@ import phonemizer
 import torch
 from nltk.tokenize import word_tokenize
 import torch
+import numpy as np
 
 from config import DEVICE, LJ_MODEL, LJ_CONFIG
 
@@ -80,6 +81,10 @@ class StyleTTS2:
         text = text.strip()
         text = text.replace('"', '')
         ps = self.phonemizer.phonemize([text])
+
+        if not ps:
+            return np.zeros(0)
+        
         ps = word_tokenize(ps[0])
         ps = ' '.join(ps)
 
