@@ -9,7 +9,7 @@
 // apparently the internal bitrate of vfad is 8000, so it will be downsampled 
 // when running that library, but this is 16 kHz for our recording at least
 // https://github.com/dpirch/libfvad/blob/master/include/fvad.h#L70
-#define SAMPLE_RATE 16000
+//#define SAMPLE_RATE 16000
 
 // this has to be a multiple of 80, 160 or 240
 // https://github.com/dpirch/libfvad/blob/master/include/fvad.h#L82
@@ -22,51 +22,9 @@ typedef struct {
     int maxFrameIndex;
     int silenceFrameCount;
     int silenceDuration;
+    int sampleRate;
     Fvad *vad;
 } paData;
-
-#pragma pack(push, 1)
-typedef struct {
-    char chunkID[4];       // "RIFF"
-    uint32_t chunkSize;    // Size of the entire file minus 8 bytes
-    char format[4];        // "WAVE"
-    char subchunk1ID[4];   // "fmt "
-    uint32_t subchunk1Size;// 16 for PCM
-    uint16_t audioFormat;  // PCM = 1
-    uint16_t numChannels;  // Number of channels
-    uint32_t sampleRate;   // Sample rate
-    uint32_t byteRate;     // SampleRate * NumChannels * BitsPerSample/8
-    uint16_t blockAlign;   // NumChannels * BitsPerSample/8
-    uint16_t bitsPerSample;// Bits per sample
-    char subchunk2ID[4];   // "data"
-    uint32_t subchunk2Size;// Number of bytes in data
-} WavHeader;
-#pragma pack(pop)
-
-void writeWavHeader(FILE *file, int sampleRate, int numChannels, int numSamples) {
-    WavHeader header;
-    
-    // RIFF header
-    memcpy(header.chunkID, "RIFF", 4);
-    header.chunkSize = 36 + numSamples * numChannels * sizeof(int16_t);
-    memcpy(header.format, "WAVE", 4);
-    
-    // fmt subchunk
-    memcpy(header.subchunk1ID, "fmt ", 4);
-    header.subchunk1Size = 16;
-    header.audioFormat = 1; // PCM
-    header.numChannels = numChannels;
-    header.sampleRate = sampleRate;
-    header.byteRate = sampleRate * numChannels * sizeof(int16_t);
-    header.blockAlign = numChannels * sizeof(int16_t);
-    header.bitsPerSample = 16;
-    
-    // data subchunk
-    memcpy(header.subchunk2ID, "data", 4);
-    header.subchunk2Size = numSamples * numChannels * sizeof(int16_t);
-    
-    fwrite(&header, sizeof(WavHeader), 1, file);
-}
 
 static int recordCallback(const void *inputBuffer, void *outputBuffer,
                           unsigned long framesPerBuffer,
@@ -127,7 +85,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
 
     // Check for silence
     data->silenceFrameCount += silentFrames;
-    if (data->silenceFrameCount >= data->silenceDuration * SAMPLE_RATE) {
+    if (data->silenceFrameCount >= data->silenceDuration * data->sampleRate) {
         printf("Silence detected.\n");
         finished = paComplete; 
     }
@@ -135,20 +93,20 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
     return finished;
 }
 
-int record(const char *filename, const int nSeconds, 
+int record(const int sampleRate, float *array, const int nSeconds, 
             const int silenceDuration, const int vadMode) {
 
     Fvad *vad = NULL;
     PaError err = paNoError;
     PaStream *stream;
     paData data;
-    int numSamples = nSeconds * SAMPLE_RATE;
-    int numBytes = numSamples * sizeof(float);
-    data.recordedSamples = (float *) malloc(numBytes);
+    int numSamples = nSeconds * sampleRate;
+    data.recordedSamples = array;
     data.frameIndex = 0;
     data.maxFrameIndex = numSamples;
     data.silenceFrameCount = 0;
     data.silenceDuration=silenceDuration;
+    data.sampleRate=sampleRate;
 
     vad = fvad_new();
     if (!vad) {
@@ -168,7 +126,7 @@ int record(const char *filename, const int nSeconds,
     if (err != paNoError) goto done;
 
     err = Pa_OpenDefaultStream(&stream, NUM_CHANNELS, 0, paFloat32,
-                               SAMPLE_RATE, FRAMES_PER_BUFFER,
+                               sampleRate, FRAMES_PER_BUFFER,
                                recordCallback, &data);
     if (err != paNoError) goto done;
 
@@ -186,27 +144,8 @@ int record(const char *filename, const int nSeconds,
     err = Pa_CloseStream(stream);
     if (err != paNoError) goto done;
 
-    // Save recorded audio to file
-    int recordedSamples = data.frameIndex;
-    FILE *file = fopen(filename, "wb");
-    if (!file) {
-        printf("Error: could not open file for writing.\n");
-        goto done;
-    }
-    writeWavHeader(file, SAMPLE_RATE, NUM_CHANNELS, recordedSamples);
-    
-    // Convert float samples to int16_t samples
-    int16_t *intSamples = (int16_t *) malloc(recordedSamples * sizeof(int16_t));
-    for (int i = 0; i < recordedSamples; i++) {
-        intSamples[i] = (int16_t) (data.recordedSamples[i] * 32767.0f);
-    }
-    fwrite(intSamples, sizeof(int16_t), recordedSamples, file);
-    fclose(file);
-    free(intSamples);
-    printf("Recording saved to %s.\n", filename);
 done:
     Pa_Terminate();
-    if (data.recordedSamples) free(data.recordedSamples);
     if (err != paNoError) {
         fprintf(stderr, "An error occurred: %s\n", Pa_GetErrorText(err));
         return -1;

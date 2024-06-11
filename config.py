@@ -13,9 +13,10 @@ RECORDINGS_DIR = f"{DATA_PATH}/recordings"
 """TRANSCRIBE"""
 
 """RECORDING"""
+SAMPLE_RATE=16000
 RECORD_LENGTH = 15  # the length of the recording to use, ignoring silence
 SILENCE_LENGTH = 1  # length of silence before cutting recording
-VAD_MODE = 2  # this goes from 0->3, see here: https://github.com/dpirch/libfvad/blob/master/include/fvad.h#L52
+VAD_MODE = 3  # this goes from 0->3, see here: https://github.com/dpirch/libfvad/blob/master/include/fvad.h#L52
 """RECORDING"""
 
 """WHISPER"""

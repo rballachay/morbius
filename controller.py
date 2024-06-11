@@ -1,5 +1,5 @@
-from src.language.transcribe import listen_transcribe
-from src.language.whisper import Whisper
+from src.language.transcribe import Whisper, listen_transcribe
+from src.file_utils import timing_decorator
 from config import RASA_MODEL_PATH, RASA_ACTIONS_PATH, LOG_PATH, RASA_PORT, ACTIONS_PORT
 import subprocess
 import time
@@ -164,6 +164,7 @@ class Conversation:
 
         self.state = True
 
+    @timing_decorator
     def __call__(self, message):
 
         url = self.rasa_url + "/webhooks/rest/webhook"

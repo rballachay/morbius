@@ -1,6 +1,7 @@
 import os
 import requests
-
+import time
+from functools import wraps
 
 def download_file(url, filename):
     """Download file (usually model) from url to local filename with
@@ -34,3 +35,14 @@ def download_file(url, filename):
             pass
 
         return False
+
+def timing_decorator(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"Function '{func.__name__}' executed in {elapsed_time:.4f} seconds")
+        return result
+    return wrapper
