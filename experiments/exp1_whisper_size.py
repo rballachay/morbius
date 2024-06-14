@@ -1,5 +1,7 @@
 from src.language.transcribe import Whisper
 
+def __parse_domain(file='data/rasa/domain.yml'):
+
 def run():
     pass
 
