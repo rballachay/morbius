@@ -10,6 +10,8 @@
 
 # ignore pytorch files because we dont have the space 
 *.pth
+*.onnx
+*.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

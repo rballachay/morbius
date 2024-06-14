@@ -2,6 +2,7 @@ from config import ACTIVE_TTS, TTS_MODELS
 from src.language.tts.fast_speech import FastSpeech
 from src.language.tts.styleTTS2 import StyleTTS2
 from src.language.tts.espeak import ESpeak
+from src.language.tts.nix_tts import NixTTS
 import pyaudio
 import numpy as np
 
@@ -16,6 +17,8 @@ class TextToSpeech:
             self.model=FastSpeech()
         elif ACTIVE_TTS=='espeak':
             self.model=ESpeak()
+        elif ACTIVE_TTS=='nix_tts':
+            self.model = NixTTS()
 
         self.pyaudio = pyaudio.PyAudio()
         

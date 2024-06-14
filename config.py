@@ -41,8 +41,8 @@ ACTIONS_PORT = 5055
 
 # this is the active model for text-to-speech.
 """TTS CONFIG"""
-ACTIVE_TTS='espeak' # also can be fast_speech
-TTS_MODELS=['styleTTS2','fast_speech','espeak']
+ACTIVE_TTS='nix_tts' # also can be fast_speech
+TTS_MODELS=['styleTTS2','fast_speech','espeak','nix_tts']
 """TTS CONFIG"""
 
 """FASTSPEECH"""
@@ -57,3 +57,7 @@ FAST_MODEL_PATH='models/fastspeech-model.pth.tar'
 LJ_CONFIG="models/LJSpeech/config.yml"
 LJ_MODEL="models/LJSpeech/epoch_2nd_00100.pth"
 """STYLETTS2"""
+
+"""NIX_TTS"""
+NIX_TTS_MODEL="models/nix-ljspeech-deterministic-v0.1"
+"""NIX_TTS"""
