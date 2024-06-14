@@ -1,0 +1,2557 @@
+size,wer,speed,quotes,nwords,class
+tiny,0.0,0.8829498291015625,and sleep,2,FasterWhisper
+tiny,0.0,0.8693292140960693,"sleep, thank you",3,FasterWhisper
+tiny,0.0,0.6034600734710693,You go to sleep now,5,FasterWhisper
+tiny,1.0,1.720750093460083,sleep,1,FasterWhisper
+tiny,0.0,0.5518820285797119,go to sleep,3,FasterWhisper
+tiny,0.0,0.6290619373321533,power down,2,FasterWhisper
+tiny,0.0,0.6240808963775635,power off,2,FasterWhisper
+tiny,0.0,0.6061728000640869,sleep for a while,4,FasterWhisper
+tiny,0.0,0.662773847579956,sleep for a bit,4,FasterWhisper
+tiny,1.0,0.6441171169281006,let's sleep,2,FasterWhisper
+tiny,0.0,0.5847620964050293,go to power-saving mode,5,FasterWhisper
+tiny,0.0,0.5734179019927979,take a nap,3,FasterWhisper
+tiny,3.0,0.5978908538818359,suspend,1,FasterWhisper
+tiny,0.0,0.7722702026367188,ignore my words from now on,6,FasterWhisper
+tiny,0.0,0.6914150714874268,hibernate,1,FasterWhisper
+tiny,0.5,0.5689828395843506,power nap,2,FasterWhisper
+tiny,0.3333333333333333,0.5933492183685303,power-saving state,3,FasterWhisper
+tiny,0.0,0.6546039581298828,okay thats enough now thank you,6,FasterWhisper
+tiny,0.0,0.610133171081543,go to bed now,4,FasterWhisper
+tiny,0.6666666666666666,0.6649339199066162,"bed time, robot",3,FasterWhisper
+tiny,0.0,0.5570170879364014,time to sleep,3,FasterWhisper
+tiny,0.0,0.8483676910400391,"nap time, robot",3,FasterWhisper
+tiny,0.0,1.227046251296997,hibernate for now please ,4,FasterWhisper
+tiny,inf,0.957097053527832,,0,FasterWhisper
+tiny,0.0,1.1868178844451904,wait for a bit,4,FasterWhisper
+tiny,0.3333333333333333,0.5359699726104736,wait a sec,3,FasterWhisper
+tiny,1.0,0.5604350566864014,wait,1,FasterWhisper
+tiny,0.0,0.5643231868743896,Wait a second,3,FasterWhisper
+tiny,0.0,0.5618700981140137,wait for me,3,FasterWhisper
+tiny,0.0,0.6634230613708496,let's take a break,4,FasterWhisper
+tiny,0.0,0.5961692333221436,hold on a second,4,FasterWhisper
+tiny,0.0,0.5528140068054199,pause for a moment,4,FasterWhisper
+tiny,0.0,0.6085770130157471,stop for now,3,FasterWhisper
+tiny,0.0,0.6489248275756836,let's pause here,3,FasterWhisper
+tiny,0.0,0.6253957748413086,take a breather,3,FasterWhisper
+tiny,0.0,1.0448200702667236,let's slow down for a bit,6,FasterWhisper
+tiny,0.0,0.5588338375091553,put a pin in it,5,FasterWhisper
+tiny,0.0,0.5827479362487793,let's pause and regroup,4,FasterWhisper
+tiny,0.0,0.4939899444580078,hold your horses,3,FasterWhisper
+tiny,0.5,0.5445451736450195,let's take a timeout,4,FasterWhisper
+tiny,0.0,0.5991289615631104,let's pause and come back later,6,FasterWhisper
+tiny,0.0,0.503021240234375,stop what you're doing,4,FasterWhisper
+tiny,0.0,0.5073168277740479,let's take a short intermission,5,FasterWhisper
+tiny,0.0,0.4938318729400635,Let's take a break.,4,FasterWhisper
+tiny,0.0,0.5630309581756592,Pause for a bit.,4,FasterWhisper
+tiny,0.0,0.5091769695281982,Hold on a moment.,4,FasterWhisper
+tiny,0.0,0.49610328674316406,Let's regroup.,2,FasterWhisper
+tiny,0.0,0.6345438957214355,Let's take a breather.,4,FasterWhisper
+tiny,0.3333333333333333,0.5769309997558594,Let's halt temporarily.,3,FasterWhisper
+tiny,0.0,0.5157887935638428,Let's take a recess.,4,FasterWhisper
+tiny,0.0,0.4964721202850342,Let's reflect briefly.,3,FasterWhisper
+tiny,0.6666666666666666,0.5581700801849365,Take a timeout.,3,FasterWhisper
+tiny,0.0,0.5706789493560791,Let's rest up.,3,FasterWhisper
+tiny,0.0,0.5578978061676025,Let's come back later.,4,FasterWhisper
+tiny,0.0,0.5433039665222168,Put it aside for now.,5,FasterWhisper
+tiny,0.0,0.5366959571838379,Hold off a bit.,4,FasterWhisper
+tiny,0.0,0.5226848125457764,Take a short break.,4,FasterWhisper
+tiny,0.0,0.5292341709136963,Let's refocus.,2,FasterWhisper
+tiny,0.0,0.48426198959350586,Take a hiatus.,3,FasterWhisper
+tiny,0.3333333333333333,0.5418050289154053,Take a breather.,3,FasterWhisper
+tiny,0.0,0.5235021114349365,Put it on hold.,4,FasterWhisper
+tiny,0.0,0.5401899814605713,Take a quick pause.,4,FasterWhisper
+tiny,0.0,0.6500520706176758,Let's assess briefly.,3,FasterWhisper
+tiny,0.0,0.42305684089660645,"No, stop.",2,FasterWhisper
+tiny,0.0,0.4196012020111084,Hey robot stop,3,FasterWhisper
+tiny,0.0,0.4250071048736572,stop now,2,FasterWhisper
+tiny,0.0,0.48167991638183594,"stop, stop, stop",3,FasterWhisper
+tiny,0.0,0.4229469299316406,stop for a while,4,FasterWhisper
+tiny,0.0,0.39029717445373535,hold on,2,FasterWhisper
+tiny,0.25,0.4365088939666748,hold on a sec,4,FasterWhisper
+tiny,inf,0.4003438949584961,,0,FasterWhisper
+tiny,0.0,0.45411205291748047,please continue,2,FasterWhisper
+tiny,0.0,0.39385414123535156,let's continue,2,FasterWhisper
+tiny,0.0,0.42995214462280273,pick up where we left off,6,FasterWhisper
+tiny,0.0,0.42316603660583496,let's get back to it,5,FasterWhisper
+tiny,0.0,0.390761137008667,get back,2,FasterWhisper
+tiny,1.0,0.40230822563171387,restart,1,FasterWhisper
+tiny,0.0,0.4259309768676758,restart our journey,3,FasterWhisper
+tiny,0.0,0.3867778778076172,carry on,2,FasterWhisper
+tiny,0.0,0.3914151191711426,keep going,2,FasterWhisper
+tiny,0.0,0.45542311668395996,keep moving,2,FasterWhisper
+tiny,0.0,0.4771599769592285,keep walking,2,FasterWhisper
+tiny,0.0,0.4133749008178711,don't stop now,3,FasterWhisper
+tiny,0.0,0.3816237449645996,continue from here,3,FasterWhisper
+tiny,0.0,0.4147927761077881,let's move forward,3,FasterWhisper
+tiny,0.0,0.43279218673706055,back to business,3,FasterWhisper
+tiny,0.0,0.39623498916625977,let's keep working,3,FasterWhisper
+tiny,0.0,0.40310215950012207,continue what you were doing,5,FasterWhisper
+tiny,0.0,0.42760324478149414,let's finish what we started,5,FasterWhisper
+tiny,0.0,0.4314112663269043,let's resume our previous task,5,FasterWhisper
+tiny,0.0,0.48143601417541504,Proceed with the task.,4,FasterWhisper
+tiny,0.0,0.645927906036377,proceed,1,FasterWhisper
+tiny,0.0,0.6361029148101807,proceed with your plan,4,FasterWhisper
+tiny,0.0,0.5543003082275391,Resume our progress.,3,FasterWhisper
+tiny,2.0,1.5026307106018066,resume,1,FasterWhisper
+tiny,0.0,0.4965651035308838,resume our plan,3,FasterWhisper
+tiny,0.0,0.5035519599914551,Pick up where we left off.,6,FasterWhisper
+tiny,0.0,0.4552288055419922,Keep going from here.,4,FasterWhisper
+tiny,0.0,0.4589817523956299,Carry on with the plan.,5,FasterWhisper
+tiny,0.0,0.4261648654937744,Get back to the task.,5,FasterWhisper
+tiny,0.0,0.3865180015563965,Continue the journey.,3,FasterWhisper
+tiny,0.0,0.4489450454711914,Pick up the thread.,4,FasterWhisper
+tiny,0.0,0.3848419189453125,Keep moving forward.,3,FasterWhisper
+tiny,0.0,0.4049952030181885,Back to business.,3,FasterWhisper
+tiny,0.0,0.4247860908508301,Restart our efforts.,3,FasterWhisper
+tiny,0.0,0.40161895751953125,Continue from this point.,4,FasterWhisper
+tiny,0.0,0.3917708396911621,Don't lose momentum.,3,FasterWhisper
+tiny,0.0,0.42188119888305664,Carry on the project.,4,FasterWhisper
+tiny,0.0,0.3959190845489502,Carry on,2,FasterWhisper
+tiny,0.0,0.4439408779144287,Proceed with the plan.,4,FasterWhisper
+tiny,0.0,0.45128512382507324,Resume our previous task.,4,FasterWhisper
+tiny,0.0,0.42400574684143066,Keep pushing forward.,3,FasterWhisper
+tiny,0.0,0.4421360492706299,Continue from where you were.,5,FasterWhisper
+tiny,0.0,0.3662750720977783,Go on,2,FasterWhisper
+tiny,0.0,0.369121789932251,Move on,2,FasterWhisper
+tiny,3.0,0.3993568420410156,Go,1,FasterWhisper
+tiny,2.0,0.43583011627197266,Move,1,FasterWhisper
+tiny,0.0,0.38654303550720215,Move forward,2,FasterWhisper
+tiny,0.0,0.4120500087738037,Resume the navigation,3,FasterWhisper
+tiny,0.0,0.3900129795074463,"Continue, go back",3,FasterWhisper
+tiny,0.0,0.384340763092041,continue,1,FasterWhisper
+tiny,0.0,0.9888520240783691,continue what you're doing,4,FasterWhisper
+tiny,0.0,0.7032270431518555,So let's start!,3,FasterWhisper
+tiny,inf,0.5468728542327881,,0,FasterWhisper
+tiny,0.0,0.4106571674346924,"Hello, robots.",2,FasterWhisper
+tiny,0.0,0.39946579933166504,hey robot,2,FasterWhisper
+tiny,0.0,0.4044058322906494,hello robot,2,FasterWhisper
+tiny,0.0,0.40236806869506836,"hello, hello",2,FasterWhisper
+tiny,0.0,0.3898029327392578,Hello?,1,FasterWhisper
+tiny,0.0,0.40385985374450684,"hello, robot",2,FasterWhisper
+tiny,0.0,0.4783768653869629,hi robot,2,FasterWhisper
+tiny,0.0,0.45818591117858887,good morning robot,3,FasterWhisper
+tiny,1.0,0.37178993225097656,morning,1,FasterWhisper
+tiny,0.0,0.40553712844848633,good evening robot,3,FasterWhisper
+tiny,0.0,0.40776801109313965,moin robot,2,FasterWhisper
+tiny,0.0,0.3970601558685303,hey there,2,FasterWhisper
+tiny,0.0,0.4584052562713623,good afternoon robot,3,FasterWhisper
+tiny,0.5,0.47155094146728516,hello ruled b ut,4,FasterWhisper
+tiny,1.0,0.42961573600769043,hello,1,FasterWhisper
+tiny,1.0,1.2079050540924072,hi,1,FasterWhisper
+tiny,0.0,0.42499399185180664,Can you hear me,4,FasterWhisper
+tiny,0.0,0.41886019706726074,Can you hear me?,4,FasterWhisper
+tiny,0.0,0.4587211608886719,"hey there, how are you doing?",6,FasterWhisper
+tiny,0.0,0.45044922828674316,"good to see you again, robot",6,FasterWhisper
+tiny,0.0,0.4393012523651123,"hi, what's up?",3,FasterWhisper
+tiny,0.0,0.46767401695251465,"greetings, robot",2,FasterWhisper
+tiny,0.0,0.40402793884277344,"hello, nice to meet you",5,FasterWhisper
+tiny,0.0,0.45977330207824707,"hi there, how can I help you today?",8,FasterWhisper
+tiny,0.0,0.41648101806640625,"what's cracking, robot?",3,FasterWhisper
+tiny,0.0,0.4062511920928955,"yo, what's good?",3,FasterWhisper
+tiny,0.0,0.4227921962738037,"hiya, how's your day going?",5,FasterWhisper
+tiny,0.4,0.4193542003631592,"hello, how's life treating you?",5,FasterWhisper
+tiny,0.0,0.3906097412109375,"Hey there, stranger.",3,FasterWhisper
+tiny,1.0,0.4004521369934082,"G'day, robot.",2,FasterWhisper
+tiny,0.0,0.43530797958374023,"Salutations, my metal friend.",4,FasterWhisper
+tiny,0.0,0.4856889247894287,"Top of the morning to you, robot.",7,FasterWhisper
+tiny,0.0,0.39530181884765625,"Howdy, partner.",2,FasterWhisper
+tiny,1.5,0.40392613410949707,"Hola, robot.",2,FasterWhisper
+tiny,1.0,0.3944990634918213,"Good day, mate.",3,FasterWhisper
+tiny,1.0,0.3916008472442627,"Namaste, robot.",2,FasterWhisper
+tiny,1.0,0.3905980587005615,"Hello, sunshine.",2,FasterWhisper
+tiny,1.5,0.3899979591369629,"Aloha, robot.",2,FasterWhisper
+tiny,1.0,0.3841552734375,"Well, hello there.",3,FasterWhisper
+tiny,2.0,0.4074406623840332,"Sup, robot?",2,FasterWhisper
+tiny,0.75,0.3943169116973877,"Hey, how's it going?",4,FasterWhisper
+tiny,1.6666666666666667,0.46628522872924805,"Hey, what's happening?",3,FasterWhisper
+tiny,1.2,0.43390583992004395,"Good to see you, robot.",5,FasterWhisper
+tiny,0.8333333333333334,0.40760278701782227,"Hey, stranger, long time no see.",6,FasterWhisper
+tiny,1.0,0.3974130153656006,"Hey, how have you been?",5,FasterWhisper
+tiny,1.25,0.41315412521362305,"What's up, my friend?",4,FasterWhisper
+tiny,1.0,0.43073391914367676,"Hey, hope you're doing well.",5,FasterWhisper
+tiny,0.75,0.3907160758972168,"Yo, what's the word?",4,FasterWhisper
+tiny,0.3333333333333333,0.4056119918823242,"Hi, what's up?",3,FasterWhisper
+tiny,0.6666666666666666,0.36473703384399414,Hey. What's up?,3,FasterWhisper
+tiny,0.5,0.3978590965270996,wake up,2,FasterWhisper
+tiny,0.6666666666666666,0.3925900459289551,"wake up, robot",3,FasterWhisper
+tiny,1.6666666666666667,0.40530991554260254,please wake up,3,FasterWhisper
+tiny,1.0,0.3862271308898926,"Hey, can you hear me",5,FasterWhisper
+tiny,1.0,0.36916399002075195,HEAR,1,FasterWhisper
+tiny,inf,0.38896918296813965,,0,FasterWhisper
+tiny,1.0,1.2871606349945068,yes,1,FasterWhisper
+tiny,3.0,0.3859128952026367,yuh,1,FasterWhisper
+tiny,1.0,1.2774691581726074,"Yes, I do.",3,FasterWhisper
+tiny,2.0,0.3751039505004883,indeed,1,FasterWhisper
+tiny,1.5,0.3804960250854492,of course,2,FasterWhisper
+tiny,1.0,0.35519981384277344,that sounds good,3,FasterWhisper
+tiny,1.0,0.3861830234527588,yeah,1,FasterWhisper
+tiny,1.0,1.2467219829559326,right,1,FasterWhisper
+tiny,4.0,0.3936939239501953,yep,1,FasterWhisper
+tiny,1.0,0.4116830825805664,uh-huh,2,FasterWhisper
+tiny,1.0,0.3810858726501465,correct,1,FasterWhisper
+tiny,2.5,0.4025609493255615,that's correct,2,FasterWhisper
+tiny,1.0,0.35964012145996094,"Oh, this is very quick.",5,FasterWhisper
+tiny,1.0,0.3825099468231201,absolutely,1,FasterWhisper
+tiny,1.0,0.3840324878692627,affirmative,1,FasterWhisper
+tiny,1.0,0.36658716201782227,affirmed,1,FasterWhisper
+tiny,2.0,0.39563703536987305,definitely,1,FasterWhisper
+tiny,1.0,0.38224196434020996,for sure,2,FasterWhisper
+tiny,2.0,0.3727748394012451,sure,1,FasterWhisper
+tiny,1.5,0.4561316967010498,you bet,2,FasterWhisper
+tiny,1.0,0.4020981788635254,without a doubt,3,FasterWhisper
+tiny,1.0,0.41367006301879883,positively,1,FasterWhisper
+tiny,2.0,0.46544694900512695,positive,1,FasterWhisper
+tiny,2.0,0.40796327590942383,agreed,1,FasterWhisper
+tiny,1.0,0.37700414657592773,I agree,2,FasterWhisper
+tiny,1.5,0.3937070369720459,sure thing,2,FasterWhisper
+tiny,1.0,0.45226621627807617,"Yes, that's correct.",3,FasterWhisper
+tiny,2.0,0.3935408592224121,Absolutely.,1,FasterWhisper
+tiny,1.0,0.3762638568878174,That's right.,2,FasterWhisper
+tiny,2.0,0.41133618354797363,I agree.,2,FasterWhisper
+tiny,1.0,0.3872802257537842,You're spot on.,3,FasterWhisper
+tiny,3.0,0.38782596588134766,Precisely.,1,FasterWhisper
+tiny,1.0,0.3758101463317871,I concur.,2,FasterWhisper
+tiny,2.0,0.3863868713378906,Indeed.,1,FasterWhisper
+tiny,6.0,0.42713212966918945,Correctamundo.,1,FasterWhisper
+tiny,0.8333333333333334,0.3708350658416748,That's exactly what I was thinking.,6,FasterWhisper
+tiny,1.0,0.3908650875091553,exactly,1,FasterWhisper
+tiny,1.0,0.46080803871154785,"yeah, exactly",2,FasterWhisper
+tiny,1.0,0.5171582698822021,"oh, yes",2,FasterWhisper
+tiny,1.0,0.36923789978027344,"emm, yes",2,FasterWhisper
+tiny,1.0,0.3910391330718994,Roger that.,2,FasterWhisper
+tiny,3.0,0.416461706161499,Affirmative.,1,FasterWhisper
+tiny,1.0,0.44541215896606445,You got it.,3,FasterWhisper
+tiny,1.0,0.3923618793487549,No doubt about it.,4,FasterWhisper
+tiny,1.3333333333333333,0.414776086807251,Right you are.,3,FasterWhisper
+tiny,0.75,0.38373708724975586,Sounds good to me.,4,FasterWhisper
+tiny,0.5,0.37729716300964355,sound good,2,FasterWhisper
+tiny,2.5,0.4003007411956787,sound great,2,FasterWhisper
+tiny,1.0,0.38890504837036133,I'm with you on that.,5,FasterWhisper
+tiny,0.3333333333333333,0.3875730037689209,You're absolutely right.,3,FasterWhisper
+tiny,1.5,0.45589613914489746,you're right,2,FasterWhisper
+tiny,1.0,0.387315034866333,That's the ticket.,3,FasterWhisper
+tiny,0.3333333333333333,0.3601548671722412,"Bingo, that's it.",3,FasterWhisper
+tiny,1.0,0.3737800121307373,that's it,2,FasterWhisper
+tiny,1.0,0.3643152713775635,bingo,1,FasterWhisper
+tiny,1.0,0.37531590461730957,perfect,1,FasterWhisper
+tiny,1.0,0.37569403648376465,great,1,FasterWhisper
+tiny,1.0,0.35597705841064453,amazing,1,FasterWhisper
+tiny,1.0,0.35770082473754883,wonderful,1,FasterWhisper
+tiny,3.0,0.38564300537109375,Cool.,1,FasterWhisper
+tiny,1.0,0.418255090713501,Go for it.,3,FasterWhisper
+tiny,2.0,0.38843512535095215,Okay. Okay.,2,FasterWhisper
+tiny,1.0,0.38483405113220215,thats what i said,4,FasterWhisper
+tiny,1.0,0.3687739372253418,you heard that right,4,FasterWhisper
+tiny,1.0,0.3794398307800293,spot on,2,FasterWhisper
+tiny,1.5,0.3885011672973633,close enough ,2,FasterWhisper
+tiny,1.6666666666666667,0.41518521308898926,"sure, thats close  ",3,FasterWhisper
+tiny,1.0,0.3783299922943115,i think thats what was said,6,FasterWhisper
+tiny,1.5,0.369534969329834,"basically, yeah",2,FasterWhisper
+tiny,1.0,0.37354207038879395,you understood correctly ,3,FasterWhisper
+tiny,0.0,0.37535905838012695,that's it ,2,FasterWhisper
+tiny,inf,0.35564589500427246,,0,FasterWhisper
+tiny,2.0,0.3651618957519531,no,1,FasterWhisper
+tiny,1.0,0.354295015335083,nah,1,FasterWhisper
+tiny,1.0,0.35136890411376953,negative,1,FasterWhisper
+tiny,1.0,0.36695003509521484,false,1,FasterWhisper
+tiny,1.0,1.352219820022583,don't,1,FasterWhisper
+tiny,1.0,0.3626861572265625,nay,1,FasterWhisper
+tiny,1.0,0.3984866142272949,never,1,FasterWhisper
+tiny,2.0,0.40180420875549316,never ever,2,FasterWhisper
+tiny,0.75,0.3655831813812256,I don't think so,4,FasterWhisper
+tiny,0.6666666666666666,0.37418103218078613,don't like that,3,FasterWhisper
+tiny,1.0,0.3615601062774658,don't do this,3,FasterWhisper
+tiny,1.0,0.35513806343078613,no way,2,FasterWhisper
+tiny,1.0,0.35869312286376953,not really,2,FasterWhisper
+tiny,1.5,0.39511799812316895,I disagree,2,FasterWhisper
+tiny,0.3333333333333333,0.3699216842651367,that's not true,3,FasterWhisper
+tiny,0.5,0.3671150207519531,Not true,2,FasterWhisper
+tiny,1.0,0.3579740524291992,Not correct,2,FasterWhisper
+tiny,2.0,0.4531707763671875,Incorrect,1,FasterWhisper
+tiny,1.0,0.357388973236084,Not right,2,FasterWhisper
+tiny,1.3333333333333333,0.4213681221008301,not at all,3,FasterWhisper
+tiny,0.75,0.3642301559448242,"I'm sorry, but no",4,FasterWhisper
+tiny,0.5,0.37268877029418945,"unfortunately, no",2,FasterWhisper
+tiny,2.5,0.38930797576904297,"sorry, no",2,FasterWhisper
+tiny,0.8,0.3500096797943115,that doesn't work for me,5,FasterWhisper
+tiny,1.0,0.41324329376220703,won't work,2,FasterWhisper
+tiny,0.75,0.3838677406311035,"no, that won't work",4,FasterWhisper
+tiny,1.0,0.341094970703125,"no, you're wrong",3,FasterWhisper
+tiny,6.0,0.4109969139099121,wrong!,1,FasterWhisper
+tiny,1.0,0.3797271251678467,I can't say yes to that,6,FasterWhisper
+tiny,1.0,0.37987613677978516,that's not what I want,5,FasterWhisper
+tiny,1.0,0.36487793922424316,I'm afraid not,3,FasterWhisper
+tiny,1.0,0.36498403549194336,I must decline,3,FasterWhisper
+tiny,5.0,0.41050219535827637,declined,1,FasterWhisper
+tiny,1.0,0.3731389045715332,"Sorry, but that's not possible",5,FasterWhisper
+tiny,1.4,0.38390398025512695,I can't agree with that,5,FasterWhisper
+tiny,0.7142857142857143,0.35037827491760254,I'm going to have to say no,7,FasterWhisper
+tiny,2.0,0.3819427490234375,I say no,3,FasterWhisper
+tiny,0.8571428571428571,0.34731531143188477,I don't think that's a good idea,7,FasterWhisper
+tiny,1.0,0.3480660915374756,I respectfully decline,3,FasterWhisper
+tiny,0.6666666666666666,0.3684718608856201,That's a negative,3,FasterWhisper
+tiny,2.0,0.3687448501586914,"No, negative",2,FasterWhisper
+tiny,0.75,0.34835386276245117,That's simply not true,4,FasterWhisper
+tiny,0.3333333333333333,0.3495779037475586,I'm not convinced,3,FasterWhisper
+tiny,1.3333333333333333,0.35066699981689453,I'm not interested,3,FasterWhisper
+tiny,1.25,0.37152910232543945,I don't like this,4,FasterWhisper
+tiny,1.0,0.35421085357666016,I'm afraid I have to disagree,6,FasterWhisper
+tiny,1.0,0.3500978946685791,Not in a million years,5,FasterWhisper
+tiny,1.5,0.35869884490966797,No chance,2,FasterWhisper
+tiny,1.3333333333333333,0.3692762851715088,That's not happening,3,FasterWhisper
+tiny,1.0,0.3640589714050293,That's out of the question,5,FasterWhisper
+tiny,1.25,0.3737468719482422,I can't support that,4,FasterWhisper
+tiny,1.0,0.35144901275634766,I'm not willing to do that,6,FasterWhisper
+tiny,1.25,0.3658299446105957,I don't believe so,4,FasterWhisper
+tiny,1.0,0.3372468948364258,I have to reject that idea,6,FasterWhisper
+tiny,2.0,0.3525969982147217,Rejected,1,FasterWhisper
+tiny,1.0,0.3557307720184326,I reject,2,FasterWhisper
+tiny,0.5,0.35210227966308594,not good,2,FasterWhisper
+tiny,2.0,0.3838071823120117,not very good,3,FasterWhisper
+tiny,0.8333333333333334,0.35567522048950195,that sounds like a bad plan,6,FasterWhisper
+tiny,1.0,0.34107017517089844,that's bad,2,FasterWhisper
+tiny,2.0,0.3572380542755127,bad,1,FasterWhisper
+tiny,1.0,0.3588132858276367,heck no,2,FasterWhisper
+tiny,1.0,0.3447129726409912,What no more,3,FasterWhisper
+tiny,1.0,0.35630226135253906,Oh shoot,2,FasterWhisper
+tiny,1.5,0.35781311988830566,No! Stop!,2,FasterWhisper
+tiny,1.3333333333333333,0.36017704010009766,"no, you misunderstood",3,FasterWhisper
+tiny,0.75,0.33892202377319336,that's not quite right,4,FasterWhisper
+tiny,0.0,0.3399810791015625,not about ,2,FasterWhisper
+tiny,inf,0.9570879936218262,,0,FasterWhisper
+tiny,1.0,0.335493803024292, 1.5% 1.5% 1.5% 1.5% 1.5% 1.5%,6,FasterWhisper
+tiny,21.0,2.5440762042999268, You,1,FasterWhisper
+tiny,1.1428571428571428,0.4035210609436035, 1.5G 2.5G 1.5G 1.5G 1.5G 1.5G 1.5G,7,FasterWhisper
+tiny,0.0,0.41176295280456543, Let's do it right. Let's do it right.,8,FasterWhisper
+tiny,inf,1.3107991218566895,,0,FasterWhisper
+tiny,inf,0.4007229804992676,............,0,FasterWhisper
+tiny,1.0,0.468966007232666,what the heck so much someone goes tears,8,FasterWhisper
+tiny,1.0,0.39311885833740234,"Um, Um, um, uh, um, um, um,",7,FasterWhisper
+tiny,1.0,0.41612958908081055,activate. An X.,3,FasterWhisper
+tiny,1.0,0.37316203117370605,U grossity hg,3,FasterWhisper
+tiny,1.3333333333333333,0.3827641010284424,I knew it.,3,FasterWhisper
+tiny,1.0,0.35495710372924805,The I not not,4,FasterWhisper
+tiny,3.5,0.43897008895874023,Just like.,2,FasterWhisper
+tiny,1.0,0.3856840133666992,But. But. But. But. But. But.,6,FasterWhisper
+tiny,5.333333333333333,0.5064561367034912,is eating banjim.,3,FasterWhisper
+tiny,0.9375,0.42697596549987793,"Oh, I don't know. I don't know what to do. I don't know what to do.",16,FasterWhisper
+tiny,3.8,0.5753910541534424,Denise uhhhhh arguing what and,5,FasterWhisper
+tiny,1.0,0.5460717678070068,"I am not Beau, very good woman I am even after sitting on the stage So I usually need",19,FasterWhisper
+tiny,1.0,0.42251086235046387,"Yeah, I thought I'm here. What you were here, what you were in English.",14,FasterWhisper
+tiny,1.0,0.39932703971862793,Pen enthusiasm American,3,FasterWhisper
+tiny,1.0,1.431852102279663,"No, I Twenty.",3,FasterWhisper
+tiny,5.0,0.38700008392333984,a,1,FasterWhisper
+tiny,1.0,0.48816895484924316,You have split out here.,5,FasterWhisper
+tiny,4.4,0.6815543174743652,Now we'll raise this hole.,5,FasterWhisper
+tiny,0.9565217391304348,0.35735416412353516,"I think I will follow up with Sana If you like this version of old-school favourite, I'll apply it in B Hafez",23,FasterWhisper
+tiny,1.0,0.35710716247558594,you,1,FasterWhisper
+tiny,inf,0.41258811950683594,...,0,FasterWhisper
+tiny,1.7142857142857142,0.5462121963500977,"You know, we don't shoot our ways",7,FasterWhisper
+tiny,1.0,0.4201078414916992,It's not so bad. It's not so bad. It's not so bad.,12,FasterWhisper
+tiny,2.25,0.5108819007873535,I can't wait a while for this party,8,FasterWhisper
+tiny,0.8947368421052632,0.43269991874694824,"I think I'm going to leave the link back. Well, maybe you won't have to go get the plan.",19,FasterWhisper
+tiny,1.0,0.38442492485046387,"No, no, she didn't touch the phone at the end.",10,FasterWhisper
+tiny,1.0,0.34234118461608887,This is aweaa,3,FasterWhisper
+tiny,13.0,0.4358828067779541,Silence.,1,FasterWhisper
+tiny,0.9230769230769231,0.3663780689239502,"Egypt would stand in a potion that was stroke, and suppose to die.",13,FasterWhisper
+tiny,1.0,0.42540788650512695, And you are.,3,FasterWhisper
+tiny,1.0,0.3557701110839844, eSR for Fl,3,FasterWhisper
+tiny,1.0,0.38044309616088867, Passion love. When.,3,FasterWhisper
+tiny,1.6666666666666667,0.36405205726623535, That's Psy dealers.,3,FasterWhisper
+tiny,1.8,0.4246480464935303, And I got over there.,5,FasterWhisper
+tiny,1.0,0.42995309829711914, When is the year Motor pick upimage,7,FasterWhisper
+tiny,1.0,0.4052858352661133,I'll apply it in B Hafez,6,FasterWhisper
+tiny,1.0,0.4313018321990967," Well, good, good. You can.",5,FasterWhisper
+tiny,1.0,0.42584705352783203," Okay. Oh, it's saying something.",5,FasterWhisper
+tiny,1.25,8.273638248443604," So, that does it.",4,FasterWhisper
+tiny,1.0,0.3414483070373535,"But, uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh,",11,FasterWhisper
+tiny,4.0,0.41404080390930176, there.,1,FasterWhisper
+tiny,1.0,1.2141578197479248,Pause. Pause. Pause. Pause. Pause.,5,FasterWhisper
+tiny,2.0,2.735233783721924, A,1,FasterWhisper
+tiny,1.5,0.3866541385650635,Zhuangzong hat,2,FasterWhisper
+tiny,2.5,0.40165090560913086," Oh, oh.",2,FasterWhisper
+tiny,7.25,0.6164302825927734,Silence. Silence. Silence. Silence.,4,FasterWhisper
+tiny,0.9655172413793104,0.4247753620147705, There is a question. I think we have to get started. There is a question. I think we have to get started. I think we have to get started.,29,FasterWhisper
+tiny,1.0,0.3668539524078369, What is the purpose of evidence that Application and fined,10,FasterWhisper
+tiny,1.0,0.3693208694458008, My tasks are there.,4,FasterWhisper
+tiny,1.0,0.38844895362854004, I think it's all.,4,FasterWhisper
+tiny,1.0,0.392009973526001, ready. So I think like,5,FasterWhisper
+tiny,2.5,3.507153034210205, uh here hero but,4,FasterWhisper
+tiny,1.0,0.35690808296203613,and and and and and and and,7,FasterWhisper
+tiny,2.0,0.3685147762298584, Three.,1,FasterWhisper
+tiny,1.0,0.3764181137084961, You What?,2,FasterWhisper
+tiny,3.0,0.3635997772216797,AMazz,1,FasterWhisper
+tiny,1.0,0.3554069995880127,Give me good.,3,FasterWhisper
+tiny,1.0,0.3553049564361572,We can.,2,FasterWhisper
+tiny,2.0,0.37050437927246094,I,1,FasterWhisper
+tiny,3.0,0.41103482246398926,Or.,1,FasterWhisper
+tiny,4.0,0.389117956161499,".\""\"" diesel",1,FasterWhisper
+tiny,1.75,0.39634108543395996,Click the subscribe button.,4,FasterWhisper
+tiny,1.0,0.3881967067718506,Do you wish to get a job?,7,FasterWhisper
+tiny,1.4,0.4411129951477051, is is is is is,5,FasterWhisper
+tiny,1.5714285714285714,0.48512983322143555,"One, two, three, and one, two, three.",7,FasterWhisper
+tiny,1.0,0.36318325996398926,I'm worried. Do you wish to find a way to follow? ,11,FasterWhisper
+tiny,3.0,0.3587839603424072, cameras.,1,FasterWhisper
+tiny,2.3333333333333335,0.3807229995727539,Thanks for watching!,3,FasterWhisper
+tiny,3.4285714285714284,0.5863139629364014,Do you want to take that one?,7,FasterWhisper
+tiny,1.0,0.4014711380004883,And reality is really good. And we talk about D because we think about Michael Andy because Michael soci has amazing backgrounds and,23,FasterWhisper
+tiny,1.0,0.3676581382751465,Can you take me to a...,6,FasterWhisper
+tiny,12.5,0.5710060596466064, Another question?,2,FasterWhisper
+tiny,0.84,0.4340229034423828,"And I'm going to turn it over to Frank. Frank, second comment. That's our new channel. I hope this channel is so safe. Thank you.",25,FasterWhisper
+tiny,1.0,0.4214608669281006,Welcome to our home. Thanks a lot. Thank you.,9,FasterWhisper
+tiny,1.2857142857142858,0.46715331077575684,"for this performance. One, two, three, four.",7,FasterWhisper
+tiny,1.0,0.3801088333129883,"One, two, three, four, three, four, five, six, seven, eight.",10,FasterWhisper
+tiny,1.6,0.37984776496887207,So I'm taking the disorder.,5,FasterWhisper
+tiny,4.125,0.6496620178222656,What kind of a channel do you want?,8,FasterWhisper
+tiny,1.0625,0.6233730316162109,"In the next refinery, you can move back and forth to be the year-to-year, Sidney premiere 2018 P It will be Colorado years ago, and meaning from Metz and 199thiggs.",32,FasterWhisper
+tiny,0.9459459459459459,0.36951184272766113,"dataset on the internet or that if you can small channel where you have those targets to scan for, on the web, the URL dropout. I just want you to know that if you go into the",37,FasterWhisper
+tiny,2.8333333333333335,0.4626498222351074,I don't know where to land.,6,FasterWhisper
+tiny,1.0,0.35521507263183594,Oh. to the next talk. What's your next talk? What's your next talk? What's your next talk?,17,FasterWhisper
+tiny,2.5,0.41962695121765137,I must be Bruce,4,FasterWhisper
+tiny,1.0,0.38263702392578125,"Oh Do it. Do it, or is it... but",9,FasterWhisper
+tiny,2.1666666666666665,0.4501030445098877,You don't wanna do anything Oh,6,FasterWhisper
+tiny,1.0,0.35558009147644043,He was looking for that space. There on top of that fence. Aww.,13,FasterWhisper
+tiny,1.0,0.3877730369567871,It's hard. ,2,FasterWhisper
+tiny,1.0,0.34635281562805176,There's FIRE,2,FasterWhisper
+tiny,1.0,1.1408250331878662,richi messus,2,FasterWhisper
+tiny,6.0,0.3652050495147705,ness,1,FasterWhisper
+tiny,1.0,0.34676194190979004,You want to try it on?,6,FasterWhisper
+tiny,2.3333333333333335,0.36512279510498047,bound sp Well...,3,FasterWhisper
+tiny,1.0,0.3973879814147949,I think that scale will be better,7,FasterWhisper
+tiny,0.8571428571428571,0.4114410877227783,I'll tell him I'm a pretty woman,7,FasterWhisper
+tiny,1.0,0.3452301025390625,I'm I'm I'm I'm I'm,5,FasterWhisper
+tiny,6.0,0.3628044128417969,Tear,1,FasterWhisper
+tiny,1.0,0.3305988311767578,So you run out of hardware.,6,FasterWhisper
+tiny,1.0,0.3549327850341797,quiet quiet,2,FasterWhisper
+tiny,7.0,0.37515902519226074,Fasterigion's,1,FasterWhisper
+tiny,1.3333333333333333,0.385361909866333,Sorry for the Sp Anna Pocket,6,FasterWhisper
+tiny,1.0,0.37787914276123047,I brake. This is the end of the year.,9,FasterWhisper
+tiny,1.25,0.40053796768188477,"As I said in their show, this is",8,FasterWhisper
+tiny,0.9090909090909091,0.3717331886291504,I see. I want to come for a time to hear.,11,FasterWhisper
+tiny,1.0,0.3537898063659668,I think play players can again recognize you!,8,FasterWhisper
+tiny,1.4,0.3916149139404297,This is the first Preview,5,FasterWhisper
+tiny,1.0,0.3793909549713135,"Andan's clea Yes, he heliced",5,FasterWhisper
+tiny,1.0,0.41904282569885254,Type in a A M C O i report,9,FasterWhisper
+tiny,1.8,0.38278985023498535,"Queda, Queda, Chica, Chica, hasa.",5,FasterWhisper
+tiny,0.8888888888888888,0.37755703926086426,Living without cost is a matter of spending time,9,FasterWhisper
+tiny,1.0,0.36211514472961426,"OK, listen to this one first time.",7,FasterWhisper
+tiny,1.0,0.3406040668487549,murmuring more murmuring,3,FasterWhisper
+tiny,3.5,0.40674519538879395,turments. chuckle,2,FasterWhisper
+tiny,1.2857142857142858,0.3978762626647949,ask government leaders and greetings of knowledge,7,FasterWhisper
+tiny,0.8888888888888888,0.3888819217681885,"So, if you want to work out really quickly.",9,FasterWhisper
+tiny,1.4,0.38262176513671875,So it said goal arrived.,5,FasterWhisper
+tiny,1.0,0.40354204177856445,"like for example, you want some information.",7,FasterWhisper
+tiny,1.0,0.35385918617248535,"One, two, one, two, one, two, one.",7,FasterWhisper
+tiny,1.4,0.39360713958740234,I think you guys might.,5,FasterWhisper
+tiny,1.0,0.3917100429534912,"Okay, make sure you have the blindfold on.",8,FasterWhisper
+tiny,1.0,0.320178747177124,dye ku voyage rotation,4,FasterWhisper
+tiny,8.0,0.377655029296875,Chinese,1,FasterWhisper
+tiny,1.0,0.33242011070251465,secondary research is a factor of executive purposes,8,FasterWhisper
+tiny,3.0,0.34154701232910156,D,1,FasterWhisper
+tiny,1.0,0.34781908988952637,Can it take...,3,FasterWhisper
+tiny,0.75,0.34678125381469727,Can you go to...,4,FasterWhisper
+tiny,1.0,0.3485848903656006,Go to a,3,FasterWhisper
+tiny,0.6666666666666666,0.3418130874633789, Take me to. ,3,FasterWhisper
+tiny,1.0,0.3394649028778076,Take,1,FasterWhisper
+tiny,1.0,0.38213586807250977,Take me,2,FasterWhisper
+tiny,0.75,0.33838677406311035,Take me to a,4,FasterWhisper
+tiny,1.0,0.34925389289855957,Go to,2,FasterWhisper
+tiny,0.6666666666666666,0.34815192222595215, Go to it.,3,FasterWhisper
+tiny,1.0,0.4310188293457031,Go to the right.,4,FasterWhisper
+tiny,9.333333333333334,0.8553299903869629,I need to. ,3,FasterWhisper
+tiny,1.0,0.4023730754852295,Sair This Port SofaONT Sair Sair Sair GB GA Sair GSaton resistance Sair CNN Sair SC FL Hole SC software Sair V AR product,24,FasterWhisper
+tiny,2.0,0.365250825881958,Trauma closes,2,FasterWhisper
+tiny,0.0,0.41191720962524414,to follow a normal.,4,FasterWhisper
+tiny,inf,0.44328808784484863,,0,FasterWhisper
+tiny,0.8571428571428571,0.526141881942749,Let's go to the  main waiting room ?,7,FasterWhisper
+tiny,0.6666666666666666,0.4718589782714844,I would like to go to the  waiting area .,9,FasterWhisper
+tiny,0.7777777777777778,0.4706699848175049,Could you please take me to the  rest area ?,9,FasterWhisper
+tiny,0.875,0.40490221977233887,"Ah, why don't you go to the  lounge ?",8,FasterWhisper
+tiny,0.7142857142857143,0.37996888160705566,Please go to the  patient waiting room ?,7,FasterWhisper
+tiny,1.1666666666666667,0.41608500480651855,Go straight to the  seating area ,6,FasterWhisper
+tiny,0.6666666666666666,0.40204596519470215,I need you to go to the  waiting room ,9,FasterWhisper
+tiny,0.875,0.36823606491088867,Can I follow you to the  patience lounge ,8,FasterWhisper
+tiny,1.4,0.39430880546569824,Where is the  sitting room ?,5,FasterWhisper
+tiny,1.125,0.46442508697509766,Rush over to the  room to wait in ,8,FasterWhisper
+tiny,0.9,0.4257931709289551,"I'd like you to go to the  lounge  please, robot",10,FasterWhisper
+tiny,0.9090909090909091,0.4168589115142822,I am going to follow you over to the  sitting area ,11,FasterWhisper
+tiny,0.875,0.3895869255065918,You're gonna be needed in the  waiting room ,8,FasterWhisper
+tiny,0.5714285714285714,0.385817289352417,I need to go to the  lab ,7,FasterWhisper
+tiny,1.4,0.398270845413208,Let’s go to the  laboratory ,5,FasterWhisper
+tiny,0.6666666666666666,0.38627099990844727,Can you take me back to the  cardio lab ?,9,FasterWhisper
+tiny,1.2857142857142858,0.390714168548584,Take me to the  lab  and see,7,FasterWhisper
+tiny,1.2,0.43045496940612793,I need you to perform some tasks in the  lab ,10,FasterWhisper
+tiny,0.8461538461538461,0.3652048110961914,Can you show me to the  Human-Centered Automony lab  by the office?,13,FasterWhisper
+tiny,1.0,0.3862440586090088,Just head straight to the  operating theater ,7,FasterWhisper
+tiny,1.0,0.38800597190856934,You should get over to the  HCA lab  now,9,FasterWhisper
+tiny,0.8888888888888888,0.4216620922088623,"You're needed in the  lab  now, get over there",9,FasterWhisper
+tiny,1.25,0.4284241199493408,"The main  chemistry lab , as soon as possible",8,FasterWhisper
+tiny,1.0,0.44593095779418945,Find a route to the  toxological laboratory  near the entrance,10,FasterWhisper
+tiny,0.8333333333333334,0.5033199787139893,Take this over to the  room where the blood tests are done ,12,FasterWhisper
+tiny,1.0,0.385498046875,Go to  room 205A  as soon as you can,9,FasterWhisper
+tiny,1.8571428571428572,0.42264294624328613,Direct yourself to  the patients room  now,7,FasterWhisper
+tiny,1.0714285714285714,0.41684412956237793,Please do me a favor and head over to  room D  when you can,14,FasterWhisper
+tiny,0.8,0.4635481834411621,"As soon as you can, go to  the room at the end of the hall ",15,FasterWhisper
+tiny,0.7692307692307693,0.41753530502319336,"Uhh, I, would like you to see the patient in  the emergency room ",13,FasterWhisper
+tiny,1.4285714285714286,0.4505770206451416,The patient needs you  in their room ,7,FasterWhisper
+tiny,1.0,0.4145200252532959,Now you are going to have to go to  room 15 ,11,FasterWhisper
+tiny,0.8333333333333334,0.37497401237487793,I'd like if you could navigate to the  room on the left ,12,FasterWhisper
+tiny,0.6666666666666666,0.37242984771728516,Go to the  patients room  now,6,FasterWhisper
+tiny,0.7142857142857143,0.3570849895477295,Over to the  room two thousand  robot! ,7,FasterWhisper
+tiny,1.5,0.38623571395874023,To the  hallway  now,4,FasterWhisper
+tiny,1.1428571428571428,0.3969600200653076,Get out and into the  corridor  please ,7,FasterWhisper
+tiny,0.6,0.3777310848236084,"Alright, you can go back into the  nearest hallway  now",10,FasterWhisper
+tiny,1.5,0.3965578079223633,"That's enough, back into the  hallway ",6,FasterWhisper
+tiny,0.8,0.3855600357055664,"I would prefer if you waited in the  corridor , thanks",10,FasterWhisper
+tiny,1.0,0.35950303077697754,You'll be more useful waiting out in the  hallway ,9,FasterWhisper
+tiny,1.3333333333333333,0.3668060302734375,A  hallway  now,3,FasterWhisper
+tiny,1.5,0.38374829292297363,Can you go back?,4,FasterWhisper
+tiny,0.8571428571428571,0.39873790740966797,I would like you to change destinations,7,FasterWhisper
+tiny,0.375,0.389301061630249,I want to change my change your goal,8,FasterWhisper
+tiny,0.8571428571428571,0.3712031841278076,I want to change my previous plan,7,FasterWhisper
+tiny,0.5,0.35944175720214844,Go to another place,4,FasterWhisper
+tiny,0.75,0.3788421154022217,Go to somewhere else,4,FasterWhisper
+tiny,0.7142857142857143,0.45004916191101074,Can I you go to somewhere else,7,FasterWhisper
+tiny,0.8888888888888888,0.3757922649383545,Can you take me to the the the the,9,FasterWhisper
+tiny,0.5,0.34698987007141113,Can we go there?,4,FasterWhisper
+tiny,2.0,0.3574099540710449,Go there,2,FasterWhisper
+tiny,0.0,0.35544586181640625,Get out of here,4,FasterWhisper
+tiny,inf,0.388247013092041,,0,FasterWhisper
+tiny,2.2,0.4433259963989258,Go find the closest  catheter ,5,FasterWhisper
+tiny,1.0,0.42721104621887207,"I need you to get me a  catheter collection bag  please, robot",12,FasterWhisper
+tiny,0.9090909090909091,0.4442119598388672,Go get that  colostomy bag  next to the  bed  over there,11,FasterWhisper
+tiny,1.6666666666666667,0.5231471061706543,"I want the  crutches  now, robot",6,FasterWhisper
+tiny,0.9090909090909091,0.4414238929748535,A  pair of glasses  I left on a  chair   out there,11,FasterWhisper
+tiny,1.0,0.39484477043151855,"Shoot, get me that  stethescope  over in the corner there",10,FasterWhisper
+tiny,1.7142857142857142,0.46819114685058594,Move over there and grab that  bottle ,7,FasterWhisper
+tiny,0.9230769230769231,0.38583803176879883,Would you please fetch the  oxygen mask  that is hanging on the  tank ,13,FasterWhisper
+tiny,1.8571428571428572,0.4617738723754883,Go to the  scalpel  and get it ,7,FasterWhisper
+tiny,1.0,0.4455678462982178,Is it too much for you to go over there and get my  stethescope  from her,16,FasterWhisper
+tiny,1.2222222222222223,0.4441051483154297,"The  surgical mask  on top of  that table  , please",9,FasterWhisper
+tiny,1.0,0.4166688919067383,"It's needed that you get that  thermometer , can you do that",11,FasterWhisper
+tiny,1.0,0.3562009334564209,Find me whatever  scalpel  is inside of  the closet over there  ,11,FasterWhisper
+tiny,2.75,0.43114519119262695,Go fetch that  prescription ,4,FasterWhisper
+tiny,1.0,0.3927726745605469,Please go pick up that  bottle of pills  on  top of the counter ,13,FasterWhisper
+tiny,1.8333333333333333,0.42623209953308105,Grab the  prescription  and bring it,6,FasterWhisper
+tiny,1.0,0.4070611000061035,You need to go find that  bottle of hand sanitizer  now,11,FasterWhisper
+tiny,0.8888888888888888,0.34606504440307617,"Actually, bring the  soap  from over by the  sink ",9,FasterWhisper
+tiny,3.25,0.4362821578979492,I want the  bottle      ,4,FasterWhisper
+tiny,1.0,0.42169904708862305,What would be helpful is if you could get the  scale  from over there,14,FasterWhisper
+tiny,1.0,0.33782410621643066,Track down the  first aid kit   in the  hallway  that we've been looking for,14,FasterWhisper
+tiny,3.0,0.3643341064453125, sanitizers ,1,FasterWhisper
+tiny,4.0,0.4131448268890381,box of  gloves ,3,FasterWhisper
+tiny,1.0,0.41388797760009766,Would you do me a favour an bring me that  bottle of sanitizer ,13,FasterWhisper
+tiny,1.0,0.3445851802825928,"The, uhhh,  thing of tools , over by the uhh  door  over there",12,FasterWhisper
+tiny,1.0,0.3420140743255615,Please bring it,3,FasterWhisper
+tiny,2.0,0.33969807624816895,Fetch,1,FasterWhisper
+tiny,1.5,0.3779571056365967,Find that,2,FasterWhisper
+tiny,1.0,0.3512439727783203,Pick it up ,3,FasterWhisper
+tiny,1.0,0.3512382507324219,Go get that,3,FasterWhisper
+tiny,3.0,0.37425804138183594,Get it,2,FasterWhisper
+tiny,1.0,0.3631260395050049,Can you go pick that up,6,FasterWhisper
+tiny,1.6666666666666667,0.3778951168060303,Get the  doctor  ,3,FasterWhisper
+tiny,1.2857142857142858,0.3806009292602539,Track down the  doctor  when you can,7,FasterWhisper
+tiny,0.7777777777777778,0.3437380790710449,Would you be able to bring the  doctor  here,9,FasterWhisper
+tiny,1.75,0.36934995651245117,I need the  doctor ,4,FasterWhisper
+tiny,1.2857142857142858,0.39244699478149414,The  doctor  would be useful right now,7,FasterWhisper
+tiny,1.0,0.3729891777038574,"Uh, it's, probably good for us to get the  doctor ",10,FasterWhisper
+tiny,1.0,0.34528613090515137,"Bring the  doc  over here, would you ",7,FasterWhisper
+tiny,2.6666666666666665,0.37856221199035645, doctor  is needed,3,FasterWhisper
+tiny,1.0,0.3709292411804199,Go over to the  nurse  when you can,8,FasterWhisper
+tiny,1.0,0.35485124588012695,I would like one of the  nurses ,7,FasterWhisper
+tiny,1.6,0.3742692470550537,navigate to the nearest  nurse ,5,FasterWhisper
+tiny,1.0,0.3810098171234131,Would we be able to find that  nursing lady ,9,FasterWhisper
+tiny,1.25,0.4107780456542969,About time we got  nurse  jacobs in here,8,FasterWhisper
+tiny,0.07692307692307693,0.43024182319641113,"Hmm, I think we should find the  nurse  who's in charge of this",13,FasterWhisper
+tiny,inf,0.4212629795074463,,0,FasterWhisper
+tiny,0.8571428571428571,0.39627695083618164,Bring this  set of scrubs  to the  doctor  over in the  changing room  please,14,FasterWhisper
+tiny,1.1666666666666667,0.44764184951782227,Be a lamb and take this over to the  assistant  over there,12,FasterWhisper
+tiny,0.95,0.3874928951263428,I think it would be helpful if you could navigate this  prescription  to the  patient  in  room five fourty one ,20,FasterWhisper
+tiny,1.25,0.39685583114624023,"As quick as you can, take these  forceps ",8,FasterWhisper
+tiny,1.0,0.38727593421936035,Please bring  Miss Johnson  at the  end of the hallway  ,10,FasterWhisper
+tiny,1.2222222222222223,0.42737913131713867,The  doctor  in the  operating theatre  needs this  scalpel ,9,FasterWhisper
+tiny,0.9333333333333333,0.4107799530029297,"The  group  in the  waiting room , bring them this box of masks  box of masks ",15,FasterWhisper
+tiny,1.8333333333333333,0.46590209007263184,Carry  nurse Afaf  her  lunch box ,6,FasterWhisper
+tiny,1.1818181818181819,0.4221460819244385,"I, uh, would like if you could possible take  her   this ",11,FasterWhisper
+tiny,0.9230769230769231,0.40514421463012695,Could you please bring this  clipboard  to  Dr. Smith  in the  emergency room ?,13,FasterWhisper
+tiny,1.3333333333333333,0.4515860080718994,"Take these  X-rays  to the  radiology department , please.",9,FasterWhisper
+tiny,0.6428571428571429,0.40619802474975586,I need you to deliver this  package  to the  receptionist  at the front desk,14,FasterWhisper
+tiny,0.9090909090909091,0.354572057723999,I need someone to take these  documents  to the  administration office ,11,FasterWhisper
+tiny,4.5,0.3916342258453369,Take this,2,FasterWhisper
+tiny,0.8888888888888888,0.341663122177124,Bring it to  them  when you have a chance,9,FasterWhisper
+tiny,0.0,0.35007691383361816,Take it away. ,3,FasterWhisper
+tiny,inf,0.36774706840515137,,0,FasterWhisper
+tiny,1.0,0.37532901763916016,"Robot, come here",3,FasterWhisper
+tiny,1.0,0.35581326484680176,Come to me,3,FasterWhisper
+tiny,1.3333333333333333,0.3765828609466553,Get over here,3,FasterWhisper
+tiny,1.0,0.3769092559814453,Hurry up and come here,5,FasterWhisper
+tiny,1.6,0.4075329303741455,I need your help robot ,5,FasterWhisper
+tiny,1.0,0.34885191917419434,"It's, uh, I would like you to come ",8,FasterWhisper
+tiny,4.0,0.388530969619751,Beckon,1,FasterWhisper
+tiny,2.0,0.40552711486816406,come to my voice,4,FasterWhisper
+tiny,1.0,0.3530080318450928,"When you can, uh, robot, come pick this up",9,FasterWhisper
+tiny,2.0,0.39234185218811035,I need a hand ,4,FasterWhisper
+tiny,1.0,0.4799480438232422,Would it be possible to stop over here,8,FasterWhisper
+tiny,1.0,0.35964083671569824,"Please, when you can, come hither",6,FasterWhisper
+tiny,1.0,0.3500709533691406,here now,2,FasterWhisper
+tiny,4.0,0.36728596687316895,come ,1,FasterWhisper
+tiny,1.0,0.3559763431549072,i want you here,4,FasterWhisper
+tiny,0.5,0.386171817779541,lets go ,2,FasterWhisper
+tiny,inf,0.47781920433044434,,0,FasterWhisper
+tiny,1.6428571428571428,0.60036301612854,I need you to go to  room 205A  and bring me the  patient's file .,14,FasterWhisper
+tiny,0.8461538461538461,0.5281028747558594,"It's uh, sorry. Hey dude, good morning. Please go to the  seating room  and see if there are patients. Get their  forms  and bring em back.",26,FasterWhisper
+tiny,0.7894736842105263,0.43921399116516113,"Go to the lab and find the  phlebotomist . If she has  results  to give you, bring them back here.",19,FasterWhisper
+tiny,1.8,0.5011310577392578,"Navigate to  the corridor  and bring the  nurse  here, please.",10,FasterWhisper
+tiny,1.105263157894737,0.6125071048736572,"Fill up with all the  prescription  you can carry. Well, you'll need to go get them from the  pharmacy .",19,FasterWhisper
+tiny,0.9090909090909091,0.5403871536254883,"I think I left my  stethescope  next to the  patient's bed  in room  A19 . Go there, get it and come back here.",22,FasterWhisper
+tiny,0.9130434782608695,0.528602123260498,"sup, robot. I need you to go to  the supply closet  and bring me the  box of gloves . Make sure to hurry back.",23,FasterWhisper
+tiny,1.0,0.526432991027832,"Salutations my friend. If you can get there, go down to the  cafeteria , see the  lady  and bring me back a  coffee ",22,FasterWhisper
+tiny,1.0869565217391304,0.5940289497375488,"Navigate to  the storeroom  and bring the  emergency medical kit  on the right side. It's better to have it nearby, just in case.",23,FasterWhisper
+tiny,0.8461538461538461,0.4869208335876465,"Hello, buddy. If you could, please go to  the waiting area  and find  Mrs. Jones . Ask her for the  patient's file  and bring it back here.",26,FasterWhisper
+tiny,0.9411764705882353,0.4479951858520508,"Hey, pal. Rush over to  the supply closet  and grab a  box of bandages  for me, please.",17,FasterWhisper
+tiny,0.0,0.5704989433288574,"To the  staff lounge , find the first  nurse  you can find and bring them here",15,FasterWhisper
+tiny,inf,0.4778268337249756,,0,FasterWhisper
+tiny,1.0,0.39028310775756836,Can you do me a favor please,7,FasterWhisper
+tiny,0.2857142857142857,0.3959929943084717,Can I get you to do something,7,FasterWhisper
+tiny,1.0,0.38802480697631836,"Robot, I need you to do something",7,FasterWhisper
+tiny,0.75,0.4445672035217285,Do me a favor,4,FasterWhisper
+tiny,1.0,0.3729288578033447,Do something for me,4,FasterWhisper
+tiny,1.3333333333333333,0.3696467876434326,Can you help,3,FasterWhisper
+tiny,0.75,0.39352989196777344,I want your aid,4,FasterWhisper
+tiny,1.0,0.3535280227661133,I need a hand,4,FasterWhisper
+tiny,2.0,0.3937079906463623,Please help me,3,FasterWhisper
+tiny,0.8571428571428571,0.381105899810791,"Would you be able to help, please",7,FasterWhisper
+tiny,1.0,1.3163540363311768,Assistance please,2,FasterWhisper
+tiny,2.0,0.4076111316680908,Assistance,1,FasterWhisper
+tiny,2.0,0.37727904319763184,Help me,2,FasterWhisper
+tiny,1.0,0.36339807510375977,I need a favor,4,FasterWhisper
+tiny,1.5,0.39011621475219727,Aid me,2,FasterWhisper
+tiny,1.0,0.3888230323791504,I require assistance,3,FasterWhisper
+tiny,1.0,0.38123202323913574,Can you offer assistance,4,FasterWhisper
+tiny,1.0,0.3655059337615967,May I ask your assistance? ,5,FasterWhisper
+tiny,1.5,0.36951708793640137,Help needed,2,FasterWhisper
+tiny,2.0,0.3899190425872803,Request for assistance,3,FasterWhisper
+tiny,1.2857142857142858,0.4226827621459961,I am in need of immediate assistance,7,FasterWhisper
+tiny,0.8888888888888888,0.3632800579071045,We will need you to do something for us,9,FasterWhisper
+tiny,1.0,0.3635671138763428,Please do us something,4,FasterWhisper
+tiny,2.0,0.3993537425994873,Do something for us,4,FasterWhisper
+tiny,1.0,0.4008488655090332,We will need an extra pair of hands,8,FasterWhisper
+tiny,1.0,0.3781769275665283,It would be helpful for you to intervene,8,FasterWhisper
+tiny,0.0,3.202824831008911,and sleep,2,Whisper
+tiny,0.0,1.3374741077423096,"sleep, thank you",3,Whisper
+tiny,0.0,1.358703851699829,You go to sleep now,5,Whisper
+tiny,1.0,0.3661959171295166,sleep,1,Whisper
+tiny,0.0,1.3062610626220703,go to sleep,3,Whisper
+tiny,0.0,1.285393238067627,power down,2,Whisper
+tiny,0.0,1.2672631740570068,power off,2,Whisper
+tiny,0.0,1.339439868927002,sleep for a while,4,Whisper
+tiny,0.0,1.3385112285614014,sleep for a bit,4,Whisper
+tiny,0.0,1.3063910007476807,let's sleep,2,Whisper
+tiny,0.0,1.3752758502960205,go to power-saving mode,5,Whisper
+tiny,0.0,1.3161561489105225,take a nap,3,Whisper
+tiny,2.0,1.2991740703582764,suspend,1,Whisper
+tiny,0.0,1.3996119499206543,ignore my words from now on,6,Whisper
+tiny,2.0,1.2995340824127197,hibernate,1,Whisper
+tiny,0.5,1.3462560176849365,power nap,2,Whisper
+tiny,0.0,1.2976548671722412,power-saving state,3,Whisper
+tiny,0.0,1.4706790447235107,okay thats enough now thank you,6,Whisper
+tiny,0.0,1.3006339073181152,go to bed now,4,Whisper
+tiny,0.6666666666666666,1.3093302249908447,"bed time, robot",3,Whisper
+tiny,0.0,1.2766191959381104,time to sleep,3,Whisper
+tiny,0.6666666666666666,1.3878388404846191,"nap time, robot",3,Whisper
+tiny,0.0,1.416576862335205,hibernate for now please ,4,Whisper
+tiny,inf,1.4004909992218018,,0,Whisper
+tiny,0.0,1.3242621421813965,wait for a bit,4,Whisper
+tiny,0.0,1.2704410552978516,wait a sec,3,Whisper
+tiny,1.0,0.36066317558288574,wait,1,Whisper
+tiny,0.0,1.2951269149780273,Wait a second,3,Whisper
+tiny,0.0,1.2863578796386719,wait for me,3,Whisper
+tiny,0.0,1.3279798030853271,let's take a break,4,Whisper
+tiny,0.0,1.3374919891357422,hold on a second,4,Whisper
+tiny,0.0,1.332212209701538,pause for a moment,4,Whisper
+tiny,0.0,1.2848799228668213,stop for now,3,Whisper
+tiny,0.0,1.313079833984375,let's pause here,3,Whisper
+tiny,0.0,1.2526500225067139,take a breather,3,Whisper
+tiny,0.0,1.4096779823303223,let's slow down for a bit,6,Whisper
+tiny,0.0,1.349381923675537,put a pin in it,5,Whisper
+tiny,0.0,1.376265048980713,let's pause and regroup,4,Whisper
+tiny,0.0,1.2998230457305908,hold your horses,3,Whisper
+tiny,0.0,1.4217939376831055,let's take a timeout,4,Whisper
+tiny,0.0,1.4257678985595703,let's pause and come back later,6,Whisper
+tiny,0.0,1.3640382289886475,stop what you're doing,4,Whisper
+tiny,0.0,1.4075069427490234,let's take a short intermission,5,Whisper
+tiny,0.0,1.3819727897644043,Let's take a break.,4,Whisper
+tiny,0.0,1.3690898418426514,Pause for a bit.,4,Whisper
+tiny,0.0,1.3330209255218506,Hold on a moment.,4,Whisper
+tiny,0.5,1.353421926498413,Let's regroup.,2,Whisper
+tiny,0.0,1.4405508041381836,Let's take a breather.,4,Whisper
+tiny,0.3333333333333333,1.3919780254364014,Let's halt temporarily.,3,Whisper
+tiny,0.0,1.3727469444274902,Let's take a recess.,4,Whisper
+tiny,0.0,1.3597962856292725,Let's reflect briefly.,3,Whisper
+tiny,0.0,1.3304100036621094,Take a timeout.,3,Whisper
+tiny,0.0,1.3738267421722412,Let's rest up.,3,Whisper
+tiny,0.0,1.3838398456573486,Let's come back later.,4,Whisper
+tiny,0.0,1.4287078380584717,Put it aside for now.,5,Whisper
+tiny,0.0,1.3593921661376953,Hold off a bit.,4,Whisper
+tiny,0.0,1.3588120937347412,Take a short break.,4,Whisper
+tiny,0.0,1.3628640174865723,Let's refocus.,2,Whisper
+tiny,0.0,1.3167550563812256,Take a hiatus.,3,Whisper
+tiny,0.3333333333333333,1.339982032775879,Take a breather.,3,Whisper
+tiny,0.0,1.3387451171875,Put it on hold.,4,Whisper
+tiny,0.0,1.3544321060180664,Take a quick pause.,4,Whisper
+tiny,0.0,1.3367600440979004,Let's assess briefly.,3,Whisper
+tiny,0.0,1.2951297760009766,"No, stop.",2,Whisper
+tiny,0.0,1.32625412940979,Hey robot stop,3,Whisper
+tiny,0.0,1.3040478229522705,stop now,2,Whisper
+tiny,0.0,1.3987340927124023,"stop, stop, stop",3,Whisper
+tiny,0.0,1.3502357006072998,stop for a while,4,Whisper
+tiny,0.0,1.290041208267212,hold on,2,Whisper
+tiny,0.25,1.3529410362243652,hold on a sec,4,Whisper
+tiny,inf,1.3707470893859863,,0,Whisper
+tiny,0.0,1.3046951293945312,please continue,2,Whisper
+tiny,0.0,1.301103115081787,let's continue,2,Whisper
+tiny,0.0,1.401365041732788,pick up where we left off,6,Whisper
+tiny,0.0,1.4239208698272705,let's get back to it,5,Whisper
+tiny,0.0,1.3486418724060059,get back,2,Whisper
+tiny,1.0,0.3809962272644043,restart,1,Whisper
+tiny,0.0,1.404038906097412,restart our journey,3,Whisper
+tiny,0.0,1.308053970336914,carry on,2,Whisper
+tiny,0.0,1.3563461303710938,keep going,2,Whisper
+tiny,0.0,1.3191430568695068,keep moving,2,Whisper
+tiny,0.0,1.2703211307525635,keep walking,2,Whisper
+tiny,0.0,1.3530869483947754,don't stop now,3,Whisper
+tiny,0.0,1.3012762069702148,continue from here,3,Whisper
+tiny,0.0,1.3774609565734863,let's move forward,3,Whisper
+tiny,0.0,1.418384075164795,back to business,3,Whisper
+tiny,0.0,1.346221923828125,let's keep working,3,Whisper
+tiny,0.0,1.375424861907959,continue what you were doing,5,Whisper
+tiny,0.0,1.3993861675262451,let's finish what we started,5,Whisper
+tiny,0.0,1.1742241382598877,let's resume our previous task,5,Whisper
+tiny,0.0,1.3378169536590576,Proceed with the task.,4,Whisper
+tiny,1.0,0.3738670349121094,proceed,1,Whisper
+tiny,0.0,1.373302936553955,proceed with your plan,4,Whisper
+tiny,0.0,1.327704906463623,Resume our progress.,3,Whisper
+tiny,1.0,0.37260913848876953,resume,1,Whisper
+tiny,0.0,1.3589129447937012,resume our plan,3,Whisper
+tiny,0.0,1.3999698162078857,Pick up where we left off.,6,Whisper
+tiny,0.0,1.3352062702178955,Keep going from here.,4,Whisper
+tiny,0.0,1.3856420516967773,Carry on with the plan.,5,Whisper
+tiny,0.0,1.3829810619354248,Get back to the task.,5,Whisper
+tiny,0.0,1.3609709739685059,Continue the journey.,3,Whisper
+tiny,0.0,1.3528459072113037,Pick up the thread.,4,Whisper
+tiny,0.0,1.3072798252105713,Keep moving forward.,3,Whisper
+tiny,0.0,1.3004770278930664,Back to business.,3,Whisper
+tiny,0.0,1.360185146331787,Restart our efforts.,3,Whisper
+tiny,0.0,1.3542308807373047,Continue from this point.,4,Whisper
+tiny,0.0,1.3287110328674316,Don't lose momentum.,3,Whisper
+tiny,0.0,1.3358581066131592,Carry on the project.,4,Whisper
+tiny,0.0,1.307710886001587,Carry on,2,Whisper
+tiny,0.0,1.3521647453308105,Proceed with the plan.,4,Whisper
+tiny,0.0,1.3513870239257812,Resume our previous task.,4,Whisper
+tiny,0.0,1.3076481819152832,Keep pushing forward.,3,Whisper
+tiny,0.0,1.3904712200164795,Continue from where you were.,5,Whisper
+tiny,1.0,0.3739635944366455,Go on,2,Whisper
+tiny,0.5,1.3046319484710693,Move on,2,Whisper
+tiny,1.0,0.37520909309387207,Go,1,Whisper
+tiny,1.0,0.37182188034057617,Move,1,Whisper
+tiny,0.0,1.2653939723968506,Move forward,2,Whisper
+tiny,0.0,1.3370540142059326,Resume the navigation,3,Whisper
+tiny,0.0,1.3332560062408447,"Continue, go back",3,Whisper
+tiny,1.0,0.36960911750793457,continue,1,Whisper
+tiny,0.0,1.3671858310699463,continue what you're doing,4,Whisper
+tiny,0.0,1.339378833770752,So let's start!,3,Whisper
+tiny,inf,1.335508108139038,,0,Whisper
+tiny,0.5,2.1401731967926025,"Hello, robots.",2,Whisper
+tiny,1.0,1.367305040359497,hey robot,2,Whisper
+tiny,0.0,1.3721771240234375,hello robot,2,Whisper
+tiny,0.0,1.2936787605285645,"hello, hello",2,Whisper
+tiny,1.0,0.37697505950927734,Hello?,1,Whisper
+tiny,0.0,1.2983031272888184,"hello, robot",2,Whisper
+tiny,0.0,1.311340093612671,hi robot,2,Whisper
+tiny,0.0,1.3270509243011475,good morning robot,3,Whisper
+tiny,1.0,0.3735969066619873,morning,1,Whisper
+tiny,0.0,1.3478038311004639,good evening robot,3,Whisper
+tiny,0.5,1.3653349876403809,moin robot,2,Whisper
+tiny,1.0,0.38184285163879395,hey there,2,Whisper
+tiny,0.0,1.375058889389038,good afternoon robot,3,Whisper
+tiny,0.5,1.3562359809875488,hello ruled b ut,4,Whisper
+tiny,1.0,0.3720090389251709,hello,1,Whisper
+tiny,1.0,0.3740410804748535,hi,1,Whisper
+tiny,0.0,1.344973087310791,Can you hear me,4,Whisper
+tiny,0.0,1.345080852508545,Can you hear me?,4,Whisper
+tiny,0.0,1.1769816875457764,"hey there, how are you doing?",6,Whisper
+tiny,0.0,1.6649398803710938,"good to see you again, robot",6,Whisper
+tiny,0.0,1.3971149921417236,"hi, what's up?",3,Whisper
+tiny,0.0,1.3505871295928955,"greetings, robot",2,Whisper
+tiny,0.0,1.3875000476837158,"hello, nice to meet you",5,Whisper
+tiny,0.0,1.205374002456665,"hi there, how can I help you today?",8,Whisper
+tiny,0.0,1.349735975265503,"what's cracking, robot?",3,Whisper
+tiny,0.0,1.3757131099700928,"yo, what's good?",3,Whisper
+tiny,0.4,1.5492982864379883,"hiya, how's your day going?",5,Whisper
+tiny,0.0,1.5100250244140625,"hello, how's life treating you?",5,Whisper
+tiny,0.0,1.3537511825561523,"Hey there, stranger.",3,Whisper
+tiny,0.0,1.3080308437347412,"G'day, robot.",2,Whisper
+tiny,0.0,1.371082067489624,"Salutations, my metal friend.",4,Whisper
+tiny,0.0,1.1959660053253174,"Top of the morning to you, robot.",7,Whisper
+tiny,0.0,1.3674981594085693,"Howdy, partner.",2,Whisper
+tiny,1.5,1.350464105606079,"Hola, robot.",2,Whisper
+tiny,1.0,1.3688690662384033,"Good day, mate.",3,Whisper
+tiny,1.0,1.308910846710205,"Namaste, robot.",2,Whisper
+tiny,1.0,1.3445971012115479,"Hello, sunshine.",2,Whisper
+tiny,1.5,1.3348090648651123,"Aloha, robot.",2,Whisper
+tiny,1.0,1.2882051467895508,"Well, hello there.",3,Whisper
+tiny,2.0,1.3868131637573242,"Sup, robot?",2,Whisper
+tiny,0.75,1.3432950973510742,"Hey, how's it going?",4,Whisper
+tiny,1.6666666666666667,1.3948390483856201,"Hey, what's happening?",3,Whisper
+tiny,1.2,1.1837198734283447,"Good to see you, robot.",5,Whisper
+tiny,0.8333333333333334,1.1772642135620117,"Hey, stranger, long time no see.",6,Whisper
+tiny,1.0,1.4041759967803955,"Hey, how have you been?",5,Whisper
+tiny,1.25,1.43613600730896,"What's up, my friend?",4,Whisper
+tiny,1.0,1.4199471473693848,"Hey, hope you're doing well.",5,Whisper
+tiny,0.75,1.372117042541504,"Yo, what's the word?",4,Whisper
+tiny,0.3333333333333333,1.3726966381072998,"Hi, what's up?",3,Whisper
+tiny,1.0,0.37075090408325195,Hey. What's up?,3,Whisper
+tiny,0.5,1.339172124862671,wake up,2,Whisper
+tiny,0.6666666666666666,1.4210731983184814,"wake up, robot",3,Whisper
+tiny,1.6666666666666667,1.4190359115600586,please wake up,3,Whisper
+tiny,1.0,0.414715051651001,"Hey, can you hear me",5,Whisper
+tiny,1.0,0.37871408462524414,HEAR,1,Whisper
+tiny,,0.3698720932006836,,0,Whisper
+tiny,1.0,0.3872668743133545,yes,1,Whisper
+tiny,3.0,1.3351926803588867,yuh,1,Whisper
+tiny,1.0,1.307068109512329,"Yes, I do.",3,Whisper
+tiny,1.0,0.3753669261932373,indeed,1,Whisper
+tiny,1.5,1.3072850704193115,of course,2,Whisper
+tiny,1.0,0.37473297119140625,that sounds good,3,Whisper
+tiny,1.0,0.3703339099884033,yeah,1,Whisper
+tiny,1.0,0.3735618591308594,right,1,Whisper
+tiny,1.0,0.3767421245574951,yep,1,Whisper
+tiny,1.0,0.37135910987854004,uh-huh,2,Whisper
+tiny,1.0,1.3003730773925781,correct,1,Whisper
+tiny,2.5,1.449629306793213,that's correct,2,Whisper
+tiny,1.0,1.243424892425537,"Oh, this is very quick.",5,Whisper
+tiny,1.0,1.3099300861358643,absolutely,1,Whisper
+tiny,1.0,1.3013360500335693,affirmative,1,Whisper
+tiny,1.0,1.239029884338379,affirmed,1,Whisper
+tiny,1.0,0.3875458240509033,definitely,1,Whisper
+tiny,1.0,0.3718881607055664,for sure,2,Whisper
+tiny,1.0,0.3690478801727295,sure,1,Whisper
+tiny,1.5,1.4521820545196533,you bet,2,Whisper
+tiny,1.0,1.2937822341918945,without a doubt,3,Whisper
+tiny,1.0,0.3719658851623535,positively,1,Whisper
+tiny,1.0,0.3742787837982178,positive,1,Whisper
+tiny,2.0,1.6417887210845947,agreed,1,Whisper
+tiny,1.0,0.39980268478393555,I agree,2,Whisper
+tiny,1.5,1.6039738655090332,sure thing,2,Whisper
+tiny,1.0,1.6130890846252441,"Yes, that's correct.",3,Whisper
+tiny,2.0,1.4111878871917725,Absolutely.,1,Whisper
+tiny,1.0,1.3792200088500977,That's right.,2,Whisper
+tiny,2.0,1.4377689361572266,I agree.,2,Whisper
+tiny,1.0,1.3212847709655762,You're spot on.,3,Whisper
+tiny,2.0,1.3361790180206299,Precisely.,1,Whisper
+tiny,1.0,1.2515060901641846,I concur.,2,Whisper
+tiny,2.0,1.3386790752410889,Indeed.,1,Whisper
+tiny,6.0,1.6017518043518066,Correctamundo.,1,Whisper
+tiny,0.8333333333333334,1.4229090213775635,That's exactly what I was thinking.,6,Whisper
+tiny,1.0,1.3631160259246826,exactly,1,Whisper
+tiny,1.0,1.3961186408996582,"yeah, exactly",2,Whisper
+tiny,1.0,1.4763391017913818,"oh, yes",2,Whisper
+tiny,1.0,1.3144488334655762,"emm, yes",2,Whisper
+tiny,1.0,1.446687936782837,Roger that.,2,Whisper
+tiny,3.0,1.409162998199463,Affirmative.,1,Whisper
+tiny,1.0,1.4280121326446533,You got it.,3,Whisper
+tiny,1.0,1.458611011505127,No doubt about it.,4,Whisper
+tiny,1.3333333333333333,1.4258170127868652,Right you are.,3,Whisper
+tiny,0.75,1.3013310432434082,Sounds good to me.,4,Whisper
+tiny,0.5,1.2763667106628418,sound good,2,Whisper
+tiny,2.5,1.4462788105010986,sound great,2,Whisper
+tiny,1.0,1.4769377708435059,I'm with you on that.,5,Whisper
+tiny,0.3333333333333333,1.4010097980499268,You're absolutely right.,3,Whisper
+tiny,1.5,1.4060678482055664,you're right,2,Whisper
+tiny,1.0,1.4861960411071777,That's the ticket.,3,Whisper
+tiny,1.0,0.38110780715942383,"Bingo, that's it.",3,Whisper
+tiny,1.0,0.3911910057067871,that's it,2,Whisper
+tiny,1.0,0.3809332847595215,bingo,1,Whisper
+tiny,1.0,0.3724501132965088,perfect,1,Whisper
+tiny,1.0,0.379378080368042,great,1,Whisper
+tiny,1.0,1.2601311206817627,amazing,1,Whisper
+tiny,1.0,1.373898983001709,wonderful,1,Whisper
+tiny,3.0,1.4368619918823242,Cool.,1,Whisper
+tiny,1.0,1.4465711116790771,Go for it.,3,Whisper
+tiny,2.0,1.4683482646942139,Okay. Okay.,2,Whisper
+tiny,1.0,1.4168128967285156,thats what i said,4,Whisper
+tiny,1.0,1.2781109809875488,you heard that right,4,Whisper
+tiny,1.0,1.3252921104431152,spot on,2,Whisper
+tiny,1.5,1.4577689170837402,close enough ,2,Whisper
+tiny,1.6666666666666667,1.5988731384277344,"sure, thats close  ",3,Whisper
+tiny,1.0,1.4393701553344727,i think thats what was said,6,Whisper
+tiny,1.5,1.3652329444885254,"basically, yeah",2,Whisper
+tiny,1.0,0.38115525245666504,you understood correctly ,3,Whisper
+tiny,1.0,0.3905918598175049,that's it ,2,Whisper
+tiny,,0.3823847770690918,,0,Whisper
+tiny,1.0,0.418349027633667,no,1,Whisper
+tiny,1.0,0.37806200981140137,nah,1,Whisper
+tiny,1.0,0.3771059513092041,negative,1,Whisper
+tiny,1.0,0.37555384635925293,false,1,Whisper
+tiny,1.0,0.3763551712036133,don't,1,Whisper
+tiny,1.0,0.3776729106903076,nay,1,Whisper
+tiny,1.0,1.3101089000701904,never,1,Whisper
+tiny,2.0,1.5019571781158447,never ever,2,Whisper
+tiny,0.75,1.4779620170593262,I don't think so,4,Whisper
+tiny,0.6666666666666666,1.4519059658050537,don't like that,3,Whisper
+tiny,1.0,0.3996882438659668,don't do this,3,Whisper
+tiny,1.0,1.3537421226501465,no way,2,Whisper
+tiny,1.0,1.325956106185913,not really,2,Whisper
+tiny,1.5,1.3659701347351074,I disagree,2,Whisper
+tiny,1.0,0.37328577041625977,that's not true,3,Whisper
+tiny,0.5,1.3808238506317139,Not true,2,Whisper
+tiny,1.0,0.3931288719177246,Not correct,2,Whisper
+tiny,2.0,1.3971571922302246,Incorrect,1,Whisper
+tiny,1.0,1.384594202041626,Not right,2,Whisper
+tiny,1.3333333333333333,1.5008251667022705,not at all,3,Whisper
+tiny,0.75,1.3835079669952393,"I'm sorry, but no",4,Whisper
+tiny,0.5,1.338423252105713,"unfortunately, no",2,Whisper
+tiny,2.5,1.4525940418243408,"sorry, no",2,Whisper
+tiny,0.8,1.4659979343414307,that doesn't work for me,5,Whisper
+tiny,1.0,1.5493788719177246,won't work,2,Whisper
+tiny,0.75,1.4593992233276367,"no, that won't work",4,Whisper
+tiny,0.6666666666666666,1.324634075164795,"no, you're wrong",3,Whisper
+tiny,6.0,1.5329859256744385,wrong!,1,Whisper
+tiny,1.0,1.4738857746124268,I can't say yes to that,6,Whisper
+tiny,1.0,1.3638219833374023,that's not what I want,5,Whisper
+tiny,1.0,1.3328578472137451,I'm afraid not,3,Whisper
+tiny,1.0,0.38370299339294434,I must decline,3,Whisper
+tiny,5.0,1.5812811851501465,declined,1,Whisper
+tiny,1.0,1.5752928256988525,"Sorry, but that's not possible",5,Whisper
+tiny,1.4,1.5575029850006104,I can't agree with that,5,Whisper
+tiny,0.7142857142857143,1.3858318328857422,I'm going to have to say no,7,Whisper
+tiny,2.0,1.6023128032684326,I say no,3,Whisper
+tiny,0.8571428571428571,1.3470659255981445,I don't think that's a good idea,7,Whisper
+tiny,1.0,1.3919649124145508,I respectfully decline,3,Whisper
+tiny,0.6666666666666666,1.4202349185943604,That's a negative,3,Whisper
+tiny,2.0,1.5276379585266113,"No, negative",2,Whisper
+tiny,0.75,1.4139149188995361,That's simply not true,4,Whisper
+tiny,0.3333333333333333,1.404845952987671,I'm not convinced,3,Whisper
+tiny,1.3333333333333333,1.4653348922729492,I'm not interested,3,Whisper
+tiny,1.25,1.501404047012329,I don't like this,4,Whisper
+tiny,1.0,1.5395920276641846,I'm afraid I have to disagree,6,Whisper
+tiny,1.0,1.4282538890838623,Not in a million years,5,Whisper
+tiny,1.5,1.4452669620513916,No chance,2,Whisper
+tiny,1.3333333333333333,1.425922155380249,That's not happening,3,Whisper
+tiny,1.0,1.4059157371520996,That's out of the question,5,Whisper
+tiny,1.25,1.462599277496338,I can't support that,4,Whisper
+tiny,1.0,1.4028122425079346,I'm not willing to do that,6,Whisper
+tiny,1.25,1.4536800384521484,I don't believe so,4,Whisper
+tiny,1.0,0.37390899658203125,I have to reject that idea,6,Whisper
+tiny,2.0,1.343824863433838,Rejected,1,Whisper
+tiny,1.0,1.414074182510376,I reject,2,Whisper
+tiny,0.5,1.374997854232788,not good,2,Whisper
+tiny,2.0,1.426882266998291,not very good,3,Whisper
+tiny,0.8333333333333334,1.3307650089263916,that sounds like a bad plan,6,Whisper
+tiny,1.0,0.378497838973999,that's bad,2,Whisper
+tiny,2.0,1.2982919216156006,bad,1,Whisper
+tiny,1.0,1.3187649250030518,heck no,2,Whisper
+tiny,1.0,1.3197169303894043,What no more,3,Whisper
+tiny,1.0,1.457982063293457,Oh shoot,2,Whisper
+tiny,1.0,1.4106996059417725,No! Stop!,2,Whisper
+tiny,1.3333333333333333,1.443998098373413,"no, you misunderstood",3,Whisper
+tiny,0.75,1.2835359573364258,that's not quite right,4,Whisper
+tiny,0.0,1.2808730602264404,not about ,2,Whisper
+tiny,inf,1.3316919803619385,,0,Whisper
+tiny,1.0,0.37557196617126465, 1.5% 1.5% 1.5% 1.5% 1.5% 1.5%,6,Whisper
+tiny,27.0,6.2642529010772705, You,1,Whisper
+tiny,1.1428571428571428,1.2267520427703857, 1.5G 2.5G 1.5G 1.5G 1.5G 1.5G 1.5G,7,Whisper
+tiny,0.0,1.227646827697754, Let's do it right. Let's do it right.,8,Whisper
+tiny,inf,1.389474630355835,,0,Whisper
+tiny,inf,1.553406000137329,............,0,Whisper
+tiny,1.0,1.3250417709350586,what the heck so much someone goes tears,8,Whisper
+tiny,1.0,1.4321949481964111,"Um, Um, um, uh, um, um, um,",7,Whisper
+tiny,1.0,1.4369678497314453,activate. An X.,3,Whisper
+tiny,1.0,1.3461151123046875,U grossity hg,3,Whisper
+tiny,1.3333333333333333,1.4074409008026123,I knew it.,3,Whisper
+tiny,1.0,1.2910499572753906,The I not not,4,Whisper
+tiny,3.0,1.4548671245574951,Just like.,2,Whisper
+tiny,1.0,1.3880538940429688,But. But. But. But. But. But.,6,Whisper
+tiny,5.333333333333333,1.2889459133148193,is eating banjim.,3,Whisper
+tiny,0.9375,1.5621960163116455,"Oh, I don't know. I don't know what to do. I don't know what to do.",16,Whisper
+tiny,3.8,1.3876738548278809,Denise uhhhhh arguing what and,5,Whisper
+tiny,1.0,1.335191011428833,"I am not Beau, very good woman I am even after sitting on the stage So I usually need",19,Whisper
+tiny,1.0,1.4382078647613525,"Yeah, I thought I'm here. What you were here, what you were in English.",14,Whisper
+tiny,1.0,1.3861360549926758,Pen enthusiasm American,3,Whisper
+tiny,1.0,0.37512803077697754,"No, I Twenty.",3,Whisper
+tiny,5.0,1.436631202697754,a,1,Whisper
+tiny,1.0,1.516296148300171,You have split out here.,5,Whisper
+tiny,4.4,1.448436975479126,Now we'll raise this hole.,5,Whisper
+tiny,1.0,0.38869285583496094,"I think I will follow up with Sana If you like this version of old-school favourite, I'll apply it in B Hafez",23,Whisper
+tiny,1.0,0.37015295028686523,you,1,Whisper
+tiny,inf,1.209153175354004,...,0,Whisper
+tiny,1.7142857142857142,1.2910869121551514,"You know, we don't shoot our ways",7,Whisper
+tiny,1.0,1.5301949977874756,It's not so bad. It's not so bad. It's not so bad.,12,Whisper
+tiny,2.25,1.35475492477417,I can't wait a while for this party,8,Whisper
+tiny,0.8947368421052632,1.2788259983062744,"I think I'm going to leave the link back. Well, maybe you won't have to go get the plan.",19,Whisper
+tiny,1.0,1.3395400047302246,"No, no, she didn't touch the phone at the end.",10,Whisper
+tiny,1.0,1.446584939956665,This is aweaa,3,Whisper
+tiny,13.0,1.350696086883545,Silence.,1,Whisper
+tiny,0.9230769230769231,1.2998418807983398,"Egypt would stand in a potion that was stroke, and suppose to die.",13,Whisper
+tiny,1.0,1.407043218612671, And you are.,3,Whisper
+tiny,1.0,1.307783842086792, eSR for Fl,3,Whisper
+tiny,1.0,1.4128210544586182, Passion love. When.,3,Whisper
+tiny,1.6666666666666667,1.500478982925415, That's Psy dealers.,3,Whisper
+tiny,1.8,1.6765289306640625, And I got over there.,5,Whisper
+tiny,1.0,1.4952328205108643, When is the year Motor pick upimage,7,Whisper
+tiny,1.0,1.1877691745758057,I'll apply it in B Hafez,6,Whisper
+tiny,1.0,1.4855210781097412," Well, good, good. You can.",5,Whisper
+tiny,1.0,1.4123530387878418," Okay. Oh, it's saying something.",5,Whisper
+tiny,8.25,6.410146951675415," So, that does it.",4,Whisper
+tiny,1.0,0.3745119571685791,"But, uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh,",11,Whisper
+tiny,4.0,1.2238900661468506, there.,1,Whisper
+tiny,1.0,0.3741309642791748,Pause. Pause. Pause. Pause. Pause.,5,Whisper
+tiny,2.0,1.4092950820922852, A,1,Whisper
+tiny,1.0,1.3753550052642822,Zhuangzong hat,2,Whisper
+tiny,2.0,1.3570351600646973," Oh, oh.",2,Whisper
+tiny,7.25,1.4607038497924805,Silence. Silence. Silence. Silence.,4,Whisper
+tiny,0.9655172413793104,1.217184066772461, There is a question. I think we have to get started. There is a question. I think we have to get started. I think we have to get started.,29,Whisper
+tiny,1.0,1.3495731353759766, What is the purpose of evidence that Application and fined,10,Whisper
+tiny,1.0,1.3859412670135498, My tasks are there.,4,Whisper
+tiny,1.0,1.4461169242858887, I think it's all.,4,Whisper
+tiny,1.0,1.4123799800872803, ready. So I think like,5,Whisper
+tiny,3.25,3.198819875717163, uh here hero but,4,Whisper
+tiny,1.0,1.2527217864990234,and and and and and and and,7,Whisper
+tiny,2.0,1.344649076461792, Three.,1,Whisper
+tiny,1.0,0.37987565994262695, You What?,2,Whisper
+tiny,3.0,1.5192923545837402,AMazz,1,Whisper
+tiny,1.0,1.3428349494934082,Give me good.,3,Whisper
+tiny,1.0,0.3757927417755127,We can.,2,Whisper
+tiny,2.0,1.2511460781097412,I,1,Whisper
+tiny,3.0,1.6513800621032715,Or.,1,Whisper
+tiny,4.0,1.4282619953155518,".\""\"" diesel",1,Whisper
+tiny,1.75,1.4515361785888672,Click the subscribe button.,4,Whisper
+tiny,1.0,1.7457528114318848,Do you wish to get a job?,7,Whisper
+tiny,1.4,1.3739409446716309, is is is is is,5,Whisper
+tiny,1.5714285714285714,1.2571392059326172,"One, two, three, and one, two, three.",7,Whisper
+tiny,1.0,1.2633600234985352,I'm worried. Do you wish to find a way to follow? ,11,Whisper
+tiny,3.0,1.3357620239257812, cameras.,1,Whisper
+tiny,2.3333333333333335,1.454742193222046,Thanks for watching!,3,Whisper
+tiny,3.7142857142857144,1.3926782608032227,Do you want to take that one?,7,Whisper
+tiny,1.0,1.441910982131958,And reality is really good. And we talk about D because we think about Michael Andy because Michael soci has amazing backgrounds and,23,Whisper
+tiny,1.0,1.3007559776306152,Can you take me to a...,6,Whisper
+tiny,12.5,1.4812901020050049, Another question?,2,Whisper
+tiny,0.84,1.329301118850708,"And I'm going to turn it over to Frank. Frank, second comment. That's our new channel. I hope this channel is so safe. Thank you.",25,Whisper
+tiny,1.0,1.2798011302947998,Welcome to our home. Thanks a lot. Thank you.,9,Whisper
+tiny,1.4285714285714286,1.24025297164917,"for this performance. One, two, three, four.",7,Whisper
+tiny,1.0,1.4099199771881104,"One, two, three, four, three, four, five, six, seven, eight.",10,Whisper
+tiny,1.6,1.48836088180542,So I'm taking the disorder.,5,Whisper
+tiny,4.125,1.423882007598877,What kind of a channel do you want?,8,Whisper
+tiny,1.0625,1.4425270557403564,"In the next refinery, you can move back and forth to be the year-to-year, Sidney premiere 2018 P It will be Colorado years ago, and meaning from Metz and 199thiggs.",32,Whisper
+tiny,0.9459459459459459,1.5859551429748535,"dataset on the internet or that if you can small channel where you have those targets to scan for, on the web, the URL dropout. I just want you to know that if you go into the",37,Whisper
+tiny,2.8333333333333335,1.3423969745635986,I don't know where to land.,6,Whisper
+tiny,1.0,1.3771169185638428,Oh. to the next talk. What's your next talk? What's your next talk? What's your next talk?,17,Whisper
+tiny,2.0,1.236962080001831,I must be Bruce,4,Whisper
+tiny,1.0,1.5482099056243896,"Oh Do it. Do it, or is it... but",9,Whisper
+tiny,2.1666666666666665,1.2949020862579346,You don't wanna do anything Oh,6,Whisper
+tiny,1.0,1.3171641826629639,He was looking for that space. There on top of that fence. Aww.,13,Whisper
+tiny,1.5,1.4053168296813965,It's hard. ,2,Whisper
+tiny,1.0,1.4868643283843994,There's FIRE,2,Whisper
+tiny,1.0,0.3966372013092041,richi messus,2,Whisper
+tiny,6.0,1.4438912868499756,ness,1,Whisper
+tiny,1.0,1.3543200492858887,You want to try it on?,6,Whisper
+tiny,2.3333333333333335,1.4534809589385986,bound sp Well...,3,Whisper
+tiny,1.0,1.576483964920044,I think that scale will be better,7,Whisper
+tiny,0.8571428571428571,1.4837441444396973,I'll tell him I'm a pretty woman,7,Whisper
+tiny,1.0,0.37421107292175293,I'm I'm I'm I'm I'm,5,Whisper
+tiny,6.0,1.4401130676269531,Tear,1,Whisper
+tiny,1.0,1.412287950515747,So you run out of hardware.,6,Whisper
+tiny,1.5,1.3403241634368896,quiet quiet,2,Whisper
+tiny,7.0,1.4553110599517822,Fasterigion's,1,Whisper
+tiny,1.3333333333333333,1.2090890407562256,Sorry for the Sp Anna Pocket,6,Whisper
+tiny,1.0,1.5140440464019775,I brake. This is the end of the year.,9,Whisper
+tiny,1.25,1.229449987411499,"As I said in their show, this is",8,Whisper
+tiny,0.9090909090909091,1.265923023223877,I see. I want to come for a time to hear.,11,Whisper
+tiny,1.0,1.507105827331543,I think play players can again recognize you!,8,Whisper
+tiny,1.4,1.273496150970459,This is the first Preview,5,Whisper
+tiny,1.0,1.4880709648132324,"Andan's clea Yes, he heliced",5,Whisper
+tiny,1.0,1.427293062210083,Type in a A M C O i report,9,Whisper
+tiny,1.8,1.2152578830718994,"Queda, Queda, Chica, Chica, hasa.",5,Whisper
+tiny,0.8888888888888888,1.2056870460510254,Living without cost is a matter of spending time,9,Whisper
+tiny,1.0,1.455172061920166,"OK, listen to this one first time.",7,Whisper
+tiny,1.0,1.305884838104248,murmuring more murmuring,3,Whisper
+tiny,3.5,1.2315268516540527,turments. chuckle,2,Whisper
+tiny,1.2857142857142858,1.2040760517120361,ask government leaders and greetings of knowledge,7,Whisper
+tiny,0.8888888888888888,1.393630027770996,"So, if you want to work out really quickly.",9,Whisper
+tiny,1.4,1.2630620002746582,So it said goal arrived.,5,Whisper
+tiny,1.0,1.3723139762878418,"like for example, you want some information.",7,Whisper
+tiny,1.0,1.4487957954406738,"One, two, one, two, one, two, one.",7,Whisper
+tiny,1.4,1.1921892166137695,I think you guys might.,5,Whisper
+tiny,1.0,1.4151129722595215,"Okay, make sure you have the blindfold on.",8,Whisper
+tiny,1.0,0.3839080333709717,dye ku voyage rotation,4,Whisper
+tiny,8.0,1.2048110961914062,Chinese,1,Whisper
+tiny,1.0,0.3873422145843506,secondary research is a factor of executive purposes,8,Whisper
+tiny,3.0,1.3916411399841309,D,1,Whisper
+tiny,1.0,1.486393928527832,Can it take...,3,Whisper
+tiny,0.75,1.434351921081543,Can you go to...,4,Whisper
+tiny,1.0,1.3023900985717773,Go to a,3,Whisper
+tiny,1.0,0.3732607364654541, Take me to. ,3,Whisper
+tiny,1.0,0.3760960102081299,Take,1,Whisper
+tiny,1.0,1.3785908222198486,Take me,2,Whisper
+tiny,1.0,0.38004207611083984,Take me to a,4,Whisper
+tiny,0.5,1.3573968410491943,Go to,2,Whisper
+tiny,0.6666666666666666,1.4499120712280273, Go to it.,3,Whisper
+tiny,1.0,1.3477661609649658,Go to the right.,4,Whisper
+tiny,8.666666666666666,3.687157154083252,I need to. ,3,Whisper
+tiny,1.0,1.3020129203796387,Sair This Port SofaONT Sair Sair Sair GB GA Sair GSaton resistance Sair CNN Sair SC FL Hole SC software Sair V AR product,24,Whisper
+tiny,2.0,1.3621680736541748,Trauma closes,2,Whisper
+tiny,0.0,1.3334858417510986,to follow a normal.,4,Whisper
+tiny,inf,1.5627169609069824,,0,Whisper
+tiny,0.8571428571428571,1.6488001346588135,Let's go to the  main waiting room ?,7,Whisper
+tiny,0.6666666666666666,1.5226531028747559,I would like to go to the  waiting area .,9,Whisper
+tiny,0.7777777777777778,1.5330407619476318,Could you please take me to the  rest area ?,9,Whisper
+tiny,0.875,1.4498209953308105,"Ah, why don't you go to the  lounge ?",8,Whisper
+tiny,0.7142857142857143,1.4544219970703125,Please go to the  patient waiting room ?,7,Whisper
+tiny,1.1666666666666667,1.6552329063415527,Go straight to the  seating area ,6,Whisper
+tiny,0.6666666666666666,1.2705020904541016,I need you to go to the  waiting room ,9,Whisper
+tiny,0.875,1.4011919498443604,Can I follow you to the  patience lounge ,8,Whisper
+tiny,1.4,1.4769041538238525,Where is the  sitting room ?,5,Whisper
+tiny,1.0,1.218885898590088,Rush over to the  room to wait in ,8,Whisper
+tiny,0.9,1.2155747413635254,"I'd like you to go to the  lounge  please, robot",10,Whisper
+tiny,0.9090909090909091,1.5635340213775635,I am going to follow you over to the  sitting area ,11,Whisper
+tiny,0.875,1.584524154663086,You're gonna be needed in the  waiting room ,8,Whisper
+tiny,0.5714285714285714,1.466209888458252,I need to go to the  lab ,7,Whisper
+tiny,1.4,1.2106130123138428,Let’s go to the  laboratory ,5,Whisper
+tiny,0.6666666666666666,1.50410795211792,Can you take me back to the  cardio lab ?,9,Whisper
+tiny,1.2857142857142858,1.2536518573760986,Take me to the  lab  and see,7,Whisper
+tiny,1.1,1.258927822113037,I need you to perform some tasks in the  lab ,10,Whisper
+tiny,0.8461538461538461,1.5043959617614746,Can you show me to the  Human-Centered Automony lab  by the office?,13,Whisper
+tiny,1.0,1.3497440814971924,Just head straight to the  operating theater ,7,Whisper
+tiny,1.0,1.2493629455566406,You should get over to the  HCA lab  now,9,Whisper
+tiny,0.8888888888888888,1.2501068115234375,"You're needed in the  lab  now, get over there",9,Whisper
+tiny,1.25,1.2222621440887451,"The main  chemistry lab , as soon as possible",8,Whisper
+tiny,1.0,1.2427008152008057,Find a route to the  toxological laboratory  near the entrance,10,Whisper
+tiny,0.8333333333333334,1.2461867332458496,Take this over to the  room where the blood tests are done ,12,Whisper
+tiny,1.0,1.482347011566162,Go to  room 205A  as soon as you can,9,Whisper
+tiny,1.8571428571428572,1.2822329998016357,Direct yourself to  the patients room  now,7,Whisper
+tiny,1.0714285714285714,1.3594341278076172,Please do me a favor and head over to  room D  when you can,14,Whisper
+tiny,0.8,1.2861649990081787,"As soon as you can, go to  the room at the end of the hall ",15,Whisper
+tiny,0.7692307692307693,1.4691450595855713,"Uhh, I, would like you to see the patient in  the emergency room ",13,Whisper
+tiny,1.4285714285714286,1.2268638610839844,The patient needs you  in their room ,7,Whisper
+tiny,1.0,1.2377300262451172,Now you are going to have to go to  room 15 ,11,Whisper
+tiny,0.8333333333333334,1.4508488178253174,I'd like if you could navigate to the  room on the left ,12,Whisper
+tiny,0.6666666666666666,1.199859857559204,Go to the  patients room  now,6,Whisper
+tiny,0.7142857142857143,1.3772118091583252,Over to the  room two thousand  robot! ,7,Whisper
+tiny,1.5,1.5988967418670654,To the  hallway  now,4,Whisper
+tiny,1.1428571428571428,1.2760541439056396,Get out and into the  corridor  please ,7,Whisper
+tiny,0.6,1.526444911956787,"Alright, you can go back into the  nearest hallway  now",10,Whisper
+tiny,1.5,1.2693941593170166,"That's enough, back into the  hallway ",6,Whisper
+tiny,0.8,1.218216896057129,"I would prefer if you waited in the  corridor , thanks",10,Whisper
+tiny,1.0,1.3237760066986084,You'll be more useful waiting out in the  hallway ,9,Whisper
+tiny,1.3333333333333333,1.37272310256958,A  hallway  now,3,Whisper
+tiny,1.5,1.436574935913086,Can you go back?,4,Whisper
+tiny,0.8571428571428571,1.1953868865966797,I would like you to change destinations,7,Whisper
+tiny,0.375,1.5336289405822754,I want to change my change your goal,8,Whisper
+tiny,0.8571428571428571,1.5013480186462402,I want to change my previous plan,7,Whisper
+tiny,0.5,1.3399896621704102,Go to another place,4,Whisper
+tiny,0.75,1.4875240325927734,Go to somewhere else,4,Whisper
+tiny,0.7142857142857143,1.4995927810668945,Can I you go to somewhere else,7,Whisper
+tiny,0.8888888888888888,1.3173460960388184,Can you take me to the the the the,9,Whisper
+tiny,1.0,0.36440610885620117,Can we go there?,4,Whisper
+tiny,2.0,1.3194067478179932,Go there,2,Whisper
+tiny,0.0,1.3372111320495605,Get out of here,4,Whisper
+tiny,inf,1.4295878410339355,,0,Whisper
+tiny,2.2,1.22843599319458,Go find the closest  catheter ,5,Whisper
+tiny,1.0,1.2260758876800537,"I need you to get me a  catheter collection bag  please, robot",12,Whisper
+tiny,0.9090909090909091,1.6455061435699463,Go get that  colostomy bag  next to the  bed  over there,11,Whisper
+tiny,1.6666666666666667,1.2591028213500977,"I want the  crutches  now, robot",6,Whisper
+tiny,0.9090909090909091,1.222123146057129,A  pair of glasses  I left on a  chair   out there,11,Whisper
+tiny,1.0,1.504331111907959,"Shoot, get me that  stethescope  over in the corner there",10,Whisper
+tiny,1.7142857142857142,1.2264940738677979,Move over there and grab that  bottle ,7,Whisper
+tiny,0.9230769230769231,1.4908170700073242,Would you please fetch the  oxygen mask  that is hanging on the  tank ,13,Whisper
+tiny,1.8571428571428572,1.296739101409912,Go to the  scalpel  and get it ,7,Whisper
+tiny,1.0,1.2447972297668457,Is it too much for you to go over there and get my  stethescope  from her,16,Whisper
+tiny,1.2222222222222223,1.2489469051361084,"The  surgical mask  on top of  that table  , please",9,Whisper
+tiny,1.0,1.293375015258789,"It's needed that you get that  thermometer , can you do that",11,Whisper
+tiny,1.0,1.46840500831604,Find me whatever  scalpel  is inside of  the closet over there  ,11,Whisper
+tiny,2.75,1.270900011062622,Go fetch that  prescription ,4,Whisper
+tiny,1.0,1.4845550060272217,Please go pick up that  bottle of pills  on  top of the counter ,13,Whisper
+tiny,1.8333333333333333,1.2588176727294922,Grab the  prescription  and bring it,6,Whisper
+tiny,1.0,1.2189669609069824,You need to go find that  bottle of hand sanitizer  now,11,Whisper
+tiny,0.8888888888888888,1.4305088520050049,"Actually, bring the  soap  from over by the  sink ",9,Whisper
+tiny,3.25,1.3629720211029053,I want the  bottle      ,4,Whisper
+tiny,1.0,1.309154987335205,What would be helpful is if you could get the  scale  from over there,14,Whisper
+tiny,1.0,1.3144690990447998,Track down the  first aid kit   in the  hallway  that we've been looking for,14,Whisper
+tiny,3.0,1.4112839698791504, sanitizers ,1,Whisper
+tiny,4.0,1.3782930374145508,box of  gloves ,3,Whisper
+tiny,1.0,1.4617221355438232,Would you do me a favour an bring me that  bottle of sanitizer ,13,Whisper
+tiny,1.0,1.3580119609832764,"The, uhhh,  thing of tools , over by the uhh  door  over there",12,Whisper
+tiny,1.0,0.3726162910461426,Please bring it,3,Whisper
+tiny,2.0,1.3189589977264404,Fetch,1,Whisper
+tiny,1.0,0.36891818046569824,Find that,2,Whisper
+tiny,1.0,1.32505202293396,Pick it up ,3,Whisper
+tiny,1.0,1.5028657913208008,Go get that,3,Whisper
+tiny,3.0,1.8732097148895264,Get it,2,Whisper
+tiny,1.0,1.352849006652832,Can you go pick that up,6,Whisper
+tiny,1.6666666666666667,1.5565659999847412,Get the  doctor  ,3,Whisper
+tiny,1.2857142857142858,1.5803418159484863,Track down the  doctor  when you can,7,Whisper
+tiny,0.7777777777777778,1.3579740524291992,Would you be able to bring the  doctor  here,9,Whisper
+tiny,1.75,1.4651823043823242,I need the  doctor ,4,Whisper
+tiny,1.2857142857142858,1.604788064956665,The  doctor  would be useful right now,7,Whisper
+tiny,1.0,1.474419116973877,"Uh, it's, probably good for us to get the  doctor ",10,Whisper
+tiny,1.0,1.3885250091552734,"Bring the  doc  over here, would you ",7,Whisper
+tiny,2.6666666666666665,1.636101245880127, doctor  is needed,3,Whisper
+tiny,1.0,1.5194897651672363,Go over to the  nurse  when you can,8,Whisper
+tiny,1.0,1.4308710098266602,I would like one of the  nurses ,7,Whisper
+tiny,1.6,1.5124120712280273,navigate to the nearest  nurse ,5,Whisper
+tiny,1.0,1.5373971462249756,Would we be able to find that  nursing lady ,9,Whisper
+tiny,1.25,1.406235933303833,About time we got  nurse  jacobs in here,8,Whisper
+tiny,0.07692307692307693,1.3092601299285889,"Hmm, I think we should find the  nurse  who's in charge of this",13,Whisper
+tiny,inf,1.2724499702453613,,0,Whisper
+tiny,0.8571428571428571,1.2273521423339844,Bring this  set of scrubs  to the  doctor  over in the  changing room  please,14,Whisper
+tiny,1.1666666666666667,1.312506914138794,Be a lamb and take this over to the  assistant  over there,12,Whisper
+tiny,0.95,1.2950639724731445,I think it would be helpful if you could navigate this  prescription  to the  patient  in  room five fourty one ,20,Whisper
+tiny,1.25,1.339055061340332,"As quick as you can, take these  forceps ",8,Whisper
+tiny,1.0,1.251127004623413,Please bring  Miss Johnson  at the  end of the hallway  ,10,Whisper
+tiny,1.2222222222222223,1.2490601539611816,The  doctor  in the  operating theatre  needs this  scalpel ,9,Whisper
+tiny,0.9333333333333333,1.5056309700012207,"The  group  in the  waiting room , bring them this box of masks  box of masks ",15,Whisper
+tiny,1.8333333333333333,1.3635048866271973,Carry  nurse Afaf  her  lunch box ,6,Whisper
+tiny,1.1818181818181819,1.327599048614502,"I, uh, would like if you could possible take  her   this ",11,Whisper
+tiny,0.9230769230769231,1.2822749614715576,Could you please bring this  clipboard  to  Dr. Smith  in the  emergency room ?,13,Whisper
+tiny,1.3333333333333333,1.2469508647918701,"Take these  X-rays  to the  radiology department , please.",9,Whisper
+tiny,0.6428571428571429,1.220796823501587,I need you to deliver this  package  to the  receptionist  at the front desk,14,Whisper
+tiny,0.9090909090909091,1.397752046585083,I need someone to take these  documents  to the  administration office ,11,Whisper
+tiny,4.5,1.6099488735198975,Take this,2,Whisper
+tiny,0.8888888888888888,1.3691051006317139,Bring it to  them  when you have a chance,9,Whisper
+tiny,0.0,1.3146090507507324,Take it away. ,3,Whisper
+tiny,inf,1.5000202655792236,,0,Whisper
+tiny,1.0,0.38343286514282227,"Robot, come here",3,Whisper
+tiny,1.0,1.3391730785369873,Come to me,3,Whisper
+tiny,1.3333333333333333,1.4100301265716553,Get over here,3,Whisper
+tiny,1.0,1.440424919128418,Hurry up and come here,5,Whisper
+tiny,1.6,1.714653730392456,I need your help robot ,5,Whisper
+tiny,1.0,0.3724370002746582,"It's, uh, I would like you to come ",8,Whisper
+tiny,4.0,1.3324220180511475,Beckon,1,Whisper
+tiny,2.0,1.2621290683746338,come to my voice,4,Whisper
+tiny,1.0,1.4900732040405273,"When you can, uh, robot, come pick this up",9,Whisper
+tiny,2.0,1.6169300079345703,I need a hand ,4,Whisper
+tiny,1.0,1.509812355041504,Would it be possible to stop over here,8,Whisper
+tiny,1.0,0.41768503189086914,"Please, when you can, come hither",6,Whisper
+tiny,1.0,0.3823699951171875,here now,2,Whisper
+tiny,4.0,1.3592619895935059,come ,1,Whisper
+tiny,1.0,0.38371872901916504,i want you here,4,Whisper
+tiny,1.0,0.3901350498199463,lets go ,2,Whisper
+tiny,inf,1.3759009838104248,,0,Whisper
+tiny,1.5714285714285714,1.4205009937286377,I need you to go to  room 205A  and bring me the  patient's file .,14,Whisper
+tiny,0.8461538461538461,1.3263821601867676,"It's uh, sorry. Hey dude, good morning. Please go to the  seating room  and see if there are patients. Get their  forms  and bring em back.",26,Whisper
+tiny,0.7894736842105263,1.2437818050384521,"Go to the lab and find the  phlebotomist . If she has  results  to give you, bring them back here.",19,Whisper
+tiny,1.8,1.4506831169128418,"Navigate to  the corridor  and bring the  nurse  here, please.",10,Whisper
+tiny,1.0526315789473684,1.3726398944854736,"Fill up with all the  prescription  you can carry. Well, you'll need to go get them from the  pharmacy .",19,Whisper
+tiny,0.9090909090909091,1.3207178115844727,"I think I left my  stethescope  next to the  patient's bed  in room  A19 . Go there, get it and come back here.",22,Whisper
+tiny,0.9130434782608695,1.391982078552246,"sup, robot. I need you to go to  the supply closet  and bring me the  box of gloves . Make sure to hurry back.",23,Whisper
+tiny,1.0,1.4739627838134766,"Salutations my friend. If you can get there, go down to the  cafeteria , see the  lady  and bring me back a  coffee ",22,Whisper
+tiny,1.0869565217391304,1.404407024383545,"Navigate to  the storeroom  and bring the  emergency medical kit  on the right side. It's better to have it nearby, just in case.",23,Whisper
+tiny,0.8461538461538461,1.3094589710235596,"Hello, buddy. If you could, please go to  the waiting area  and find  Mrs. Jones . Ask her for the  patient's file  and bring it back here.",26,Whisper
+tiny,0.9411764705882353,1.251277208328247,"Hey, pal. Rush over to  the supply closet  and grab a  box of bandages  for me, please.",17,Whisper
+tiny,0.0,1.3704562187194824,"To the  staff lounge , find the first  nurse  you can find and bring them here",15,Whisper
+tiny,inf,1.6029512882232666,,0,Whisper
+tiny,1.0,1.5607390403747559,Can you do me a favor please,7,Whisper
+tiny,0.2857142857142857,1.514953851699829,Can I get you to do something,7,Whisper
+tiny,1.0,1.3872451782226562,"Robot, I need you to do something",7,Whisper
+tiny,0.75,1.5072157382965088,Do me a favor,4,Whisper
+tiny,1.0,1.3423490524291992,Do something for me,4,Whisper
+tiny,1.3333333333333333,1.3509182929992676,Can you help,3,Whisper
+tiny,0.75,1.3571209907531738,I want your aid,4,Whisper
+tiny,1.0,1.4515550136566162,I need a hand,4,Whisper
+tiny,2.0,1.606874704360962,Please help me,3,Whisper
+tiny,0.8571428571428571,1.3290128707885742,"Would you be able to help, please",7,Whisper
+tiny,1.0,1.3557639122009277,Assistance please,2,Whisper
+tiny,1.0,0.37721991539001465,Assistance,1,Whisper
+tiny,2.0,1.4627890586853027,Help me,2,Whisper
+tiny,1.0,0.3822939395904541,I need a favor,4,Whisper
+tiny,1.5,1.389662265777588,Aid me,2,Whisper
+tiny,1.0,1.3375959396362305,I require assistance,3,Whisper
+tiny,1.0,1.3902089595794678,Can you offer assistance,4,Whisper
+tiny,1.0,1.430129051208496,May I ask your assistance? ,5,Whisper
+tiny,1.5,1.395878791809082,Help needed,2,Whisper
+tiny,2.0,1.4579789638519287,Request for assistance,3,Whisper
+tiny,1.2857142857142858,1.2066221237182617,I am in need of immediate assistance,7,Whisper
+tiny,0.8888888888888888,1.4740750789642334,We will need you to do something for us,9,Whisper
+tiny,1.0,1.4294350147247314,Please do us something,4,Whisper
+tiny,2.0,1.1918861865997314,Do something for us,4,Whisper
+tiny,1.0,1.5081112384796143,We will need an extra pair of hands,8,Whisper
+tiny,1.0,1.3974511623382568,It would be helpful for you to intervene,8,Whisper
+small,0.0,2.0763587951660156,and sleep,2,FasterWhisper
+small,0.0,2.1366262435913086,"sleep, thank you",3,FasterWhisper
+small,0.0,2.310563087463379,You go to sleep now,5,FasterWhisper
+small,0.0,1.8774478435516357,sleep,1,FasterWhisper
+small,0.0,2.141140937805176,go to sleep,3,FasterWhisper
+small,0.5,1.7738168239593506,power down,2,FasterWhisper
+small,0.0,1.740128755569458,power off,2,FasterWhisper
+small,0.0,1.7945830821990967,sleep for a while,4,FasterWhisper
+small,0.0,2.270263910293579,sleep for a bit,4,FasterWhisper
+small,0.0,2.303877115249634,let's sleep,2,FasterWhisper
+small,0.0,1.9338088035583496,go to power-saving mode,5,FasterWhisper
+small,0.0,1.8060810565948486,take a nap,3,FasterWhisper
+small,3.0,2.0132689476013184,suspend,1,FasterWhisper
+small,0.0,2.3313698768615723,ignore my words from now on,6,FasterWhisper
+small,0.0,2.178267002105713,hibernate,1,FasterWhisper
+small,0.0,1.9432811737060547,power nap,2,FasterWhisper
+small,0.3333333333333333,1.8716537952423096,power-saving state,3,FasterWhisper
+small,0.0,2.0620899200439453,okay thats enough now thank you,6,FasterWhisper
+small,0.0,2.3344428539276123,go to bed now,4,FasterWhisper
+small,0.6666666666666666,2.0934109687805176,"bed time, robot",3,FasterWhisper
+small,0.0,1.8126437664031982,time to sleep,3,FasterWhisper
+small,0.6666666666666666,1.847076177597046,"nap time, robot",3,FasterWhisper
+small,0.0,2.132221221923828,hibernate for now please ,4,FasterWhisper
+small,inf,2.55208420753479,,0,FasterWhisper
+small,0.0,1.9652631282806396,wait for a bit,4,FasterWhisper
+small,0.0,1.8494460582733154,wait a sec,3,FasterWhisper
+small,1.0,1.841883897781372,wait,1,FasterWhisper
+small,0.0,1.850437879562378,Wait a second,3,FasterWhisper
+small,0.0,1.9999558925628662,wait for me,3,FasterWhisper
+small,0.0,2.3232011795043945,let's take a break,4,FasterWhisper
+small,0.0,1.942929983139038,hold on a second,4,FasterWhisper
+small,0.0,2.2344610691070557,pause for a moment,4,FasterWhisper
+small,0.0,1.8567249774932861,stop for now,3,FasterWhisper
+small,0.0,1.854111909866333,let's pause here,3,FasterWhisper
+small,0.0,2.1096110343933105,take a breather,3,FasterWhisper
+small,0.0,2.3157529830932617,let's slow down for a bit,6,FasterWhisper
+small,0.0,2.1760318279266357,put a pin in it,5,FasterWhisper
+small,0.0,1.9012861251831055,let's pause and regroup,4,FasterWhisper
+small,0.0,2.010810136795044,hold your horses,3,FasterWhisper
+small,0.5,1.9470138549804688,let's take a timeout,4,FasterWhisper
+small,0.0,1.9677512645721436,let's pause and come back later,6,FasterWhisper
+small,0.0,2.3779797554016113,stop what you're doing,4,FasterWhisper
+small,0.0,1.9510021209716797,let's take a short intermission,5,FasterWhisper
+small,0.0,1.8482322692871094,Let's take a break.,4,FasterWhisper
+small,0.0,1.8914611339569092,Pause for a bit.,4,FasterWhisper
+small,0.0,1.8982670307159424,Hold on a moment.,4,FasterWhisper
+small,0.0,2.4501898288726807,Let's regroup.,2,FasterWhisper
+small,0.0,2.208378791809082,Let's take a breather.,4,FasterWhisper
+small,0.0,1.8209919929504395,Let's halt temporarily.,3,FasterWhisper
+small,0.0,1.8680062294006348,Let's take a recess.,4,FasterWhisper
+small,0.0,1.8793902397155762,Let's reflect briefly.,3,FasterWhisper
+small,0.6666666666666666,2.235301971435547,Take a timeout.,3,FasterWhisper
+small,0.0,2.1966140270233154,Let's rest up.,3,FasterWhisper
+small,0.0,1.9039149284362793,Let's come back later.,4,FasterWhisper
+small,0.0,2.08473801612854,Put it aside for now.,5,FasterWhisper
+small,0.0,1.9018433094024658,Hold off a bit.,4,FasterWhisper
+small,0.0,1.8628149032592773,Take a short break.,4,FasterWhisper
+small,0.0,2.2606210708618164,Let's refocus.,2,FasterWhisper
+small,0.0,2.249939203262329,Take a hiatus.,3,FasterWhisper
+small,0.3333333333333333,1.8285088539123535,Take a breather.,3,FasterWhisper
+small,0.0,1.8963909149169922,Put it on hold.,4,FasterWhisper
+small,0.0,1.9425649642944336,Take a quick pause.,4,FasterWhisper
+small,0.0,1.9188990592956543,Let's assess briefly.,3,FasterWhisper
+small,0.0,2.3571879863739014,"No, stop.",2,FasterWhisper
+small,0.3333333333333333,1.82157301902771,Hey robot stop,3,FasterWhisper
+small,0.0,1.9331932067871094,stop now,2,FasterWhisper
+small,0.0,1.8911218643188477,"stop, stop, stop",3,FasterWhisper
+small,0.0,1.8584840297698975,stop for a while,4,FasterWhisper
+small,0.0,1.8156840801239014,hold on,2,FasterWhisper
+small,0.25,1.951442003250122,hold on a sec,4,FasterWhisper
+small,inf,2.367039918899536,,0,FasterWhisper
+small,0.0,1.9019739627838135,please continue,2,FasterWhisper
+small,0.0,1.8985509872436523,let's continue,2,FasterWhisper
+small,0.0,1.9972100257873535,pick up where we left off,6,FasterWhisper
+small,0.0,1.9170210361480713,let's get back to it,5,FasterWhisper
+small,0.0,2.03824782371521,get back,2,FasterWhisper
+small,0.0,2.1373257637023926,restart,1,FasterWhisper
+small,0.0,2.175483226776123,restart our journey,3,FasterWhisper
+small,0.0,2.0029330253601074,carry on,2,FasterWhisper
+small,0.0,1.8432719707489014,keep going,2,FasterWhisper
+small,0.0,1.7618601322174072,keep moving,2,FasterWhisper
+small,0.0,2.140570878982544,keep walking,2,FasterWhisper
+small,0.0,2.2096099853515625,don't stop now,3,FasterWhisper
+small,0.0,1.8069701194763184,continue from here,3,FasterWhisper
+small,0.0,1.8985850811004639,let's move forward,3,FasterWhisper
+small,0.0,1.9095869064331055,back to business,3,FasterWhisper
+small,0.0,1.9491426944732666,let's keep working,3,FasterWhisper
+small,0.0,2.2635419368743896,continue what you were doing,5,FasterWhisper
+small,0.0,1.9860279560089111,let's finish what we started,5,FasterWhisper
+small,0.0,2.0819430351257324,let's resume our previous task,5,FasterWhisper
+small,0.0,1.8220419883728027,Proceed with the task.,4,FasterWhisper
+small,0.0,1.807978868484497,proceed,1,FasterWhisper
+small,0.0,1.7729527950286865,proceed with your plan,4,FasterWhisper
+small,0.0,2.2094058990478516,Resume our progress.,3,FasterWhisper
+small,2.0,7.6936750411987305,resume,1,FasterWhisper
+small,0.0,2.0352070331573486,resume our plan,3,FasterWhisper
+small,0.0,2.4769558906555176,Pick up where we left off.,6,FasterWhisper
+small,0.0,1.7395970821380615,Keep going from here.,4,FasterWhisper
+small,0.0,2.079524040222168,Carry on with the plan.,5,FasterWhisper
+small,0.0,1.8409299850463867,Get back to the task.,5,FasterWhisper
+small,0.0,1.972486972808838,Continue the journey.,3,FasterWhisper
+small,0.0,1.9675860404968262,Pick up the thread.,4,FasterWhisper
+small,0.0,2.3936400413513184,Keep moving forward.,3,FasterWhisper
+small,0.0,1.9443919658660889,Back to business.,3,FasterWhisper
+small,0.0,1.7533080577850342,Restart our efforts.,3,FasterWhisper
+small,0.0,1.8072600364685059,Continue from this point.,4,FasterWhisper
+small,0.0,2.200881004333496,Don't lose momentum.,3,FasterWhisper
+small,0.0,2.4515230655670166,Carry on the project.,4,FasterWhisper
+small,0.0,1.7670438289642334,Carry on,2,FasterWhisper
+small,0.0,1.8537671566009521,Proceed with the plan.,4,FasterWhisper
+small,0.0,1.9838159084320068,Resume our previous task.,4,FasterWhisper
+small,0.0,1.9493660926818848,Keep pushing forward.,3,FasterWhisper
+small,0.0,2.1524219512939453,Continue from where you were.,5,FasterWhisper
+small,0.0,2.15299129486084,Go on,2,FasterWhisper
+small,0.0,1.927475929260254,Move on,2,FasterWhisper
+small,1.0,6.669872760772705,Go,1,FasterWhisper
+small,2.0,2.293437957763672,Move,1,FasterWhisper
+small,0.0,1.8710248470306396,Move forward,2,FasterWhisper
+small,0.0,1.8268980979919434,Resume the navigation,3,FasterWhisper
+small,0.0,1.9437549114227295,"Continue, go back",3,FasterWhisper
+small,0.0,1.6813561916351318,continue,1,FasterWhisper
+small,0.0,1.864344835281372,continue what you're doing,4,FasterWhisper
+small,0.0,2.248565673828125,So let's start!,3,FasterWhisper
+small,inf,2.0105180740356445,,0,FasterWhisper
+small,0.0,1.9545197486877441,"Hello, robots.",2,FasterWhisper
+small,0.0,1.779890775680542,hey robot,2,FasterWhisper
+small,0.0,1.8124558925628662,hello robot,2,FasterWhisper
+small,0.0,2.058925151824951,"hello, hello",2,FasterWhisper
+small,0.0,2.102966785430908,Hello?,1,FasterWhisper
+small,0.0,1.8400728702545166,"hello, robot",2,FasterWhisper
+small,0.0,1.8150839805603027,hi robot,2,FasterWhisper
+small,0.0,1.817126989364624,good morning robot,3,FasterWhisper
+small,1.0,7.28092885017395,morning,1,FasterWhisper
+small,0.0,1.9910728931427002,good evening robot,3,FasterWhisper
+small,0.5,1.8692049980163574,moin robot,2,FasterWhisper
+small,0.0,1.7883141040802002,hey there,2,FasterWhisper
+small,0.0,1.9250671863555908,good afternoon robot,3,FasterWhisper
+small,0.0,2.424834966659546,hello ruled b ut,4,FasterWhisper
+small,1.0,1.8643221855163574,hello,1,FasterWhisper
+small,1.0,6.6878821849823,hi,1,FasterWhisper
+small,0.0,2.1227939128875732,Can you hear me,4,FasterWhisper
+small,0.0,2.0685131549835205,Can you hear me?,4,FasterWhisper
+small,0.0,2.093273639678955,"hey there, how are you doing?",6,FasterWhisper
+small,0.0,1.9348747730255127,"good to see you again, robot",6,FasterWhisper
+small,0.0,1.834700107574463,"hi, what's up?",3,FasterWhisper
+small,0.0,1.8862450122833252,"greetings, robot",2,FasterWhisper
+small,0.0,2.2392261028289795,"hello, nice to meet you",5,FasterWhisper
+small,0.0,2.448873996734619,"hi there, how can I help you today?",8,FasterWhisper
+small,0.0,2.0503201484680176,"what's cracking, robot?",3,FasterWhisper
+small,0.0,2.0654730796813965,"yo, what's good?",3,FasterWhisper
+small,0.0,2.025394916534424,"hiya, how's your day going?",5,FasterWhisper
+small,0.0,2.2844631671905518,"hello, how's life treating you?",5,FasterWhisper
+small,0.0,2.241793155670166,"Hey there, stranger.",3,FasterWhisper
+small,1.0,1.836177110671997,"G'day, robot.",2,FasterWhisper
+small,0.0,1.9446227550506592,"Salutations, my metal friend.",4,FasterWhisper
+small,0.0,2.012471914291382,"Top of the morning to you, robot.",7,FasterWhisper
+small,0.0,1.8426470756530762,"Howdy, partner.",2,FasterWhisper
+small,1.5,2.2802608013153076,"Hola, robot.",2,FasterWhisper
+small,1.0,2.0341720581054688,"Good day, mate.",3,FasterWhisper
+small,1.0,1.808858871459961,"Namaste, robot.",2,FasterWhisper
+small,1.0,1.8936231136322021,"Hello, sunshine.",2,FasterWhisper
+small,1.5,2.100482225418091,"Aloha, robot.",2,FasterWhisper
+small,1.0,1.9888980388641357,"Well, hello there.",3,FasterWhisper
+small,2.0,2.5352590084075928,"Sup, robot?",2,FasterWhisper
+small,0.75,2.0616989135742188,"Hey, how's it going?",4,FasterWhisper
+small,1.6666666666666667,1.8994109630584717,"Hey, what's happening?",3,FasterWhisper
+small,1.2,1.988621711730957,"Good to see you, robot.",5,FasterWhisper
+small,0.8333333333333334,1.855959177017212,"Hey, stranger, long time no see.",6,FasterWhisper
+small,1.0,2.1566059589385986,"Hey, how have you been?",5,FasterWhisper
+small,1.25,2.339747905731201,"What's up, my friend?",4,FasterWhisper
+small,1.0,1.9943370819091797,"Hey, hope you're doing well.",5,FasterWhisper
+small,0.75,1.9268848896026611,"Yo, what's the word?",4,FasterWhisper
+small,0.3333333333333333,1.8832299709320068,"Hi, what's up?",3,FasterWhisper
+small,0.6666666666666666,1.7687749862670898,Hey. What's up?,3,FasterWhisper
+small,0.5,1.8515799045562744,wake up,2,FasterWhisper
+small,0.6666666666666666,1.7634291648864746,"wake up, robot",3,FasterWhisper
+small,1.6666666666666667,2.2800369262695312,please wake up,3,FasterWhisper
+small,1.0,2.359834909439087,"Hey, can you hear me",5,FasterWhisper
+small,1.0,1.929123878479004,HEAR,1,FasterWhisper
+small,inf,1.8140060901641846,,0,FasterWhisper
+small,1.0,1.7469849586486816,yes,1,FasterWhisper
+small,3.0,1.815889835357666,yuh,1,FasterWhisper
+small,1.0,7.9618470668792725,"Yes, I do.",3,FasterWhisper
+small,2.0,1.9653089046478271,indeed,1,FasterWhisper
+small,1.5,1.8648309707641602,of course,2,FasterWhisper
+small,1.0,1.8468317985534668,that sounds good,3,FasterWhisper
+small,1.0,1.9560730457305908,yeah,1,FasterWhisper
+small,1.0,2.49416184425354,right,1,FasterWhisper
+small,2.0,7.434011936187744,yep,1,FasterWhisper
+small,1.0,1.9440209865570068,uh-huh,2,FasterWhisper
+small,1.0,2.2100467681884766,correct,1,FasterWhisper
+small,2.5,2.0199620723724365,that's correct,2,FasterWhisper
+small,1.0,1.9421067237854004,"Oh, this is very quick.",5,FasterWhisper
+small,1.0,1.7952260971069336,absolutely,1,FasterWhisper
+small,1.0,1.873018741607666,affirmative,1,FasterWhisper
+small,1.0,1.7247660160064697,affirmed,1,FasterWhisper
+small,2.0,1.7226359844207764,definitely,1,FasterWhisper
+small,1.0,2.2817320823669434,for sure,2,FasterWhisper
+small,2.0,1.878403902053833,sure,1,FasterWhisper
+small,1.5,1.8198647499084473,you bet,2,FasterWhisper
+small,1.0,1.827247142791748,without a doubt,3,FasterWhisper
+small,0.0,1.8493680953979492,positively,1,FasterWhisper
+small,1.0,2.1268038749694824,positive,1,FasterWhisper
+small,2.0,2.2350499629974365,agreed,1,FasterWhisper
+small,1.0,1.7707719802856445,I agree,2,FasterWhisper
+small,1.5,1.8963239192962646,sure thing,2,FasterWhisper
+small,1.0,1.8838920593261719,"Yes, that's correct.",3,FasterWhisper
+small,2.0,1.9487781524658203,Absolutely.,1,FasterWhisper
+small,1.0,2.256722927093506,That's right.,2,FasterWhisper
+small,1.5,1.986510992050171,I agree.,2,FasterWhisper
+small,1.0,1.8610038757324219,You're spot on.,3,FasterWhisper
+small,2.0,1.8427200317382812,Precisely.,1,FasterWhisper
+small,1.0,1.7770240306854248,I concur.,2,FasterWhisper
+small,2.0,1.9316060543060303,Indeed.,1,FasterWhisper
+small,6.0,2.389461040496826,Correctamundo.,1,FasterWhisper
+small,0.8333333333333334,1.8481740951538086,That's exactly what I was thinking.,6,FasterWhisper
+small,1.0,1.8442728519439697,exactly,1,FasterWhisper
+small,1.0,1.8099660873413086,"yeah, exactly",2,FasterWhisper
+small,1.0,1.9144549369812012,"oh, yes",2,FasterWhisper
+small,1.0,2.5075552463531494,"emm, yes",2,FasterWhisper
+small,1.0,2.064772844314575,Roger that.,2,FasterWhisper
+small,3.0,1.835878849029541,Affirmative.,1,FasterWhisper
+small,1.0,1.8700790405273438,You got it.,3,FasterWhisper
+small,1.0,2.0616137981414795,No doubt about it.,4,FasterWhisper
+small,1.3333333333333333,2.3042891025543213,Right you are.,3,FasterWhisper
+small,0.75,2.2226030826568604,Sounds good to me.,4,FasterWhisper
+small,0.5,1.7926359176635742,sound good,2,FasterWhisper
+small,2.5,1.9537968635559082,sound great,2,FasterWhisper
+small,1.0,1.8760807514190674,I'm with you on that.,5,FasterWhisper
+small,0.3333333333333333,1.7493400573730469,You're absolutely right.,3,FasterWhisper
+small,1.5,2.318552017211914,you're right,2,FasterWhisper
+small,1.0,2.1960699558258057,That's the ticket.,3,FasterWhisper
+small,0.3333333333333333,1.7877488136291504,"Bingo, that's it.",3,FasterWhisper
+small,1.0,1.8165690898895264,that's it,2,FasterWhisper
+small,1.0,1.8323769569396973,bingo,1,FasterWhisper
+small,1.0,1.768258810043335,perfect,1,FasterWhisper
+small,1.0,1.9209342002868652,great,1,FasterWhisper
+small,1.0,2.3412551879882812,amazing,1,FasterWhisper
+small,1.0,1.791604995727539,wonderful,1,FasterWhisper
+small,3.0,1.8352539539337158,Cool.,1,FasterWhisper
+small,1.0,2.0152580738067627,Go for it.,3,FasterWhisper
+small,2.0,1.8851768970489502,Okay. Okay.,2,FasterWhisper
+small,1.0,2.1944949626922607,thats what i said,4,FasterWhisper
+small,1.0,2.0701510906219482,you heard that right,4,FasterWhisper
+small,2.0,1.9594581127166748,spot on,2,FasterWhisper
+small,1.5,1.97247314453125,close enough ,2,FasterWhisper
+small,1.6666666666666667,1.98380708694458,"sure, thats close  ",3,FasterWhisper
+small,1.0,1.8180229663848877,i think thats what was said,6,FasterWhisper
+small,1.5,2.140568971633911,"basically, yeah",2,FasterWhisper
+small,1.0,2.182111978530884,you understood correctly ,3,FasterWhisper
+small,0.0,1.8567001819610596,that's it ,2,FasterWhisper
+small,inf,2.008043050765991,,0,FasterWhisper
+small,0.0,2.0258402824401855,no,1,FasterWhisper
+small,1.0,1.7144980430603027,nah,1,FasterWhisper
+small,1.0,2.1308059692382812,negative,1,FasterWhisper
+small,1.0,2.050935983657837,false,1,FasterWhisper
+small,1.0,7.2176597118377686,don't,1,FasterWhisper
+small,1.0,1.6688580513000488,nay,1,FasterWhisper
+small,1.0,2.295437812805176,never,1,FasterWhisper
+small,2.0,2.09429669380188,never ever,2,FasterWhisper
+small,0.75,2.256549835205078,I don't think so,4,FasterWhisper
+small,0.6666666666666666,1.9685049057006836,don't like that,3,FasterWhisper
+small,1.0,2.1136510372161865,don't do this,3,FasterWhisper
+small,1.0,2.0052859783172607,no way,2,FasterWhisper
+small,1.0,1.930840015411377,not really,2,FasterWhisper
+small,1.5,2.4131789207458496,I disagree,2,FasterWhisper
+small,0.3333333333333333,2.2857446670532227,that's not true,3,FasterWhisper
+small,0.5,2.0304198265075684,Not true,2,FasterWhisper
+small,0.5,1.860691785812378,Not correct,2,FasterWhisper
+small,2.0,1.962998867034912,Incorrect,1,FasterWhisper
+small,1.0,1.8594069480895996,Not right,2,FasterWhisper
+small,1.3333333333333333,1.9750487804412842,not at all,3,FasterWhisper
+small,0.75,2.381070137023926,"I'm sorry, but no",4,FasterWhisper
+small,0.5,2.070991039276123,"unfortunately, no",2,FasterWhisper
+small,2.5,1.8779962062835693,"sorry, no",2,FasterWhisper
+small,0.8,2.0225138664245605,that doesn't work for me,5,FasterWhisper
+small,1.0,2.145298957824707,won't work,2,FasterWhisper
+small,0.75,1.9833052158355713,"no, that won't work",4,FasterWhisper
+small,0.6666666666666666,2.5161290168762207,"no, you're wrong",3,FasterWhisper
+small,6.0,2.3340489864349365,wrong!,1,FasterWhisper
+small,1.0,2.370100975036621,I can't say yes to that,6,FasterWhisper
+small,1.0,2.0395891666412354,that's not what I want,5,FasterWhisper
+small,1.0,1.9743661880493164,I'm afraid not,3,FasterWhisper
+small,1.0,1.758371114730835,I must decline,3,FasterWhisper
+small,5.0,2.0995500087738037,declined,1,FasterWhisper
+small,1.0,2.4338369369506836,"Sorry, but that's not possible",5,FasterWhisper
+small,1.4,2.1022770404815674,I can't agree with that,5,FasterWhisper
+small,0.7142857142857143,2.1222007274627686,I'm going to have to say no,7,FasterWhisper
+small,2.0,2.062915086746216,I say no,3,FasterWhisper
+small,0.8571428571428571,1.7945489883422852,I don't think that's a good idea,7,FasterWhisper
+small,1.0,1.6857550144195557,I respectfully decline,3,FasterWhisper
+small,0.6666666666666666,1.8523609638214111,That's a negative,3,FasterWhisper
+small,2.0,2.326820135116577,"No, negative",2,FasterWhisper
+small,1.0,1.8210301399230957,That's simply not true,4,FasterWhisper
+small,0.3333333333333333,1.916029930114746,I'm not convinced,3,FasterWhisper
+small,1.3333333333333333,1.8358368873596191,I'm not interested,3,FasterWhisper
+small,1.25,1.9757812023162842,I don't like this,4,FasterWhisper
+small,1.0,1.8230700492858887,I'm afraid I have to disagree,6,FasterWhisper
+small,1.0,2.0660512447357178,Not in a million years,5,FasterWhisper
+small,1.5,2.194314956665039,No chance,2,FasterWhisper
+small,1.3333333333333333,2.035796880722046,That's not happening,3,FasterWhisper
+small,1.0,1.9824609756469727,That's out of the question,5,FasterWhisper
+small,1.25,2.0120739936828613,I can't support that,4,FasterWhisper
+small,1.0,1.8238780498504639,I'm not willing to do that,6,FasterWhisper
+small,1.25,2.3091089725494385,I don't believe so,4,FasterWhisper
+small,1.0,2.0042808055877686,I have to reject that idea,6,FasterWhisper
+small,2.0,1.7831780910491943,Rejected,1,FasterWhisper
+small,1.0,1.7135088443756104,I reject,2,FasterWhisper
+small,0.5,1.8372516632080078,not good,2,FasterWhisper
+small,2.0,2.0983030796051025,not very good,3,FasterWhisper
+small,0.8333333333333334,2.474108934402466,that sounds like a bad plan,6,FasterWhisper
+small,0.5,7.1061999797821045,that's bad,2,FasterWhisper
+small,2.0,1.8567969799041748,bad,1,FasterWhisper
+small,1.0,2.257330894470215,heck no,2,FasterWhisper
+small,1.0,1.854665994644165,What no more,3,FasterWhisper
+small,1.0,1.9867486953735352,Oh shoot,2,FasterWhisper
+small,1.0,1.860015869140625,No! Stop!,2,FasterWhisper
+small,1.3333333333333333,1.9935078620910645,"no, you misunderstood",3,FasterWhisper
+small,0.75,1.8024382591247559,that's not quite right,4,FasterWhisper
+small,0.0,1.9903109073638916,not about ,2,FasterWhisper
+small,inf,9.382241010665894,,0,FasterWhisper
+small,1.0,2.138097047805786, 1.5% 1.5% 1.5% 1.5% 1.5% 1.5%,6,FasterWhisper
+small,21.0,29.297587871551514, You,1,FasterWhisper
+small,1.0,2.050257921218872, 1.5G 2.5G 1.5G 1.5G 1.5G 1.5G 1.5G,7,FasterWhisper
+small,0.5,1.84102201461792, Let's do it right. Let's do it right.,8,FasterWhisper
+small,inf,2.319575071334839,,0,FasterWhisper
+small,inf,2.136125087738037,............,0,FasterWhisper
+small,1.0,2.080897092819214,what the heck so much someone goes tears,8,FasterWhisper
+small,1.0,1.8839900493621826,"Um, Um, um, uh, um, um, um,",7,FasterWhisper
+small,1.3333333333333333,1.9535200595855713,activate. An X.,3,FasterWhisper
+small,1.0,1.9744558334350586,U grossity hg,3,FasterWhisper
+small,1.3333333333333333,2.3253378868103027,I knew it.,3,FasterWhisper
+small,1.0,1.877357006072998,The I not not,4,FasterWhisper
+small,3.5,1.9537310600280762,Just like.,2,FasterWhisper
+small,1.0,1.8696517944335938,But. But. But. But. But. But.,6,FasterWhisper
+small,5.333333333333333,2.3382067680358887,is eating banjim.,3,FasterWhisper
+small,0.9375,2.415186882019043,"Oh, I don't know. I don't know what to do. I don't know what to do.",16,FasterWhisper
+small,3.8,2.3868050575256348,Denise uhhhhh arguing what and,5,FasterWhisper
+small,1.0,2.2745988368988037,"I am not Beau, very good woman I am even after sitting on the stage So I usually need",19,FasterWhisper
+small,1.0,1.9807710647583008,"Yeah, I thought I'm here. What you were here, what you were in English.",14,FasterWhisper
+small,1.0,2.277139902114868,Pen enthusiasm American,3,FasterWhisper
+small,1.0,2.034020185470581,"No, I Twenty.",3,FasterWhisper
+small,5.0,2.009169101715088,a,1,FasterWhisper
+small,1.0,1.927947998046875,You have split out here.,5,FasterWhisper
+small,4.4,2.5115370750427246,Now we'll raise this hole.,5,FasterWhisper
+small,0.9565217391304348,1.8910911083221436,"I think I will follow up with Sana If you like this version of old-school favourite, I'll apply it in B Hafez",23,FasterWhisper
+small,1.0,2.159903049468994,you,1,FasterWhisper
+small,inf,2.137122869491577,...,0,FasterWhisper
+small,1.0,1.929757833480835,"You know, we don't shoot our ways",7,FasterWhisper
+small,1.0,2.045837163925171,It's not so bad. It's not so bad. It's not so bad.,12,FasterWhisper
+small,2.25,2.2829082012176514,I can't wait a while for this party,8,FasterWhisper
+small,0.8947368421052632,2.4854016304016113,"I think I'm going to leave the link back. Well, maybe you won't have to go get the plan.",19,FasterWhisper
+small,1.0,2.2925219535827637,"No, no, she didn't touch the phone at the end.",10,FasterWhisper
+small,1.0,1.8731131553649902,This is aweaa,3,FasterWhisper
+small,13.0,2.2205231189727783,Silence.,1,FasterWhisper
+small,0.9230769230769231,1.7667977809906006,"Egypt would stand in a potion that was stroke, and suppose to die.",13,FasterWhisper
+small,1.0,1.800048828125, And you are.,3,FasterWhisper
+small,1.0,1.8276190757751465, eSR for Fl,3,FasterWhisper
+small,1.0,2.4996111392974854, Passion love. When.,3,FasterWhisper
+small,1.6666666666666667,2.0316946506500244, That's Psy dealers.,3,FasterWhisper
+small,1.4,2.004978895187378, And I got over there.,5,FasterWhisper
+small,1.0,2.0150551795959473, When is the year Motor pick upimage,7,FasterWhisper
+small,1.0,1.9600777626037598,I'll apply it in B Hafez,6,FasterWhisper
+small,1.0,2.529716968536377," Well, good, good. You can.",5,FasterWhisper
+small,1.0,1.8808531761169434," Okay. Oh, it's saying something.",5,FasterWhisper
+small,3.25,5.18620491027832," So, that does it.",4,FasterWhisper
+small,1.0,1.7936809062957764,"But, uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh,",11,FasterWhisper
+small,5.0,2.5612659454345703, there.,1,FasterWhisper
+small,1.0,1.7711267471313477,Pause. Pause. Pause. Pause. Pause.,5,FasterWhisper
+small,2.0,8.261923789978027, A,1,FasterWhisper
+small,1.0,1.8130979537963867,Zhuangzong hat,2,FasterWhisper
+small,2.0,1.935985803604126," Oh, oh.",2,FasterWhisper
+small,2.75,3.0059170722961426,Silence. Silence. Silence. Silence.,4,FasterWhisper
+small,0.9655172413793104,2.5767180919647217, There is a question. I think we have to get started. There is a question. I think we have to get started. I think we have to get started.,29,FasterWhisper
+small,1.0,2.193077802658081, What is the purpose of evidence that Application and fined,10,FasterWhisper
+small,1.0,1.8339159488677979, My tasks are there.,4,FasterWhisper
+small,1.0,2.0404491424560547, I think it's all.,4,FasterWhisper
+small,1.0,2.2469491958618164, ready. So I think like,5,FasterWhisper
+small,2.0,61.72117590904236, uh here hero but,4,FasterWhisper
+small,1.0,2.064394950866699,and and and and and and and,7,FasterWhisper
+small,2.0,1.8989379405975342, Three.,1,FasterWhisper
+small,1.0,1.8561179637908936, You What?,2,FasterWhisper
+small,3.0,1.9255931377410889,AMazz,1,FasterWhisper
+small,1.0,2.0917370319366455,Give me good.,3,FasterWhisper
+small,1.0,2.2176051139831543,We can.,2,FasterWhisper
+small,1.0,1.7119758129119873,I,1,FasterWhisper
+small,3.0,1.933967113494873,Or.,1,FasterWhisper
+small,4.0,1.9921510219573975,".\""\"" diesel",1,FasterWhisper
+small,1.75,1.9845678806304932,Click the subscribe button.,4,FasterWhisper
+small,1.2857142857142858,2.82633900642395,Do you wish to get a job?,7,FasterWhisper
+small,1.4,1.930699110031128, is is is is is,5,FasterWhisper
+small,1.5714285714285714,2.078153371810913,"One, two, three, and one, two, three.",7,FasterWhisper
+small,1.0,1.8217918872833252,I'm worried. Do you wish to find a way to follow? ,11,FasterWhisper
+small,3.0,1.8390140533447266, cameras.,1,FasterWhisper
+small,2.3333333333333335,2.5574288368225098,Thanks for watching!,3,FasterWhisper
+small,3.142857142857143,2.4840619564056396,Do you want to take that one?,7,FasterWhisper
+small,1.0,2.4074392318725586,And reality is really good. And we talk about D because we think about Michael Andy because Michael soci has amazing backgrounds and,23,FasterWhisper
+small,1.0,1.8368818759918213,Can you take me to a...,6,FasterWhisper
+small,12.0,2.7700560092926025, Another question?,2,FasterWhisper
+small,0.84,2.1667070388793945,"And I'm going to turn it over to Frank. Frank, second comment. That's our new channel. I hope this channel is so safe. Thank you.",25,FasterWhisper
+small,1.0,1.926304817199707,Welcome to our home. Thanks a lot. Thank you.,9,FasterWhisper
+small,1.4285714285714286,2.2294468879699707,"for this performance. One, two, three, four.",7,FasterWhisper
+small,1.0,2.0349507331848145,"One, two, three, four, three, four, five, six, seven, eight.",10,FasterWhisper
+small,1.6,1.9752681255340576,So I'm taking the disorder.,5,FasterWhisper
+small,4.125,2.854382038116455,What kind of a channel do you want?,8,FasterWhisper
+small,1.0625,2.9576690196990967,"In the next refinery, you can move back and forth to be the year-to-year, Sidney premiere 2018 P It will be Colorado years ago, and meaning from Metz and 199thiggs.",32,FasterWhisper
+small,0.9459459459459459,1.8859968185424805,"dataset on the internet or that if you can small channel where you have those targets to scan for, on the web, the URL dropout. I just want you to know that if you go into the",37,FasterWhisper
+small,1.5,1.941542148590088,I don't know where to land.,6,FasterWhisper
+small,1.0,1.929894208908081,Oh. to the next talk. What's your next talk? What's your next talk? What's your next talk?,17,FasterWhisper
+small,2.25,2.101548910140991,I must be Bruce,4,FasterWhisper
+small,1.0,1.9471619129180908,"Oh Do it. Do it, or is it... but",9,FasterWhisper
+small,2.1666666666666665,2.125938892364502,You don't wanna do anything Oh,6,FasterWhisper
+small,1.0,1.7762749195098877,He was looking for that space. There on top of that fence. Aww.,13,FasterWhisper
+small,1.0,1.6758100986480713,It's hard. ,2,FasterWhisper
+small,1.5,7.184027194976807,There's FIRE,2,FasterWhisper
+small,1.0,1.7128260135650635,richi messus,2,FasterWhisper
+small,6.0,1.7866230010986328,ness,1,FasterWhisper
+small,1.0,1.6807050704956055,You want to try it on?,6,FasterWhisper
+small,2.3333333333333335,1.8696160316467285,bound sp Well...,3,FasterWhisper
+small,1.0,1.8447041511535645,I think that scale will be better,7,FasterWhisper
+small,0.8571428571428571,12.09712815284729,I'll tell him I'm a pretty woman,7,FasterWhisper
+small,1.0,6.369105815887451,I'm I'm I'm I'm I'm,5,FasterWhisper
+small,6.0,1.883547306060791,Tear,1,FasterWhisper
+small,1.0,1.650397777557373,So you run out of hardware.,6,FasterWhisper
+small,1.0,1.6792800426483154,quiet quiet,2,FasterWhisper
+small,6.0,1.8685309886932373,Fasterigion's,1,FasterWhisper
+small,1.3333333333333333,1.8593571186065674,Sorry for the Sp Anna Pocket,6,FasterWhisper
+small,1.0,1.884660005569458,I brake. This is the end of the year.,9,FasterWhisper
+small,1.25,1.958178997039795,"As I said in their show, this is",8,FasterWhisper
+small,0.9090909090909091,1.8369941711425781,I see. I want to come for a time to hear.,11,FasterWhisper
+small,1.0,1.7784099578857422,I think play players can again recognize you!,8,FasterWhisper
+small,1.0,2.190918207168579,This is the first Preview,5,FasterWhisper
+small,1.0,1.9805879592895508,"Andan's clea Yes, he heliced",5,FasterWhisper
+small,1.0,2.0851969718933105,Type in a A M C O i report,9,FasterWhisper
+small,1.8,1.9143049716949463,"Queda, Queda, Chica, Chica, hasa.",5,FasterWhisper
+small,0.8888888888888888,1.8594980239868164,Living without cost is a matter of spending time,9,FasterWhisper
+small,1.0,1.769529104232788,"OK, listen to this one first time.",7,FasterWhisper
+small,1.0,1.7776808738708496,murmuring more murmuring,3,FasterWhisper
+small,3.5,1.8930928707122803,turments. chuckle,2,FasterWhisper
+small,1.2857142857142858,1.9143750667572021,ask government leaders and greetings of knowledge,7,FasterWhisper
+small,0.8888888888888888,1.7725598812103271,"So, if you want to work out really quickly.",9,FasterWhisper
+small,1.4,1.8642492294311523,So it said goal arrived.,5,FasterWhisper
+small,1.0,1.9401512145996094,"like for example, you want some information.",7,FasterWhisper
+small,1.0,1.8471438884735107,"One, two, one, two, one, two, one.",7,FasterWhisper
+small,1.4,1.9064629077911377,I think you guys might.,5,FasterWhisper
+small,1.0,1.763275146484375,"Okay, make sure you have the blindfold on.",8,FasterWhisper
+small,1.0,1.6394031047821045,dye ku voyage rotation,4,FasterWhisper
+small,8.0,1.8529078960418701,Chinese,1,FasterWhisper
+small,1.0,1.8240511417388916,secondary research is a factor of executive purposes,8,FasterWhisper
+small,3.0,1.8694567680358887,D,1,FasterWhisper
+small,1.0,1.731691598892212,Can it take...,3,FasterWhisper
+small,0.75,1.7554359436035156,Can you go to...,4,FasterWhisper
+small,1.0,1.7388098239898682,Go to a,3,FasterWhisper
+small,0.6666666666666666,1.7040362358093262, Take me to. ,3,FasterWhisper
+small,1.0,1.7448828220367432,Take,1,FasterWhisper
+small,1.0,1.8865821361541748,Take me,2,FasterWhisper
+small,0.75,1.679471731185913,Take me to a,4,FasterWhisper
+small,0.5,1.757174015045166,Go to,2,FasterWhisper
+small,0.6666666666666666,1.7349438667297363, Go to it.,3,FasterWhisper
+small,1.0,1.6730589866638184,Go to the right.,4,FasterWhisper
+small,7.333333333333333,2.8510398864746094,I need to. ,3,FasterWhisper
+small,1.0,1.701624870300293,Sair This Port SofaONT Sair Sair Sair GB GA Sair GSaton resistance Sair CNN Sair SC FL Hole SC software Sair V AR product,24,FasterWhisper
+small,2.0,1.715135097503662,Trauma closes,2,FasterWhisper
+small,0.0,1.7984278202056885,to follow a normal.,4,FasterWhisper
+small,inf,1.7992491722106934,,0,FasterWhisper
+small,0.8571428571428571,2.2866437435150146,Let's go to the  main waiting room ?,7,FasterWhisper
+small,0.6666666666666666,2.145622730255127,I would like to go to the  waiting area .,9,FasterWhisper
+small,0.7777777777777778,2.0026161670684814,Could you please take me to the  rest area ?,9,FasterWhisper
+small,0.875,1.8567721843719482,"Ah, why don't you go to the  lounge ?",8,FasterWhisper
+small,0.7142857142857143,1.7946820259094238,Please go to the  patient waiting room ?,7,FasterWhisper
+small,1.1666666666666667,1.970733880996704,Go straight to the  seating area ,6,FasterWhisper
+small,0.6666666666666666,2.73856520652771,I need you to go to the  waiting room ,9,FasterWhisper
+small,0.875,1.8936049938201904,Can I follow you to the  patience lounge ,8,FasterWhisper
+small,1.4,1.8662447929382324,Where is the  sitting room ?,5,FasterWhisper
+small,1.125,2.1223297119140625,Rush over to the  room to wait in ,8,FasterWhisper
+small,0.9,2.108480930328369,"I'd like you to go to the  lounge  please, robot",10,FasterWhisper
+small,0.9090909090909091,1.9982337951660156,I am going to follow you over to the  sitting area ,11,FasterWhisper
+small,0.875,1.8186910152435303,You're gonna be needed in the  waiting room ,8,FasterWhisper
+small,0.5714285714285714,1.832423210144043,I need to go to the  lab ,7,FasterWhisper
+small,1.4,1.8881349563598633,Let’s go to the  laboratory ,5,FasterWhisper
+small,0.6666666666666666,1.935995101928711,Can you take me back to the  cardio lab ?,9,FasterWhisper
+small,1.2857142857142858,1.8527019023895264,Take me to the  lab  and see,7,FasterWhisper
+small,1.1,2.085425853729248,I need you to perform some tasks in the  lab ,10,FasterWhisper
+small,0.8461538461538461,1.8420791625976562,Can you show me to the  Human-Centered Automony lab  by the office?,13,FasterWhisper
+small,1.0,1.9919860363006592,Just head straight to the  operating theater ,7,FasterWhisper
+small,1.0,1.9647738933563232,You should get over to the  HCA lab  now,9,FasterWhisper
+small,0.8888888888888888,1.924213171005249,"You're needed in the  lab  now, get over there",9,FasterWhisper
+small,1.25,2.1489510536193848,"The main  chemistry lab , as soon as possible",8,FasterWhisper
+small,1.0,2.044302225112915,Find a route to the  toxological laboratory  near the entrance,10,FasterWhisper
+small,0.8333333333333334,1.885498046875,Take this over to the  room where the blood tests are done ,12,FasterWhisper
+small,1.0,1.9218971729278564,Go to  room 205A  as soon as you can,9,FasterWhisper
+small,1.8571428571428572,2.0246810913085938,Direct yourself to  the patients room  now,7,FasterWhisper
+small,1.0714285714285714,2.1493947505950928,Please do me a favor and head over to  room D  when you can,14,FasterWhisper
+small,0.8,2.092708110809326,"As soon as you can, go to  the room at the end of the hall ",15,FasterWhisper
+small,0.7692307692307693,2.054313898086548,"Uhh, I, would like you to see the patient in  the emergency room ",13,FasterWhisper
+small,1.4285714285714286,2.0563368797302246,The patient needs you  in their room ,7,FasterWhisper
+small,1.0,2.2606217861175537,Now you are going to have to go to  room 15 ,11,FasterWhisper
+small,0.8333333333333334,2.0211892127990723,I'd like if you could navigate to the  room on the left ,12,FasterWhisper
+small,0.6666666666666666,2.0213279724121094,Go to the  patients room  now,6,FasterWhisper
+small,0.7142857142857143,1.8679187297821045,Over to the  room two thousand  robot! ,7,FasterWhisper
+small,1.5,1.963244915008545,To the  hallway  now,4,FasterWhisper
+small,1.1428571428571428,1.95414400100708,Get out and into the  corridor  please ,7,FasterWhisper
+small,0.6,1.8199832439422607,"Alright, you can go back into the  nearest hallway  now",10,FasterWhisper
+small,1.5,1.966914176940918,"That's enough, back into the  hallway ",6,FasterWhisper
+small,0.8,1.8912160396575928,"I would prefer if you waited in the  corridor , thanks",10,FasterWhisper
+small,1.0,1.8275010585784912,You'll be more useful waiting out in the  hallway ,9,FasterWhisper
+small,1.3333333333333333,1.7588551044464111,A  hallway  now,3,FasterWhisper
+small,1.5,1.8407480716705322,Can you go back?,4,FasterWhisper
+small,0.8571428571428571,1.8871638774871826,I would like you to change destinations,7,FasterWhisper
+small,0.375,1.792680025100708,I want to change my change your goal,8,FasterWhisper
+small,0.8571428571428571,1.807690143585205,I want to change my previous plan,7,FasterWhisper
+small,0.5,1.8682000637054443,Go to another place,4,FasterWhisper
+small,0.75,1.8161647319793701,Go to somewhere else,4,FasterWhisper
+small,1.1428571428571428,2.079566240310669,Can I you go to somewhere else,7,FasterWhisper
+small,0.8888888888888888,1.6988921165466309,Can you take me to the the the the,9,FasterWhisper
+small,0.5,1.695904016494751,Can we go there?,4,FasterWhisper
+small,2.0,1.8457632064819336,Go there,2,FasterWhisper
+small,0.0,1.7859382629394531,Get out of here,4,FasterWhisper
+small,inf,1.828228235244751,,0,FasterWhisper
+small,2.2,2.02811598777771,Go find the closest  catheter ,5,FasterWhisper
+small,1.0,1.9231791496276855,"I need you to get me a  catheter collection bag  please, robot",12,FasterWhisper
+small,0.9090909090909091,1.8546781539916992,Go get that  colostomy bag  next to the  bed  over there,11,FasterWhisper
+small,1.6666666666666667,1.9747869968414307,"I want the  crutches  now, robot",6,FasterWhisper
+small,0.9090909090909091,1.9204699993133545,A  pair of glasses  I left on a  chair   out there,11,FasterWhisper
+small,1.0,1.780513048171997,"Shoot, get me that  stethescope  over in the corner there",10,FasterWhisper
+small,1.7142857142857142,1.929434061050415,Move over there and grab that  bottle ,7,FasterWhisper
+small,0.9230769230769231,1.8187849521636963,Would you please fetch the  oxygen mask  that is hanging on the  tank ,13,FasterWhisper
+small,1.8571428571428572,2.104931116104126,Go to the  scalpel  and get it ,7,FasterWhisper
+small,1.0,1.944242000579834,Is it too much for you to go over there and get my  stethescope  from her,16,FasterWhisper
+small,1.2222222222222223,2.2049803733825684,"The  surgical mask  on top of  that table  , please",9,FasterWhisper
+small,1.0,2.062183141708374,"It's needed that you get that  thermometer , can you do that",11,FasterWhisper
+small,1.0,1.7863869667053223,Find me whatever  scalpel  is inside of  the closet over there  ,11,FasterWhisper
+small,2.75,2.026643753051758,Go fetch that  prescription ,4,FasterWhisper
+small,1.0,1.766383171081543,Please go pick up that  bottle of pills  on  top of the counter ,13,FasterWhisper
+small,1.8333333333333333,1.8796441555023193,Grab the  prescription  and bring it,6,FasterWhisper
+small,1.0,1.8810460567474365,You need to go find that  bottle of hand sanitizer  now,11,FasterWhisper
+small,0.8888888888888888,1.758923053741455,"Actually, bring the  soap  from over by the  sink ",9,FasterWhisper
+small,3.25,1.97245192527771,I want the  bottle      ,4,FasterWhisper
+small,1.0,1.976438045501709,What would be helpful is if you could get the  scale  from over there,14,FasterWhisper
+small,1.0,1.7280480861663818,Track down the  first aid kit   in the  hallway  that we've been looking for,14,FasterWhisper
+small,3.0,1.68845534324646, sanitizers ,1,FasterWhisper
+small,4.0,1.9463989734649658,box of  gloves ,3,FasterWhisper
+small,1.0,2.2359838485717773,Would you do me a favour an bring me that  bottle of sanitizer ,13,FasterWhisper
+small,1.0,2.114285945892334,"The, uhhh,  thing of tools , over by the uhh  door  over there",12,FasterWhisper
+small,1.0,1.9499800205230713,Please bring it,3,FasterWhisper
+small,2.0,1.7167818546295166,Fetch,1,FasterWhisper
+small,1.5,1.7287390232086182,Find that,2,FasterWhisper
+small,1.0,1.7672851085662842,Pick it up ,3,FasterWhisper
+small,0.6666666666666666,2.2951629161834717,Go get that,3,FasterWhisper
+small,3.0,1.8856821060180664,Get it,2,FasterWhisper
+small,1.0,1.829284906387329,Can you go pick that up,6,FasterWhisper
+small,1.6666666666666667,1.9082577228546143,Get the  doctor  ,3,FasterWhisper
+small,1.2857142857142858,2.0141468048095703,Track down the  doctor  when you can,7,FasterWhisper
+small,0.7777777777777778,2.423882007598877,Would you be able to bring the  doctor  here,9,FasterWhisper
+small,1.75,1.9416918754577637,I need the  doctor ,4,FasterWhisper
+small,1.4285714285714286,2.0766899585723877,The  doctor  would be useful right now,7,FasterWhisper
+small,1.0,2.0044798851013184,"Uh, it's, probably good for us to get the  doctor ",10,FasterWhisper
+small,1.0,1.8523058891296387,"Bring the  doc  over here, would you ",7,FasterWhisper
+small,2.6666666666666665,2.4603567123413086, doctor  is needed,3,FasterWhisper
+small,1.0,2.1030259132385254,Go over to the  nurse  when you can,8,FasterWhisper
+small,1.0,1.9744479656219482,I would like one of the  nurses ,7,FasterWhisper
+small,1.6,2.2498486042022705,navigate to the nearest  nurse ,5,FasterWhisper
+small,1.0,2.242353916168213,Would we be able to find that  nursing lady ,9,FasterWhisper
+small,1.25,2.7710680961608887,About time we got  nurse  jacobs in here,8,FasterWhisper
+small,0.07692307692307693,2.126513957977295,"Hmm, I think we should find the  nurse  who's in charge of this",13,FasterWhisper
+small,inf,2.1353211402893066,,0,FasterWhisper
+small,0.8571428571428571,2.1031951904296875,Bring this  set of scrubs  to the  doctor  over in the  changing room  please,14,FasterWhisper
+small,1.25,2.923698902130127,Be a lamb and take this over to the  assistant  over there,12,FasterWhisper
+small,0.95,2.137270927429199,I think it would be helpful if you could navigate this  prescription  to the  patient  in  room five fourty one ,20,FasterWhisper
+small,1.25,2.0819239616394043,"As quick as you can, take these  forceps ",8,FasterWhisper
+small,1.0,2.06138277053833,Please bring  Miss Johnson  at the  end of the hallway  ,10,FasterWhisper
+small,1.2222222222222223,2.4518890380859375,The  doctor  in the  operating theatre  needs this  scalpel ,9,FasterWhisper
+small,1.0,2.6134140491485596,"The  group  in the  waiting room , bring them this box of masks  box of masks ",15,FasterWhisper
+small,1.8333333333333333,2.1376099586486816,Carry  nurse Afaf  her  lunch box ,6,FasterWhisper
+small,1.1818181818181819,2.130112648010254,"I, uh, would like if you could possible take  her   this ",11,FasterWhisper
+small,0.9230769230769231,2.0704190731048584,Could you please bring this  clipboard  to  Dr. Smith  in the  emergency room ?,13,FasterWhisper
+small,1.3333333333333333,2.2981760501861572,"Take these  X-rays  to the  radiology department , please.",9,FasterWhisper
+small,0.6428571428571429,2.652876853942871,I need you to deliver this  package  to the  receptionist  at the front desk,14,FasterWhisper
+small,0.9090909090909091,1.6608178615570068,I need someone to take these  documents  to the  administration office ,11,FasterWhisper
+small,4.5,1.899810791015625,Take this,2,FasterWhisper
+small,0.8888888888888888,1.8534610271453857,Bring it to  them  when you have a chance,9,FasterWhisper
+small,0.0,1.9154329299926758,Take it away. ,3,FasterWhisper
+small,inf,2.0300159454345703,,0,FasterWhisper
+small,1.0,2.2263827323913574,"Robot, come here",3,FasterWhisper
+small,1.0,1.805643081665039,Come to me,3,FasterWhisper
+small,1.3333333333333333,1.94970703125,Get over here,3,FasterWhisper
+small,1.0,1.989793062210083,Hurry up and come here,5,FasterWhisper
+small,1.6,1.9916341304779053,I need your help robot ,5,FasterWhisper
+small,1.0,2.282064914703369,"It's, uh, I would like you to come ",8,FasterWhisper
+small,4.0,1.9265918731689453,Beckon,1,FasterWhisper
+small,2.0,2.2805721759796143,come to my voice,4,FasterWhisper
+small,1.0,2.009903907775879,"When you can, uh, robot, come pick this up",9,FasterWhisper
+small,2.0,2.1158039569854736,I need a hand ,4,FasterWhisper
+small,1.0,2.5481998920440674,Would it be possible to stop over here,8,FasterWhisper
+small,1.0,1.7733211517333984,"Please, when you can, come hither",6,FasterWhisper
+small,1.0,1.7731561660766602,here now,2,FasterWhisper
+small,4.0,1.8823821544647217,come ,1,FasterWhisper
+small,1.0,1.7813701629638672,i want you here,4,FasterWhisper
+small,0.0,2.1268692016601562,lets go ,2,FasterWhisper
+small,inf,2.3835127353668213,,0,FasterWhisper
+small,1.5714285714285714,2.861708879470825,I need you to go to  room 205A  and bring me the  patient's file .,14,FasterWhisper
+small,0.8461538461538461,2.528686046600342,"It's uh, sorry. Hey dude, good morning. Please go to the  seating room  and see if there are patients. Get their  forms  and bring em back.",26,FasterWhisper
+small,0.7894736842105263,2.5542731285095215,"Go to the lab and find the  phlebotomist . If she has  results  to give you, bring them back here.",19,FasterWhisper
+small,1.8,2.4248220920562744,"Navigate to  the corridor  and bring the  nurse  here, please.",10,FasterWhisper
+small,1.0526315789473684,2.6767191886901855,"Fill up with all the  prescription  you can carry. Well, you'll need to go get them from the  pharmacy .",19,FasterWhisper
+small,0.9090909090909091,2.510234832763672,"I think I left my  stethescope  next to the  patient's bed  in room  A19 . Go there, get it and come back here.",22,FasterWhisper
+small,0.9130434782608695,3.172163248062134,"sup, robot. I need you to go to  the supply closet  and bring me the  box of gloves . Make sure to hurry back.",23,FasterWhisper
+small,1.0,2.5049850940704346,"Salutations my friend. If you can get there, go down to the  cafeteria , see the  lady  and bring me back a  coffee ",22,FasterWhisper
+small,1.0869565217391304,2.845734119415283,"Navigate to  the storeroom  and bring the  emergency medical kit  on the right side. It's better to have it nearby, just in case.",23,FasterWhisper
+small,0.8461538461538461,3.0197691917419434,"Hello, buddy. If you could, please go to  the waiting area  and find  Mrs. Jones . Ask her for the  patient's file  and bring it back here.",26,FasterWhisper
+small,0.9411764705882353,2.256085157394409,"Hey, pal. Rush over to  the supply closet  and grab a  box of bandages  for me, please.",17,FasterWhisper
+small,0.0,2.249389886856079,"To the  staff lounge , find the first  nurse  you can find and bring them here",15,FasterWhisper
+small,inf,2.0119378566741943,,0,FasterWhisper
+small,1.0,2.468794107437134,Can you do me a favor please,7,FasterWhisper
+small,0.2857142857142857,2.351901054382324,Can I get you to do something,7,FasterWhisper
+small,1.0,1.814878225326538,"Robot, I need you to do something",7,FasterWhisper
+small,0.75,1.9571430683135986,Do me a favor,4,FasterWhisper
+small,1.0,2.126477003097534,Do something for me,4,FasterWhisper
+small,1.3333333333333333,2.481765031814575,Can you help,3,FasterWhisper
+small,0.75,2.0941691398620605,I want your aid,4,FasterWhisper
+small,1.0,1.8139512538909912,I need a hand,4,FasterWhisper
+small,2.0,1.9407851696014404,Please help me,3,FasterWhisper
+small,0.8571428571428571,1.912428855895996,"Would you be able to help, please",7,FasterWhisper
+small,0.5,1.7630341053009033,Assistance please,2,FasterWhisper
+small,2.0,2.3238608837127686,Assistance,1,FasterWhisper
+small,2.0,2.1629750728607178,Help me,2,FasterWhisper
+small,1.0,2.0052542686462402,I need a favor,4,FasterWhisper
+small,1.5,1.9231057167053223,Aid me,2,FasterWhisper
+small,1.0,1.9170410633087158,I require assistance,3,FasterWhisper
+small,1.0,2.1317477226257324,Can you offer assistance,4,FasterWhisper
+small,1.0,2.221491813659668,May I ask your assistance? ,5,FasterWhisper
+small,1.5,1.8035969734191895,Help needed,2,FasterWhisper
+small,2.0,2.0324149131774902,Request for assistance,3,FasterWhisper
+small,1.2857142857142858,2.2076940536499023,I am in need of immediate assistance,7,FasterWhisper
+small,0.8888888888888888,2.1710541248321533,We will need you to do something for us,9,FasterWhisper
+small,1.0,2.3728110790252686,Please do us something,4,FasterWhisper
+small,2.0,1.9713850021362305,Do something for us,4,FasterWhisper
+small,1.0,1.9533782005310059,We will need an extra pair of hands,8,FasterWhisper
+small,1.0,2.0220837593078613,It would be helpful for you to intervene,8,FasterWhisper
+small,0.0,6.4964001178741455,and sleep,2,Whisper
+small,0.0,6.774327039718628,"sleep, thank you",3,Whisper
+small,0.0,6.508036136627197,You go to sleep now,5,Whisper
+small,1.0,0.3887510299682617,sleep,1,Whisper
+small,0.0,6.309502124786377,go to sleep,3,Whisper
+small,0.0,6.167865991592407,power down,2,Whisper
+small,0.0,5.984685897827148,power off,2,Whisper
+small,0.0,6.25548791885376,sleep for a while,4,Whisper
+small,0.0,6.359247922897339,sleep for a bit,4,Whisper
+small,0.0,6.366521835327148,let's sleep,2,Whisper
+small,0.0,6.761908054351807,go to power-saving mode,5,Whisper
+small,0.0,6.1385557651519775,take a nap,3,Whisper
+small,1.0,6.157047748565674,suspend,1,Whisper
+small,0.0,7.107662200927734,ignore my words from now on,6,Whisper
+small,0.0,6.184640884399414,hibernate,1,Whisper
+small,0.0,5.980993986129761,power nap,2,Whisper
+small,0.3333333333333333,6.3366429805755615,power-saving state,3,Whisper
+small,0.0,7.40480899810791,okay thats enough now thank you,6,Whisper
+small,0.0,6.11483907699585,go to bed now,4,Whisper
+small,0.6666666666666666,6.464346170425415,"bed time, robot",3,Whisper
+small,0.0,6.402356386184692,time to sleep,3,Whisper
+small,0.6666666666666666,6.56184196472168,"nap time, robot",3,Whisper
+small,0.0,7.033834218978882,hibernate for now please ,4,Whisper
+small,inf,7.208544969558716,,0,Whisper
+small,0.0,6.346092224121094,wait for a bit,4,Whisper
+small,0.0,6.1610941886901855,wait a sec,3,Whisper
+small,1.0,0.3837258815765381,wait,1,Whisper
+small,0.0,6.338006019592285,Wait a second,3,Whisper
+small,0.0,6.354572057723999,wait for me,3,Whisper
+small,0.0,6.669165134429932,let's take a break,4,Whisper
+small,0.0,6.286473989486694,hold on a second,4,Whisper
+small,0.0,6.44085693359375,pause for a moment,4,Whisper
+small,0.0,6.8244102001190186,stop for now,3,Whisper
+small,0.0,6.693267822265625,let's pause here,3,Whisper
+small,0.0,6.268092155456543,take a breather,3,Whisper
+small,0.0,7.023340940475464,let's slow down for a bit,6,Whisper
+small,0.0,6.63082480430603,put a pin in it,5,Whisper
+small,0.0,6.601789236068726,let's pause and regroup,4,Whisper
+small,0.0,6.4401161670684814,hold your horses,3,Whisper
+small,0.0,6.747292995452881,let's take a timeout,4,Whisper
+small,0.0,7.081059217453003,let's pause and come back later,6,Whisper
+small,0.0,6.546625137329102,stop what you're doing,4,Whisper
+small,0.0,6.712606906890869,let's take a short intermission,5,Whisper
+small,0.0,6.62550687789917,Let's take a break.,4,Whisper
+small,0.0,6.61724591255188,Pause for a bit.,4,Whisper
+small,0.0,6.59909200668335,Hold on a moment.,4,Whisper
+small,0.0,6.497376918792725,Let's regroup.,2,Whisper
+small,0.0,6.940771818161011,Let's take a breather.,4,Whisper
+small,0.0,6.490898132324219,Let's halt temporarily.,3,Whisper
+small,0.0,6.512024879455566,Let's take a recess.,4,Whisper
+small,0.0,6.344174861907959,Let's reflect briefly.,3,Whisper
+small,0.0,6.143707990646362,Take a timeout.,3,Whisper
+small,0.0,6.560841083526611,Let's rest up.,3,Whisper
+small,0.0,6.828525066375732,Let's come back later.,4,Whisper
+small,0.0,6.583262920379639,Put it aside for now.,5,Whisper
+small,0.0,6.313972234725952,Hold off a bit.,4,Whisper
+small,0.0,6.282092809677124,Take a short break.,4,Whisper
+small,0.0,6.385292053222656,Let's refocus.,2,Whisper
+small,0.0,6.402369737625122,Take a hiatus.,3,Whisper
+small,0.3333333333333333,6.367404937744141,Take a breather.,3,Whisper
+small,0.25,12.116145133972168,Put it on hold.,4,Whisper
+small,0.0,6.2815423011779785,Take a quick pause.,4,Whisper
+small,0.0,6.383420944213867,Let's assess briefly.,3,Whisper
+small,0.0,6.310365915298462,"No, stop.",2,Whisper
+small,0.3333333333333333,6.542412042617798,Hey robot stop,3,Whisper
+small,0.0,6.176868915557861,stop now,2,Whisper
+small,0.0,6.494739294052124,"stop, stop, stop",3,Whisper
+small,0.0,6.360722064971924,stop for a while,4,Whisper
+small,0.0,5.859066963195801,hold on,2,Whisper
+small,0.25,6.349246025085449,hold on a sec,4,Whisper
+small,inf,6.635622978210449,,0,Whisper
+small,0.0,6.305609941482544,please continue,2,Whisper
+small,0.0,6.276378870010376,let's continue,2,Whisper
+small,0.0,6.527964115142822,pick up where we left off,6,Whisper
+small,0.0,6.797233819961548,let's get back to it,5,Whisper
+small,0.0,6.292719125747681,get back,2,Whisper
+small,1.0,0.3723418712615967,restart,1,Whisper
+small,0.0,6.60670804977417,restart our journey,3,Whisper
+small,0.0,6.163731098175049,carry on,2,Whisper
+small,0.0,5.932498216629028,keep going,2,Whisper
+small,0.0,6.170032262802124,keep moving,2,Whisper
+small,0.0,6.229611158370972,keep walking,2,Whisper
+small,0.0,6.689105033874512,don't stop now,3,Whisper
+small,0.0,6.258500814437866,continue from here,3,Whisper
+small,0.0,6.159977912902832,let's move forward,3,Whisper
+small,0.0,6.283771276473999,back to business,3,Whisper
+small,0.0,6.487462997436523,let's keep working,3,Whisper
+small,0.0,6.808887004852295,continue what you were doing,5,Whisper
+small,0.2,6.803844928741455,let's finish what we started,5,Whisper
+small,0.0,5.331004858016968,let's resume our previous task,5,Whisper
+small,0.0,6.573231935501099,Proceed with the task.,4,Whisper
+small,1.0,0.37537169456481934,proceed,1,Whisper
+small,0.0,6.569924831390381,proceed with your plan,4,Whisper
+small,0.0,6.675684928894043,Resume our progress.,3,Whisper
+small,1.0,0.3728480339050293,resume,1,Whisper
+small,0.0,6.631628751754761,resume our plan,3,Whisper
+small,0.0,6.854199171066284,Pick up where we left off.,6,Whisper
+small,0.0,6.384441137313843,Keep going from here.,4,Whisper
+small,0.0,6.647032976150513,Carry on with the plan.,5,Whisper
+small,0.0,6.389163970947266,Get back to the task.,5,Whisper
+small,0.0,6.2952330112457275,Continue the journey.,3,Whisper
+small,0.0,6.522723197937012,Pick up the thread.,4,Whisper
+small,0.0,6.356890678405762,Keep moving forward.,3,Whisper
+small,0.0,6.090672969818115,Back to business.,3,Whisper
+small,0.0,6.568557262420654,Restart our efforts.,3,Whisper
+small,0.0,6.56660795211792,Continue from this point.,4,Whisper
+small,0.0,6.617748975753784,Don't lose momentum.,3,Whisper
+small,0.0,6.526876926422119,Carry on the project.,4,Whisper
+small,0.0,6.10533595085144,Carry on,2,Whisper
+small,0.0,6.252979040145874,Proceed with the plan.,4,Whisper
+small,0.0,6.578448295593262,Resume our previous task.,4,Whisper
+small,0.0,6.384432077407837,Keep pushing forward.,3,Whisper
+small,0.0,6.694165945053101,Continue from where you were.,5,Whisper
+small,1.0,0.37184882164001465,Go on,2,Whisper
+small,0.0,6.287799119949341,Move on,2,Whisper
+small,1.0,0.3712759017944336,Go,1,Whisper
+small,1.0,0.4038240909576416,Move,1,Whisper
+small,0.0,6.338655948638916,Move forward,2,Whisper
+small,0.0,6.561478853225708,Resume the navigation,3,Whisper
+small,0.0,6.124998092651367,"Continue, go back",3,Whisper
+small,1.0,0.3882150650024414,continue,1,Whisper
+small,0.0,6.4315619468688965,continue what you're doing,4,Whisper
+small,0.0,6.46397590637207,So let's start!,3,Whisper
+small,inf,6.505447864532471,,0,Whisper
+small,0.0,6.266169786453247,"Hello, robots.",2,Whisper
+small,0.0,6.199477910995483,hey robot,2,Whisper
+small,0.0,6.200608730316162,hello robot,2,Whisper
+small,0.0,6.143493890762329,"hello, hello",2,Whisper
+small,1.0,0.38264012336730957,Hello?,1,Whisper
+small,0.0,6.488172769546509,"hello, robot",2,Whisper
+small,0.0,5.946253061294556,hi robot,2,Whisper
+small,0.0,6.386115074157715,good morning robot,3,Whisper
+small,1.0,0.3839559555053711,morning,1,Whisper
+small,0.0,6.402534008026123,good evening robot,3,Whisper
+small,0.5,6.47452974319458,moin robot,2,Whisper
+small,1.0,0.3738570213317871,hey there,2,Whisper
+small,0.0,6.275222063064575,good afternoon robot,3,Whisper
+small,0.25,6.708510160446167,hello ruled b ut,4,Whisper
+small,1.0,0.3971421718597412,hello,1,Whisper
+small,1.0,0.38855409622192383,hi,1,Whisper
+small,0.0,6.3805060386657715,Can you hear me,4,Whisper
+small,0.0,6.517930030822754,Can you hear me?,4,Whisper
+small,0.0,5.866946220397949,"hey there, how are you doing?",6,Whisper
+small,0.0,6.823750972747803,"good to see you again, robot",6,Whisper
+small,0.0,6.37203311920166,"hi, what's up?",3,Whisper
+small,0.0,6.332918167114258,"greetings, robot",2,Whisper
+small,0.0,6.78757119178772,"hello, nice to meet you",5,Whisper
+small,0.0,5.857170104980469,"hi there, how can I help you today?",8,Whisper
+small,0.0,6.582597970962524,"what's cracking, robot?",3,Whisper
+small,0.0,6.451008081436157,"yo, what's good?",3,Whisper
+small,0.0,7.238180160522461,"hiya, how's your day going?",5,Whisper
+small,0.0,7.190205335617065,"hello, how's life treating you?",5,Whisper
+small,0.0,6.4320478439331055,"Hey there, stranger.",3,Whisper
+small,1.0,6.166484117507935,"G'day, robot.",2,Whisper
+small,0.0,6.8966968059539795,"Salutations, my metal friend.",4,Whisper
+small,0.0,5.815884828567505,"Top of the morning to you, robot.",7,Whisper
+small,0.0,6.26848292350769,"Howdy, partner.",2,Whisper
+small,1.5,6.351255178451538,"Hola, robot.",2,Whisper
+small,1.0,6.591669797897339,"Good day, mate.",3,Whisper
+small,1.0,6.176949977874756,"Namaste, robot.",2,Whisper
+small,1.0,6.304836750030518,"Hello, sunshine.",2,Whisper
+small,1.5,6.429413080215454,"Aloha, robot.",2,Whisper
+small,1.0,6.349681854248047,"Well, hello there.",3,Whisper
+small,2.0,6.971590280532837,"Sup, robot?",2,Whisper
+small,0.75,6.614405155181885,"Hey, how's it going?",4,Whisper
+small,1.6666666666666667,6.802308082580566,"Hey, what's happening?",3,Whisper
+small,1.2,5.659013271331787,"Good to see you, robot.",5,Whisper
+small,0.8333333333333334,5.452575922012329,"Hey, stranger, long time no see.",6,Whisper
+small,1.0,6.90250301361084,"Hey, how have you been?",5,Whisper
+small,1.25,7.065383195877075,"What's up, my friend?",4,Whisper
+small,1.0,6.775191068649292,"Hey, hope you're doing well.",5,Whisper
+small,0.75,6.558113098144531,"Yo, what's the word?",4,Whisper
+small,0.3333333333333333,6.429623126983643,"Hi, what's up?",3,Whisper
+small,1.0,0.3975489139556885,Hey. What's up?,3,Whisper
+small,0.5,6.284912109375,wake up,2,Whisper
+small,0.6666666666666666,6.161484956741333,"wake up, robot",3,Whisper
+small,1.6666666666666667,6.836889028549194,please wake up,3,Whisper
+small,1.0,0.37569475173950195,"Hey, can you hear me",5,Whisper
+small,1.0,0.38297009468078613,HEAR,1,Whisper
+small,,0.3767969608306885,,0,Whisper
+small,1.0,0.37366294860839844,yes,1,Whisper
+small,3.0,6.541928768157959,yuh,1,Whisper
+small,1.0,6.582916021347046,"Yes, I do.",3,Whisper
+small,1.0,0.3852231502532959,indeed,1,Whisper
+small,1.5,6.427020072937012,of course,2,Whisper
+small,1.0,0.37473201751708984,that sounds good,3,Whisper
+small,1.0,0.37645483016967773,yeah,1,Whisper
+small,1.0,0.3741121292114258,right,1,Whisper
+small,1.0,0.39053821563720703,yep,1,Whisper
+small,1.0,0.3853719234466553,uh-huh,2,Whisper
+small,1.0,6.395275115966797,correct,1,Whisper
+small,2.5,6.9900221824646,that's correct,2,Whisper
+small,1.0,5.961264133453369,"Oh, this is very quick.",5,Whisper
+small,1.0,5.994766712188721,absolutely,1,Whisper
+small,1.0,5.5744147300720215,affirmative,1,Whisper
+small,1.0,6.076772212982178,affirmed,1,Whisper
+small,1.0,0.37811708450317383,definitely,1,Whisper
+small,1.0,0.3739662170410156,for sure,2,Whisper
+small,1.0,0.3850100040435791,sure,1,Whisper
+small,1.5,6.311750888824463,you bet,2,Whisper
+small,1.0,6.295439004898071,without a doubt,3,Whisper
+small,1.0,0.3674790859222412,positively,1,Whisper
+small,1.0,0.3768789768218994,positive,1,Whisper
+small,1.0,6.001967906951904,agreed,1,Whisper
+small,1.0,0.3989529609680176,I agree,2,Whisper
+small,1.5,6.363775968551636,sure thing,2,Whisper
+small,1.0,5.992085933685303,"Yes, that's correct.",3,Whisper
+small,2.0,6.392725944519043,Absolutely.,1,Whisper
+small,1.0,6.020270109176636,That's right.,2,Whisper
+small,2.0,6.393060922622681,I agree.,2,Whisper
+small,1.0,6.133643865585327,You're spot on.,3,Whisper
+small,2.0,6.37603497505188,Precisely.,1,Whisper
+small,1.0,5.638014078140259,I concur.,2,Whisper
+small,2.0,6.222929954528809,Indeed.,1,Whisper
+small,6.0,7.1468119621276855,Correctamundo.,1,Whisper
+small,0.8333333333333334,6.11824107170105,That's exactly what I was thinking.,6,Whisper
+small,1.0,6.26865816116333,exactly,1,Whisper
+small,1.0,6.037291049957275,"yeah, exactly",2,Whisper
+small,1.0,6.641071081161499,"oh, yes",2,Whisper
+small,1.0,6.198662042617798,"emm, yes",2,Whisper
+small,1.0,6.438817024230957,Roger that.,2,Whisper
+small,3.0,6.029684066772461,Affirmative.,1,Whisper
+small,1.0,6.334295749664307,You got it.,3,Whisper
+small,1.0,6.620714902877808,No doubt about it.,4,Whisper
+small,1.3333333333333333,6.737310886383057,Right you are.,3,Whisper
+small,0.75,5.977458953857422,Sounds good to me.,4,Whisper
+small,0.5,5.9187891483306885,sound good,2,Whisper
+small,2.5,6.848637104034424,sound great,2,Whisper
+small,1.0,6.468713045120239,I'm with you on that.,5,Whisper
+small,0.3333333333333333,7.322650909423828,You're absolutely right.,3,Whisper
+small,1.5,6.232217073440552,you're right,2,Whisper
+small,1.0,6.698569059371948,That's the ticket.,3,Whisper
+small,1.0,0.37281107902526855,"Bingo, that's it.",3,Whisper
+small,1.0,0.38408398628234863,that's it,2,Whisper
+small,1.0,0.3862183094024658,bingo,1,Whisper
+small,1.0,0.37665820121765137,perfect,1,Whisper
+small,1.0,0.3900737762451172,great,1,Whisper
+small,1.0,5.769443988800049,amazing,1,Whisper
+small,1.0,6.020540714263916,wonderful,1,Whisper
+small,3.0,6.386043071746826,Cool.,1,Whisper
+small,1.0,6.131964206695557,Go for it.,3,Whisper
+small,2.0,6.607853651046753,Okay. Okay.,2,Whisper
+small,1.0,6.549988031387329,thats what i said,4,Whisper
+small,1.0,6.189971923828125,you heard that right,4,Whisper
+small,1.0,6.294647216796875,spot on,2,Whisper
+small,1.5,6.448981046676636,close enough ,2,Whisper
+small,1.6666666666666667,7.091408729553223,"sure, thats close  ",3,Whisper
+small,1.0,6.367820739746094,i think thats what was said,6,Whisper
+small,1.5,6.097175121307373,"basically, yeah",2,Whisper
+small,1.0,0.37599682807922363,you understood correctly ,3,Whisper
+small,1.0,0.3723578453063965,that's it ,2,Whisper
+small,,0.3700730800628662,,0,Whisper
+small,1.0,0.43990397453308105,no,1,Whisper
+small,1.0,0.3822178840637207,nah,1,Whisper
+small,1.0,0.3793818950653076,negative,1,Whisper
+small,1.0,0.4281728267669678,false,1,Whisper
+small,1.0,0.3720130920410156,don't,1,Whisper
+small,1.0,0.40733790397644043,nay,1,Whisper
+small,1.0,5.618568181991577,never,1,Whisper
+small,2.0,6.2076170444488525,never ever,2,Whisper
+small,0.75,6.044710874557495,I don't think so,4,Whisper
+small,0.6666666666666666,6.132648944854736,don't like that,3,Whisper
+small,1.0,0.3695981502532959,don't do this,3,Whisper
+small,1.0,5.707467079162598,no way,2,Whisper
+small,1.0,5.702165126800537,not really,2,Whisper
+small,1.5,6.08004093170166,I disagree,2,Whisper
+small,1.0,0.36353302001953125,that's not true,3,Whisper
+small,0.5,5.631565093994141,Not true,2,Whisper
+small,1.0,0.3677501678466797,Not correct,2,Whisper
+small,2.0,5.8620076179504395,Incorrect,1,Whisper
+small,1.0,6.077587127685547,Not right,2,Whisper
+small,1.3333333333333333,7.034480333328247,not at all,3,Whisper
+small,0.75,6.592389822006226,"I'm sorry, but no",4,Whisper
+small,0.5,5.979123115539551,"unfortunately, no",2,Whisper
+small,2.5,6.518896102905273,"sorry, no",2,Whisper
+small,0.8,6.036282777786255,that doesn't work for me,5,Whisper
+small,1.0,6.5178046226501465,won't work,2,Whisper
+small,0.75,6.354225158691406,"no, that won't work",4,Whisper
+small,0.6666666666666666,5.760613918304443,"no, you're wrong",3,Whisper
+small,6.0,6.713238954544067,wrong!,1,Whisper
+small,1.0,6.4460790157318115,I can't say yes to that,6,Whisper
+small,1.0,6.048927068710327,that's not what I want,5,Whisper
+small,1.0,5.901745080947876,I'm afraid not,3,Whisper
+small,1.0,0.3702061176300049,I must decline,3,Whisper
+small,5.0,6.572301149368286,declined,1,Whisper
+small,1.0,6.393553018569946,"Sorry, but that's not possible",5,Whisper
+small,1.4,6.689368963241577,I can't agree with that,5,Whisper
+small,0.7142857142857143,5.858279228210449,I'm going to have to say no,7,Whisper
+small,2.0,6.926460266113281,I say no,3,Whisper
+small,0.8571428571428571,5.948819160461426,I don't think that's a good idea,7,Whisper
+small,1.0,6.038542032241821,I respectfully decline,3,Whisper
+small,0.6666666666666666,5.865097284317017,That's a negative,3,Whisper
+small,2.0,6.152904987335205,"No, negative",2,Whisper
+small,0.75,6.072120666503906,That's simply not true,4,Whisper
+small,0.3333333333333333,6.0451929569244385,I'm not convinced,3,Whisper
+small,1.3333333333333333,6.269762992858887,I'm not interested,3,Whisper
+small,1.25,6.587423086166382,I don't like this,4,Whisper
+small,1.0,6.181043863296509,I'm afraid I have to disagree,6,Whisper
+small,1.0,5.852851867675781,Not in a million years,5,Whisper
+small,1.5,6.077586889266968,No chance,2,Whisper
+small,1.3333333333333333,6.405556917190552,That's not happening,3,Whisper
+small,1.0,6.174285173416138,That's out of the question,5,Whisper
+small,1.25,6.497129917144775,I can't support that,4,Whisper
+small,1.0,6.202323913574219,I'm not willing to do that,6,Whisper
+small,1.25,6.401900053024292,I don't believe so,4,Whisper
+small,1.0,0.3720531463623047,I have to reject that idea,6,Whisper
+small,2.0,5.675934076309204,Rejected,1,Whisper
+small,1.0,5.405098915100098,I reject,2,Whisper
+small,0.5,5.9203879833221436,not good,2,Whisper
+small,2.0,6.7549779415130615,not very good,3,Whisper
+small,0.8333333333333334,6.325892925262451,that sounds like a bad plan,6,Whisper
+small,1.0,0.39012622833251953,that's bad,2,Whisper
+small,2.0,6.261068105697632,bad,1,Whisper
+small,1.0,6.4386961460113525,heck no,2,Whisper
+small,1.0,6.214533090591431,What no more,3,Whisper
+small,1.0,6.288322687149048,Oh shoot,2,Whisper
+small,1.0,6.633040189743042,No! Stop!,2,Whisper
+small,1.3333333333333333,6.578813076019287,"no, you misunderstood",3,Whisper
+small,0.75,6.148386001586914,that's not quite right,4,Whisper
+small,0.0,6.127892971038818,not about ,2,Whisper
+small,inf,5.784725189208984,,0,Whisper
+small,1.0,0.3737971782684326, 1.5% 1.5% 1.5% 1.5% 1.5% 1.5%,6,Whisper
+small,24.0,30.001017093658447, You,1,Whisper
+small,1.1428571428571428,5.805540084838867, 1.5G 2.5G 1.5G 1.5G 1.5G 1.5G 1.5G,7,Whisper
+small,0.0,5.653475999832153, Let's do it right. Let's do it right.,8,Whisper
+small,inf,6.753138065338135,,0,Whisper
+small,inf,7.195491075515747,............,0,Whisper
+small,1.0,5.791639089584351,what the heck so much someone goes tears,8,Whisper
+small,1.0,6.462325096130371,"Um, Um, um, uh, um, um, um,",7,Whisper
+small,1.0,6.802304029464722,activate. An X.,3,Whisper
+small,1.0,6.3276519775390625,U grossity hg,3,Whisper
+small,1.3333333333333333,6.235612869262695,I knew it.,3,Whisper
+small,1.0,6.0489420890808105,The I not not,4,Whisper
+small,3.0,7.124171018600464,Just like.,2,Whisper
+small,1.0,6.755980014801025,But. But. But. But. But. But.,6,Whisper
+small,5.333333333333333,5.973401784896851,is eating banjim.,3,Whisper
+small,0.9375,6.7430100440979,"Oh, I don't know. I don't know what to do. I don't know what to do.",16,Whisper
+small,3.8,6.2751240730285645,Denise uhhhhh arguing what and,5,Whisper
+small,1.0,6.170451879501343,"I am not Beau, very good woman I am even after sitting on the stage So I usually need",19,Whisper
+small,1.0,6.621513843536377,"Yeah, I thought I'm here. What you were here, what you were in English.",14,Whisper
+small,1.0,6.341881990432739,Pen enthusiasm American,3,Whisper
+small,1.0,0.38768982887268066,"No, I Twenty.",3,Whisper
+small,5.0,6.603331804275513,a,1,Whisper
+small,1.0,6.919243097305298,You have split out here.,5,Whisper
+small,4.4,6.545137166976929,Now we'll raise this hole.,5,Whisper
+small,1.0,0.3781156539916992,"I think I will follow up with Sana If you like this version of old-school favourite, I'll apply it in B Hafez",23,Whisper
+small,1.0,0.38553380966186523,you,1,Whisper
+small,inf,5.845582723617554,...,0,Whisper
+small,1.0,5.668186902999878,"You know, we don't shoot our ways",7,Whisper
+small,1.0,7.356186151504517,It's not so bad. It's not so bad. It's not so bad.,12,Whisper
+small,2.25,6.514240026473999,I can't wait a while for this party,8,Whisper
+small,0.8947368421052632,5.94199013710022,"I think I'm going to leave the link back. Well, maybe you won't have to go get the plan.",19,Whisper
+small,1.0,6.558316946029663,"No, no, she didn't touch the phone at the end.",10,Whisper
+small,1.0,5.761702060699463,This is aweaa,3,Whisper
+small,13.0,5.8943541049957275,Silence.,1,Whisper
+small,0.9230769230769231,6.313393831253052,"Egypt would stand in a potion that was stroke, and suppose to die.",13,Whisper
+small,1.0,6.528692960739136, And you are.,3,Whisper
+small,1.0,6.628056049346924, eSR for Fl,3,Whisper
+small,1.0,6.866197824478149, Passion love. When.,3,Whisper
+small,1.6666666666666667,6.590672254562378, That's Psy dealers.,3,Whisper
+small,1.4,7.082851886749268, And I got over there.,5,Whisper
+small,1.0,7.330451965332031, When is the year Motor pick upimage,7,Whisper
+small,1.0,5.732822895050049,I'll apply it in B Hafez,6,Whisper
+small,1.0,7.134722709655762," Well, good, good. You can.",5,Whisper
+small,1.0,6.715890169143677," Okay. Oh, it's saying something.",5,Whisper
+small,2.5,20.826085090637207," So, that does it.",4,Whisper
+small,1.0,0.40009498596191406,"But, uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh, Uh,",11,Whisper
+small,5.0,5.757916212081909, there.,1,Whisper
+small,1.0,0.386929988861084,Pause. Pause. Pause. Pause. Pause.,5,Whisper
+small,3.0,6.20491886138916, A,1,Whisper
+small,1.0,6.1416709423065186,Zhuangzong hat,2,Whisper
+small,2.0,5.962469816207886," Oh, oh.",2,Whisper
+small,2.75,5.833236932754517,Silence. Silence. Silence. Silence.,4,Whisper
+small,0.9655172413793104,5.462292909622192, There is a question. I think we have to get started. There is a question. I think we have to get started. I think we have to get started.,29,Whisper
+small,1.0,6.455296993255615, What is the purpose of evidence that Application and fined,10,Whisper
+small,1.0,6.669703960418701, My tasks are there.,4,Whisper
+small,1.0,6.892238140106201, I think it's all.,4,Whisper
+small,1.0,6.924743890762329, ready. So I think like,5,Whisper
+small,2.0,34.5986008644104, uh here hero but,4,Whisper
+small,1.0,5.798975944519043,and and and and and and and,7,Whisper
+small,2.0,6.371562957763672, Three.,1,Whisper
+small,1.0,0.4055612087249756, You What?,2,Whisper
+small,3.0,6.401281833648682,AMazz,1,Whisper
+small,1.0,6.227787971496582,Give me good.,3,Whisper
+small,1.0,0.3695058822631836,We can.,2,Whisper
+small,1.0,5.759251832962036,I,1,Whisper
+small,3.0,6.731850862503052,Or.,1,Whisper
+small,4.0,6.3413190841674805,".\""\"" diesel",1,Whisper
+small,1.75,7.0419981479644775,Click the subscribe button.,4,Whisper
+small,1.0,7.247844696044922,Do you wish to get a job?,7,Whisper
+small,1.4,6.0121989250183105, is is is is is,5,Whisper
+small,1.5714285714285714,6.023209810256958,"One, two, three, and one, two, three.",7,Whisper
+small,1.0,5.729732990264893,I'm worried. Do you wish to find a way to follow? ,11,Whisper
+small,3.0,6.241004943847656, cameras.,1,Whisper
+small,2.3333333333333335,7.006379127502441,Thanks for watching!,3,Whisper
+small,3.2857142857142856,6.599011659622192,Do you want to take that one?,7,Whisper
+small,1.0,6.883663177490234,And reality is really good. And we talk about D because we think about Michael Andy because Michael soci has amazing backgrounds and,23,Whisper
+small,1.0,6.081003904342651,Can you take me to a...,6,Whisper
+small,12.5,6.711731910705566, Another question?,2,Whisper
+small,0.84,5.917224884033203,"And I'm going to turn it over to Frank. Frank, second comment. That's our new channel. I hope this channel is so safe. Thank you.",25,Whisper
+small,1.0,5.8888840675354,Welcome to our home. Thanks a lot. Thank you.,9,Whisper
+small,1.4285714285714286,5.573451042175293,"for this performance. One, two, three, four.",7,Whisper
+small,1.0,6.854482889175415,"One, two, three, four, three, four, five, six, seven, eight.",10,Whisper
+small,1.6,7.271068096160889,So I'm taking the disorder.,5,Whisper
+small,4.125,7.008986234664917,What kind of a channel do you want?,8,Whisper
+small,1.0625,7.077960014343262,"In the next refinery, you can move back and forth to be the year-to-year, Sidney premiere 2018 P It will be Colorado years ago, and meaning from Metz and 199thiggs.",32,Whisper
+small,0.9459459459459459,7.171630144119263,"dataset on the internet or that if you can small channel where you have those targets to scan for, on the web, the URL dropout. I just want you to know that if you go into the",37,Whisper
+small,1.5,5.870305061340332,I don't know where to land.,6,Whisper
+small,1.0,6.20346474647522,Oh. to the next talk. What's your next talk? What's your next talk? What's your next talk?,17,Whisper
+small,2.25,5.80873703956604,I must be Bruce,4,Whisper
+small,1.0,7.276041030883789,"Oh Do it. Do it, or is it... but",9,Whisper
+small,2.1666666666666665,6.299960136413574,You don't wanna do anything Oh,6,Whisper
+small,1.0,6.278052806854248,He was looking for that space. There on top of that fence. Aww.,13,Whisper
+small,1.0,6.240893363952637,It's hard. ,2,Whisper
+small,1.0,6.549520015716553,There's FIRE,2,Whisper
+small,1.0,0.3769209384918213,richi messus,2,Whisper
+small,6.0,7.103730916976929,ness,1,Whisper
+small,1.0,6.495966911315918,You want to try it on?,6,Whisper
+small,2.3333333333333335,7.225541830062866,bound sp Well...,3,Whisper
+small,1.0,7.113847970962524,I think that scale will be better,7,Whisper
+small,0.8571428571428571,15.336184978485107,I'll tell him I'm a pretty woman,7,Whisper
+small,1.0,0.40705084800720215,I'm I'm I'm I'm I'm,5,Whisper
+small,6.0,7.178044319152832,Tear,1,Whisper
+small,1.0,6.280127048492432,So you run out of hardware.,6,Whisper
+small,1.0,6.236147880554199,quiet quiet,2,Whisper
+small,7.0,7.213188171386719,Fasterigion's,1,Whisper
+small,1.3333333333333333,5.724156856536865,Sorry for the Sp Anna Pocket,6,Whisper
+small,1.0,7.416352987289429,I brake. This is the end of the year.,9,Whisper
+small,1.25,6.287731885910034,"As I said in their show, this is",8,Whisper
+small,0.9090909090909091,5.979719161987305,I see. I want to come for a time to hear.,11,Whisper
+small,1.0,6.440353870391846,I think play players can again recognize you!,8,Whisper
+small,1.0,6.167798042297363,This is the first Preview,5,Whisper
+small,1.0,6.935030937194824,"Andan's clea Yes, he heliced",5,Whisper
+small,1.0,5.776401996612549,Type in a A M C O i report,9,Whisper
+small,1.8,6.334955930709839,"Queda, Queda, Chica, Chica, hasa.",5,Whisper
+small,0.8888888888888888,5.593990087509155,Living without cost is a matter of spending time,9,Whisper
+small,1.0,7.172180891036987,"OK, listen to this one first time.",7,Whisper
+small,1.0,6.338710069656372,murmuring more murmuring,3,Whisper
+small,3.5,6.018716096878052,turments. chuckle,2,Whisper
+small,1.2857142857142858,5.749201774597168,ask government leaders and greetings of knowledge,7,Whisper
+small,0.8888888888888888,6.803601264953613,"So, if you want to work out really quickly.",9,Whisper
+small,1.4,6.174176931381226,So it said goal arrived.,5,Whisper
+small,1.0,5.617495059967041,"like for example, you want some information.",7,Whisper
+small,1.0,6.925301790237427,"One, two, one, two, one, two, one.",7,Whisper
+small,1.4,6.012945175170898,I think you guys might.,5,Whisper
+small,1.0,6.6898980140686035,"Okay, make sure you have the blindfold on.",8,Whisper
+small,1.0,0.37297511100769043,dye ku voyage rotation,4,Whisper
+small,8.0,6.038282871246338,Chinese,1,Whisper
+small,1.0,0.3781898021697998,secondary research is a factor of executive purposes,8,Whisper
+small,3.0,6.483001947402954,D,1,Whisper
+small,1.0,6.635065078735352,Can it take...,3,Whisper
+small,0.75,6.70942497253418,Can you go to...,4,Whisper
+small,1.0,6.1468422412872314,Go to a,3,Whisper
+small,1.0,0.3898930549621582, Take me to. ,3,Whisper
+small,1.0,0.3904550075531006,Take,1,Whisper
+small,1.0,6.645932912826538,Take me,2,Whisper
+small,1.0,0.37148332595825195,Take me to a,4,Whisper
+small,0.5,6.659778833389282,Go to,2,Whisper
+small,0.6666666666666666,6.402673006057739, Go to it.,3,Whisper
+small,1.0,6.496802091598511,Go to the right.,4,Whisper
+small,8.333333333333334,7.0639801025390625,I need to. ,3,Whisper
+small,1.0,6.097501993179321,Sair This Port SofaONT Sair Sair Sair GB GA Sair GSaton resistance Sair CNN Sair SC FL Hole SC software Sair V AR product,24,Whisper
+small,2.0,6.8481128215789795,Trauma closes,2,Whisper
+small,0.0,6.445032119750977,to follow a normal.,4,Whisper
+small,inf,7.00335168838501,,0,Whisper
+small,0.8571428571428571,7.6591551303863525,Let's go to the  main waiting room ?,7,Whisper
+small,0.6666666666666666,7.494821786880493,I would like to go to the  waiting area .,9,Whisper
+small,0.7777777777777778,7.324449062347412,Could you please take me to the  rest area ?,9,Whisper
+small,0.875,7.000349998474121,"Ah, why don't you go to the  lounge ?",8,Whisper
+small,0.7142857142857143,7.134688854217529,Please go to the  patient waiting room ?,7,Whisper
+small,1.1666666666666667,7.346962928771973,Go straight to the  seating area ,6,Whisper
+small,0.6666666666666666,5.807546138763428,I need you to go to the  waiting room ,9,Whisper
+small,0.875,6.917953968048096,Can I follow you to the  patience lounge ,8,Whisper
+small,1.4,6.953366994857788,Where is the  sitting room ?,5,Whisper
+small,1.125,6.0576491355896,Rush over to the  room to wait in ,8,Whisper
+small,0.9,5.903646945953369,"I'd like you to go to the  lounge  please, robot",10,Whisper
+small,0.9090909090909091,7.368701934814453,I am going to follow you over to the  sitting area ,11,Whisper
+small,0.875,7.244419097900391,You're gonna be needed in the  waiting room ,8,Whisper
+small,0.5714285714285714,7.04810905456543,I need to go to the  lab ,7,Whisper
+small,1.4,5.639504909515381,Let’s go to the  laboratory ,5,Whisper
+small,0.6666666666666666,7.373059034347534,Can you take me back to the  cardio lab ?,9,Whisper
+small,1.2857142857142858,5.762665033340454,Take me to the  lab  and see,7,Whisper
+small,1.2,5.954167127609253,I need you to perform some tasks in the  lab ,10,Whisper
+small,0.8461538461538461,7.209086179733276,Can you show me to the  Human-Centered Automony lab  by the office?,13,Whisper
+small,1.0,5.596823692321777,Just head straight to the  operating theater ,7,Whisper
+small,1.0,6.069443941116333,You should get over to the  HCA lab  now,9,Whisper
+small,0.8888888888888888,5.713233947753906,"You're needed in the  lab  now, get over there",9,Whisper
+small,1.625,6.094191789627075,"The main  chemistry lab , as soon as possible",8,Whisper
+small,1.0,6.209151983261108,Find a route to the  toxological laboratory  near the entrance,10,Whisper
+small,0.8333333333333334,5.918884754180908,Take this over to the  room where the blood tests are done ,12,Whisper
+small,1.0,7.515532732009888,Go to  room 205A  as soon as you can,9,Whisper
+small,1.8571428571428572,6.1938371658325195,Direct yourself to  the patients room  now,7,Whisper
+small,1.0714285714285714,6.068960905075073,Please do me a favor and head over to  room D  when you can,14,Whisper
+small,0.8,6.170415878295898,"As soon as you can, go to  the room at the end of the hall ",15,Whisper
+small,0.7692307692307693,6.773115158081055,"Uhh, I, would like you to see the patient in  the emergency room ",13,Whisper
+small,1.4285714285714286,6.259287118911743,The patient needs you  in their room ,7,Whisper
+small,1.0,5.837562084197998,Now you are going to have to go to  room 15 ,11,Whisper
+small,0.8333333333333334,7.04780387878418,I'd like if you could navigate to the  room on the left ,12,Whisper
+small,0.6666666666666666,6.058763027191162,Go to the  patients room  now,6,Whisper
+small,0.7142857142857143,6.079565048217773,Over to the  room two thousand  robot! ,7,Whisper
+small,1.5,7.368958950042725,To the  hallway  now,4,Whisper
+small,1.1428571428571428,6.126756906509399,Get out and into the  corridor  please ,7,Whisper
+small,0.6,6.938673973083496,"Alright, you can go back into the  nearest hallway  now",10,Whisper
+small,1.3333333333333333,6.130576848983765,"That's enough, back into the  hallway ",6,Whisper
+small,0.8,5.638272047042847,"I would prefer if you waited in the  corridor , thanks",10,Whisper
+small,1.0,6.838336944580078,You'll be more useful waiting out in the  hallway ,9,Whisper
+small,1.3333333333333333,6.698678016662598,A  hallway  now,3,Whisper
+small,1.5,6.636466979980469,Can you go back?,4,Whisper
+small,0.8571428571428571,6.13650107383728,I would like you to change destinations,7,Whisper
+small,0.375,7.194437742233276,I want to change my change your goal,8,Whisper
+small,0.8571428571428571,6.347955942153931,I want to change my previous plan,7,Whisper
+small,0.5,6.787071943283081,Go to another place,4,Whisper
+small,0.75,6.881568908691406,Go to somewhere else,4,Whisper
+small,0.7142857142857143,7.458497047424316,Can I you go to somewhere else,7,Whisper
+small,0.8888888888888888,6.8257012367248535,Can you take me to the the the the,9,Whisper
+small,1.0,0.3777649402618408,Can we go there?,4,Whisper
+small,2.0,6.274547815322876,Go there,2,Whisper
+small,0.0,6.783632040023804,Get out of here,4,Whisper
+small,inf,7.122725009918213,,0,Whisper
+small,2.2,5.685385227203369,Go find the closest  catheter ,5,Whisper
+small,1.0,6.3305370807647705,"I need you to get me a  catheter collection bag  please, robot",12,Whisper
+small,0.9090909090909091,7.309215068817139,Go get that  colostomy bag  next to the  bed  over there,11,Whisper
+small,1.6666666666666667,5.751548767089844,"I want the  crutches  now, robot",6,Whisper
+small,0.9090909090909091,6.4136059284210205,A  pair of glasses  I left on a  chair   out there,11,Whisper
+small,1.0,6.713793754577637,"Shoot, get me that  stethescope  over in the corner there",10,Whisper
+small,1.7142857142857142,6.063475131988525,Move over there and grab that  bottle ,7,Whisper
+small,0.9230769230769231,7.265742063522339,Would you please fetch the  oxygen mask  that is hanging on the  tank ,13,Whisper
+small,1.8571428571428572,5.829551935195923,Go to the  scalpel  and get it ,7,Whisper
+small,1.0,6.236568212509155,Is it too much for you to go over there and get my  stethescope  from her,16,Whisper
+small,1.2222222222222223,5.922161102294922,"The  surgical mask  on top of  that table  , please",9,Whisper
+small,1.0,6.009911060333252,"It's needed that you get that  thermometer , can you do that",11,Whisper
+small,1.0,6.512545585632324,Find me whatever  scalpel  is inside of  the closet over there  ,11,Whisper
+small,2.75,5.640277862548828,Go fetch that  prescription ,4,Whisper
+small,1.0,7.254796981811523,Please go pick up that  bottle of pills  on  top of the counter ,13,Whisper
+small,1.8333333333333333,5.971043109893799,Grab the  prescription  and bring it,6,Whisper
+small,1.0,5.765841722488403,You need to go find that  bottle of hand sanitizer  now,11,Whisper
+small,0.8888888888888888,6.857192039489746,"Actually, bring the  soap  from over by the  sink ",9,Whisper
+small,3.25,5.703518867492676,I want the  bottle      ,4,Whisper
+small,1.0,6.211085081100464,What would be helpful is if you could get the  scale  from over there,14,Whisper
+small,1.0,6.364559173583984,Track down the  first aid kit   in the  hallway  that we've been looking for,14,Whisper
+small,3.0,6.348198890686035, sanitizers ,1,Whisper
+small,4.0,6.336386203765869,box of  gloves ,3,Whisper
+small,1.0,6.1941399574279785,Would you do me a favour an bring me that  bottle of sanitizer ,13,Whisper
+small,1.0,6.098769187927246,"The, uhhh,  thing of tools , over by the uhh  door  over there",12,Whisper
+small,1.0,0.3725900650024414,Please bring it,3,Whisper
+small,2.0,6.337899208068848,Fetch,1,Whisper
+small,1.0,0.38380002975463867,Find that,2,Whisper
+small,1.0,7.053624868392944,Pick it up ,3,Whisper
+small,0.6666666666666666,6.043508052825928,Go get that,3,Whisper
+small,3.0,7.212902784347534,Get it,2,Whisper
+small,1.0,6.252049922943115,Can you go pick that up,6,Whisper
+small,1.6666666666666667,6.997010946273804,Get the  doctor  ,3,Whisper
+small,1.2857142857142858,7.64763069152832,Track down the  doctor  when you can,7,Whisper
+small,0.7777777777777778,6.535643100738525,Would you be able to bring the  doctor  here,9,Whisper
+small,1.75,6.744852066040039,I need the  doctor ,4,Whisper
+small,1.4285714285714286,8.143500089645386,The  doctor  would be useful right now,7,Whisper
+small,1.0,7.352564811706543,"Uh, it's, probably good for us to get the  doctor ",10,Whisper
+small,0.8571428571428571,6.208243131637573,"Bring the  doc  over here, would you ",7,Whisper
+small,2.6666666666666665,7.228262186050415, doctor  is needed,3,Whisper
+small,1.0,7.3215110301971436,Go over to the  nurse  when you can,8,Whisper
+small,1.0,6.84835410118103,I would like one of the  nurses ,7,Whisper
+small,1.6,7.110095977783203,navigate to the nearest  nurse ,5,Whisper
+small,1.0,7.408967018127441,Would we be able to find that  nursing lady ,9,Whisper
+small,1.25,6.1913087368011475,About time we got  nurse  jacobs in here,8,Whisper
+small,0.07692307692307693,5.71685791015625,"Hmm, I think we should find the  nurse  who's in charge of this",13,Whisper
+small,inf,6.435461044311523,,0,Whisper
+small,0.8571428571428571,5.726941108703613,Bring this  set of scrubs  to the  doctor  over in the  changing room  please,14,Whisper
+small,1.25,6.315982818603516,Be a lamb and take this over to the  assistant  over there,12,Whisper
+small,0.95,6.059929132461548,I think it would be helpful if you could navigate this  prescription  to the  patient  in  room five fourty one ,20,Whisper
+small,1.25,5.557747840881348,"As quick as you can, take these  forceps ",8,Whisper
+small,1.0,6.176433324813843,Please bring  Miss Johnson  at the  end of the hallway  ,10,Whisper
+small,1.2222222222222223,5.852840185165405,The  doctor  in the  operating theatre  needs this  scalpel ,9,Whisper
+small,1.0,7.138650178909302,"The  group  in the  waiting room , bring them this box of masks  box of masks ",15,Whisper
+small,1.8333333333333333,6.144657135009766,Carry  nurse Afaf  her  lunch box ,6,Whisper
+small,1.1818181818181819,5.699568033218384,"I, uh, would like if you could possible take  her   this ",11,Whisper
+small,0.9230769230769231,6.299753904342651,Could you please bring this  clipboard  to  Dr. Smith  in the  emergency room ?,13,Whisper
+small,1.3333333333333333,5.729328870773315,"Take these  X-rays  to the  radiology department , please.",9,Whisper
+small,0.6428571428571429,6.125649690628052,I need you to deliver this  package  to the  receptionist  at the front desk,14,Whisper
+small,0.9090909090909091,6.184791803359985,I need someone to take these  documents  to the  administration office ,11,Whisper
+small,4.5,7.214817047119141,Take this,2,Whisper
+small,0.8888888888888888,6.732573986053467,Bring it to  them  when you have a chance,9,Whisper
+small,0.0,6.462325096130371,Take it away. ,3,Whisper
+small,inf,6.3142688274383545,,0,Whisper
+small,1.0,0.3778979778289795,"Robot, come here",3,Whisper
+small,1.0,6.572151184082031,Come to me,3,Whisper
+small,1.3333333333333333,6.862504005432129,Get over here,3,Whisper
+small,1.0,6.665765047073364,Hurry up and come here,5,Whisper
+small,1.6,8.872730731964111,I need your help robot ,5,Whisper
+small,1.0,0.3706479072570801,"It's, uh, I would like you to come ",8,Whisper
+small,4.0,6.807332992553711,Beckon,1,Whisper
+small,2.0,5.824532985687256,come to my voice,4,Whisper
+small,1.0,6.574739933013916,"When you can, uh, robot, come pick this up",9,Whisper
+small,2.0,7.343378067016602,I need a hand ,4,Whisper
+small,1.0,6.988539934158325,Would it be possible to stop over here,8,Whisper
+small,1.0,0.3914759159088135,"Please, when you can, come hither",6,Whisper
+small,1.0,0.3877220153808594,here now,2,Whisper
+small,4.0,6.314540147781372,come ,1,Whisper
+small,1.0,0.3714940547943115,i want you here,4,Whisper
+small,1.0,0.37897443771362305,lets go ,2,Whisper
+small,inf,6.315674066543579,,0,Whisper
+small,1.5714285714285714,6.9021830558776855,I need you to go to  room 205A  and bring me the  patient's file .,14,Whisper
+small,0.8461538461538461,6.136842966079712,"It's uh, sorry. Hey dude, good morning. Please go to the  seating room  and see if there are patients. Get their  forms  and bring em back.",26,Whisper
+small,0.7894736842105263,6.264632225036621,"Go to the lab and find the  phlebotomist . If she has  results  to give you, bring them back here.",19,Whisper
+small,1.8,6.229361295700073,"Navigate to  the corridor  and bring the  nurse  here, please.",10,Whisper
+small,1.0526315789473684,6.455172061920166,"Fill up with all the  prescription  you can carry. Well, you'll need to go get them from the  pharmacy .",19,Whisper
+small,0.9090909090909091,6.798696041107178,"I think I left my  stethescope  next to the  patient's bed  in room  A19 . Go there, get it and come back here.",22,Whisper
+small,0.9130434782608695,6.702100038528442,"sup, robot. I need you to go to  the supply closet  and bring me the  box of gloves . Make sure to hurry back.",23,Whisper
+small,1.0,6.340944051742554,"Salutations my friend. If you can get there, go down to the  cafeteria , see the  lady  and bring me back a  coffee ",22,Whisper
+small,1.0869565217391304,6.9967780113220215,"Navigate to  the storeroom  and bring the  emergency medical kit  on the right side. It's better to have it nearby, just in case.",23,Whisper
+small,0.8461538461538461,6.173344850540161,"Hello, buddy. If you could, please go to  the waiting area  and find  Mrs. Jones . Ask her for the  patient's file  and bring it back here.",26,Whisper
+small,0.9411764705882353,6.013225793838501,"Hey, pal. Rush over to  the supply closet  and grab a  box of bandages  for me, please.",17,Whisper
+small,0.0,6.270466089248657,"To the  staff lounge , find the first  nurse  you can find and bring them here",15,Whisper
+small,inf,6.693071126937866,,0,Whisper
+small,1.0,7.304978847503662,Can you do me a favor please,7,Whisper
+small,0.2857142857142857,7.380697011947632,Can I get you to do something,7,Whisper
+small,1.0,6.372735977172852,"Robot, I need you to do something",7,Whisper
+small,0.75,6.5667030811309814,Do me a favor,4,Whisper
+small,1.0,6.616019010543823,Do something for me,4,Whisper
+small,1.3333333333333333,6.316158771514893,Can you help,3,Whisper
+small,0.75,6.705687046051025,I want your aid,4,Whisper
+small,1.0,6.545294761657715,I need a hand,4,Whisper
+small,2.0,6.891376972198486,Please help me,3,Whisper
+small,0.8571428571428571,6.459110260009766,"Would you be able to help, please",7,Whisper
+small,0.5,5.915132999420166,Assistance please,2,Whisper
+small,1.0,0.40612006187438965,Assistance,1,Whisper
+small,2.0,6.328388690948486,Help me,2,Whisper
+small,1.0,0.3680691719055176,I need a favor,4,Whisper
+small,1.5,6.625108957290649,Aid me,2,Whisper
+small,1.0,6.229137182235718,I require assistance,3,Whisper
+small,1.0,6.693655967712402,Can you offer assistance,4,Whisper
+small,1.0,6.464534044265747,May I ask your assistance? ,5,Whisper
+small,1.5,6.249428987503052,Help needed,2,Whisper
+small,2.0,7.219884872436523,Request for assistance,3,Whisper
+small,1.2857142857142858,5.8299479484558105,I am in need of immediate assistance,7,Whisper
+small,0.8888888888888888,6.36635422706604,We will need you to do something for us,9,Whisper
+small,1.0,6.809842109680176,Please do us something,4,Whisper
+small,2.0,5.549740791320801,Do something for us,4,Whisper
+small,1.0,7.246831893920898,We will need an extra pair of hands,8,Whisper
+small,1.0,6.831902265548706,It would be helpful for you to intervene,8,Whisper

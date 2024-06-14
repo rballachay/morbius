@@ -1,12 +1,24 @@
 from src.language.record import record_until_thresh
 from src.file_utils import download_file
 from config import CACHE_RECORDINGS, RECORDINGS_DIR, \
-    WHISPER_DIR, WHISPER_LOCAL, WHISPER_SIZES, WHISPER_URL, SAMPLE_RATE
+    WHISPER_DIR, WHISPER_LOCAL, WHISPER_SIZES, WHISPER_URL, SAMPLE_RATE, DEVICE
 import os
 from whisper_cpp_python import Whisper as WhisperCPP
+from faster_whisper import WhisperModel
 import time
 from scipy.io.wavfile import write
 import numpy as np
+
+class FasterWhisper:
+    def __init__(self, model_size:str):
+        model_size = f"{model_size}.en"
+
+        # Run on CPU with FP32
+        self.whisper = WhisperModel(model_size, device=DEVICE, compute_type="int8")
+
+    def transcribe(self, data):
+        segments,_ = self.whisper.transcribe(data)
+        return ''.join([segment.text for segment in segments])
 
 class Whisper:
     def __init__(self, model_size: str):
@@ -24,8 +36,8 @@ class Whisper:
 
         self.whisper = WhisperCPP(model_path=self.model_path)
 
-    def transcribe(self, filename):
-        return self.whisper._full(filename)["text"]
+    def transcribe(self, data):
+        return self.whisper._full(data)["text"]
 
 def download_whisper(model_size):
     """Download whisper model to directory indicated in config"""
@@ -37,7 +49,6 @@ def download_whisper(model_size):
 
     # return true/false based on successful download (false if already downloaded)
     return download_file(url, filename)
-
 
 def listen_transcribe(whisper: Whisper):
     """This listens to audio until silence, then transcribes audio to text

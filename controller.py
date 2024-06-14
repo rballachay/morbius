@@ -1,4 +1,4 @@
-from src.language.transcribe import Whisper, listen_transcribe
+from src.language.transcribe import FasterWhisper, listen_transcribe
 from src.file_utils import timing_decorator
 from config import RASA_MODEL_PATH, RASA_ACTIONS_PATH, LOG_PATH, RASA_PORT, ACTIONS_PORT
 import subprocess
@@ -41,7 +41,7 @@ class VoiceController:
             rasa_model_path, rasa_action_path, rasa_logs, rasa_port, actions_port
         )
 
-        self.whisper_agent = Whisper(whisper_size)
+        self.whisper_agent = FasterWhisper(whisper_size)
 
         self.ros_controller = RosController()
 

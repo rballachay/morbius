@@ -76,7 +76,7 @@ class StyleTTS2:
 
         self.textcleaner = TextCleaner()
 
-    def __call__(self, text, diffusion_steps=2, embedding_scale=1):
+    def __call__(self, text, diffusion_steps=5, embedding_scale=1):
         noise = torch.randn(1,1,256).to(DEVICE)
         text = text.strip()
         text = text.replace('"', '')

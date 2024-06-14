@@ -7,17 +7,17 @@ import pyaudio
 import numpy as np
 
 class TextToSpeech:
-    def __init__(self):
-        if ACTIVE_TTS not in TTS_MODELS:
-            raise Exception(f"TTS model must be one of: {', '.join(TTS_MODELS)}")
+    def __init__(self, active_tts=ACTIVE_TTS, tts_models=TTS_MODELS):
+        if active_tts not in tts_models:
+            raise Exception(f"TTS model must be one of: {', '.join(tts_models)}")
         
-        if ACTIVE_TTS=='styleTTS2':
+        if active_tts=='styleTTS2':
             self.model=StyleTTS2()
-        elif ACTIVE_TTS=='fast_speech':
+        elif active_tts=='fast_speech':
             self.model=FastSpeech()
-        elif ACTIVE_TTS=='espeak':
+        elif active_tts=='espeak':
             self.model=ESpeak()
-        elif ACTIVE_TTS=='nix_tts':
+        elif active_tts=='nix_tts':
             self.model = NixTTS()
 
         self.pyaudio = pyaudio.PyAudio()
