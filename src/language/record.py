@@ -1,7 +1,6 @@
 import pathlib
 import ctypes
 from config import RECORD_LENGTH, SILENCE_LENGTH, VAD_MODE, SAMPLE_RATE
-import os
 import numpy as np
 
 def record_until_thresh():

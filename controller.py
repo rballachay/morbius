@@ -10,7 +10,8 @@ from src.language.tts.text_to_speech import TextToSpeech
 
 # silent, for development, allows us to write in verbal commands via
 # the shell instead of saying them, to make it easier
-SILENT = False
+SILENT_IN = True
+SILENT_OUT = False
 
 class VoiceController:
     """Object for orchestrating voice dialogue system."""
@@ -59,7 +60,7 @@ class VoiceController:
             self.ros_controller.wake_up()
 
             while conversation.open():
-                if SILENT:
+                if SILENT_IN:
                     message_in = input("(dev mode) Type next command: ")
                 else:
                     message_in = listen_transcribe(self.whisper_agent)
@@ -68,7 +69,9 @@ class VoiceController:
 
                 # report the messages
                 self.print("\n".join(message_out))
-                self.text_to_speech.speak('.'.join(message_out))
+
+                if not SILENT_OUT:
+                    self.text_to_speech.speak('.'.join(message_out))
 
                 self.__run_actions(actions_out)
 

@@ -41,8 +41,8 @@ ACTIONS_PORT = 5055
 
 # this is the active model for text-to-speech.
 """TTS CONFIG"""
-ACTIVE_TTS='styleTTS2' # also can be fast_speech
-TTS_MODELS=['styleTTS2','fast_speech']
+ACTIVE_TTS='espeak' # also can be fast_speech
+TTS_MODELS=['styleTTS2','fast_speech','espeak']
 """TTS CONFIG"""
 
 """FASTSPEECH"""

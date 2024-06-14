@@ -1,5 +1,4 @@
-from src.language.whisper import Whisper
-
+from src.language.transcribe import Whisper
 
 def run():
     pass
