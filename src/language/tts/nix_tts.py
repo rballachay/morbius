@@ -1,7 +1,7 @@
-# add the submodules/FastSpeech2 path so that we 
-# can import model and hifigan normally from here
+# add the current path so that we 
+# can import model and nix normally from here
 import sys
-sys.path.append('submodules/nix-tts')
+sys.path.append("src/language/tts")
 
 from nix.models.TTS import NixTTSInference
 from config import NIX_TTS_MODEL

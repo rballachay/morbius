@@ -7,6 +7,3 @@
 [submodule "submodules/StyleTTS2"]
 	path = submodules/StyleTTS2
 	url = https://github.com/yl4579/StyleTTS2.git
-[submodule "submodules/nix-tts"]
-	path = submodules/nix-tts
-	url = https://github.com/rendchevi/nix-tts
