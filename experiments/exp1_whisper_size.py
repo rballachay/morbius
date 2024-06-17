@@ -12,9 +12,13 @@ import os
 from .utils import calculate_wer
 import time
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 AUDIO_CACHE = 'experiments/exp1-audio-cached.pkl'
 RESULTS_FILE = 'experiments/results/exp1_results.csv'
+SPEED_PLOT = 'experiments/results/exp1_speed.png'
+ERROR_RATE_PLOT = 'experiments/results/exp1_word_error.png'
 
 def speak(data_16k):
     pyaudio_stream = pyaudio.PyAudio()
@@ -31,7 +35,7 @@ def load_yaml(file_path):
     with open(file_path, 'r') as file:
         return yaml.safe_load(file)
 
-def parse_data(file='data/rasa/v1-full/data/nlu.yml'):
+def parse_data(file='data/rasa/v1_full/data/nlu.yml'):
     data = load_yaml(file)['nlu']
     
     total_quotes = []
@@ -121,7 +125,35 @@ def run():
                 results['size'].append(whisper_size)
                 results['class'].append(type(whisper).__name__)
 
-    pd.DataFrame(results).to_csv(RESULTS_FILE,index=False)
+    return results
+
+def plot_results(results):
+    plt.figure()
+    barplot = sns.barplot(data=results, x='class',y='speed',hue='size')
+    barplot.set(xlabel ="Model Type", ylabel = "Inference Speed (s)")
+    barplot = barplot.get_figure()
+
+    plt.figure()
+    results_150 = results.groupby(['size','class']).apply(lambda x: x.head(150)).reset_index(drop=True)
+    barplot_2 = sns.barplot(data=results_150, x='class',y='wer',hue='size')
+    results_150.to_csv('results_150.csv')
+    barplot_2.set(xlabel ="Model Type", ylabel = "Word Error Rate")
+    barplot_2 = barplot_2.get_figure()
+
+    return barplot, barplot_2
 
 if __name__ == "__main__":
-    run()
+
+    if not os.path.exists(RESULTS_FILE):
+        results = run()
+        pd.DataFrame(results).to_csv(RESULTS_FILE,index=False)
+    else:
+        results = pd.read_csv(RESULTS_FILE)
+
+    sns.set_theme()
+    barplot,barplot_2 = plot_results(results)
+    barplot.savefig(SPEED_PLOT) 
+    barplot_2.savefig(ERROR_RATE_PLOT)
+
+    
+    

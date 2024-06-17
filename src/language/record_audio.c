@@ -67,7 +67,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
         return -1;
     }
 
-    for (size_t i = 0; i < framesToCalc; i++){
+    for (int i = 0; i < framesToCalc; i++){
         intBuf[i] = data->recordedSamples[data->frameIndex+i] * INT16_MAX;
     }
 
@@ -75,6 +75,7 @@ static int recordCallback(const void *inputBuffer, void *outputBuffer,
     // we know this corresponds to 160/16000 s, so we can see if the speaker
     // is done talking or not
     vadres = fvad_process(data->vad, intBuf, framesToCalc);
+    free(intBuf); 
 
     if (vadres==0){
         silentFrames+=framesToCalc;

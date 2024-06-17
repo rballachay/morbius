@@ -2,7 +2,7 @@
 
 ## Rasa versioning 
 
-### v1-full
+### v1_full
 
 There are a few different versions of the rasa configuration that can be used for different use-cases. The first use of rasa was to demonstrate that the dialogue system may be used for a complex chain of commands. This includes the following:
 
@@ -18,7 +18,7 @@ void resume();
 
 These are more complex commands, which the users would give and then the robot could perform using a mixture of vision models and reinforcement learning. This rasa configuration can be found in the folder `v1-full`. 
 
-### v2-motor
+### v2_motor
 
 After this was demonstrated, the first real use-case could be worked on, which is located at `prometheus-swam/SwarmBots/RobotRes/src/motor/motor.hpp` in the robot swarm project and includes the following commands:
 

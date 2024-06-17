@@ -24,6 +24,7 @@ VAD_MODE = 3  # this goes from 0->3, see here: https://github.com/dpirch/libfvad
 os.environ["WHISPER_CPP_LIB"] = (
     "/Users/RileyBallachay/opt/anaconda3/envs/python3.10/lib/libwhisper.dylib"
 )
+WHISPER_SIZE = 'tiny'
 WHISPER_DIR = f"{MODEL_PATH}/whisper"
 WHISPER_SIZES = ["tiny", "small"]
 WHISPER_LOCAL = "ggml-torch-{model_size}.bin"
@@ -34,14 +35,14 @@ WHISPER_URL = (
 
 """RASA"""
 RASA_MODEL_PATH = "models/rasa-model-june10.tar.gz"
-RASA_ACTIONS_PATH = "data.rasa.actions"
+RASA_ACTIONS_PATH = "data.rasa.v1_full.actions"
 RASA_PORT = 5005
 ACTIONS_PORT = 5055
 """RASA"""
 
 # this is the active model for text-to-speech.
 """TTS CONFIG"""
-ACTIVE_TTS='nix_tts' # also can be fast_speech
+ACTIVE_TTS='nix_tts'  # any of TTS_MODELS
 TTS_MODELS=['styleTTS2','fast_speech','espeak','nix_tts']
 """TTS CONFIG"""
 
