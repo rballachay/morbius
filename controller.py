@@ -1,7 +1,8 @@
 from src.language.transcribe import FasterWhisper, listen_transcribe
 from src.file_utils import timing_decorator
-from config import RASA_MODEL_PATH, RASA_ACTIONS_PATH, \
-    LOG_PATH, RASA_PORT, ACTIONS_PORT, WHISPER_SIZE
+from src.ros_controller import RosControllerV1
+from config import RASA_MODEL_PATHS, RASA_ACTIONS_PATHS, \
+    LOG_PATH, RASA_PORT, ACTIONS_PORT, WHISPER_SIZE, RASA_VERSION
 import subprocess
 import time
 import os
@@ -19,13 +20,20 @@ class VoiceController:
 
     def __init__(
         self,
-        rasa_model_path=RASA_MODEL_PATH,
-        rasa_action_path=RASA_ACTIONS_PATH,
+        rasa_version=RASA_VERSION, # v1 or v2
+        rasa_model_paths=RASA_MODEL_PATHS, # dictionary
+        rasa_action_paths=RASA_ACTIONS_PATHS, # dictionary
         whisper_size=WHISPER_SIZE,
         log_path=LOG_PATH,
         rasa_port=RASA_PORT,
         actions_port=ACTIONS_PORT,
     ):
+        if not rasa_version in ['v1','v2']:
+            raise Exception("Rasa version must be one of: {v1, v2}")
+        
+        # select rasa paths based on version
+        rasa_model_path = rasa_model_paths[rasa_version]
+        rasa_action_path = rasa_action_paths[rasa_version]
 
         # create logging
         rasa_logs = f"{log_path}/rasa-logs-{int(time.time())}.log"
@@ -45,9 +53,14 @@ class VoiceController:
         self.whisper_agent = FasterWhisper(whisper_size)
         self.whisper_agent.transcribe = timing_decorator(self.whisper_agent.transcribe)
 
-        self.ros_controller = RosController()
+        # the controller depends on the version of rasa, as the actions 
+        # are mapped to the ROS controller
+        self.ros_controller = {
+            'v1':RosControllerV1
+        }[rasa_version]()
 
         self.text_to_speech = TextToSpeech()
+        self.text_to_speech.speak = timing_decorator(self.text_to_speech.speak)
 
     def run(self):
         """This is a loop that continues until it is shut down. When
@@ -215,43 +228,6 @@ class Conversation:
     def close_conversation(self):
         # set state to false so that open returns false
         self.state = False
-
-
-class RosController:
-    """For the first iteration of this, it's not clear
-    how the roscontroller is going to work, so i will
-    make a bare-bones version of this
-    """
-
-    def __init__(self):
-        self.state = True
-
-    def action_move_robot(self, room):
-        self.print(f"Moving robot to room {room}")
-
-    def action_find_object(self, object):
-        self.print(f"Searching for object {object}")
-
-    def action_come_here(self):
-        self.print(f"Coming to beckoner")
-
-    def action_sleep(self):
-        self.state = False
-
-    def action_pause(self):
-        self.print(f"Pausing...")
-
-    def action_resume(self):
-        self.print("Resuming...")
-
-    def print(self, message):
-        print(message)
-
-    def awake(self):
-        return self.state
-    
-    def wake_up(self):
-        self.state=True
 
 
 if __name__ == "__main__":

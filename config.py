@@ -34,8 +34,9 @@ WHISPER_URL = (
 """WHISPER"""
 
 """RASA"""
-RASA_MODEL_PATH = "models/rasa-model-june10.tar.gz"
-RASA_ACTIONS_PATH = "data.rasa.v1_full.actions"
+RASA_VERSION='v1'
+RASA_MODEL_PATHS = {"v1":"models/rasa-model-june10.tar.gz"}
+RASA_ACTIONS_PATHS = {"v1":"data.rasa.v1_full.actions","v2":"data.rasa.v2_motor.actions"}
 RASA_PORT = 5005
 ACTIONS_PORT = 5055
 """RASA"""
