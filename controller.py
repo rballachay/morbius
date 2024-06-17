@@ -1,6 +1,6 @@
 from src.language.transcribe import FasterWhisper, listen_transcribe
 from src.file_utils import timing_decorator
-from src.ros_controller import RosControllerV1
+from src.ros_controller import RosControllerV1, RosControllerv2
 from config import RASA_MODEL_PATHS, RASA_ACTIONS_PATHS, \
     LOG_PATH, RASA_PORT, ACTIONS_PORT, WHISPER_SIZE, RASA_VERSION
 import subprocess
@@ -37,7 +37,7 @@ class VoiceController:
 
         # create logging
         rasa_logs = f"{log_path}/rasa-logs-{int(time.time())}.log"
-        dialogue_transcript = f"{log_path}/dialogue-transcript-{int(time.time())}.log"
+        #dialogue_transcript = f"{log_path}/dialogue-transcript-{int(time.time())}.log"
 
         os.makedirs(os.path.dirname(rasa_logs), exist_ok=True)
 
@@ -56,7 +56,8 @@ class VoiceController:
         # the controller depends on the version of rasa, as the actions 
         # are mapped to the ROS controller
         self.ros_controller = {
-            'v1':RosControllerV1
+            'v1':RosControllerV1,
+            'v2':RosControllerv2
         }[rasa_version]()
 
         self.text_to_speech = TextToSpeech()

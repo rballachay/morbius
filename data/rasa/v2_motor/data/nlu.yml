@@ -28,7 +28,7 @@ nlu:
     - nap time, robot
     - hibernate for now please 
 
-- intent: pause
+- intent: stop
   examples: |
     - wait for a bit
     - wait a sec
@@ -551,6 +551,15 @@ nlu:
     - go in the left direction
     - make a left-hand turn
     - pivot to the left
+    - turn [15 degrees](angle) to your left side
+    - angle yourself [30 degrees](angle) to the left
+    - can you please turn at a [right angle](angle) to your left side
+    - bank about [45 degrees](angle) to your left
+    - hey robot, please direct yourself about [twenty degree](angle) to left
+    - [a hundred eighty degrees](angle) to the left, please
+    - twist to the left, maybe about, lets see, [fifty degrees](angle)
+    - [forty-ish degrees](angle) to the left
+    - go to the left, but about [seventy degrees](angle)
 
 - intent: turn_right
   examples: |
@@ -599,6 +608,16 @@ nlu:
     - right is the way to go
     - point to the right
     - guide to the right
+    - turn right roughly [twenty degrees](angle)
+    - [forty five degrees](angle) to the right
+    - orient yourself towards the right, at an angle of about [fifteen degrees](angle)
+    - if you could possible re-orient about [60 degrees](angle) more to the left
+    - please turn yourself to the right... about [a hundred degrees](angle)
+    - okay, now if you can turn to the right about [forty degree](angle)
+    - veer [a few degree](angle) to the right
+    - about [a quarter-turn](angle) to the right
+    - angle yourself about [seventy five degrees](angle) more rightward
+
 
 - intent: move_forward
   examples: |
@@ -648,3 +667,25 @@ nlu:
     - step backward please
     - move in reverse mode
     - retreat on your path 
+
+- intent: turn_right+move_forward
+  examples: |
+    - turn to your right and move forward, lets say, [five meters](distance)
+    - go [fifty feet](distance) to your right
+    - okay, now you can turn right and move forward
+    - proceed to your right for [ten feet](distance) 
+    - please turn about [forty-five degrees](angle) to the right and go forward
+    - turn staight to the right and proceed onwards 
+    - to the right now, and then go ahead
+    - if you can turn to the right about [sixty degrees](angle), then move about [5 feet](distance)
+    - turn right about [sixty degrees](angle) and then roll forward about [2 metres](distance)
+
+- intent: turn_left+move_forward
+  examples: |
+    - twist to the left and go forward
+    - to the left and ahead
+    - angle yourself to the left and move foward [seventeen feet](distance)
+    - go to the left about [five metres](distance)
+    - angle yourself leftwards about [thirty degrees](angle) and then go
+    - if you are able, re-orient about [forty five degrees](angle) to the left prior to proceeding forwards [ten feet](distance)
+    - please perform a [quarter-turn](angle) to the left and then roll down the hall about [6 feet](distance)

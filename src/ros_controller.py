@@ -34,3 +34,37 @@ class RosControllerV1:
     
     def wake_up(self):
         self.state=True
+
+class RosControllerv2:
+    """For the second version, going to use it to 
+    send commands to the robot, using the ros.
+    """
+    def __init__(self):
+        self.state = True
+
+    def action_move_forward(self):
+        self.print("Moving forward...")
+    
+    def action_move_backward(self):
+        self.print("Moving backward...")
+    
+    def action_turn_right(self):
+        self.print("Turning to the right...")
+    
+    def action_turn_left(self):
+        self.print("Turning to the left...")
+
+    def action_stop(self):
+        self.print(f"Stopping...")
+
+    def action_resume(self):
+        self.print("Resuming...")
+
+    def print(self, message):
+        print(message)
+
+    def awake(self):
+        return self.state
+    
+    def wake_up(self):
+        self.state=True
