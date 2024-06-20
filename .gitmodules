@@ -7,3 +7,18 @@
 [submodule "submodules/StyleTTS2"]
 	path = submodules/StyleTTS2
 	url = https://github.com/yl4579/StyleTTS2.git
+[submodule "submodules/ORB_SLAM3"]
+	path = submodules/ORB_SLAM3
+	url = https://github.com/UZ-SLAMLab/ORB_SLAM3.git
+[submodule "submodules/Pangolin"]
+	path = submodules/Pangolin
+	url = https://github.com/stevenlovegrove/Pangolin.git
+[submodule "submodules/DepthAwareCNN"]
+	path = submodules/DepthAwareCNN
+	url = https://github.com/laughtervv/DepthAwareCNN
+[submodule "submodules/rscvdnn"]
+	path = submodules/rscvdnn
+	url = https://github.com/twMr7/rscvdnn
+[submodule "submodules/RTFNet"]
+	path = submodules/RTFNet
+	url = https://github.com/yuxiangsun/RTFNet
