@@ -55,3 +55,8 @@ rules:
   steps:
   - intent: stop
   - action: action_stop
+
+- rule: unknown
+  steps:
+  - intent: unknown
+  - action: utter_confusion

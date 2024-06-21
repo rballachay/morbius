@@ -30,6 +30,7 @@ actions:
 - action_resume
 - action_sleep
 - action_list_commands
+- utter_confusion
 
 responses:
   utter_hello:
@@ -43,6 +44,9 @@ responses:
 
   utter_confirm_help:
   - text: How may I be of assistance? 
+
+  utter_confusion:
+  - text: I don't understand, can you please repeat?
 
 session_config:
   session_expiration_time: 60

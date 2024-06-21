@@ -8,6 +8,8 @@
 #include <opencv2/opencv.hpp>
 #include <thread>
 
+
+
 cv::Mat getMaxChannelIndices(const cv::Mat& multiChannelMat) {
     // Get the dimensions of the input matrix
     int rows = multiChannelMat.rows;
@@ -97,7 +99,7 @@ int main(int argc, char * argv[]) try
 
     // Example input tensor
     std::vector<int64_t> input_shape = {1, 4, 480, 640}; // Example shape: {batch_size, channels, height, width}
-
+    
     // Create a Pipeline - this serves as a top-level API for streaming and processing frames
     rs2::pipeline p;
     rs2::config cfg;
@@ -136,19 +138,26 @@ int main(int argc, char * argv[]) try
         cv::Mat depth_mat(cv::Size(640, 480), CV_16U, (void*)depth.get_data(), cv::Mat::AUTO_STEP);
         cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
         
-        //cv::imshow("Color Image", color_mat);
+        //cv::imshow("Color Image", depth_mat);
         //cv::waitKey(0);
 
         cv::Mat depth_mat_8uc1;
-        cv::convertScaleAbs(depth_mat, depth_mat_8uc1, 255 / 65536.0); // Scale to 8-bit range
+        cv::convertScaleAbs(depth_mat, depth_mat_8uc1, 4.0*255.0f / 65535.0f); // Scale to 8-bit range
+
+        double minVal, maxVal;
+        cv::minMaxIdx(depth_mat_8uc1, &minVal, &maxVal); // Find the min and max values
+        std::cout << "Min value: " << minVal << ", Max value: " << maxVal << std::endl;
 
         // Create a vector of Mat objects
-        std::vector<cv::Mat> channels_vec;
-        cv::split(color_mat, channels_vec);  // Split mat1 into its RGB channels
-        channels_vec.push_back(depth_mat_8uc1);   // Add mat2 as the fourth channel
-
-        // Merge the channels into a single CV_8UC4 Mat
         cv::Mat stacked_mat;
+        std::vector<cv::Mat> channels_vec;
+        channels_vec.push_back(depth_mat_8uc1);
+        cv::Mat color_channels[3];
+        cv::split(color_mat, color_channels);
+        channels_vec.push_back(color_channels[0]);
+        channels_vec.push_back(color_channels[1]);
+        channels_vec.push_back(color_channels[2]);
+
         cv::merge(channels_vec, stacked_mat);
 
         // Print shape information
