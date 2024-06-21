@@ -19,6 +19,3 @@
 [submodule "submodules/rscvdnn"]
 	path = submodules/rscvdnn
 	url = https://github.com/twMr7/rscvdnn
-[submodule "submodules/RTFNet"]
-	path = submodules/RTFNet
-	url = https://github.com/yuxiangsun/RTFNet
