@@ -47,7 +47,7 @@ void RealSense::warmUpPipeline() {
 RealSense::RealSense() = default;
 
 void RealSense::startPipeline() {
-    config.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
+    config.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_RGB8, 30);
     config.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
 
     profile = pipeline.start(config);
@@ -71,6 +71,15 @@ void RealSense::captureFrames(const std::function<void(const rs2::frameset&)>& f
     }
 }
 
+cv::Mat minMaxScale(const cv::Mat& inputImage) {
+    cv::Mat scaledImage;
+
+    // Normalize each channel independently to range [0, 255]
+    cv::normalize(inputImage, scaledImage, 0, 255, cv::NORM_MINMAX, CV_8UC(inputImage.channels()));
+
+    return scaledImage;
+}
+
 cv::Mat depthMatFrameProcess(const rs2::frameset& frames) {
     rs2::depth_frame depth = frames.get_depth_frame();
     rs2::video_frame rgb_frame = frames.get_color_frame();
@@ -82,18 +91,25 @@ cv::Mat depthMatFrameProcess(const rs2::frameset& frames) {
     cv::convertScaleAbs(depth_mat, depth_mat_8uc1, 255.0f / 65535.0f);
 
     std::vector<cv::Mat> channels_vec;
-    channels_vec.push_back(depth_mat_8uc1);
-    
+
+    // Push color channels first
     cv::Mat color_channels[3];
     cv::split(color_mat, color_channels);
     channels_vec.push_back(color_channels[0]);
     channels_vec.push_back(color_channels[1]);
     channels_vec.push_back(color_channels[2]);
 
+    // Push depth_mat_8uc1 at the end
+    channels_vec.push_back(depth_mat_8uc1);
+
+    // Merge all channels into a single image
     cv::Mat stacked_mat;
     cv::merge(channels_vec, stacked_mat);
+
+
+    cv::Mat minMaxScaled = minMaxScale(stacked_mat);
     
-    return stacked_mat;
+    return minMaxScaled;
 }
 
 /*int main() {

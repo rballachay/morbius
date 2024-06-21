@@ -5,20 +5,19 @@
 #include <thread>
 
 OnnxPipeline::OnnxPipeline(const char* modelPath) 
-    : modelPath(modelPath), env(ORT_LOGGING_LEVEL_WARNING, "ONNXInference"), session(nullptr){
+    : modelPath(modelPath), env(ORT_LOGGING_LEVEL_WARNING, "ONNXInference"), session(nullptr),
+    sessionOptions(nullptr), inputShape({1, 4, 480, 640}), inputNames({ "l_input_" }), outputNames({ "deconv5_1"}){
     
-    Ort::SessionOptions session_options;
-    session_options.SetIntraOpNumThreads(1);
-    session_options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_EXTENDED);
+    Ort::SessionOptions sessionOptions;
+    sessionOptions.SetIntraOpNumThreads(1);
+    sessionOptions.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_EXTENDED);
 
     // Create an ONNX Runtime session
-    session = Ort::Session(env, modelPath, session_options);
+    session = Ort::Session(env, modelPath, sessionOptions);
 
     // Get input node names and shapes
     Ort::AllocatorWithDefaultOptions allocator;
     size_t num_input_nodes = session.GetInputCount();
-
-    inputShape = {1, 4, 480, 640};
 
 }
 

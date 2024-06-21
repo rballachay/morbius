@@ -23,5 +23,6 @@ public:
 };
 
 cv::Mat depthMatFrameProcess(const rs2::frameset& frames);
+cv::Mat maxMinScaleChannels(const cv::Mat& inputImage);
 
 #endif

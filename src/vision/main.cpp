@@ -17,12 +17,11 @@ int main() {
             // return a {480, 640, 4} RGB-D cv::Mat
             cv::Mat processedFrame = depthMatFrameProcess(frames);
 
-            // Run inference
             cv::Mat result = onnxPipeline.forward(processedFrame);
             cv::Mat colorImage = onnxPipeline.displayMaxChannelIndices(result);
             
             // Display the frame
-            cv::imshow("Processed Frame", processedFrame);
+            cv::imshow("Processed Frame", colorImage);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
                 std::exit(0);
             }

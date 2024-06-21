@@ -8,6 +8,11 @@
 *.gz
 *.wav
 
+# ignore compiled
+*.dylib
+*.o
+*.so
+
 # ignore pytorch files because we dont have the space 
 *.pth
 *.onnx
