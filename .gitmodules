@@ -13,9 +13,6 @@
 [submodule "submodules/Pangolin"]
 	path = submodules/Pangolin
 	url = https://github.com/stevenlovegrove/Pangolin.git
-[submodule "submodules/DepthAwareCNN"]
-	path = submodules/DepthAwareCNN
-	url = https://github.com/laughtervv/DepthAwareCNN
 [submodule "submodules/rscvdnn"]
 	path = submodules/rscvdnn
 	url = https://github.com/twMr7/rscvdnn
