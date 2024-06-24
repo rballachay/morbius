@@ -16,4 +16,6 @@ pandas==2.2.2
 faster-whisper==1.0.2
 seaborn==0.13.2
 torchvision==0.17.2
+opencv-python==4.10.0
+cityscapesScripts==2.2.3
 git+https://github.com/resemble-ai/monotonic_align.git

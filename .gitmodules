@@ -16,3 +16,6 @@
 [submodule "submodules/rscvdnn"]
 	path = submodules/rscvdnn
 	url = https://github.com/twMr7/rscvdnn
+[submodule "submodules/ESANet"]
+	path = submodules/ESANet
+	url = https://github.com/TUI-NICR/ESANet.git

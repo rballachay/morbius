@@ -12,16 +12,19 @@ private:
     Ort::Env env;
     Ort::SessionOptions sessionOptions;
     Ort::Session session;
-    std::vector<int64_t> inputShape;
+    std::vector<int64_t> inputShapeRGB;
+    std::vector<int64_t> inputShapeD;
     std::vector<const char*> inputNames;
     std::vector<const char*> outputNames;
+    std::vector<cv::Vec3b> colorSpace; 
+    std::vector<std::string> classNames;
 
 public:
     OnnxPipeline(const char* modelPath);
-    cv::Mat forward(cv::Mat inputs);
-    std::vector<float> runInference(const cv::Mat& inputImage);
+    cv::Mat forward(cv::Mat inputsRGB, cv::Mat inputsD);
     cv::Mat getMaxChannelIndices(const cv::Mat& multiChannelMat);
     cv::Mat displayMaxChannelIndices(const cv::Mat& multiChannelMat);
+    cv::Mat blendImages(const cv::Mat& rawImage, const cv::Mat& maskImage);
 };
 
 #endif

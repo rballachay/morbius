@@ -10,18 +10,24 @@ int main() {
         realsense.startPipeline();
 
         // Initialize the ONNX pipeline
-        OnnxPipeline onnxPipeline("RTFNet.onnx");
+        OnnxPipeline onnxPipeline("ESAnet.onnx");
 
         realsense.captureFrames([&onnxPipeline](const rs2::frameset& frames) {
 
             // return a {480, 640, 4} RGB-D cv::Mat
-            cv::Mat processedFrame = depthMatFrameProcess(frames);
+            std::pair<cv::Mat, cv::Mat> processedFrames = depthMatFrameProcess(frames);
 
-            cv::Mat result = onnxPipeline.forward(processedFrame);
+            cv::Mat result = onnxPipeline.forward(processedFrames.first, processedFrames.second);
+
+            std::string outputFileName = "output_image.jpg";
+            bool isSuccess = cv::imwrite(outputFileName, processedFrames.first);
+
             cv::Mat colorImage = onnxPipeline.displayMaxChannelIndices(result);
+
+            cv::Mat blendedImage= onnxPipeline.blendImages(processedFrames.first, colorImage);
             
             // Display the frame
-            cv::imshow("Processed Frame", colorImage);
+            cv::imshow("Processed Frame", blendedImage);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
                 std::exit(0);
             }
