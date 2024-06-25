@@ -19,3 +19,6 @@
 [submodule "submodules/ESANet"]
 	path = submodules/ESANet
 	url = https://github.com/TUI-NICR/ESANet.git
+[submodule "submodules/RGBDPlaneDetection"]
+	path = submodules/RGBDPlaneDetection
+	url = https://github.com/chaowang15/RGBDPlaneDetection
