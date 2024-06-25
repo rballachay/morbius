@@ -16,11 +16,9 @@ int main() {
 
             // return a {480, 640, 4} RGB-D cv::Mat
             std::pair<cv::Mat, cv::Mat> processedFrames = depthMatFrameProcess(frames);
+            std::pair<cv::Mat, cv::Mat> finalFrames = postProcessFrames(processedFrames.first, processedFrames.second);
 
-            cv::Mat result = onnxPipeline.forward(processedFrames.first, processedFrames.second);
-
-            std::string outputFileName = "output_image.jpg";
-            bool isSuccess = cv::imwrite(outputFileName, processedFrames.first);
+            cv::Mat result = onnxPipeline.forward(finalFrames.first, finalFrames.second);
 
             cv::Mat colorImage = onnxPipeline.displayMaxChannelIndices(result);
 

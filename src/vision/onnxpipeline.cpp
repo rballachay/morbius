@@ -163,8 +163,11 @@ cv::Mat OnnxPipeline::displayMaxChannelIndices(const cv::Mat& multiChannelMat) {
 }
 
 cv::Mat OnnxPipeline::blendImages(const cv::Mat& rawImage, const cv::Mat& maskImage) {
+    cv::Mat bgrImage;
+    cv::cvtColor(rawImage, bgrImage, cv::COLOR_RGB2BGR);
+
     cv::Mat rawImageFloat, maskImageFloat;
-    rawImage.convertTo(rawImageFloat, CV_32FC3, 1.0 / 255.0);
+    bgrImage.convertTo(rawImageFloat, CV_32FC3, 1.0 / 255.0);
     maskImage.convertTo(maskImageFloat, CV_32FC3, 1.0 / 255.0);
 
     double alpha = 0.4;

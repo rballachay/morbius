@@ -23,6 +23,9 @@ public:
 };
 
 std::pair<cv::Mat, cv::Mat> depthMatFrameProcess(const rs2::frameset& frames);
-cv::Mat maxMinScaleChannels(const cv::Mat& inputImage);
-
+cv::Mat minMaxScale(const cv::Mat& inputImage, int cvType);
+cv::Mat normalizeRGB(cv::Mat& rgbImage);
+cv::Mat normalizeDepth(cv::Mat& depthImage);
+rs2::frame preprocessDepth(rs2::frame& depth_frame);
+std::pair<cv::Mat, cv::Mat> postProcessFrames(cv::Mat& color_mat, cv::Mat& depth_mat);
 #endif
