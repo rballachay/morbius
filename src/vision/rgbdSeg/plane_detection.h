@@ -65,7 +65,7 @@ class PlaneDetection
 {
 public:
 	ImagePointCloud cloud;
-	ahc::PlaneFitter< ImagePointCloud > plane_filter;
+	ahc::PlaneFitter<ImagePointCloud > plane_filter;
 	vector<vector<int>> plane_vertices_; // vertex indices each plane contains
 	cv::Mat seg_img_; // segmentation image
 	cv::Mat color_img_; // input color image

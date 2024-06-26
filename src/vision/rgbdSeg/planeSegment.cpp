@@ -85,6 +85,7 @@ int main() {
             // Display the frame
             cv::imshow("Processed Frame", plane_detection.seg_img_);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
+				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
                 std::exit(0);
             }
         });
