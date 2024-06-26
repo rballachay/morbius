@@ -7,9 +7,6 @@
 [submodule "submodules/StyleTTS2"]
 	path = submodules/StyleTTS2
 	url = https://github.com/yl4579/StyleTTS2.git
-[submodule "submodules/ORB_SLAM3"]
-	path = submodules/ORB_SLAM3
-	url = https://github.com/UZ-SLAMLab/ORB_SLAM3.git
 [submodule "submodules/Pangolin"]
 	path = submodules/Pangolin
 	url = https://github.com/stevenlovegrove/Pangolin.git
