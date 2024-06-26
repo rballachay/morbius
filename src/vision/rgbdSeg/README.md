@@ -6,5 +6,16 @@ A few different approaches were investigated for surface segmentation (and driva
 
 The best repository for RGBD plane detection I could find is [RGBDPlaneDetection](https://github.com/chaowang15/RGBDPlaneDetection). This provides the point cloud plane fitting and plane refinement. In order to adapt this code, I copied over the `plane_detection.cpp` and `include/` made the necessary adjustments to accept the realsense images and then built the project. The results are much better than any CNN I could find. See the results below:
 
+<div style="display: flex; justify-content: center;">
+    <img src="docs/raw_image.png" alt="Image 1" style="width: 50%; margin-right: 5px;">
+    <img src="docs/depth_image.png" alt="Image 2" style="width: 50%; margin-left: 5px;">
+</div>
 
-![Sample segmentation](sample_segmentation.png "Sample segmentation using realsense camera")
+<div style="display: flex; justify-content: center;">
+<img src="docs/sample_segmentation.png" alt="Sample segmentation" title="Sample segmentation using realsense camera" width="400" />
+</div>
+
+
+## Building the project
+
+In order to build the project, you need to ensure you have librealsense2 installed. You can then navigate to this folder and run: `bash ./build.sh`
