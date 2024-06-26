@@ -1,4 +1,5 @@
 #include "plane_detection.h"
+#include "realsense.hpp"
 
 PlaneDetection plane_detection;
 
@@ -59,28 +60,42 @@ void runMRFOptimization()
 	delete smooth;
 	delete data;
 }
+int main() {
+    try {
+        RealSense realsense;
+        realsense.startPipeline();
 
-int main(){
-    string color_filename = "/Users/RileyBallachay/Documents/McGill/morbius/submodules/RGBDPlaneDetection/pic/frame-000000.color.jpg";
-	string depth_filename = "/Users/RileyBallachay/Documents/McGill/morbius/submodules/RGBDPlaneDetection/pic/frame-000000.depth.png";
-	string output_folder ="./";
+        realsense.captureFrames([](const rs2::frameset& frames) {
+            rs2::depth_frame depth = frames.get_depth_frame();
+            rs2::video_frame rgb_frame = frames.get_color_frame();
 
-    int pos = color_filename.find_last_of("/\\");
-	string frame_name = color_filename.substr(pos + 1);
-	frame_name = frame_name.substr(0, frame_name.length() - 10);
-	
-	
-    cv::Mat depth_img = cv::imread(depth_filename, cv::IMREAD_ANYDEPTH);
-    cv::Mat color_img = cv::imread(color_filename, cv::IMREAD_COLOR);
+            rs2::frame depth_processed = preprocessDepth(depth);
 
-	plane_detection.readDepthImage(depth_img);
-	plane_detection.readColorImage(color_img);
-	plane_detection.runPlaneDetection();
+            // Convert depth frame to CV_16U Mat
+            cv::Mat depth_mat(cv::Size(640, 480), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
+            cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
 
+            plane_detection.readDepthImage(depth_mat);
+            plane_detection.readColorImage(color_mat);
+            plane_detection.runPlaneDetection();
 
-    plane_detection.prepareForMRF();
-    runMRFOptimization();
+            //plane_detection.prepareForMRF();
+            //runMRFOptimization();
 
-	plane_detection.writeOutputFiles(output_folder, frame_name, true);
-    return 0;
+            // Display the frame
+            cv::imshow("Processed Frame", plane_detection.seg_img_);
+            if (cv::waitKey(1) == 27) { // Exit on ESC key
+                std::exit(0);
+            }
+        });
+    } catch (const rs2::error & e) {
+        std::cerr << "RealSense error calling " << e.get_failed_function() << "(" << e.get_failed_args() << "):\n"
+                  << e.what() << std::endl;
+        return EXIT_FAILURE;
+    } catch (const std::exception & e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }

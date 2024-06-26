@@ -17,22 +17,8 @@ void RealSense::configureCameraSettings() {
     }
 
     if (color_sensor) {
-        if (color_sensor.supports(RS2_OPTION_BRIGHTNESS)) {
-            color_sensor.set_option(RS2_OPTION_BRIGHTNESS, 30);
-            std::cout << "Brightness set to 30." << std::endl;
-        }
-        if (color_sensor.supports(RS2_OPTION_GAMMA)) {
-            color_sensor.set_option(RS2_OPTION_GAMMA, 300);
-            std::cout << "Gamma set to 300." << std::endl;
-        }
-        if (color_sensor.supports(RS2_OPTION_SHARPNESS)) {
-            color_sensor.set_option(RS2_OPTION_SHARPNESS, 50);
-            std::cout << "Sharpness set to 50." << std::endl;
-        }
-        if (color_sensor.supports(RS2_OPTION_SATURATION)) {
-            color_sensor.set_option(RS2_OPTION_SATURATION, 32);
-            std::cout << "Saturation set to 32." << std::endl;
-        }
+        std::cout << "Color sensor found :)" << std::endl;
+
     } else {
         std::cerr << "No color sensor found!" << std::endl;
     }
@@ -47,7 +33,7 @@ void RealSense::warmUpPipeline() {
 RealSense::RealSense() = default;
 
 void RealSense::startPipeline() {
-    config.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_RGB8, 30);
+    config.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
     config.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
 
     profile = pipeline.start(config);
@@ -88,7 +74,7 @@ std::pair<cv::Mat, cv::Mat> depthMatFrameProcess(const rs2::frameset& frames) {
     rs2::frame depth_processed = preprocessDepth(depth);
 
     // Convert depth frame to CV_16U Mat
-    cv::Mat depth_mat(cv::Size(640, 480), CV_16U, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
+    cv::Mat depth_mat(cv::Size(640, 480), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
 
     // Convert color frame to CV_8UC3 Mat
     cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
