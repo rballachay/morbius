@@ -19,3 +19,6 @@
 [submodule "submodules/RGBDPlaneDetection"]
 	path = submodules/RGBDPlaneDetection
 	url = https://github.com/chaowang15/RGBDPlaneDetection
+[submodule "submodules/ORB_SLAM3"]
+	path = submodules/ORB_SLAM3
+	url = https://github.com/UZ-SLAMLab/ORB_SLAM3

@@ -1,71 +1,98 @@
 #include "plane_detection.h"
 #include "realsense.hpp"
 
-PlaneDetection plane_detection;
 
-//-----------------------------------------------------------------
-// MRF energy functions
-MRF::CostVal dCost(int pix, int label)
-{
-	return plane_detection.dCost(pix, label);
-}
+int findMinZVal(const std::vector<std::vector<int>>& plane_vertices, std::vector<VertexType>& vertices, std::vector<bool> candidates) {
+    int minIndex = -1;
+    int minValue = std::numeric_limits<int>::max(); // Start with a large value
 
-MRF::CostVal fnCost(int pix1, int pix2, int i, int j)
-{
-	return plane_detection.fnCost(pix1, pix2, i, j);
-}
-
-void runMRFOptimization()
-{
-	DataCost *data = new DataCost(dCost);
-	SmoothnessCost *smooth = new SmoothnessCost(fnCost);
-	EnergyFunction *energy = new EnergyFunction(data, smooth);
-	int width = kDepthWidth, height = kDepthHeight;
-	MRF* mrf = new Expansion(width * height, plane_detection.plane_num_ + 1, energy);
-	// Set neighbors for the graph
-	for (int row = 0; row < height; row++)
-	{
-		for (int col = 0; col < width; col++)
-		{
-			int pix = row * width + col;
-			if (col < width - 1) // horizontal neighbor
-				mrf->setNeighbors(pix, pix + 1, 1);
-			if (row < height - 1) // vertical
-				mrf->setNeighbors(pix, pix + width, 1);
-			if (row < height - 1 && col < width - 1) // diagonal
-				mrf->setNeighbors(pix, pix + width + 1, 1);
+    for (size_t i = 0; i < plane_vertices.size(); ++i) {
+		if (candidates[i]){
+			const std::vector<int>& innerVec = plane_vertices[i];
+			for (size_t j = 0; j < innerVec.size(); ++j){
+				double secondElementValue = vertices[innerVec[j]].x();
+				if (secondElementValue==0){
+					continue;
+				}
+				if (secondElementValue < minValue) {
+					minValue = secondElementValue;
+					minIndex = static_cast<int>(i); // Record the index of the minimum
+				}
+			}
 		}
-	}
-	mrf->initialize();
-	mrf->clearAnswer();
-	float t;
-	mrf->optimize(5, t);  // run for 5 iterations, store time t it took 
-	MRF::EnergyVal E_smooth = mrf->smoothnessEnergy();
-	MRF::EnergyVal E_data = mrf->dataEnergy();
-	cout << "Optimized Energy: smooth = " << E_smooth << ", data = " << E_data << endl;
-	cout << "Time consumed in MRF: " << t << endl;
-
-	// Get MRF result
-	for (int row = 0; row < height; row++)
-	{
-		for (int col = 0; col < width; col++)
-		{
-			int pix = row * width + col;
-			plane_detection.opt_seg_img_.at<cv::Vec3b>(row, col) = plane_detection.plane_colors_[mrf->getLabel(pix)];
-			plane_detection.opt_membership_img_.at<int>(row, col) = mrf->getLabel(pix);
-		}
-	}
-	delete mrf;
-	delete energy;
-	delete smooth;
-	delete data;
+    }
+    return minIndex;
 }
+
+struct Surfaces{
+	std::vector<ahc::PlaneSeg::shared_ptr> planes;
+	std::vector<vector<int>> plane_vertices;
+	std::vector<VertexType> vertices;
+	std::vector<int> angles;
+
+	size_t numPlanes;
+	int groundIdx; // index of the ground, if it can't be assigned, gives warning
+
+	Surfaces(const PlaneDetection& planeDetection) {
+        
+		// angles are heading directions for how far we can move in each direction
+		// prior to running out of ground
+		for (int angle = -45; angle <= 45; angle += 5) {
+            angles.push_back(angle);
+        }
+		
+		planes = planeDetection.plane_filter.extractedPlanes;
+		plane_vertices = planeDetection.plane_vertices_;
+		vertices = planeDetection.cloud.vertices;
+		numPlanes = planeDetection.plane_num_;
+		groundIdx = assignGround();
+    }
+
+	int assignGround(){
+		/* looking for the vector with y-component closest to -1. if there are multiple 
+		within tolernace, choose whichever is closest to the bottom (has the smallest y-component).
+		*/
+		double tolerance = 0.1;
+		int nCandidates = 0;
+		std::vector<bool> candidates(numPlanes);
+		for (int i = 0; i < numPlanes; ++i)
+		{
+			double normal = planes[i]->normal[1]; // second element is y
+			std::cout << "plane number: " << i << "y-val: " << normal << std::endl;  
+			if (std::abs(-1.f -  normal) < tolerance){
+				candidates[i] = true;
+				nCandidates++;
+			}else{
+				candidates[i] = false;
+			} ;
+		}
+
+		if (nCandidates==0){
+			return -1;
+		}else if (nCandidates==1){
+			for (size_t i = 0; i < candidates.size(); ++i) {
+				if (candidates[i]) {
+					return i;
+				}
+    		}
+		}else{
+			int minVal = findMinZVal(plane_vertices, vertices, candidates);
+			return minVal;
+		}
+		return 0;
+	}
+
+};
+
 int main() {
+
+	PlaneDetection plane_detection;
+
     try {
         RealSense realsense;
         realsense.startPipeline();
 
-        realsense.captureFrames([](const rs2::frameset& frames) {
+        realsense.captureFrames([&plane_detection](const rs2::frameset& frames) {
             rs2::depth_frame depth = frames.get_depth_frame();
             rs2::video_frame rgb_frame = frames.get_color_frame();
 
@@ -78,6 +105,8 @@ int main() {
             plane_detection.readDepthImage(depth_mat);
             plane_detection.readColorImage(color_mat);
             plane_detection.runPlaneDetection();
+
+			Surfaces surfaces(plane_detection);
 
             //plane_detection.prepareForMRF();
             //runMRFOptimization();
