@@ -251,6 +251,65 @@ namespace ahc {
 			return 1;
 		}
 
+		//called by run when doRefine==false
+		void plotSegmentImage(cv::Mat* pSeg, const double supportTh)
+		{
+			if(pSeg==0) return;
+			const int Nh   = this->height/this->windowHeight;
+			const int Nw   = this->width/this->windowWidth;
+			std::vector<int> ret;
+			int cnt=0;
+			
+			std::vector<int>* pBlkid2plid;
+			if(supportTh==this->minSupport) {
+				this->findBlockMembership();
+				pBlkid2plid=&(this->blkMap);
+				cnt=(int)this->extractedPlanes.size();
+			} else { //mainly for DEBUG_CLUSTER since then supportTh!=minSupport
+				std::map<int, int> map; //map setid->cnt
+				ret.resize(Nh*Nw);
+				for(int i=0,blkid=0; i<Nh; ++i) {
+					for(int j=0; j<Nw; ++j, ++blkid) {
+						const int setid = ds->Find(blkid);
+						const int setSize = ds->getSetSize(setid)*windowHeight*windowWidth;
+						if(setSize>=supportTh) {
+							std::map<int,int>::iterator fitr=map.find(setid);
+							if(fitr==map.end()) {//found a new set id
+								map.insert(std::pair<int,int>(setid,cnt));
+								ret[blkid]=cnt;
+								++cnt;
+							} else {//found a existing set id
+								ret[blkid]=fitr->second;
+							}
+						} else {//too small cluster, ignore
+							ret[blkid]=-1;
+						}
+					}
+				}
+				pBlkid2plid=&ret;
+			}
+			std::vector<int>& blkid2plid=*pBlkid2plid;
+
+			if(cnt>colors.size()) {
+				std::vector<cv::Vec3b> tmpColors=pseudocolor(cnt-(int)colors.size());
+				colors.insert(colors.end(), tmpColors.begin(), tmpColors.end());
+			}
+			cv::Mat& seg=*pSeg;
+			for(int i=0,blkid=0; i<Nh; ++i) {
+				for(int j=0; j<Nw; ++j,++blkid) {
+					const int plid=blkid2plid[blkid];
+					if(plid>=0) {
+						seg(cv::Range(i*windowHeight,(i+1)*windowHeight),
+							cv::Range(j*windowWidth, (j+1)*windowWidth)).setTo(colors[plid]);
+					} else {
+						seg(cv::Range(i*windowHeight,(i+1)*windowHeight),
+							cv::Range(j*windowWidth, (j+1)*windowWidth)).setTo(cv::Vec3b(0,0,0));
+					}
+				}
+			}
+		}
+
+
 		/**
 		 *  \brief print out the current parameters
 		 */
@@ -636,64 +695,6 @@ namespace ahc {
 							const int pixIdx=x+y*width;
 							ret[plid].push_back(pIdxMap?pIdxMap->at(pixIdx):pixIdx);
 						}
-					}
-				}
-			}
-		}
-
-		//called by run when doRefine==false
-		void plotSegmentImage(cv::Mat* pSeg, const double supportTh)
-		{
-			if(pSeg==0) return;
-			const int Nh   = this->height/this->windowHeight;
-			const int Nw   = this->width/this->windowWidth;
-			std::vector<int> ret;
-			int cnt=0;
-			
-			std::vector<int>* pBlkid2plid;
-			if(supportTh==this->minSupport) {
-				this->findBlockMembership();
-				pBlkid2plid=&(this->blkMap);
-				cnt=(int)this->extractedPlanes.size();
-			} else { //mainly for DEBUG_CLUSTER since then supportTh!=minSupport
-				std::map<int, int> map; //map setid->cnt
-				ret.resize(Nh*Nw);
-				for(int i=0,blkid=0; i<Nh; ++i) {
-					for(int j=0; j<Nw; ++j, ++blkid) {
-						const int setid = ds->Find(blkid);
-						const int setSize = ds->getSetSize(setid)*windowHeight*windowWidth;
-						if(setSize>=supportTh) {
-							std::map<int,int>::iterator fitr=map.find(setid);
-							if(fitr==map.end()) {//found a new set id
-								map.insert(std::pair<int,int>(setid,cnt));
-								ret[blkid]=cnt;
-								++cnt;
-							} else {//found a existing set id
-								ret[blkid]=fitr->second;
-							}
-						} else {//too small cluster, ignore
-							ret[blkid]=-1;
-						}
-					}
-				}
-				pBlkid2plid=&ret;
-			}
-			std::vector<int>& blkid2plid=*pBlkid2plid;
-
-			if(cnt>colors.size()) {
-				std::vector<cv::Vec3b> tmpColors=pseudocolor(cnt-(int)colors.size());
-				colors.insert(colors.end(), tmpColors.begin(), tmpColors.end());
-			}
-			cv::Mat& seg=*pSeg;
-			for(int i=0,blkid=0; i<Nh; ++i) {
-				for(int j=0; j<Nw; ++j,++blkid) {
-					const int plid=blkid2plid[blkid];
-					if(plid>=0) {
-						seg(cv::Range(i*windowHeight,(i+1)*windowHeight),
-							cv::Range(j*windowWidth, (j+1)*windowWidth)).setTo(colors[plid]);
-					} else {
-						seg(cv::Range(i*windowHeight,(i+1)*windowHeight),
-							cv::Range(j*windowWidth, (j+1)*windowWidth)).setTo(cv::Vec3b(0,0,0));
 					}
 				}
 			}

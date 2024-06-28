@@ -35,8 +35,8 @@ struct Surfaces{
 
 	Surfaces(const PlaneDetection& planeDetection) {
         
-		// angles are heading directions for how far we can move in each direction
-		// prior to running out of ground
+		// angles are heading directions, we are going to use these
+		// to calculate how far we can go in each direction. 
 		for (int angle = -45; angle <= 45; angle += 5) {
             angles.push_back(angle);
         }
