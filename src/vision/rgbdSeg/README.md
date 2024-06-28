@@ -16,6 +16,10 @@ The best repository for RGBD plane detection I could find is [RGBDPlaneDetection
 </div>
 
 
+### Finding the ground plane
+
+Finding the ground plane in the list of planes is relatively simple. Assuming that the robots camera is correctly positioned on top of the robot (i.e. it is parallel to the ground), we know that the y-component of the normal vector for the ground surface should be approximately zero. 
+
 ## Building the project
 
 In order to build the project, you need to ensure you have librealsense2 installed. You can then navigate to this folder and run: `bash ./build.sh`

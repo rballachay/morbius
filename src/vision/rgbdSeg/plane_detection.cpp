@@ -112,10 +112,10 @@ bool PlaneDetection::runPlaneDetection()
 
 	// Here we set the plane index of a pixel which does NOT belong to any plane as #planes.
 	// This is for using MRF optimization later.
-	for (int row = 0; row < kDepthHeight; ++row)
+	/*for (int row = 0; row < kDepthHeight; ++row)
 		for (int col = 0; col < kDepthWidth; ++col)
 			if (plane_filter.membershipImg.at<int>(row, col) < 0)
-				plane_filter.membershipImg.at<int>(row, col) = plane_num_;
+				plane_filter.membershipImg.at<int>(row, col) = plane_num_;*/
 	return true;
 }
 

@@ -29,6 +29,7 @@ struct Surfaces{
 	std::vector<vector<int>> plane_vertices;
 	std::vector<VertexType> vertices;
 	std::vector<int> angles;
+	std::vector<cv::Vec3b> colors;
 
 	size_t numPlanes;
 	int groundIdx; // index of the ground, if it can't be assigned, gives warning
@@ -41,11 +42,20 @@ struct Surfaces{
             angles.push_back(angle);
         }
 		
+		// 
 		planes = planeDetection.plane_filter.extractedPlanes;
 		plane_vertices = planeDetection.plane_vertices_;
 		vertices = planeDetection.cloud.vertices;
 		numPlanes = planeDetection.plane_num_;
 		groundIdx = assignGround();
+
+		for (int i=0; i<numPlanes; i++){
+			if (i==groundIdx){
+				colors.push_back(cv::Vec3b({0,255,0}));
+			}else{
+				colors.push_back(cv::Vec3b({0,0,255}));
+			}
+		}
     }
 
 	int assignGround(){
@@ -55,22 +65,24 @@ struct Surfaces{
 		double tolerance = 0.1;
 		int nCandidates = 0;
 		std::vector<bool> candidates(numPlanes);
-		for (int i = 0; i < numPlanes; ++i)
+		for (int i = 0; i < numPlanes; i++)
 		{
 			double normal = planes[i]->normal[1]; // second element is y
-			std::cout << "plane number: " << i << "y-val: " << normal << std::endl;  
+
+
+			std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
 			if (std::abs(-1.f -  normal) < tolerance){
 				candidates[i] = true;
 				nCandidates++;
 			}else{
 				candidates[i] = false;
-			} ;
+			}
 		}
 
 		if (nCandidates==0){
 			return -1;
 		}else if (nCandidates==1){
-			for (size_t i = 0; i < candidates.size(); ++i) {
+			for (int i = 0; i < candidates.size(); i++) {
 				if (candidates[i]) {
 					return i;
 				}
@@ -104,15 +116,24 @@ int main() {
 
             plane_detection.readDepthImage(depth_mat);
             plane_detection.readColorImage(color_mat);
+
+			// removed the plotting and moved to public member so we can change
+			// the colors and plot according to the logic out here
             plane_detection.runPlaneDetection();
 
 			Surfaces surfaces(plane_detection);
+
+			plane_detection.plane_filter.colors = surfaces.colors;
+			plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
+			plane_detection.plane_filter.colors = {};
 
             //plane_detection.prepareForMRF();
             //runMRFOptimization();
 
             // Display the frame
-            cv::imshow("Processed Frame", plane_detection.seg_img_);
+            cv::imshow("Processed Frame", color_mat);
+
+			//cv::imshow("Processed Frame", plane_detection.seg_img_);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
 				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 				cv::imwrite("depth_image.png", depth_mat);

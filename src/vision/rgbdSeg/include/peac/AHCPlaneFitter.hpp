@@ -226,7 +226,7 @@ namespace ahc {
 			timer.toctic("cluster time");
 #endif
 			if(doRefine) {
-				this->refineDetails(pMembership, pIdxMap, pSeg);
+				//this->refineDetails(pMembership, pIdxMap, pSeg);
 #ifdef EVAL_SPEED
 				timer.toctic("refine time");
 #endif
@@ -234,9 +234,9 @@ namespace ahc {
 				if(pMembership) {
 					this->findMembership(*pMembership, pIdxMap);
 				}
-				if(pSeg) {
-					this->plotSegmentImage(pSeg, minSupport);
-				}
+				//if(pSeg) {
+				//	this->plotSegmentImage(pSeg, minSupport);
+				//}
 #ifdef EVAL_SPEED
 				timer.toctic("return time");
 #endif
@@ -309,6 +309,12 @@ namespace ahc {
 			}
 		}
 
+
+		void publicRefineDetails(std::vector<std::vector<int>> *pMembership, //pMembership->size()==nPlanes
+			const std::vector<int> * const pIdxMap, //if pIdxMap!=0 pMembership->at(i).at(j)=pIdxMap(pixIdx)
+			cv::Mat* pSeg){
+			this->refineDetails(pMembership, pIdxMap, pSeg);
+		}
 
 		/**
 		 *  \brief print out the current parameters
