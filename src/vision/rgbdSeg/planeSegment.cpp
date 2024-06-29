@@ -108,6 +108,78 @@ void printPlaneMembership(PlaneDetection& plane_detection){
 	}
 }
 
+// Function to apply dilation and erosion on a mask
+void processMask(cv::Mat& mask, int dilationSize = 5, int erosionSize = 5) {
+    // Create structuring elements for dilation and erosion
+    cv::Mat elementDilate = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(dilationSize, dilationSize));
+    cv::Mat elementErode = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(erosionSize, erosionSize));
+
+    // Apply dilation followed by erosion
+    cv::dilate(mask, mask, elementDilate);
+    cv::erode(mask, mask, elementErode);
+}
+
+void drawDistanceVector(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
+    /*NOTE: We are using the image with the masked colors that has been dilated and eroded, because
+    there are some random dots in the original mask which mess with the distance calculation. This
+    is a hacky way of doing this, but its simple.
+    */
+    processMask(image);
+
+    // Define arrow properties
+    cv::Scalar color(255, 0, 0); // Blue color
+    int thickness = 2; // Thickness of the line and arrowhead
+    int lineType = cv::LINE_AA; // Line type (antialiased)
+    int shift = 0; // Number of fractional bits in the point coordinates
+    double tipLength = 0.1; // Length of the arrow tip in relation to the arrow length
+
+    if (surfaces.groundIdx > -1){
+        int col = plane_detection.cloud.width() / 2;
+
+        std::vector<int> groundVertices = plane_detection.plane_vertices_[surfaces.groundIdx];
+
+        double maxZ = 0;
+        int maxI = -1;
+        int maxJ = col;
+        for (int i = 0; i < plane_detection.cloud.height(); i++){
+            // Ensure index is within bounds
+            if (i < 0 || i >= image.rows || col < 0 || col >= image.cols) {
+                continue;
+            }
+
+            // Access the pixel value
+            cv::Vec3b pixelValue = image.at<cv::Vec3b>(i, col);
+
+            // Check if the pixel value is approximately green
+            if (std::abs(pixelValue[1] - 255) < 20 && pixelValue[0] < 20 && pixelValue[2] < 20) {
+                double x, y, z;
+                // Ensure cloud.get is safe
+                try {
+                    plane_detection.cloud.get(i, col, x, y, z);
+
+                    if (z > maxZ){
+                        maxZ = z;
+                        maxI = i;
+                    }
+                } catch (const std::exception& e) {
+                    std::cerr << "Error accessing cloud data: " << e.what() << std::endl;
+                    continue;
+                }
+            }
+        }
+
+        // Ensure maxI was updated
+        if (maxI != -1) {
+            // Define start and end points for the arrow
+            cv::Point start(maxJ, plane_detection.cloud.height());
+            cv::Point end(maxJ, maxI);
+
+            // Draw the arrowed line
+            cv::arrowedLine(image, start, end, color, thickness, lineType, shift, tipLength);
+        }
+    }
+}
+
 int main() {
 
 	PlaneDetection plane_detection;
@@ -139,27 +211,8 @@ int main() {
 			plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 			plane_detection.plane_filter.colors = {};
 
-			if (surfaces.groundIdx>-1){
-				int col = plane_detection.cloud.width()/2;
+			drawDistanceVector(plane_detection.seg_img_, plane_detection, surfaces);
 
-				std::vector<int> groundVertices = plane_detection.plane_vertices_[surfaces.groundIdx];
-
-				double maxZ = 0;
-				for (int i=0; i<plane_detection.cloud.height(); i++){
-					int pixelIdx = i * plane_detection.cloud.width() + col;
-
-					auto inclusion = std::find(groundVertices.begin(), groundVertices.end(), pixelIdx);
-					if (inclusion != groundVertices.end()) {
-						double x,y,z;
-						plane_detection.cloud.get(i, col, x, y, z);
-						
-						if (z>maxZ){
-							maxZ=z;
-						}
-					}
-				}
-				std::cout << "can proceed forward " << maxZ << std::endl;
-			}
 			//std::cout << plane_detection.cloud.vertices.size() << std::endl;
 			//std::cout << total << std::endl;
 
