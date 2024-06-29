@@ -108,6 +108,42 @@ void printPlaneMembership(PlaneDetection& plane_detection){
 	}
 }
 
+
+void fillHoles(const cv::Mat& src) {
+	int kernelSize = 16;
+
+    // Split the source image into its color channels
+    std::vector<cv::Mat> channels;
+    cv::split(src, channels);
+
+    // Define the structuring element
+    cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(kernelSize, kernelSize));
+
+    // Process each channel separately
+    for (auto& channel : channels) {
+        // Ensure the channel is binary
+        cv::Mat binary;
+        if (channel.type() != CV_8U) {
+            channel.convertTo(binary, CV_8U);
+        } else {
+            binary = channel;
+        }
+
+        // Threshold the image to ensure it's binary
+        cv::threshold(binary, binary, 0, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
+
+        // Apply the closing operation
+        cv::morphologyEx(binary, binary, cv::MORPH_CLOSE, kernel);
+
+        // Replace the channel with the processed binary image
+        channel = binary;
+    }
+
+    // Merge the processed channels back together
+    cv::merge(channels, src);
+}
+
+
 // Function to apply dilation and erosion on a mask
 void processMask(cv::Mat& mask, int dilationSize = 5, int erosionSize = 5) {
     // Create structuring elements for dilation and erosion
@@ -117,14 +153,20 @@ void processMask(cv::Mat& mask, int dilationSize = 5, int erosionSize = 5) {
     // Apply dilation followed by erosion
     cv::dilate(mask, mask, elementDilate);
     cv::erode(mask, mask, elementErode);
+
+	// helps to get continuous vector
+	fillHoles(mask);
 }
 
-void drawDistanceVector(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
+cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
     /*NOTE: We are using the image with the masked colors that has been dilated and eroded, because
     there are some random dots in the original mask which mess with the distance calculation. This
     is a hacky way of doing this, but its simple.
     */
-    processMask(image);
+   	int stride = 32;
+
+	cv::Mat drawnImage = image.clone(); 
+    processMask(drawnImage);
 
     // Define arrow properties
     cv::Scalar color(255, 0, 0); // Blue color
@@ -134,50 +176,55 @@ void drawDistanceVector(cv::Mat image, PlaneDetection& plane_detection, Surfaces
     double tipLength = 0.1; // Length of the arrow tip in relation to the arrow length
 
     if (surfaces.groundIdx > -1){
-        int col = plane_detection.cloud.width() / 2;
+        int col = plane_detection.cloud.width() / 2 - 1;
+		for (int maxJ = col-4*stride; maxJ<=col+4*stride; maxJ+=stride){
+			bool onSurface = false;
+			double maxZ = 0;
+			int maxI = -1;
+			for (int i = plane_detection.cloud.height()-1; i >= 0; i--){
+				// Access the pixel value
+				cv::Vec3b pixelValue = image.at<cv::Vec3b>(i, maxJ);
 
-        std::vector<int> groundVertices = plane_detection.plane_vertices_[surfaces.groundIdx];
+				// this is the correct way of checking for membership of the vertex/pixel in the groundVertices,
+				// but we are using the mask instead because its easier to clean up the mask than it is the cloud 
+				//std::vector<int> groundVertices = plane_detection.plane_vertices_[surfaces.groundIdx];
+				//int pixelIdx = i * plane_detection.cloud.width() + col;
+				//auto inclusion = std::find(groundVertices.begin(), groundVertices.end(), pixelIdx);
+				//if (inclusion != groundVertices.end()) {
 
-        double maxZ = 0;
-        int maxI = -1;
-        int maxJ = col;
-        for (int i = 0; i < plane_detection.cloud.height(); i++){
-            // Ensure index is within bounds
-            if (i < 0 || i >= image.rows || col < 0 || col >= image.cols) {
-                continue;
-            }
+				// Check if the pixel value is approximately green
+				if (std::abs(pixelValue[1] - 255) < 20 && pixelValue[0] < 20 && pixelValue[2] < 20) {
+					if (!onSurface){
+						onSurface=true;
+					}
+					double x, y, z;
+					plane_detection.cloud.get(i, maxJ, x, y, z);
 
-            // Access the pixel value
-            cv::Vec3b pixelValue = image.at<cv::Vec3b>(i, col);
+					if (z > maxZ){
+						maxZ = z;
+						maxI = i;
+					}
 
-            // Check if the pixel value is approximately green
-            if (std::abs(pixelValue[1] - 255) < 20 && pixelValue[0] < 20 && pixelValue[2] < 20) {
-                double x, y, z;
-                // Ensure cloud.get is safe
-                try {
-                    plane_detection.cloud.get(i, col, x, y, z);
+				// if we are on surface and have reached a pixel of another class, break early
+				}else if (onSurface){
+					break;
+				}
+			}
 
-                    if (z > maxZ){
-                        maxZ = z;
-                        maxI = i;
-                    }
-                } catch (const std::exception& e) {
-                    std::cerr << "Error accessing cloud data: " << e.what() << std::endl;
-                    continue;
-                }
-            }
-        }
+			// Ensure maxI was updated
+			if (maxI != -1) {
+				// Define start and end points for the arrow
+				cv::Point start(maxJ,  plane_detection.cloud.height()-1);
+				cv::Point end(maxJ, maxI);
 
-        // Ensure maxI was updated
-        if (maxI != -1) {
-            // Define start and end points for the arrow
-            cv::Point start(maxJ, plane_detection.cloud.height());
-            cv::Point end(maxJ, maxI);
+				// Draw the arrowed line
+				cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+			}
 
-            // Draw the arrowed line
-            cv::arrowedLine(image, start, end, color, thickness, lineType, shift, tipLength);
-        }
+			}
+
     }
+	return drawnImage;
 }
 
 int main() {
@@ -211,7 +258,7 @@ int main() {
 			plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 			plane_detection.plane_filter.colors = {};
 
-			drawDistanceVector(plane_detection.seg_img_, plane_detection, surfaces);
+			cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
 
 			//std::cout << plane_detection.cloud.vertices.size() << std::endl;
 			//std::cout << total << std::endl;
@@ -222,7 +269,7 @@ int main() {
             // Display the frame
             //cv::imshow("Processed Frame", color_mat);
 
-			cv::imshow("Processed Frame", plane_detection.seg_img_);
+			cv::imshow("Processed Frame", drawnImage);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
 				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 				cv::imwrite("depth_image.png", depth_mat);
