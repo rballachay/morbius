@@ -42,11 +42,10 @@ struct Surfaces{
             angles.push_back(angle);
         }
 		
-		// 
 		planes = planeDetection.plane_filter.extractedPlanes;
 		plane_vertices = planeDetection.plane_vertices_;
 		vertices = planeDetection.cloud.vertices;
-		numPlanes = planeDetection.plane_num_;
+		numPlanes = planes.size();
 		groundIdx = assignGround();
 
 		for (int i=0; i<numPlanes; i++){
@@ -67,9 +66,8 @@ struct Surfaces{
 		std::vector<bool> candidates(numPlanes);
 		for (int i = 0; i < numPlanes; i++)
 		{
-			double normal = planes[i]->normal[1]; // second element is y
-
-
+			if (!planes[i]) continue; // if nullptr, skip 
+			double normal = planes[i]->normal[1]; // second element is y value
 			std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
 			if (std::abs(-1.f -  normal) < tolerance){
 				candidates[i] = true;
@@ -95,6 +93,20 @@ struct Surfaces{
 	}
 
 };
+
+void printPlaneMembership(PlaneDetection& plane_detection){
+	std::cout << plane_detection.cloud.vertices.size() << std::endl;
+	int total = 0;
+	for (const auto& innerVec : plane_detection.plane_vertices_) {
+		auto maxIter = std::max_element(innerVec.begin(), innerVec.end());
+			if (maxIter != innerVec.end()) {
+			int maxValue = *maxIter;
+			std::cout << "Max value in vector: " << maxValue << std::endl;
+		} else {
+			std::cout << "Vector is empty" << std::endl;
+		}
+	}
+}
 
 int main() {
 
@@ -127,13 +139,37 @@ int main() {
 			plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 			plane_detection.plane_filter.colors = {};
 
+			if (surfaces.groundIdx>-1){
+				int col = plane_detection.cloud.width()/2;
+
+				std::vector<int> groundVertices = plane_detection.plane_vertices_[surfaces.groundIdx];
+
+				double maxZ = 0;
+				for (int i=0; i<plane_detection.cloud.height(); i++){
+					int pixelIdx = i * plane_detection.cloud.width() + col;
+
+					auto inclusion = std::find(groundVertices.begin(), groundVertices.end(), pixelIdx);
+					if (inclusion != groundVertices.end()) {
+						double x,y,z;
+						plane_detection.cloud.get(i, col, x, y, z);
+						
+						if (z>maxZ){
+							maxZ=z;
+						}
+					}
+				}
+				std::cout << "can proceed forward " << maxZ << std::endl;
+			}
+			//std::cout << plane_detection.cloud.vertices.size() << std::endl;
+			//std::cout << total << std::endl;
+
             //plane_detection.prepareForMRF();
             //runMRFOptimization();
 
             // Display the frame
-            cv::imshow("Processed Frame", color_mat);
+            //cv::imshow("Processed Frame", color_mat);
 
-			//cv::imshow("Processed Frame", plane_detection.seg_img_);
+			cv::imshow("Processed Frame", plane_detection.seg_img_);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
 				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 				cv::imwrite("depth_image.png", depth_mat);
