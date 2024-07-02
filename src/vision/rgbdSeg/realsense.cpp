@@ -33,8 +33,8 @@ void RealSense::warmUpPipeline() {
 RealSense::RealSense() = default;
 
 void RealSense::startPipeline() {
-    config.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
-    config.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
+    config.enable_stream(RS2_STREAM_COLOR, 1280, 720, RS2_FORMAT_BGR8, 30);
+    config.enable_stream(RS2_STREAM_DEPTH, 1280, 720, RS2_FORMAT_Z16, 30);
 
     profile = pipeline.start(config);
 
@@ -149,6 +149,7 @@ rs2::frame preprocessDepth(rs2::frame& depth_frame){
     rs2::threshold_filter thr_filter;   // Threshold  - removes values outside recommended range
     rs2::spatial_filter spat_filter;    // Spatial    - edge-preserving spatial smoothing
     rs2::temporal_filter temp_filter;   // Temporal   - reduces temporal noise
+    rs2::hole_filling_filter hole_filling_filter;   // Temporal   - reduces temporal noise
     rs2::disparity_transform depth_to_disparity(true);
     rs2::disparity_transform disparity_to_depth(false);
 
@@ -161,6 +162,7 @@ rs2::frame preprocessDepth(rs2::frame& depth_frame){
     filters.emplace_back("Disparity", depth_to_disparity);
     filters.emplace_back("Spatial", spat_filter);
     filters.emplace_back("Temporal", temp_filter);
+    filters.emplace_back("Hole filling", hole_filling_filter);
     filters.emplace_back("Depth",disparity_to_depth);
 
     for (auto&& filter : filters) {
@@ -169,6 +171,49 @@ rs2::frame preprocessDepth(rs2::frame& depth_frame){
 
     return filtered;
 }
+
+// Function to apply the non-zero median filter
+template<typename T>
+cv::Mat applyNonZeroMedianFilter(const cv::Mat& image, int factor) {
+    cv::Mat filteredImage = cv::Mat::zeros(image.rows / factor, image.cols / factor, image.type());
+
+    for (int i = 0; i < image.rows; i += factor) {
+        for (int j = 0; j < image.cols; j += factor) {
+            std::vector<T> values;
+
+            for (int k = 0; k < factor; ++k) {
+                for (int l = 0; l < factor; ++l) {
+                    int x = i + k;
+                    int y = j + l;
+                    if (x < image.rows && y < image.cols) {
+                        T pixelValue = image.at<T>(x, y);
+                        // Check if the pixel is non-zero
+                        if (cv::sum(pixelValue)[0] > 0) {
+                            values.push_back(pixelValue);
+                        }
+                    }
+                }
+            }
+
+            if (!values.empty()) {
+                // Sort the values to find the median
+                std::nth_element(values.begin(), values.begin() + values.size() / 2, values.end(),
+                    [](const T& a, const T& b) {
+                        return cv::sum(a)[0] < cv::sum(b)[0];
+                    });
+                filteredImage.at<T>(i / factor, j / factor) = values[values.size() / 2];
+            }
+        }
+    }
+
+    cv::copyMakeBorder(filteredImage, filteredImage, 480 - filteredImage.rows, 0, 0, 0, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0));
+    return filteredImage;
+}
+
+
+// Explicit instantiation for the types you need
+template cv::Mat applyNonZeroMedianFilter<uint16_t>(const cv::Mat& image, int factor);
+template cv::Mat applyNonZeroMedianFilter<cv::Vec3b>(const cv::Mat& image, int factor);
 
 /*int main() {
     try {

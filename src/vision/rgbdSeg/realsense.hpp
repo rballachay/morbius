@@ -28,4 +28,7 @@ cv::Mat normalizeRGB(cv::Mat& rgbImage);
 cv::Mat normalizeDepth(cv::Mat& depthImage);
 rs2::frame preprocessDepth(rs2::frame& depth_frame);
 std::pair<cv::Mat, cv::Mat> postProcessFrames(cv::Mat& color_mat, cv::Mat& depth_mat);
+
+template<typename T>
+cv::Mat applyNonZeroMedianFilter(const cv::Mat& image, int factor);
 #endif

@@ -228,17 +228,52 @@ void fillHoles(const cv::Mat& src) {
 
 
 // Function to apply dilation and erosion on a mask
-void processMask(cv::Mat& mask, int dilationSize = 5, int erosionSize = 5) {
-    // Create structuring elements for dilation and erosion
-    cv::Mat elementDilate = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(dilationSize, dilationSize));
-    cv::Mat elementErode = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(erosionSize, erosionSize));
+void fillMaskHolesByColor(cv::Mat& mask) {
+    // Split the mask into three channels based on color
+    std::vector<cv::Mat> channels;
+    cv::split(mask, channels);
 
-    // Apply dilation followed by erosion
-    //cv::dilate(mask, mask, elementDilate);
-    //cv::erode(mask, mask, elementErode);
+    // Iterate over each color channel
+    for (int c = 0; c < 3; ++c) {
+        cv::Mat colorMask = channels[c];
 
-	// helps to get continuous vector
-	fillHoles(mask);
+        // Convert to binary mask
+        cv::Mat binaryMask;
+        cv::threshold(colorMask, binaryMask, 1, 255, cv::THRESH_BINARY);
+
+        // Invert the binary mask
+        cv::Mat invertedMask;
+        cv::bitwise_not(binaryMask, invertedMask);
+
+        // Find contours in the inverted mask
+        std::vector<std::vector<cv::Point>> contours;
+        cv::findContours(invertedMask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+
+        // Create a mask to fill convex hulls
+        cv::Mat filledMask = cv::Mat::zeros(mask.size(), CV_8UC1);
+
+        // Fill convex hulls in the binary mask
+        for (size_t i = 0; i < contours.size(); ++i) {
+            // Calculate convex hull
+            std::vector<cv::Point> convexHullPoints;
+            cv::convexHull(contours[i], convexHullPoints);
+
+            // Fill convex hull
+            cv::fillConvexPoly(filledMask, convexHullPoints.data(), convexHullPoints.size(), cv::Scalar(255));
+        }
+
+        // Invert filled mask to get the actual filled holes
+        cv::bitwise_not(filledMask, filledMask);
+
+        // Apply filled mask to original color mask
+        cv::bitwise_and(colorMask, cv::Scalar(255), colorMask, filledMask);
+
+        // Replace the channel in the original mask
+        channels[c] = colorMask;
+    }
+
+    // Merge the channels back into the final mask
+    cv::merge(channels, mask);
 }
 
 cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
@@ -252,7 +287,7 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 		return drawnImage;
 	}
 
-    processMask(drawnImage);
+    fillMaskHolesByColor(drawnImage);
 
     // Define arrow properties
     cv::Scalar color(255, 0, 0); // Blue color
@@ -350,12 +385,16 @@ int realSenseAttached(){
 
             rs2::frame depth_processed = preprocessDepth(depth);
 
-            // Convert depth frame to CV_16U Mat
-            cv::Mat depth_mat(cv::Size(640, 480), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
-            cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
+			// Convert depth frame to CV_16U Mat
+            cv::Mat depth_mat(cv::Size(1280, 720), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
+            cv::Mat color_mat(cv::Size(1280, 720), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
 
-            plane_detection.readDepthImage(depth_mat);
-            plane_detection.readColorImage(color_mat);
+			// this will reduce the frame to 640x480
+			cv::Mat depth_filtered = applyNonZeroMedianFilter<uint16_t>(depth_mat, 2);
+			cv::Mat rgb_filtered = applyNonZeroMedianFilter<cv::Vec3b>(color_mat, 2);
+
+            plane_detection.readDepthImage(depth_filtered);
+            plane_detection.readColorImage(rgb_filtered);
 
 			// removed the plotting and moved to public member so we can change
 			// the colors and plot according to the logic out here
@@ -369,11 +408,10 @@ int realSenseAttached(){
 
 			cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
 
-			cv::imshow("Processed Frame", drawnImage);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
 				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
-				cv::imwrite("depth_image.png", depth_mat);
-				cv::imwrite("raw_image.png", color_mat);
+				cv::imwrite("depth_image.png", depth_filtered);
+				cv::imwrite("raw_image.png", rgb_filtered);
                 std::exit(0);
             }
         });
