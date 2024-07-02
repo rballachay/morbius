@@ -2,7 +2,9 @@
 #include "realsense.hpp"
 
 // can be changed to an arg later
-#define AGENT_WIDTH 5 // cm
+#define AGENT_WIDTH 20 // cm
+
+PlaneDetection plane_detection;
 
 int findMinZVal(const std::vector<std::vector<int>>& plane_vertices, std::vector<VertexType>& vertices, std::vector<bool> candidates) {
     int minIndex = -1;
@@ -108,7 +110,7 @@ struct GroundVectors{
             vecMaxJ.resize(vecCount, 0); // Initialize vecMaxZ with vecCount elements set to 0.0
             vecMaxI.resize(vecCount, 0); // Initialize vecMaxI with vecCount elements set to 0
 			_vecMaxZ.resize(vecCount, 0);
-			_vecMaxI.resize(vecCount, 0);
+			_vecMaxI.resize(vecCount, -1);
         }
 
 	void finalize(cv::Mat mask){
@@ -119,6 +121,10 @@ struct GroundVectors{
 		for (int k=0; k<vecCount; k++){
 			int iMax = vecMaxI[k];
 			int j = vecMaxJ[k];
+			
+			if (iMax==-1){
+				continue;
+			}
 
 			int i;
 			int hitObject = false;
@@ -193,7 +199,7 @@ void printPlaneMembership(PlaneDetection& plane_detection){
 }
 
 void fillHoles(const cv::Mat& src) {
-	int kernelSize = 16;
+	int kernelSize = 15;
 
     // Split the source image into its color channels
     std::vector<cv::Mat> channels;
@@ -226,54 +232,18 @@ void fillHoles(const cv::Mat& src) {
     cv::merge(channels, src);
 }
 
-
 // Function to apply dilation and erosion on a mask
-void fillMaskHolesByColor(cv::Mat& mask) {
-    // Split the mask into three channels based on color
-    std::vector<cv::Mat> channels;
-    cv::split(mask, channels);
+void processMask(cv::Mat& mask, int dilationSize = 5, int erosionSize = 5) {
+    // Create structuring elements for dilation and erosion
+    cv::Mat elementDilate = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(dilationSize, dilationSize));
+    cv::Mat elementErode = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(erosionSize, erosionSize));
 
-    // Iterate over each color channel
-    for (int c = 0; c < 3; ++c) {
-        cv::Mat colorMask = channels[c];
+    // Apply dilation followed by erosion
+    cv::dilate(mask, mask, elementDilate);
+    cv::erode(mask, mask, elementErode);
 
-        // Convert to binary mask
-        cv::Mat binaryMask;
-        cv::threshold(colorMask, binaryMask, 1, 255, cv::THRESH_BINARY);
-
-        // Invert the binary mask
-        cv::Mat invertedMask;
-        cv::bitwise_not(binaryMask, invertedMask);
-
-        // Find contours in the inverted mask
-        std::vector<std::vector<cv::Point>> contours;
-        cv::findContours(invertedMask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-
-        // Create a mask to fill convex hulls
-        cv::Mat filledMask = cv::Mat::zeros(mask.size(), CV_8UC1);
-
-        // Fill convex hulls in the binary mask
-        for (size_t i = 0; i < contours.size(); ++i) {
-            // Calculate convex hull
-            std::vector<cv::Point> convexHullPoints;
-            cv::convexHull(contours[i], convexHullPoints);
-
-            // Fill convex hull
-            cv::fillConvexPoly(filledMask, convexHullPoints.data(), convexHullPoints.size(), cv::Scalar(255));
-        }
-
-        // Invert filled mask to get the actual filled holes
-        cv::bitwise_not(filledMask, filledMask);
-
-        // Apply filled mask to original color mask
-        cv::bitwise_and(colorMask, cv::Scalar(255), colorMask, filledMask);
-
-        // Replace the channel in the original mask
-        channels[c] = colorMask;
-    }
-
-    // Merge the channels back into the final mask
-    cv::merge(channels, mask);
+	// helps to get continuous vector
+	fillHoles(mask);
 }
 
 cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
@@ -287,7 +257,7 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 		return drawnImage;
 	}
 
-    fillMaskHolesByColor(drawnImage);
+    processMask(drawnImage);
 
     // Define arrow properties
     cv::Scalar color(255, 0, 0); // Blue color
@@ -310,6 +280,7 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 
 	for (int k; k < maxJValues.size(); k++){
 		int maxJ = maxJValues[k];
+		ground_vecs.vecMaxJ[k] = maxJ; 
 		bool onSurface = false;
 		double maxZ = 0;
 		int maxI = -1;
@@ -334,7 +305,6 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 					maxZ = z;
 					maxI = i;
 					ground_vecs.vecMaxI[k] = i; 
-					ground_vecs.vecMaxJ[k] = maxJ; 
 				}
 
 			// if we are on surface and have reached a pixel of another class, break early
@@ -343,29 +313,29 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 			}
 		}
 
-		// Ensure maxI was updated
-		if (maxI != -1) {
-			// Define start and end points for the arrow
-			cv::Point start(maxJ,  plane_detection.cloud.height()-1);
-			cv::Point end(maxJ, maxI);
-
-			// Draw the arrowed line
-			cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
-		}
 
 	}
-	ground_vecs.finalize(image);
+	ground_vecs.finalize(drawnImage);
 
 	for (int k; k < maxJValues.size(); k++){
-		// Ensure maxI was updated
+		
+		// if the final I is the end, or -1, skip drawing the arrow
+		if (ground_vecs._vecMaxI[k] == -1){
+			continue;
+		}
+		
 		// Define start and end points for the arrow
 		cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
 		cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs._vecMaxI[k]);
+		cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+
+
+		// Define start and end points for the arrow
+		//cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
+		//cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs.vecMaxI[k]);
 
 		// Draw the arrowed line
-		cv::Scalar violet(255, 0, 255);
-		cv::arrowedLine(drawnImage, start, end, violet, thickness, lineType, shift, tipLength);
-
+		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 	}
 
 	return drawnImage;
@@ -373,28 +343,22 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 
 int realSenseAttached(){
 
-	PlaneDetection plane_detection;
-
     try {
         RealSense realsense;
         realsense.startPipeline();
 
-        realsense.captureFrames([&plane_detection](const rs2::frameset& frames) {
+        realsense.captureFrames([](const rs2::frameset& frames) {
             rs2::depth_frame depth = frames.get_depth_frame();
             rs2::video_frame rgb_frame = frames.get_color_frame();
 
             rs2::frame depth_processed = preprocessDepth(depth);
 
-			// Convert depth frame to CV_16U Mat
-            cv::Mat depth_mat(cv::Size(1280, 720), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
-            cv::Mat color_mat(cv::Size(1280, 720), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
+            // Convert depth frame to CV_16U Mat
+            cv::Mat depth_mat(cv::Size(640, 480), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
+            cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
 
-			// this will reduce the frame to 640x480
-			cv::Mat depth_filtered = applyNonZeroMedianFilter<uint16_t>(depth_mat, 2);
-			cv::Mat rgb_filtered = applyNonZeroMedianFilter<cv::Vec3b>(color_mat, 2);
-
-            plane_detection.readDepthImage(depth_filtered);
-            plane_detection.readColorImage(rgb_filtered);
+            plane_detection.readDepthImage(depth_mat);
+            plane_detection.readColorImage(color_mat);
 
 			// removed the plotting and moved to public member so we can change
 			// the colors and plot according to the logic out here
@@ -408,10 +372,11 @@ int realSenseAttached(){
 
 			cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
 
+			cv::imshow("Processed Frame", depth_mat*50);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
 				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
-				cv::imwrite("depth_image.png", depth_filtered);
-				cv::imwrite("raw_image.png", rgb_filtered);
+				cv::imwrite("depth_image.png", depth_mat*50);
+				cv::imwrite("raw_image.png", color_mat);
                 std::exit(0);
             }
         });
@@ -430,8 +395,6 @@ int realSenseAttached(){
 int loadProcessDefault(){
 	std::string colorImagePath = "data/raw_image.png";
     std::string depthImagePath = "data/depth_image.png";
-
-	PlaneDetection plane_detection;
 
 	cv::Mat colorImage = cv::imread(colorImagePath, cv::IMREAD_COLOR);
 	cv::Mat depthImage = cv::imread(depthImagePath, cv::IMREAD_UNCHANGED);

@@ -19,9 +19,16 @@ void RealSense::configureCameraSettings() {
     if (color_sensor) {
         std::cout << "Color sensor found :)" << std::endl;
 
+        rs2::option_range range = color_sensor.get_option_range(RS2_OPTION_ENABLE_AUTO_EXPOSURE);
+        color_sensor.set_option(RS2_OPTION_ENABLE_AUTO_EXPOSURE, 1); 
+
     } else {
         std::cerr << "No color sensor found!" << std::endl;
     }
+
+    // Get the active depth sensor
+    rs2::depth_sensor depth_sensor = profile.get_device().first<rs2::depth_sensor>();
+
 }
 
 void RealSense::warmUpPipeline() {
@@ -33,8 +40,8 @@ void RealSense::warmUpPipeline() {
 RealSense::RealSense() = default;
 
 void RealSense::startPipeline() {
-    config.enable_stream(RS2_STREAM_COLOR, 1280, 720, RS2_FORMAT_BGR8, 30);
-    config.enable_stream(RS2_STREAM_DEPTH, 1280, 720, RS2_FORMAT_Z16, 30);
+    config.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
+    config.enable_stream(RS2_STREAM_DEPTH, 640, 480, RS2_FORMAT_Z16, 30);
 
     profile = pipeline.start(config);
 
@@ -147,9 +154,19 @@ rs2::frame preprocessDepth(rs2::frame& depth_frame){
 
     //rs2::decimation_filter dec_filter;  // Decimation - reduces depth frame density
     rs2::threshold_filter thr_filter;   // Threshold  - removes values outside recommended range
+    thr_filter.set_option(RS2_OPTION_MAX_DISTANCE, 3.0f);
+
     rs2::spatial_filter spat_filter;    // Spatial    - edge-preserving spatial smoothing
+    spat_filter.set_option(RS2_OPTION_FILTER_MAGNITUDE, 5);
+    spat_filter.set_option(RS2_OPTION_HOLES_FILL, 5);
+    
     rs2::temporal_filter temp_filter;   // Temporal   - reduces temporal noise
-    rs2::hole_filling_filter hole_filling_filter;   // Temporal   - reduces temporal noise
+    temp_filter.set_option(RS2_OPTION_FILTER_SMOOTH_ALPHA, 0.5);  // Set alpha parameter
+    temp_filter.set_option(RS2_OPTION_FILTER_SMOOTH_DELTA, 80.0); // Set delta parameter
+    
+    rs2::hole_filling_filter hole_filling_filter;   // Hole filling
+    hole_filling_filter.set_option(RS2_OPTION_HOLES_FILL, 2);  // Hole filling parameter - 2 is near pixels
+
     rs2::disparity_transform depth_to_disparity(true);
     rs2::disparity_transform disparity_to_depth(false);
 
@@ -162,8 +179,8 @@ rs2::frame preprocessDepth(rs2::frame& depth_frame){
     filters.emplace_back("Disparity", depth_to_disparity);
     filters.emplace_back("Spatial", spat_filter);
     filters.emplace_back("Temporal", temp_filter);
-    filters.emplace_back("Hole filling", hole_filling_filter);
     filters.emplace_back("Depth",disparity_to_depth);
+    filters.emplace_back("Hole filling", hole_filling_filter);
 
     for (auto&& filter : filters) {
         filtered = filter.filter.process(filtered);
