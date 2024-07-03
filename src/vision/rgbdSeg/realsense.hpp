@@ -4,6 +4,7 @@
 #include <librealsense2/rs.hpp>
 #include <opencv2/opencv.hpp>
 #include <functional>
+#include <librealsense2/rs_advanced_mode.hpp> 
 
 class RealSense {
 private:

@@ -27,7 +27,11 @@ The depth map by default is not very good/stable. Each time it is captured, ther
 
 ### Angle of incidence + reflection
 
-The angle at which a surface is viewed using a structured `light for depth sensing` - style camera is very important. 
+The angle at which a surface is viewed using a "structured light for depth sensing" - style camera is very important. This appears to be a result of a combination of specular/diffuse highlights that occur at different viewing angles. One paper that discusses this subject at length is [Diffuse Structured Light](https://ieeexplore.ieee.org/document/6215216), in which the authors propose a diffuse light filter to avoid artifacts that will disrupt sensor accuracy.
+
+| ![Image 1](docs/angle/raw_image_perp.png) | ![Image 2](docs/angle/depth_image_perp.png) |
+|:--:|:--:|
+| Footer description for Image 1 | Footer description for Image 2 |
 
 | ![Image 1](docs/angle/raw_image_perp.png) | ![Image 2](docs/angle/depth_image_perp.png) |
 |:--:|:--:|

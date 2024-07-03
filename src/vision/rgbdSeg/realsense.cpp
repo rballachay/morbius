@@ -1,34 +1,40 @@
 #include "realsense.hpp"
 #include <librealsense2/rs.hpp>
+#include <fstream>
+#include <streambuf>
 #include <iostream>
 #include <vector>
 #include <functional>
 #include <opencv2/opencv.hpp>
+#include <librealsense2/rs_advanced_mode.hpp> 
 
+void RealSense::configureCameraSettings() {
+    // Get the first device
+    rs2::device dev = profile.get_device();
+    std::string dev_serial_number(dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER));
+    std::cout << "Device found: " << dev_serial_number << std::endl;
 
-void RealSense::configureCameraSettings() {    
-    std::vector<rs2::sensor> sensors = profile.get_device().query_sensors();
-    rs2::sensor color_sensor;
-    for (rs2::sensor& sensor : sensors) {
-        if (sensor.get_stream_profiles().front().stream_type() == RS2_STREAM_COLOR) {
-            color_sensor = sensor;
-            break;
-        }
+    // Access advanced mode interface
+    auto advanced_mode_dev = dev.as<rs400::advanced_mode>();
+    if (!advanced_mode_dev) {
+        std::cerr << "Failed to get advanced mode interface!" << std::endl;
+        return;
     }
 
-    if (color_sensor) {
-        std::cout << "Color sensor found :)" << std::endl;
-
-        rs2::option_range range = color_sensor.get_option_range(RS2_OPTION_ENABLE_AUTO_EXPOSURE);
-        color_sensor.set_option(RS2_OPTION_ENABLE_AUTO_EXPOSURE, 1); 
-
-    } else {
-        std::cerr << "No color sensor found!" << std::endl;
+    // Load and configure .json file
+    std::ifstream t("configs/HighDensityPreset.json");
+    if (!t.is_open()) {
+        std::cerr << "Failed to open configuration file!" << std::endl;
+        return;
     }
 
-    // Get the active depth sensor
-    rs2::depth_sensor depth_sensor = profile.get_device().first<rs2::depth_sensor>();
+    std::string str((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
+    if (str.empty()) {
+        std::cerr << "Configuration file is empty!" << std::endl;
+        return;
+    }
 
+    advanced_mode_dev.load_json(str);
 }
 
 void RealSense::warmUpPipeline() {
