@@ -560,6 +560,16 @@ nlu:
     - twist to the left, maybe about, lets see, [fifty degrees](angle)
     - [forty-ish degrees](angle) to the left
     - go to the left, but about [seventy degrees](angle)
+    - turn left roughly [twenty degrees](angle)
+    - [forty five degrees](angle) to the left, please
+    - orient yourself towards the left, at an angle of about [fifteen degrees](angle)
+    - if you could possibly re-orient about [sixty degrees](angle) more to the left
+    - please turn yourself to the left... about [a hundred degrees](angle)
+    - okay, now if you can turn to the left about [forty degrees](angle)
+    - veer [a few degrees](angle) to the left
+    - about [a quarter-turn](angle) to the left
+    - angle yourself about [seventy-five degrees](angle) more leftward
+    - shift your direction leftward by [thirty degrees](angle)
 
 - intent: turn_right
   examples: |
@@ -617,7 +627,22 @@ nlu:
     - veer [a few degree](angle) to the right
     - about [a quarter-turn](angle) to the right
     - angle yourself about [seventy five degrees](angle) more rightward
-
+    - turn right roughly [twenty degrees](angle)
+    - [forty five degrees](angle) to the right
+    - orient yourself towards the right, at an angle of about [fifteen degrees](angle)
+    - if you could possibly re-orient about [sixty degrees](angle) more to the left
+    - please turn yourself to the right... about [a hundred degrees](angle)
+    - okay, now if you can turn to the right about [forty degrees](angle)
+    - veer [a few degrees](angle) to the right
+    - about [a quarter-turn](angle) to the right
+    - angle yourself about [seventy five degrees](angle) more rightward
+    - can you rotate to the right by [ten degrees](angle)?
+    - adjust your position by [thirty degrees](angle) to the right
+    - make a right turn of about [fifty degrees](angle)
+    - could you pivot right by [twenty-five degrees](angle)?
+    - please angle yourself [eighty degrees](angle) to the right
+    - shift your direction rightward by [forty degrees](angle)
+    - turn to the right by an angle of [thirty-five degrees](angle)
 
 - intent: move_forward
   examples: |

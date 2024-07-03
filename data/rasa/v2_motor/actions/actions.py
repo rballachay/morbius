@@ -4,7 +4,6 @@ from typing import Text, List, Any, Dict
 
 from rasa_sdk import Tracker, Action
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
 
 
 class ActionMoveForward(Action):
@@ -18,10 +17,13 @@ class ActionMoveForward(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        distance = tracker.slots.get("distance", None)
+        for entity in tracker.latest_message['entities']:
+            if entity['entity'] == 'distance':
+                distance = entity['value']
+
         dispatcher.utter_message(f"Moving forward {distance if distance else ''}")
         dispatcher.utter_custom_json({"action": self.name(), "distance": distance})
-        return [SlotSet('distance',None)]
+        return []
 
 
 class ActionMoveBackward(Action):
@@ -50,10 +52,14 @@ class ActionTurnRight(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        angle = tracker.slots.get("angle", None)
+        
+        for entity in tracker.latest_message['entities']:
+            if entity['entity'] == 'angle':
+                angle = entity['value']
+
         dispatcher.utter_message(f"Turning right {angle if angle else ''}")
         dispatcher.utter_custom_json({"action": self.name(), "angle":angle})
-        return [SlotSet('angle',None)]
+        return []
 
 class ActionTurnLeft(Action):
 
@@ -66,10 +72,14 @@ class ActionTurnLeft(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        angle = tracker.slots.get("angle", None)
+        
+        for entity in tracker.latest_message['entities']:
+            if entity['entity'] == 'angle':
+                angle = entity['value']
+                
         dispatcher.utter_message(f"Turning left {angle if angle else ''}")
         dispatcher.utter_custom_json({"action": self.name(), "angle":angle})
-        return [SlotSet("angle", None)]
+        return []
 
 class ActionSleep(Action):
     """

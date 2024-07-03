@@ -267,7 +267,7 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
     double tipLength = 0.1; // Length of the arrow tip in relation to the arrow length
 
 	int stride = 32;
-	int nVecs = 9 ; // has to be odd
+	int nVecs = 7 ; // has to be odd
 	GroundVectors ground_vecs(nVecs, stride, AGENT_WIDTH);
 	ground_vecs.cloud = plane_detection.cloud;
 
@@ -372,7 +372,7 @@ int realSenseAttached(){
 
 			cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
 
-			cv::imshow("Processed Frame", depth_mat*50);
+			cv::imshow("Processed Frame", drawnImage);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
 				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 				cv::imwrite("depth_image.png", depth_mat*50);

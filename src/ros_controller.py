@@ -42,17 +42,17 @@ class RosControllerv2:
     def __init__(self):
         self.state = True
 
-    def action_move_forward(self):
-        self.print("Moving forward...")
+    def action_move_forward(self, distance):
+        self.print(f"Moving forward {distance}...")
     
     def action_move_backward(self):
         self.print("Moving backward...")
     
-    def action_turn_right(self):
-        self.print("Turning to the right...")
+    def action_turn_right(self, angle):
+        self.print(f"Turning to the right {angle}...")
     
-    def action_turn_left(self):
-        self.print("Turning to the left...")
+    def action_turn_left(self, angle):
+        self.print(f"Turning to the left {angle}...")
 
     def action_stop(self):
         self.print(f"Stopping...")

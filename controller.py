@@ -35,6 +35,9 @@ class VoiceController:
         rasa_model_path = rasa_model_paths[rasa_version]
         rasa_action_path = rasa_action_paths[rasa_version]
 
+        # data.rasa.actions -> data/rasa/enpdpoints.yml
+        rasa_endpoint_path = rasa_action_path.replace('.','/').replace('actions','endpoints.yml')
+
         # create logging
         rasa_logs = f"{log_path}/rasa-logs-{int(time.time())}.log"
         #dialogue_transcript = f"{log_path}/dialogue-transcript-{int(time.time())}.log"
@@ -47,7 +50,7 @@ class VoiceController:
         self.rasa_port = rasa_port
         self.actions_port = actions_port
         self.rasa_controller, self.action_controller = self.__run_rasa(
-            rasa_model_path, rasa_action_path, rasa_logs, rasa_port, actions_port
+            rasa_model_path, rasa_action_path, rasa_endpoint_path, rasa_logs, rasa_port, actions_port
         )
 
         self.whisper_agent = FasterWhisper(whisper_size)
@@ -108,7 +111,7 @@ class VoiceController:
                 raise Exception("Missing action title in called action")
 
             method = getattr(self.ros_controller, action_name, None)
-
+            print(action)
             if method:
                 # at this point, the rest of the action dict should have
                 # the kwargs that will be passed to the action
@@ -116,9 +119,9 @@ class VoiceController:
             else:
                 print(f"Method {action_name} not found in ros controller")
 
-    def __run_rasa(self, model_path, action_path, rasa_logs, rasa_port, actions_port):
+    def __run_rasa(self, model_path, action_path, endpoint_path, rasa_logs, rasa_port, actions_port):
         """Launches the two rasa processes: action server and dialogue server."""
-        rasa_cmd = f"rasa run --enable-api -p {rasa_port} --model {model_path} --endpoints data/rasa/endpoints.yml"
+        rasa_cmd = f"rasa run --enable-api -p {rasa_port} --model {model_path} --endpoints {endpoint_path}"
         action_cmd = f"rasa run actions --actions {action_path} -p {actions_port}"
 
         with open(rasa_logs, "a") as log_file:

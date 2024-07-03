@@ -20,6 +20,27 @@ The best repository for RGBD plane detection I could find is [RGBDPlaneDetection
 
 Finding the ground plane in the list of planes is relatively simple. Assuming that the robots camera is correctly positioned on top of the robot (i.e. it is parallel to the ground), we know that the y-component of the normal vector for the ground surface should be approximately zero. 
 
+### Improving the depth map
+
+The depth map by default is not very good/stable. Each time it is captured, there are large holes and other artifacts that mess with the accuracy of downstream applications. A description of the full range of post-processing that may be performed [can be found here](https://dev.intelrealsense.com/docs/depth-post-processing). According to the docs, no post-processing is performed on the on-board processor, meaning that all of this is handed over to the host processer + realsense2 SDK. The filters recommended by Intel were used, which inludes the following 
+
+
+### Angle of incidence + reflection
+
+The angle at which a surface is viewed using a structured `light for depth sensing` - style camera is very important. 
+
+<div style="display: flex; justify-content: space-between;">
+    <div style="flex-basis: 45%; text-align: center;">
+        <img src="docs/angle/raw_image_perp.png" alt="Image 1" style="width: 100%;">
+        <p>Footer description for Image 1</p>
+    </div>
+    <div style="flex-basis: 45%; text-align: center;">
+        <img src="docs/angle/depth_image_perp.png" alt="Image 1" style="width: 100%;">
+        <p>Footer description for Image 2</p>
+    </div>
+</div>
+
 ## Building the project
 
 In order to build the project, you need to ensure you have librealsense2 installed. You can then navigate to this folder and run: `bash ./build.sh`
+
