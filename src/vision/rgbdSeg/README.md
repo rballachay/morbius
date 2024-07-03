@@ -31,11 +31,11 @@ The angle at which a surface is viewed using a structured `light for depth sensi
 
 <div style="display: flex; justify-content: space-between;">
     <div style="flex-basis: 45%; text-align: center;">
-        <img src="docs/angle/raw_image_perp.png" alt="Image 1" style="width: 100%;">
+        <img src="docs/angle/raw_image_perp.png" alt="Image 1" style="width: 45%;">
         <p>Footer description for Image 1</p>
     </div>
     <div style="flex-basis: 45%; text-align: center;">
-        <img src="docs/angle/depth_image_perp.png" alt="Image 1" style="width: 100%;">
+        <img src="docs/angle/depth_image_perp.png" alt="Image 1" style="width: 45%;">
         <p>Footer description for Image 2</p>
     </div>
 </div>
