@@ -29,16 +29,9 @@ The depth map by default is not very good/stable. Each time it is captured, ther
 
 The angle at which a surface is viewed using a structured `light for depth sensing` - style camera is very important. 
 
-<div style="display: flex; justify-content: space-between;">
-    <div style="flex-basis: 45%; text-align: center;">
-        <img src="docs/angle/raw_image_perp.png" alt="Image 1" style="width: 40%;">
-        <p>Footer description for Image 1</p>
-    </div>
-    <div style="flex-basis: 45%; text-align: center;">
-        <img src="docs/angle/depth_image_perp.png" alt="Image 2" style="width: 40%;">
-        <p>Footer description for Image 2</p>
-    </div>
-</div>
+| ![Image 1](docs/angle/raw_image_perp.png) | ![Image 2](docs/angle/depth_image_perp.png) |
+|:--:|:--:|
+| Footer description for Image 1 | Footer description for Image 2 |
 
 ## Building the project
 
