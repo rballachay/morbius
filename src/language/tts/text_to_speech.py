@@ -7,6 +7,7 @@ class TextToSpeech:
         if active_tts not in tts_models:
             raise Exception(f"TTS model must be one of: {', '.join(tts_models)}")
         
+        # lazy load the tts model
         if active_tts=='styleTTS2':
             from src.language.tts.styleTTS2 import StyleTTS2
             self.model=StyleTTS2()

@@ -111,7 +111,7 @@ class VoiceController:
                 raise Exception("Missing action title in called action")
 
             method = getattr(self.ros_controller, action_name, None)
-            print(action)
+
             if method:
                 # at this point, the rest of the action dict should have
                 # the kwargs that will be passed to the action

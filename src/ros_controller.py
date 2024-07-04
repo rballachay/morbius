@@ -60,6 +60,9 @@ class RosControllerv2:
     def action_resume(self):
         self.print("Resuming...")
 
+    def action_sleep(self):
+        self.state = False
+
     def print(self, message):
         print(message)
 
