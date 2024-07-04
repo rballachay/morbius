@@ -8,7 +8,6 @@
 
 void RealSense::configureCameraSettings() {    
     std::vector<rs2::sensor> sensors = profile.get_device().query_sensors();
-    rs2::sensor color_sensor;
     for (rs2::sensor& sensor : sensors) {
         if (sensor.get_stream_profiles().front().stream_type() == RS2_STREAM_COLOR) {
             color_sensor = sensor;
@@ -58,9 +57,16 @@ rs2::pipeline& RealSense::getPipeline() {
 }
 
 void RealSense::captureFrames(const std::function<void(const rs2::frameset&)>& frameHandler) {
+    int i = 0;
+    std::vector<int> exposures = {50,100,150,200,250};    
     while (true) {
+        color_sensor.set_option(RS2_OPTION_EXPOSURE, exposures[i]);
         rs2::frameset frames = pipeline.wait_for_frames();
         frameHandler(frames);
+        i++;
+        if (i==5){
+            i=0;
+        }
     }
 }
 

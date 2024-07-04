@@ -184,6 +184,52 @@ struct GroundVectors{
 
 };
 
+cv::Mat computeAverage(const std::vector<cv::Mat>& mats) {
+    /*
+    <[640,480,3],[640,480,3]> -> [640,480,3]
+    */
+    if (mats.empty()) {
+        std::cerr << "Error: Input vector is empty!" << std::endl;
+        return cv::Mat();
+    }
+
+    // Initialize sum for each channel
+    std::vector<cv::Mat> channelSums;
+    for (int c = 0; c < mats[0].channels(); ++c) {
+        cv::Mat channelSum = cv::Mat::zeros(mats[0].size(), CV_64FC1); // Sum in double for accuracy
+        channelSums.push_back(channelSum);
+    }
+
+    // Accumulate sums across all images
+    for (const auto& mat : mats) {
+        std::vector<cv::Mat> channels;
+        cv::split(mat, channels); // Split into separate channels
+
+        for (int c = 0; c < mat.channels(); ++c) {
+            cv::Mat channelFloat;
+            channels[c].convertTo(channelFloat, CV_64FC1); // Convert to double for accumulation
+            channelSums[c] += channelFloat;
+        }
+    }
+
+    // Compute average for each channel
+    std::vector<cv::Mat> channelAverages;
+    for (int c = 0; c < mats[0].channels(); ++c) {
+        cv::Mat channelAverage;
+        cv::divide(channelSums[c], static_cast<double>(mats.size()), channelAverage);
+        channelAverages.push_back(channelAverage);
+    }
+
+    // Merge channels into single output image
+    cv::Mat averageImage;
+    cv::merge(channelAverages, averageImage);
+
+    // Convert back to original type (assuming input mats are of same type)
+    averageImage.convertTo(averageImage, mats[0].type());
+
+    return averageImage;
+}
+
 void printPlaneMembership(PlaneDetection& plane_detection){
 	std::cout << plane_detection.cloud.vertices.size() << std::endl;
 	int total = 0;
@@ -320,7 +366,8 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 	for (int k; k < maxJValues.size(); k++){
 		
 		// if the final I is the end, or -1, skip drawing the arrow
-		if (ground_vecs._vecMaxI[k] == -1){
+		if (ground_vecs._vecMaxI[k] == -1)
+		{
 			continue;
 		}
 		
@@ -346,9 +393,17 @@ int realSenseAttached(){
     try {
         RealSense realsense;
         realsense.startPipeline();
+		int i = 0;
+		std::vector<cv::Mat> depths(10);
+    	std::vector<cv::Mat> colorImages(10);
 
-        realsense.captureFrames([](const rs2::frameset& frames) {
-            rs2::depth_frame depth = frames.get_depth_frame();
+		//---
+        realsense.captureFrames([&depths, &colorImages, &i](const rs2::frameset& frames) 
+		{
+			
+		    //get the average of 5 frames per second
+			rs2::depth_frame depth = frames.get_depth_frame();
+
             rs2::video_frame rgb_frame = frames.get_color_frame();
 
             rs2::frame depth_processed = preprocessDepth(depth);
@@ -357,29 +412,45 @@ int realSenseAttached(){
             cv::Mat depth_mat(cv::Size(640, 480), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
             cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
 
-            plane_detection.readDepthImage(depth_mat);
-            plane_detection.readColorImage(color_mat);
+			//
 
-			// removed the plotting and moved to public member so we can change
-			// the colors and plot according to the logic out here
-            plane_detection.runPlaneDetection();
+			colorImages[i] = color_mat.clone();
+        	depths[i] = depth_mat.clone();
+			i++;
 
-			Surfaces surfaces(plane_detection);
+			if(i == 10)
+        	{
+				cv::Mat avgColor = computeAverage(colorImages);
+				cv::Mat avgDepth = computeAverage(depths);
+				
+				plane_detection.readDepthImage(avgDepth);
+				plane_detection.readColorImage(avgColor);
 
-			plane_detection.plane_filter.colors = surfaces.colors;
-			plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
-			plane_detection.plane_filter.colors = {};
 
-			cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
+				// removed the plotting and moved to public member so we can change
+				// the colors and plot according to the logic out here
+				plane_detection.runPlaneDetection();
 
-			cv::imshow("Processed Frame", depth_mat*50);
-            if (cv::waitKey(1) == 27) { // Exit on ESC key
-				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
-				cv::imwrite("depth_image.png", depth_mat*50);
-				cv::imwrite("raw_image.png", color_mat);
-                std::exit(0);
-            }
-        });
+				Surfaces surfaces(plane_detection);
+
+				plane_detection.plane_filter.colors = surfaces.colors;
+				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
+				plane_detection.plane_filter.colors = {};
+
+				cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
+
+				cv::imshow("Processed Frame", plane_detection.seg_img_);
+				if (cv::waitKey(1) == 27) { // Exit on ESC key
+					cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
+					cv::imwrite("depth_image.png", depth_mat*50);
+					cv::imwrite("raw_image.png", color_mat);
+					std::exit(0);
+				}
+				i=0;
+
+        	}
+        
+		});
     } catch (const rs2::error & e) {
         std::cerr << "RealSense error calling " << e.get_failed_function() << "(" << e.get_failed_args() << "):\n"
                   << e.what() << std::endl;
@@ -429,6 +500,7 @@ int loadProcessDefault(){
     cv::destroyAllWindows();
 	return EXIT_SUCCESS;
 }
+
 
 int main(int argc, char* argv[]) {
  	if (argc < 2) {
