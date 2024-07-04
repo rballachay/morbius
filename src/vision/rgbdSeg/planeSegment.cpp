@@ -325,17 +325,17 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 		}
 		
 		// Define start and end points for the arrow
-		cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
-		cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs._vecMaxI[k]);
-		cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+		//cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
+		//cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs._vecMaxI[k]);
+		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 
 
 		// Define start and end points for the arrow
-		//cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
-		//cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs.vecMaxI[k]);
+		cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
+		cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs.vecMaxI[k]);
 
 		// Draw the arrowed line
-		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+		cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 	}
 
 	return drawnImage;
@@ -372,7 +372,29 @@ int realSenseAttached(){
 
 			cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
 
-			cv::imshow("Processed Frame", drawnImage);
+			std::cout << color_mat.size() << std::endl;
+			std::cout << drawnImage.size() << std::endl;
+
+			cv::Mat channels[3];
+			cv::split(drawnImage, channels);
+			for (int i = 0; i < 3; ++i) {
+				channels[i].convertTo(channels[i], CV_32FC1); // Convert to float
+				channels[i] /= 255.0; // Normalize to [0, 1]
+			}
+			double alpha = 0.5; // Example: 50% transparency
+			cv::Mat blendedImage;
+
+			for (int i = 0; i < 3; ++i) {
+				cv::Mat blendedChannel;
+				cv::addWeighted(color_mat, 1.0 - alpha, channels[i], alpha, 0.0, blendedChannel);
+				
+				if (i == 0)
+					blendedImage = blendedChannel;
+				else
+					cv::addWeighted(blendedImage, 1.0, blendedChannel, 1.0, 0.0, blendedImage);
+			}
+
+			cv::imshow("Processed Frame", blendedImage);
             if (cv::waitKey(1) == 27) { // Exit on ESC key
 				cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 				cv::imwrite("depth_image.png", depth_mat*50);
