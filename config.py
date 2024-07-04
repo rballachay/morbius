@@ -37,6 +37,10 @@ WHISPER_URL = (
 RASA_VERSION='v2'
 RASA_MODEL_PATHS = {"v1":"models/rasa-model-june10.tar.gz", "v2":"models/rasa-model-july3.tar.gz"}
 RASA_ACTIONS_PATHS = {"v1":"data.rasa.v1_full.actions","v2":"data.rasa.v2_motor.actions"}
+RASA_MODELS_GDRIVE={
+    "v1":"https://drive.google.com/file/d/11AfeXgzIohEwyRLv8DaGWP9Q2gNtd0zY/view?usp=sharing",
+    "v2":"https://drive.google.com/file/d/1qIzFCMuPJkh3HvjWjXUDndtr8DOVADjt/view?usp=sharing"
+}
 RASA_PORT = 5005
 ACTIONS_PORT = 5055
 """RASA"""
@@ -62,4 +66,5 @@ LJ_MODEL="models/LJSpeech/epoch_2nd_00100.pth"
 
 """NIX_TTS"""
 NIX_TTS_MODEL="models/nix-ljspeech-deterministic-v0.1"
+NIX_GDRIVE_LINK="https://drive.google.com/file/d/1dN__W2TUiJ4hgH2ulARnBGyNPA_40OhQ/view?usp=sharing"
 """NIX_TTS"""

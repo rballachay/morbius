@@ -20,4 +20,5 @@ opencv-python
 cityscapesScripts
 requests
 pyaudio
+gdown
 git+https://github.com/resemble-ai/monotonic_align.git

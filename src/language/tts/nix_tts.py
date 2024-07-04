@@ -4,11 +4,19 @@ import sys
 sys.path.append("src/language/tts")
 
 from nix.models.TTS import NixTTSInference
-from config import NIX_TTS_MODEL
+from config import NIX_TTS_MODEL, NIX_GDRIVE_LINK
+from src.file_utils import download_model_gdrive
+import os
+
 
 class NixTTS:
     def __init__(self):
         self.sampling_rate=22050
+
+        # download the model from gdrive if it doesnt exist locally
+        if not os.path.exists(NIX_TTS_MODEL):
+            download_model_gdrive(NIX_GDRIVE_LINK, NIX_TTS_MODEL, is_zip=True)
+
         # Initiate Nix-TTS
         self.nix = NixTTSInference(model_dir = NIX_TTS_MODEL)
 

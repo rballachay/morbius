@@ -2,6 +2,10 @@ import pathlib
 import ctypes
 from config import RECORD_LENGTH, SILENCE_LENGTH, VAD_MODE, SAMPLE_RATE
 import numpy as np
+import os
+import platform
+from src.file_utils import install_on_linux, install_on_mac, is_tool_installed, update_submodule
+import subprocess
 
 def record_until_thresh():
     """Create the folders leading to filename, then record audio to file. Will start
@@ -10,6 +14,11 @@ def record_until_thresh():
 
     # Load the shared library
     libfile = pathlib.Path(__file__).parent / "record_audio.so"
+
+    if not os.path.exists(libfile):
+        print("record_audio.so doesn't exist. Will attempt to compile")
+        __install_deps()
+
     lib = ctypes.CDLL(str(libfile))
 
     # Define the argument and return types of the function
@@ -29,3 +38,49 @@ def record_until_thresh():
 
     # will return array of non-zero elements
     return array[:np.argmax(array == 0)]
+
+def __install_deps():
+    os_name = platform.system()
+
+    installer = {
+        'Linux':install_on_linux,
+        'Darwin':install_on_mac,
+    }.get(os_name, None)
+
+    shared_lib = {
+        'Linux':'so',
+        'Darwin':'dylib'
+    }.get(os_name,None)
+
+    if installer is None:
+        raise Exception(f"{os_name} not supported")
+
+    # these are simple as they're available from brew/apt
+    for tool in ['espeak','portaudio']:
+        if not is_tool_installed(tool):
+            installer(tool)
+
+    # this package needs to be installed from github
+    if not os.path.exists(f'/usr/local/lib/libfvad.{shared_lib}'):
+        if not is_tool_installed('autoconf'):
+            installer('autoconf')
+
+        if os_name=='Darwin':
+            if not is_tool_installed('autoconf'):
+                installer('autoconf')
+        else:
+            installer('libtool')
+            installer('pkg-config')
+
+        submodule_dir='submodules/libfvad'
+        update_submodule(submodule_dir)
+        subprocess.run(['autoreconf', '-i'], check=True, cwd=submodule_dir)
+        subprocess.run(['./configure'], check=True, cwd=submodule_dir)
+        subprocess.run(['make'], check=True, cwd=submodule_dir)
+        subprocess.run(['make', 'install'], check=True, cwd=submodule_dir)
+    
+    # compile the actual file
+    result = subprocess.run(['gcc', '-shared', '-o', 'record_audio.so', '-fPIC', 'record_audio.c', '-lportaudio', '-lfvad'],
+                    check=True,cwd='src/language', capture_output=True, text=True)
+    print(result.stdout)  # Print any output from the compilation process
+    print(result.stderr)

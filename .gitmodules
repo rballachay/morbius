@@ -22,3 +22,6 @@
 [submodule "submodules/ORB_SLAM3"]
 	path = submodules/ORB_SLAM3
 	url = https://github.com/UZ-SLAMLab/ORB_SLAM3
+[submodule "submodules/libfvad"]
+	path = submodules/libfvad
+	url = https://github.com/dpirch/libfvad
