@@ -8,7 +8,7 @@ set(CMAKE_CXX_COMPILER /usr/bin/g++)
 set(CMAKE_BUILD_TYPE "Release")
 
 # put FindGLFW.cmake in the source directory of CMakeLists.txt
-find_package(OpenCV 4.9.0 REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(realsense2 REQUIRED)
 find_package(Eigen3 REQUIRED)
 
