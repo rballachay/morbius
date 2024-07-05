@@ -3,7 +3,7 @@ Code for Robot Vision + Language Project w Dr. Joseph Vybihal
 
 NOTE! REMEMBER that you need to re-name the submodule StyleTTS2/utils.py to StyleTTS2/munch_utils.py to avoid a name conflict with utils elsewhere.
 
-## Setup - language
+## Language - setup
 
 Note that the language model has only been developed to work on unix-like systems: macOS and linux. If on mac, you will need to ensure you have [homebrew](https://brew.sh/) installed. You may install as follows:
 
@@ -83,13 +83,42 @@ cd src/language
 gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad -I${path}/include  -L${path}/lib
 ```
 
-## Development Notes
+## Language - running
 
-Whisper.cpp has an api already built. I think the best idea would be to make that as its own api in a docker container, maybe we can put our rasa api in there as well. Since we need the voice recording to be compiled, it would probably be best if this was in that same container. We could then have a separate python application that controls everything and calls all these separate apis and holds the logic to convert it into a command. 
+In order to run the language model once all the dependencies are installed, just run the following from the `morbius` directory:
 
-This is necessary because the start-up time of these models is muuuch slower than the inference time, so if we start everything concurrently when the system is being initialized, we will have much lower total inference time accross the different modules.
+```bash python3 controller.py```
 
-## Help me!
+This should start an interactive session for working with the chat bot. It is likely that there are some errors, as we are using lots of different libraries for this chat bot. Here are some of the errors I encountered, and how i solved them:
+
+### Cannot link libespeak.dylib
+
+```bash 
+Exception: Ensure espeak is installed and add path to `libespeak.dylib` here
+```
+
+In order to fix this problem, ensure that espeak is installed:
+
+```bash 
+brew install espeak 
+which espeak
+```
+
+And get the path to espeak and export it as follows
+
+```bash 
+espeaklib="$(dirname $(which espeak))/../lib"
+
+# this is for linux
+export LD_LIBRARY_PATH=${espeaklib}:$LD_LIBRARY_PATH
+export DYLD_LIBRARY_PATH=${espeaklib}:$DYLD_LIBRARY_PATH
+```
+
+Now try launching again
+
+### espeak not installed on your system!
+
+
 
 ### Segmentation fault, FasterWhisper
 
