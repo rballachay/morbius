@@ -11,6 +11,7 @@ private:
     rs2::pipeline pipeline;
     rs2::config config;
     rs2::pipeline_profile profile;
+    rs2::sensor color_sensor;
 
     void configureCameraSettings();
     void warmUpPipeline();

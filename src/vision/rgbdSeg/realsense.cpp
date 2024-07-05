@@ -8,7 +8,15 @@
 #include <opencv2/opencv.hpp>
 #include <librealsense2/rs_advanced_mode.hpp> 
 
-void RealSense::configureCameraSettings() {
+
+void RealSense::configureCameraSettings() {    
+    std::vector<rs2::sensor> sensors = profile.get_device().query_sensors();
+    for (rs2::sensor& sensor : sensors) {
+        if (sensor.get_stream_profiles().front().stream_type() == RS2_STREAM_COLOR) {
+            color_sensor = sensor;
+            break;
+        }
+    }
     // Get the first device
     rs2::device dev = profile.get_device();
     std::string dev_serial_number(dev.get_info(RS2_CAMERA_INFO_SERIAL_NUMBER));
@@ -65,9 +73,17 @@ rs2::pipeline& RealSense::getPipeline() {
 }
 
 void RealSense::captureFrames(const std::function<void(const rs2::frameset&)>& frameHandler) {
+    int i = 0;
+    std::vector<int> exposures = {50,100,150,200,250};    
     rs2::align align_to(RS2_STREAM_COLOR);
     while (true) {
+        color_sensor.set_option(RS2_OPTION_EXPOSURE, exposures[i]);
         rs2::frameset frames = pipeline.wait_for_frames();
+        frameHandler(frames);
+        i++;
+        if (i==5){
+            i=0;
+        }
         auto aligned_frames = align_to.process(frames);
         frameHandler(aligned_frames);
     }
