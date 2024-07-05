@@ -5,7 +5,6 @@
 #define AGENT_WIDTH 20 // cm
 #define AVG_FRAMES 5
 
-PlaneDetection plane_detection;
 
 int findMinZVal(const std::vector<std::vector<int>>& plane_vertices, std::vector<VertexType>& vertices, std::vector<bool> candidates) {
     int minIndex = -1;
@@ -417,12 +416,13 @@ int realSenseAttached(){
 
 			if(frameCount == AVG_FRAMES)
         	{
+				PlaneDetection plane_detection;
+
 				cv::Mat avgColor = computeAverage(colorImages);
 				cv::Mat avgDepth = computeAverage(depths);
 				
 				plane_detection.readDepthImage(avgDepth);
 				plane_detection.readColorImage(avgColor);
-
 
 				// removed the plotting and moved to public member so we can change
 				// the colors and plot according to the logic out here
@@ -436,11 +436,11 @@ int realSenseAttached(){
 
 				cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
 
-				cv::imshow("Processed Frame", drawnImage);
+				cv::imshow("Processed Frame", plane_detection.seg_img_);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
-					cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
-					cv::imwrite("depth_image.png", depth_mat*50);
-					cv::imwrite("raw_image.png", color_mat);
+					//cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
+					//cv::imwrite("depth_image.png", depth_mat*50);
+					//cv::imwrite("raw_image.png", color_mat);
 					std::exit(0);
 				}
 				frameCount=0;
@@ -461,6 +461,8 @@ int realSenseAttached(){
 }
 
 int loadProcessDefault(){
+	PlaneDetection plane_detection;
+
 	std::string colorImagePath = "data/raw_image.png";
     std::string depthImagePath = "data/depth_image.png";
 
