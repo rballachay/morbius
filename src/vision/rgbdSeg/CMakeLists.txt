@@ -16,11 +16,12 @@ include_directories(${OpenCV_INCLUDE_DIRS} /usr/local/include/eigen3)
 include_directories(${realsense2_INCLUDE_DIR})
 include_directories(include/peac)
 include_directories(include/MRF2.2)
+include_directories(include/plane)
 
 link_directories(include/MRF2.2)
 link_directories(${realsense2_LIB_DIR})
 
-file(GLOB sources "*.cpp")
+file(GLOB sources "*.cpp" "include/plane/plane_detection.cpp")
 
 add_executable(planeSegment ${sources})
 

@@ -12,12 +12,13 @@ private:
     rs2::config config;
     rs2::pipeline_profile profile;
     rs2::sensor color_sensor;
+    std::vector<int> exposures;   
 
     void configureCameraSettings();
     void warmUpPipeline();
 
 public:
-    RealSense();
+    RealSense(const std::vector<int>& exposures = std::vector<int>());
     void startPipeline();
     rs2::pipeline_profile getPipelineProfile() const;
     rs2::pipeline& getPipeline();

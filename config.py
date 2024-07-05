@@ -71,7 +71,6 @@ ACTIONS_PORT = 5055
 ACTIVE_TTS='nix_tts'  # any of TTS_MODELS
 TTS_MODELS=['styleTTS2','fast_speech','espeak','nix_tts']
 PHONEMIZER_ESPEAK_LIBRARY = f"{find_library_path('espeak')}/libespeak.dylib"
-print(PHONEMIZER_ESPEAK_LIBRARY)
 
 if PHONEMIZER_ESPEAK_LIBRARY is None:
     raise Exception("Ensure espeak is installed and add path to `libespeak.{dylib/so}` here")

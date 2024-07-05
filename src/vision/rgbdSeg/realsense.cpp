@@ -51,7 +51,9 @@ void RealSense::warmUpPipeline() {
     }
 }
 
-RealSense::RealSense() = default;
+RealSense::RealSense(const std::vector<int>& exposures)
+    : exposures(exposures) {
+}
 
 void RealSense::startPipeline() {
     config.enable_stream(RS2_STREAM_COLOR, 640, 480, RS2_FORMAT_BGR8, 30);
@@ -73,17 +75,16 @@ rs2::pipeline& RealSense::getPipeline() {
 }
 
 void RealSense::captureFrames(const std::function<void(const rs2::frameset&)>& frameHandler) {
-    int i = 0;
-    std::vector<int> exposures = {50,100,150,200,250};    
+    int i = 0; 
     rs2::align align_to(RS2_STREAM_COLOR);
     while (true) {
-        color_sensor.set_option(RS2_OPTION_EXPOSURE, exposures[i]);
-        rs2::frameset frames = pipeline.wait_for_frames();
-        frameHandler(frames);
-        i++;
-        if (i==5){
-            i=0;
+        // set exposure if we want custom dynamic exposure
+        if (!exposures.empty()){
+            color_sensor.set_option(RS2_OPTION_EXPOSURE, exposures[i]);
+            i++;
+            if (i==exposures.size())i=0; //reset
         }
+        rs2::frameset frames = pipeline.wait_for_frames();
         auto aligned_frames = align_to.process(frames);
         frameHandler(aligned_frames);
     }

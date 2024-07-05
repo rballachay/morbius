@@ -3,6 +3,7 @@
 
 // can be changed to an arg later
 #define AGENT_WIDTH 20 // cm
+#define AVG_FRAMES 5
 
 PlaneDetection plane_detection;
 
@@ -389,16 +390,14 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 }
 
 int realSenseAttached(){
-
+	int frameCount=0;
     try {
         RealSense realsense;
         realsense.startPipeline();
-		int i = 0;
-		std::vector<cv::Mat> depths(10);
-    	std::vector<cv::Mat> colorImages(10);
 
-		//---
-        realsense.captureFrames([&depths, &colorImages, &i](const rs2::frameset& frames) 
+		std::vector<cv::Mat> depths(AVG_FRAMES);
+    	std::vector<cv::Mat> colorImages(AVG_FRAMES);
+        realsense.captureFrames([&depths, &colorImages, &frameCount](const rs2::frameset& frames) 
 		{
 			
 		    //get the average of 5 frames per second
@@ -412,13 +411,11 @@ int realSenseAttached(){
             cv::Mat depth_mat(cv::Size(640, 480), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
             cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
 
-			//
+			colorImages[frameCount] = color_mat.clone();
+        	depths[frameCount] = depth_mat.clone();
+			frameCount++;
 
-			colorImages[i] = color_mat.clone();
-        	depths[i] = depth_mat.clone();
-			i++;
-
-			if(i == 10)
+			if(frameCount == AVG_FRAMES)
         	{
 				cv::Mat avgColor = computeAverage(colorImages);
 				cv::Mat avgDepth = computeAverage(depths);
@@ -439,14 +436,14 @@ int realSenseAttached(){
 
 				cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
 
-				cv::imshow("Processed Frame", plane_detection.seg_img_);
+				cv::imshow("Processed Frame", drawnImage);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
 					cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 					cv::imwrite("depth_image.png", depth_mat*50);
 					cv::imwrite("raw_image.png", color_mat);
 					std::exit(0);
 				}
-				i=0;
+				frameCount=0;
 
         	}
         
