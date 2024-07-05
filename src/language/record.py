@@ -15,9 +15,15 @@ def record_until_thresh():
     # Load the shared library
     libfile = pathlib.Path(__file__).parent / "record_audio.so"
 
+    # attempt to compile shared library if it doesnt exist
     if not os.path.exists(libfile):
         print("record_audio.so doesn't exist. Will attempt to compile")
         __install_deps()
+        # compile the actual file
+        result = subprocess.run(['gcc', '-shared', '-o', 'record_audio.so', '-fPIC', 'record_audio.c', '-lportaudio', '-lfvad'],
+                        check=True,cwd='src/language', capture_output=True, text=True)
+        print(result.stdout)  # Print any output from the compilation process
+        print(result.stderr)
 
     lib = ctypes.CDLL(str(libfile))
 
@@ -65,12 +71,15 @@ def __install_deps():
         if not is_tool_installed('autoconf'):
             installer('autoconf')
 
-        if os_name=='Darwin':
-            if not is_tool_installed('autoconf'):
-                installer('autoconf')
-        else:
+        if not is_tool_installed('libtool'):
             installer('libtool')
+
+        if not is_tool_installed('pkg-config'):
             installer('pkg-config')
+
+        if os_name=='Darwin':
+            if not is_tool_installed('automake'):
+                installer('automake')
 
         submodule_dir='submodules/libfvad'
         update_submodule(submodule_dir)
@@ -78,9 +87,3 @@ def __install_deps():
         subprocess.run(['./configure'], check=True, cwd=submodule_dir)
         subprocess.run(['make'], check=True, cwd=submodule_dir)
         subprocess.run(['make', 'install'], check=True, cwd=submodule_dir)
-    
-    # compile the actual file
-    result = subprocess.run(['gcc', '-shared', '-o', 'record_audio.so', '-fPIC', 'record_audio.c', '-lportaudio', '-lfvad'],
-                    check=True,cwd='src/language', capture_output=True, text=True)
-    print(result.stdout)  # Print any output from the compilation process
-    print(result.stderr)
