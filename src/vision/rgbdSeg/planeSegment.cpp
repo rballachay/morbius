@@ -313,7 +313,7 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
     double tipLength = 0.1; // Length of the arrow tip in relation to the arrow length
 
 	int stride = 32;
-	int nVecs = 9 ; // has to be odd
+	int nVecs = 7 ; // has to be odd
 	GroundVectors ground_vecs(nVecs, stride, AGENT_WIDTH);
 	ground_vecs.cloud = plane_detection.cloud;
 
@@ -372,17 +372,17 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 		}
 		
 		// Define start and end points for the arrow
-		cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
-		cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs._vecMaxI[k]);
-		cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+		//cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
+		//cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs._vecMaxI[k]);
+		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 
 
 		// Define start and end points for the arrow
-		//cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
-		//cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs.vecMaxI[k]);
+		cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
+		cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs.vecMaxI[k]);
 
 		// Draw the arrowed line
-		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+		cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 	}
 
 	return drawnImage;

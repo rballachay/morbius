@@ -1,7 +1,7 @@
 from src.language.transcribe import FasterWhisper, listen_transcribe
 from src.file_utils import timing_decorator
 from src.ros_controller import RosControllerV1, RosControllerv2
-from config import RASA_MODEL_PATHS, RASA_ACTIONS_PATHS, \
+from config import RASA_MODEL_PATHS, RASA_MODELS_GDRIVE, RASA_ACTIONS_PATHS, \
     LOG_PATH, RASA_PORT, ACTIONS_PORT, WHISPER_SIZE, RASA_VERSION
 import subprocess
 import time
@@ -9,6 +9,7 @@ import os
 import requests
 import uuid
 from src.language.tts.text_to_speech import TextToSpeech
+from src.file_utils import download_model_gdrive
 
 # silent, for development, allows us to write in verbal commands via
 # the shell instead of saying them, to make it easier
@@ -22,6 +23,7 @@ class VoiceController:
         self,
         rasa_version=RASA_VERSION, # v1 or v2
         rasa_model_paths=RASA_MODEL_PATHS, # dictionary
+        rasa_models_gdrive=RASA_MODELS_GDRIVE, # dictionary
         rasa_action_paths=RASA_ACTIONS_PATHS, # dictionary
         whisper_size=WHISPER_SIZE,
         log_path=LOG_PATH,
@@ -33,7 +35,16 @@ class VoiceController:
         
         # select rasa paths based on version
         rasa_model_path = rasa_model_paths[rasa_version]
+        rasa_model_gdrive = rasa_models_gdrive[rasa_version]
         rasa_action_path = rasa_action_paths[rasa_version]
+
+        # rasa models are stored in google drive. this checks if
+        # they exist prior to trying to launch the agent
+        if not os.path.exists(rasa_model_path):
+            download_model_gdrive(rasa_model_gdrive,rasa_model_path)
+
+        # data.rasa.actions -> data/rasa/enpdpoints.yml
+        rasa_endpoint_path = rasa_action_path.replace('.','/').replace('actions','endpoints.yml')
 
         # create logging
         rasa_logs = f"{log_path}/rasa-logs-{int(time.time())}.log"
@@ -47,7 +58,7 @@ class VoiceController:
         self.rasa_port = rasa_port
         self.actions_port = actions_port
         self.rasa_controller, self.action_controller = self.__run_rasa(
-            rasa_model_path, rasa_action_path, rasa_logs, rasa_port, actions_port
+            rasa_model_path, rasa_action_path, rasa_endpoint_path, rasa_logs, rasa_port, actions_port
         )
 
         self.whisper_agent = FasterWhisper(whisper_size)
@@ -116,9 +127,9 @@ class VoiceController:
             else:
                 print(f"Method {action_name} not found in ros controller")
 
-    def __run_rasa(self, model_path, action_path, rasa_logs, rasa_port, actions_port):
+    def __run_rasa(self, model_path, action_path, endpoint_path, rasa_logs, rasa_port, actions_port):
         """Launches the two rasa processes: action server and dialogue server."""
-        rasa_cmd = f"rasa run --enable-api -p {rasa_port} --model {model_path} --endpoints data/rasa/endpoints.yml"
+        rasa_cmd = f"rasa run --enable-api -p {rasa_port} --model {model_path} --endpoints {endpoint_path}"
         action_cmd = f"rasa run actions --actions {action_path} -p {actions_port}"
 
         with open(rasa_logs, "a") as log_file:

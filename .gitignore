@@ -4,6 +4,9 @@
 # why is this not ignored by default? no clue
 *.DS_Store
 
+# ignore executable
+src/vision/rgbdSeg/planeSegment
+
 # ignore model files
 *.gz
 *.wav

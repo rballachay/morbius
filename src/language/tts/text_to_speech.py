@@ -1,8 +1,4 @@
 from config import ACTIVE_TTS, TTS_MODELS
-from src.language.tts.fast_speech import FastSpeech
-from src.language.tts.styleTTS2 import StyleTTS2
-from src.language.tts.espeak import ESpeak
-from src.language.tts.nix_tts import NixTTS
 import pyaudio
 import numpy as np
 
@@ -11,13 +7,18 @@ class TextToSpeech:
         if active_tts not in tts_models:
             raise Exception(f"TTS model must be one of: {', '.join(tts_models)}")
         
+        # lazy load the tts model
         if active_tts=='styleTTS2':
+            from src.language.tts.styleTTS2 import StyleTTS2
             self.model=StyleTTS2()
         elif active_tts=='fast_speech':
+            from src.language.tts.fast_speech import FastSpeech
             self.model=FastSpeech()
         elif active_tts=='espeak':
+            from src.language.tts.espeak import ESpeak
             self.model=ESpeak()
         elif active_tts=='nix_tts':
+            from src.language.tts.nix_tts import NixTTS
             self.model = NixTTS()
 
         self.pyaudio = pyaudio.PyAudio()
