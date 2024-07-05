@@ -51,6 +51,7 @@ void RealSense::startPipeline() {
 
     profile = pipeline.start(config);
 
+
     configureCameraSettings();
     warmUpPipeline();
 }
@@ -64,9 +65,11 @@ rs2::pipeline& RealSense::getPipeline() {
 }
 
 void RealSense::captureFrames(const std::function<void(const rs2::frameset&)>& frameHandler) {
+    rs2::align align_to(RS2_STREAM_COLOR);
     while (true) {
         rs2::frameset frames = pipeline.wait_for_frames();
-        frameHandler(frames);
+        auto aligned_frames = align_to.process(frames);
+        frameHandler(aligned_frames);
     }
 }
 
