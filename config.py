@@ -1,6 +1,22 @@
 import os
 import ctypes.util
+import subprocess
 
+def find_library_path(library_name):
+    try:
+        # Use the 'which' command to find the full path of the library
+        result = subprocess.run(['which', library_name], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        if result.returncode == 0:
+            library_path = result.stdout.strip()
+
+            # this returns the binary, we want the library
+            return os.path.abspath(os.path.join(library_path, "../../lib"))
+        else:
+            return None
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+    
 """GLOBAL"""
 DATA_PATH = "data"
 MODEL_PATH = "models"
@@ -25,7 +41,7 @@ VAD_MODE = 1  # this goes from 0->3, see here: https://github.com/dpirch/libfvad
 WHISPER_CPP_LIB = ctypes.util.find_library('whisper')
 
 if WHISPER_CPP_LIB is None:
-    raise Exception("whisper-cpp library not found, ensure whisper-cpp-python is installed and path to libwhisper.dylib is set")
+    raise Exception("whisper-cpp library not found, ensure whisper-cpp-python is installed and path to libwhisper.{dylib/so} is set")
 
 os.environ["WHISPER_CPP_LIB"] = WHISPER_CPP_LIB
 
@@ -54,10 +70,11 @@ ACTIONS_PORT = 5055
 """TTS CONFIG"""
 ACTIVE_TTS='nix_tts'  # any of TTS_MODELS
 TTS_MODELS=['styleTTS2','fast_speech','espeak','nix_tts']
-PHONEMIZER_ESPEAK_LIBRARY = ctypes.util.find_library('espeak')
+PHONEMIZER_ESPEAK_LIBRARY = f"{find_library_path('espeak')}/libespeak.dylib"
+print(PHONEMIZER_ESPEAK_LIBRARY)
 
 if PHONEMIZER_ESPEAK_LIBRARY is None:
-    raise Exception("Ensure espeak is installed and add path to `libespeak.dylib` here")
+    raise Exception("Ensure espeak is installed and add path to `libespeak.{dylib/so}` here")
 
 os.environ["PHONEMIZER_ESPEAK_LIBRARY"] = PHONEMIZER_ESPEAK_LIBRARY
 """TTS CONFIG"""
