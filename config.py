@@ -1,4 +1,5 @@
 import os
+import ctypes.util
 
 """GLOBAL"""
 DATA_PATH = "data"
@@ -20,10 +21,14 @@ VAD_MODE = 1  # this goes from 0->3, see here: https://github.com/dpirch/libfvad
 """RECORDING"""
 
 """WHISPER"""
-# have to set this variable when running, as its not set up for mac
-os.environ["WHISPER_CPP_LIB"] = (
-    "/Users/RileyBallachay/opt/anaconda3/envs/python3.10/lib/libwhisper.dylib"
-)
+
+WHISPER_CPP_LIB = ctypes.util.find_library('whisper')
+
+if WHISPER_CPP_LIB is None:
+    raise Exception("whisper-cpp library not found, ensure whisper-cpp-python is installed and path to libwhisper.dylib is set")
+
+os.environ["WHISPER_CPP_LIB"] = WHISPER_CPP_LIB
+
 WHISPER_SIZE = 'tiny'
 WHISPER_DIR = f"{MODEL_PATH}/whisper"
 WHISPER_SIZES = ["tiny", "small"]
@@ -49,6 +54,12 @@ ACTIONS_PORT = 5055
 """TTS CONFIG"""
 ACTIVE_TTS='nix_tts'  # any of TTS_MODELS
 TTS_MODELS=['styleTTS2','fast_speech','espeak','nix_tts']
+PHONEMIZER_ESPEAK_LIBRARY = ctypes.util.find_library('espeak')
+
+if PHONEMIZER_ESPEAK_LIBRARY is None:
+    raise Exception("Ensure espeak is installed and add path to `libespeak.dylib` here")
+
+os.environ["PHONEMIZER_ESPEAK_LIBRARY"] = PHONEMIZER_ESPEAK_LIBRARY
 """TTS CONFIG"""
 
 """FASTSPEECH"""
