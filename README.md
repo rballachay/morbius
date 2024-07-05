@@ -118,7 +118,7 @@ Now try launching again
 
 ### espeak not installed on your system!
 
-
+This should be automatically fixed in the config.py file.
 
 ### Segmentation fault, FasterWhisper
 
