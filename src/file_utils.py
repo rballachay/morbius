@@ -106,7 +106,7 @@ def install_on_mac(package):
 def update_submodule(submodule_path):
     try:
         # Navigate to the submodule directory
-        subprocess.run(['git', 'submodule', 'update', submodule_path], check=True)
+        subprocess.run(['git', 'submodule', 'update', '--init', submodule_path], check=True)
         print(f"Successfully updated submodule at {submodule_path}")
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while updating the submodule: {e}")

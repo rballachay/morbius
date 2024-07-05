@@ -3,6 +3,86 @@ Code for Robot Vision + Language Project w Dr. Joseph Vybihal
 
 NOTE! REMEMBER that you need to re-name the submodule StyleTTS2/utils.py to StyleTTS2/munch_utils.py to avoid a name conflict with utils elsewhere.
 
+## Setup - language
+
+Note that the language model has only been developed to work on unix-like systems: macOS and linux. If on mac, you will need to ensure you have [homebrew](https://brew.sh/) installed. You may install as follows:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/arch/.bashrc
+sudo pacman -S base-devel
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+```
+
+Once brew is installed, ensure that gcc and all other dependencies are installed:
+
+```bash
+brew install gcc
+brew install --cask miniconda
+brew install portaudio
+brew install espeak
+brew install automake
+brew install libtool
+```
+
+Now, you must create a development environment with python3.10 using [miniconda](https://docs.anaconda.com/miniconda/), which is an enviornment manager for python:
+
+```bash
+eval "$(/Users/"${USER}"/opt/anaconda3/condabin/conda shell.bash hook)"
+conda create -n python310 python=3.10
+conda activate python310
+```
+
+Now we can proceed to installing all the dependencies for the controller.py:
+
+```bash
+pip install -r requirements.txt
+```
+
+NOTE: It is probable that you will have problems installing pyaudio while installing the entire requirements file. The most common problem will be that portaudio didn't link properly, so you need to extract the path to the library and link it manually when installing pyaudio:
+
+```bash
+output=$(brew link portaudio 2>&1)
+path=$(echo "$output" | grep -oE '/[^ ]+/portaudio/[0-9]+\.[0-9]+\.[0-9]+')
+echo "Extracted path: $path"
+export CFLAGS="-I${path}/include"
+export LDFLAGS="-L${path}/lib"
+pip install pyaudio
+```
+
+Now that pyaudio is installed, you must re-try the installation of the complete `requirements.txt` file:
+
+
+```bash 
+pip install -r requirements.txt
+```
+
+Once that is finished, you must install the requirements for compilation of record_audio.so
+
+```bash
+git submodule update --init submodules/libfvad/
+cd submodules/libfvad/
+autoreconf -i
+./configure
+make
+sudo make install
+cd ../../
+```
+
+Now you may compile the file:
+
+Note that you will need to run this again if you're in a new shell 
+```bash
+output=$(brew link portaudio 2>&1)
+path=$(echo "$output" | grep -oE '/[^ ]+/portaudio/[0-9]+\.[0-9]+\.[0-9]+')
+echo "Extracted path: $path"
+```
+
+```bash
+cd src/language
+gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad -I${path}/include  -L${path}/lib
+```
+
 ## Development Notes
 
 Whisper.cpp has an api already built. I think the best idea would be to make that as its own api in a docker container, maybe we can put our rasa api in there as well. Since we need the voice recording to be compiled, it would probably be best if this was in that same container. We could then have a separate python application that controls everything and calls all these separate apis and holds the logic to convert it into a command. 
