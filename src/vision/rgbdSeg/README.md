@@ -33,7 +33,7 @@ The angle at which a surface is viewed using a "structured light for depth sensi
 |:--:|:--:|
 | Perpendicular raw image | Perpendicular depth image |
 
-| ![Image 1](docs/angle/raw_image_perp.png) | ![Image 2](docs/angle/depth_image_perp.png) |
+| ![Image 1](docs/angle/raw_image_incident.png) | ![Image 2](docs/angle/depth_image_incident.png) |
 |:--:|:--:|
 | Parallel raw image | Parallel depth image |
 
