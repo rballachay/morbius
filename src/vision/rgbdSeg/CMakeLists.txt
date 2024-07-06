@@ -25,4 +25,4 @@ add_executable(planeSegment ${sources})
 
 include_directories(include ${realsense_INCLUDE_DIR})
 target_include_directories(planeSegment PRIVATE ${realsense_INCLUDE_DIR})
-target_link_libraries(planeSegment ${OpenCV_LIBS} libMRF.a ${realsense2_LIBRARY})
+target_link_libraries(planeSegment ${OpenCV_LIBS} libMRF.a ${realsense2_LIBRARY} ${EIGEN3_LIBRARIES})
