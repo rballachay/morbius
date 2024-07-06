@@ -12,9 +12,7 @@ find_package(OpenCV REQUIRED)
 find_package(realsense2 REQUIRED)
 find_package(Eigen3 REQUIRED)
 
-include_directories(${OpenCV_INCLUDE_DIRS} /usr/local/include/eigen3)
-include_directories(${realsense2_INCLUDE_DIR})
-include_directories(include/peac)
+include_directories(${OpenCV_INCLUDE_DIRS} ${Eigen3_INCLUDE_DIRS})
 include_directories(include/MRF2.2)
 include_directories(include/plane)
 

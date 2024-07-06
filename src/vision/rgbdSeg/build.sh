@@ -62,6 +62,25 @@ check_eigen3() {
     fi
 }
 
+check_cmake() {
+    if command_exists brew; then
+        if brew list cmake &>/dev/null; then
+            echo "Cmake is installed."
+        else
+            brew install cmake
+        fi
+    elif command_exists pkg-config; then
+        if pkg-config --exists eigen3; then
+            echo "cmake is installed."
+        else
+            apt-get install cmake-curses-gui
+        fi
+    else
+        echo "Neither pkg-config nor brew found. Cannot check cmake installation."
+    fi
+}
+
+
 INSTALL_DEPS=false
 
 while [[ $# -gt 0 ]]; do
@@ -78,6 +97,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if $INSTALL_DEPS; then
+    check_cmake
     check_eigen3
     check_opencv
     check_realsense2
