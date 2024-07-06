@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 #include <Eigen/Eigen>
-#include "AHCPlaneFitter.hpp"
+#include "../peac/AHCPlaneFitter.hpp"
 #include "mrf.h"
 #include "GCoptimization.h"
 #include <unordered_map>
