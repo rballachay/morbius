@@ -161,3 +161,25 @@ bash build.sh --include-deps
 ```
 
 This should automatically install all the missing dependencies and then compile the executable `planeSegment`.
+
+## Profiling 
+
+Using activity monitor and intruments in mac, I was able to determine the CPU and memory usage of each of the components of both the vision and language models. Here is a summary:
+
+__Language__
+
+| Component         | CPU Usage (max, %) | CPU Usage (threads) | Memory Usage (max, MB)    |
+|--------------|-----|-----|---------------|
+| controller.py        | 105  | 32  | 500      |
+| rasa-model          | 25  |  22 | 900      |
+| rasa-actions      | 1  | 2 | 80      |
+
+Note that for the controller.py, we are loading nix-tts, which is likely consuming the majority of the memory used in the controller.py, as the model itself is 5.5M decoder, 15M encoder. I have separated the model and actions, as these are launched as subprocesses, so they have a different PID. 
+
+__Vision__
+
+| Component         | CPU Usage (max, %) | CPU Usage (threads) | Memory Usage (max, MB)    |
+|--------------|-----|-----|---------------|
+| controller.py        | 105  | 32  | 500      |
+| rasa-model          | 25  |  22 | 900      |
+| rasa-actions      | 1  | 2 | 80      |
