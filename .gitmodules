@@ -22,3 +22,7 @@
 [submodule "submodules/libfvad"]
 	path = submodules/libfvad
 	url = https://github.com/dpirch/libfvad
+[submodule "submodules/ORB_SLAM3"]
+	path = submodules/ORB_SLAM3
+	url = https://github.com/rballachay/ORB_SLAM3
+	branch = ORB_SLAM3_MAC
