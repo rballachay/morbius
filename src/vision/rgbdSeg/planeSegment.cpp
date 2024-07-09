@@ -1,10 +1,9 @@
-#include "plane_detection.h"
 #include "realsense.hpp"
-
+#include "plane_detection.h"
+#include "artificialFields.hpp"
 // can be changed to an arg later
-#define AGENT_WIDTH 20 // cm
 #define AVG_FRAMES 5
-
+#define AGENT_WIDTH 20 // cm
 
 int findMinZVal(const std::vector<std::vector<int>>& plane_vertices, std::vector<VertexType>& vertices, std::vector<bool> candidates) {
     int minIndex = -1;
@@ -27,6 +26,7 @@ int findMinZVal(const std::vector<std::vector<int>>& plane_vertices, std::vector
     }
     return minIndex;
 }
+
 
 struct Surfaces{
 	std::vector<ahc::PlaneSeg::shared_ptr> planes;
@@ -130,7 +130,12 @@ struct GroundVectors{
 			int hitObject = false;
 			for (i = cloud.height()-1; i >= iMax; i--){
 				double x, y, z, xL, xR;
-				cloud.get(i, j, x, y, z);
+				
+				bool exists = cloud.get(i, j, x, y, z);
+
+				if (!exists){
+					continue;
+				}
 
 				// first check the right
 				int jR = j;
@@ -139,7 +144,12 @@ struct GroundVectors{
 					if (jR>cloud.width()-1){
 						break;
 					}
-					cloud.get(i, jR, xR, y, z);
+					bool exists = cloud.get(i, jR, xR, y, z);
+
+					if (!exists){
+						continue;
+					}
+
 					if (abs(x-xR)>agentWidth){
 						break;
 					}
@@ -184,52 +194,6 @@ struct GroundVectors{
 
 };
 
-cv::Mat computeAverage(const std::vector<cv::Mat>& mats) {
-    /*
-    <[640,480,3],[640,480,3]> -> [640,480,3]
-    */
-    if (mats.empty()) {
-        std::cerr << "Error: Input vector is empty!" << std::endl;
-        return cv::Mat();
-    }
-
-    // Initialize sum for each channel
-    std::vector<cv::Mat> channelSums;
-    for (int c = 0; c < mats[0].channels(); ++c) {
-        cv::Mat channelSum = cv::Mat::zeros(mats[0].size(), CV_64FC1); // Sum in double for accuracy
-        channelSums.push_back(channelSum);
-    }
-
-    // Accumulate sums across all images
-    for (const auto& mat : mats) {
-        std::vector<cv::Mat> channels;
-        cv::split(mat, channels); // Split into separate channels
-
-        for (int c = 0; c < mat.channels(); ++c) {
-            cv::Mat channelFloat;
-            channels[c].convertTo(channelFloat, CV_64FC1); // Convert to double for accumulation
-            channelSums[c] += channelFloat;
-        }
-    }
-
-    // Compute average for each channel
-    std::vector<cv::Mat> channelAverages;
-    for (int c = 0; c < mats[0].channels(); ++c) {
-        cv::Mat channelAverage;
-        cv::divide(channelSums[c], static_cast<double>(mats.size()), channelAverage);
-        channelAverages.push_back(channelAverage);
-    }
-
-    // Merge channels into single output image
-    cv::Mat averageImage;
-    cv::merge(channelAverages, averageImage);
-
-    // Convert back to original type (assuming input mats are of same type)
-    averageImage.convertTo(averageImage, mats[0].type());
-
-    return averageImage;
-}
-
 void printPlaneMembership(PlaneDetection& plane_detection){
 	std::cout << plane_detection.cloud.vertices.size() << std::endl;
 	int total = 0;
@@ -243,6 +207,7 @@ void printPlaneMembership(PlaneDetection& plane_detection){
 		}
 	}
 }
+
 
 void fillHoles(const cv::Mat& src) {
 	int kernelSize = 15;
@@ -372,20 +337,66 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 		}
 		
 		// Define start and end points for the arrow
-		//cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
-		//cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs._vecMaxI[k]);
-		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+		cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
+		cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs._vecMaxI[k]);
+		cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 
 
 		// Define start and end points for the arrow
-		cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
-		cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs.vecMaxI[k]);
+		//cv::Point start(ground_vecs.vecMaxJ[k],  plane_detection.cloud.height()-1);
+		//cv::Point end(ground_vecs.vecMaxJ[k], ground_vecs.vecMaxI[k]);
 
 		// Draw the arrowed line
-		cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
+		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 	}
 
 	return drawnImage;
+}
+
+cv::Mat computeAverage(const std::vector<cv::Mat>& mats) {
+    /*
+    <[640,480,3],[640,480,3]> -> [640,480,3]
+    */
+    if (mats.empty()) {
+        std::cerr << "Error: Input vector is empty!" << std::endl;
+        return cv::Mat();
+    }
+
+    // Initialize sum for each channel
+    std::vector<cv::Mat> channelSums;
+    for (int c = 0; c < mats[0].channels(); ++c) {
+        cv::Mat channelSum = cv::Mat::zeros(mats[0].size(), CV_64FC1); // Sum in double for accuracy
+        channelSums.push_back(channelSum);
+    }
+
+    // Accumulate sums across all images
+    for (const auto& mat : mats) {
+        std::vector<cv::Mat> channels;
+        cv::split(mat, channels); // Split into separate channels
+
+        for (int c = 0; c < mat.channels(); ++c) {
+            cv::Mat channelFloat;
+            channels[c].convertTo(channelFloat, CV_64FC1); // Convert to double for accumulation
+            channelSums[c] += channelFloat;
+        }
+    }
+
+    // Compute average for each channel
+    std::vector<cv::Mat> channelAverages;
+    for (int c = 0; c < mats[0].channels(); ++c) {
+        cv::Mat channelAverage;
+        cv::divide(channelSums[c], static_cast<double>(mats.size()), channelAverage);
+        channelAverages.push_back(channelAverage);
+    }
+
+    // Merge channels into single output image
+    cv::Mat averageImage;
+    cv::merge(channelAverages, averageImage);
+
+    // Convert back to original type (assuming input mats are of same type)
+    averageImage.convertTo(averageImage, mats[0].type());
+
+    return averageImage;
 }
 
 int realSenseAttached(){
@@ -434,9 +445,12 @@ int realSenseAttached(){
 				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 				plane_detection.plane_filter.colors = {};
 
-				cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
+				Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
+				std::vector<VertexType> projectedVertices = projectOnPlane(surfaces.vertices, plane);
 
-				cv::imshow("Processed Frame", plane_detection.seg_img_);
+				cv::Mat map2d = draw2DPoints(projectedVertices);
+
+				cv::imshow("Processed Frame", map2d);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
 					//cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 					//cv::imwrite("depth_image.png", depth_mat*50);
