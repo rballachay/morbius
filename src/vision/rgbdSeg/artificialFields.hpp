@@ -52,7 +52,26 @@ std::vector<VertexType> projectOnPlane(std::vector<VertexType> vertices, Plane p
     return projectedPoints;
 }
 
-cv::Mat draw2DPoints(std::vector<VertexType> points){
+std::vector<int> mapPointsToSurfaces(const std::vector<VertexType> points, const std::vector<std::vector<int>> surfaces) {
+    std::vector<int> surfaceIndices(points.size(), -1); // Initialize with -1 for points not found in any surface
+    // Iterate over each surface
+    for (size_t surfaceIdx = 0; surfaceIdx < surfaces.size(); ++surfaceIdx) {
+        std::vector<int> surface = surfaces[surfaceIdx];
+        
+        // Assign the surface index to each point in the current surface
+        for (int pointIdx : surface) {
+            if (pointIdx < static_cast<int>(points.size())) { // Ensure pointIdx is within valid range
+                surfaceIndices[pointIdx] = static_cast<int>(surfaceIdx);
+            }
+        }
+    }
+
+    return surfaceIndices;
+}
+
+cv::Mat draw2DPoints(std::vector<VertexType> points, std::vector<std::vector<int>> planeVertices, int groundIdx){
+    std::vector<int> surfaceIndices = mapPointsToSurfaces(points, planeVertices);
+
     // Step 1: Find minimum and maximum x and y values
     int minX = std::numeric_limits<int>::max();
     int maxX = std::numeric_limits<int>::min();
@@ -76,8 +95,17 @@ cv::Mat draw2DPoints(std::vector<VertexType> points){
     cv::Mat image(500, 500, CV_8UC3, cv::Scalar(255, 255, 255));
 
     // Step 4: Draw scaled points on the image
-    for (const auto& point : points) {
-        cv::circle(image, cv::Point(point.x(), point.y()), 5, cv::Scalar(0, 0, 255), -1);
+    for (size_t i = 0; i < points.size(); ++i) {  // Use size_t for the loop variable
+        const VertexType& point = points[i];
+        cv::Scalar color(0, 0, 255); // Default color: Red
+
+        // Change color if point belongs to the ground index
+        if (surfaceIndices[i] == groundIdx) {
+            color = cv::Scalar(0, 255, 0); // Green color for ground index
+        }
+
+        // Draw the point on the image
+        cv::circle(image, cv::Point(static_cast<int>(point.x()), static_cast<int>(point.y())), 5, color, -1);
     }
     return image;
 }

@@ -448,7 +448,7 @@ int realSenseAttached(){
 				Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
 				std::vector<VertexType> projectedVertices = projectOnPlane(surfaces.vertices, plane);
 
-				cv::Mat map2d = draw2DPoints(projectedVertices);
+				cv::Mat map2d = draw2DPoints(projectedVertices, plane_detection.plane_vertices_, surfaces.groundIdx);
 
 				cv::imshow("Processed Frame", map2d);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
