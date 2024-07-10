@@ -417,10 +417,9 @@ int realSenseAttached(){
 				std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
 
 				pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
-				cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx);
 
 				Forces forces = resultantForces(voxelCloud);
-				std::cout << "x force: " << forces.x << ", z force:: " << forces.z << std::endl;
+				cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
 
 				cv::imshow("Processed Frame", map2d);
 				cv::imshow("Processed Frame 2",  depth_mat*50);
