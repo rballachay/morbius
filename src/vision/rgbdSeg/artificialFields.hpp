@@ -4,6 +4,10 @@
 #include <memory>
 #include <cmath>
 #include "plane_detection.h"
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/extract_indices.h>
 
 #define C_ATTRACT 10.
 #define C_REPULSE 5.
@@ -19,7 +23,6 @@ struct Plane {
 
 Plane computePlaneEq(std::vector<ahc::PlaneSeg::shared_ptr> planeSegs, int groundIdx) {
     Plane plane(0,0,0,0);
-    std::cout << groundIdx << std::endl;
     if (groundIdx==-1){
         return plane;
     }
@@ -52,25 +55,7 @@ std::vector<VertexType> projectOnPlane(std::vector<VertexType> vertices, Plane p
     return projectedPoints;
 }
 
-std::vector<int> mapPointsToSurfaces(const std::vector<VertexType> points, const std::vector<std::vector<int>> surfaces) {
-    std::vector<int> surfaceIndices(points.size(), -1); // Initialize with -1 for points not found in any surface
-    // Iterate over each surface
-    for (size_t surfaceIdx = 0; surfaceIdx < surfaces.size(); ++surfaceIdx) {
-        std::vector<int> surface = surfaces[surfaceIdx];
-        
-        // Assign the surface index to each point in the current surface
-        for (int pointIdx : surface) {
-            if (pointIdx < static_cast<int>(points.size())) { // Ensure pointIdx is within valid range
-                surfaceIndices[pointIdx] = static_cast<int>(surfaceIdx);
-            }
-        }
-    }
-
-    return surfaceIndices;
-}
-
-cv::Mat draw2DPoints(std::vector<VertexType> points, std::vector<std::vector<int>> planeVertices, int groundIdx){
-    std::vector<int> surfaceIndices = mapPointsToSurfaces(points, planeVertices);
+cv::Mat draw2DPoints(pcl::PointCloud<pcl::PointXYZL>::Ptr points, std::vector<std::vector<int>> planeVertices, int groundIdx){
 
     // Step 1: Find minimum and maximum x and y values
     int minX = std::numeric_limits<int>::max();
@@ -78,36 +63,130 @@ cv::Mat draw2DPoints(std::vector<VertexType> points, std::vector<std::vector<int
     int minY = std::numeric_limits<int>::max();
     int maxY = std::numeric_limits<int>::min();
 
-    for (const auto& point : points) {
-        if (point.x() < minX) minX = point.x();
-        if (point.x() > maxX) maxX = point.x();
-        if (point.y() < minY) minY = point.y();
-        if (point.y() > maxY) maxY = point.y();
+    for (const auto& point : points->points) {
+        if (point.x < minX) minX = point.x;
+        if (point.x > maxX) maxX = point.x;
+        if (point.y < minY) minY = point.y;
+        if (point.y > maxY) maxY = point.y;
     }
 
     // Step 2: Scale points to range [0, 500]
-    for (auto& point : points) {
-        point.x() = static_cast<int>(500.0 * (point.x() - minX) / (maxX - minX));
-        point.y() = static_cast<int>(500.0 * (point.y() - minY) / (maxY - minY));
+    for (auto& point : points->points) {
+        point.x = static_cast<int>(500.0 * (point.x - minX) / (maxX - minX));
+        point.y = static_cast<int>(500.0 * (point.y - minY) / (maxY - minY));
     }
 
     // Step 3: Create a blank image
     cv::Mat image(500, 500, CV_8UC3, cv::Scalar(255, 255, 255));
 
     // Step 4: Draw scaled points on the image
-    for (size_t i = 0; i < points.size(); ++i) {  // Use size_t for the loop variable
-        const VertexType& point = points[i];
+    for (size_t i = 0; i < points->points.size(); ++i) {  // Use size_t for the loop variable
+        const pcl::PointXYZL& point = points->points[i];
         cv::Scalar color(0, 0, 255); // Default color: Red
 
         // Change color if point belongs to the ground index
-        if (surfaceIndices[i] == groundIdx) {
+        if (point.label == groundIdx) {
             color = cv::Scalar(0, 255, 0); // Green color for ground index
         }
 
         // Draw the point on the image
-        cv::circle(image, cv::Point(static_cast<int>(point.x()), static_cast<int>(point.y())), 5, color, -1);
+        cv::circle(image, cv::Point(static_cast<int>(point.x), static_cast<int>(point.y)), 5, color, -1);
     }
+
     return image;
+}
+
+
+pcl::PointCloud<pcl::PointXYZL>::Ptr makeVoxelCloud(const std::vector<VertexType>& vertices, const std::vector<std::vector<int>>& plane_vertices) {
+    // Step 2: Create a pcl::PointCloud<pcl::PointXYZ> and populate it
+    pcl::PointCloud<pcl::PointXYZL>::Ptr cloudXYZ(new pcl::PointCloud<pcl::PointXYZL>);
+    for (int i=0; i<plane_vertices.size(); i++){
+        for (int j=0; j<plane_vertices[i].size(); j++) {
+            int idx = plane_vertices[i][j];
+            VertexType vertex = vertices[idx];
+            pcl::PointXYZL point;
+            point.x = vertex.x();
+            point.y = vertex.y();
+            point.z = vertex.z();
+            point.label = i;
+            cloudXYZ->points.push_back(point);
+        }
+    }
+
+    cloudXYZ->width = cloudXYZ->points.size();
+    cloudXYZ->height = 1; // Unorganized point cloud
+    cloudXYZ->is_dense = true;
+
+    std::cerr << "PointCloud before filtering: " << cloudXYZ->width * cloudXYZ->height 
+              << " data points." << std::endl;
+
+    // Create the filtering object
+    pcl::PointCloud<pcl::PointXYZL>::Ptr cloud_filtered(new pcl::PointCloud<pcl::PointXYZL>);
+    pcl::VoxelGrid<pcl::PointXYZL> sor;
+    sor.setInputCloud(cloudXYZ);
+    sor.setLeafSize(10.f, 10.f, 10.f); // the units here are mm -> 0.01 m
+    sor.filter(*cloud_filtered);
+
+    std::cerr << "PointCloud after filtering: " << cloud_filtered->width * cloud_filtered->height 
+              << " data points." << std::endl;
+
+    return cloud_filtered;
+}
+
+double computeManhattanDistance(const pcl::PointXYZL& pt1, const pcl::PointXYZ& pt2) {
+    return std::abs(pt1.x - pt2.x) + std::abs(pt1.y - pt2.y) + std::abs(pt1.z - pt2.z);
+}
+
+double findLargestManhattanDistance(pcl::PointCloud<pcl::PointXYZL>::Ptr cloud, const pcl::PointXYZ& referencePoint) {
+    double maxDistance = 0.0;
+
+    for (const auto& point : cloud->points) {
+        double distance = computeManhattanDistance(point, referencePoint);
+        if (distance > maxDistance) {
+            maxDistance = distance;
+        }
+    }
+
+    return maxDistance;
+}
+
+struct Forces{
+    double x,z;
+};
+
+double calcModulus(double a, double b) {
+    return std::sqrt(std::pow(a, 2) + std::pow(b, 2));
+}
+
+Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud, 
+        pcl::PointXYZ source = pcl::PointXYZ(0,0,0), pcl::PointXYZ dest = pcl::PointXYZ(0,0,5000)){
+
+    double Dmax = findLargestManhattanDistance(voxelCloud, source);
+    const double lambda = 0.01;
+    const double hat = 5e3;
+    std::vector<double> thetas;
+    for (const auto& pt : voxelCloud->points) {
+        double arctan_xz = std::atan2(pt.x-source.x, pt.z-source.z);
+        thetas.push_back(arctan_xz);
+    }
+
+    double force_x_repulse = std::accumulate(thetas.begin(), thetas.end(), 0.0, [&lambda, &Dmax](double sum, double value) {
+        return sum + (lambda/Dmax)* std::sin(value);
+    });
+
+    double force_z_repulse = std::accumulate(thetas.begin(), thetas.end(), 0.0, [&lambda, &Dmax](double sum, double value) {
+        return sum + (lambda/Dmax)* std::cos(value);
+    });
+
+    const double phi = std::atan2(dest.x-source.x, dest.z-source.z);
+    std::cout << dest.z << std::endl;
+
+    double force_z_attr = std::cos(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
+    double force_x_attr = std::sin(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
+    Forces forces;
+    forces.x = force_x_attr - force_x_repulse;
+    forces.z = force_z_attr - force_z_repulse;
+    return forces;
 }
 
 

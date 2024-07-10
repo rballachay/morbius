@@ -1,43 +1,21 @@
 #include "realsense.hpp"
 #include "plane_detection.h"
 #include "artificialFields.hpp"
+#include <Eigen/Eigen>
 // can be changed to an arg later
-#define AVG_FRAMES 5
+#define AVG_FRAMES 10
 #define AGENT_WIDTH 20 // cm
-
-int findMinZVal(const std::vector<std::vector<int>>& plane_vertices, std::vector<VertexType>& vertices, std::vector<bool> candidates) {
-    int minIndex = -1;
-    int minValue = std::numeric_limits<int>::max(); // Start with a large value
-
-    for (size_t i = 0; i < plane_vertices.size(); ++i) {
-		if (candidates[i]){
-			const std::vector<int>& innerVec = plane_vertices[i];
-			for (size_t j = 0; j < innerVec.size(); ++j){
-				double secondElementValue = vertices[innerVec[j]].x();
-				if (secondElementValue==0){
-					continue;
-				}
-				if (secondElementValue < minValue) {
-					minValue = secondElementValue;
-					minIndex = static_cast<int>(i); // Record the index of the minimum
-				}
-			}
-		}
-    }
-    return minIndex;
-}
-
 
 struct Surfaces{
 	std::vector<ahc::PlaneSeg::shared_ptr> planes;
-	std::vector<vector<int>> plane_vertices;
-	std::vector<VertexType> vertices;
+	std::vector<std::vector<int>> plane_vertices;
+	std::vector<Eigen::Vector3d> vertices;
 	std::vector<cv::Vec3b> colors;
 
 	size_t numPlanes;
 	int groundIdx; // index of the ground, if it can't be assigned, gives warning
 
-	Surfaces(const PlaneDetection& planeDetection) {
+	Surfaces(PlaneDetection planeDetection) {
 		planes = planeDetection.plane_filter.extractedPlanes;
 		plane_vertices = planeDetection.plane_vertices_;
 		vertices = planeDetection.cloud.vertices;
@@ -54,38 +32,21 @@ struct Surfaces{
     }
 
 	int assignGround(){
-		/* looking for the vector with y-component closest to -1. if there are multiple 
-		within tolernace, choose whichever is closest to the bottom (has the smallest y-component).
-		*/
-		double tolerance = 0.1;
-		int nCandidates = 0;
 		std::vector<bool> candidates(numPlanes);
+		int minIndex = -1;
+		double minDiff = 1.;
 		for (int i = 0; i < numPlanes; i++)
 		{
 			if (!planes[i]) continue; // if nullptr, skip 
 			double normal = planes[i]->normal[1]; // second element is y value
 			std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
-			if (std::abs(-1.f -  normal) < tolerance){
-				candidates[i] = true;
-				nCandidates++;
-			}else{
-				candidates[i] = false;
+			double diff = std::abs(-1.f -  normal);
+			if (diff < minDiff){
+				minDiff=diff;
+				minIndex=i;
 			}
 		}
-
-		if (nCandidates==0){
-			return -1;
-		}else if (nCandidates==1){
-			for (int i = 0; i < candidates.size(); i++) {
-				if (candidates[i]) {
-					return i;
-				}
-    		}
-		}else{
-			int minVal = findMinZVal(plane_vertices, vertices, candidates);
-			return minVal;
-		}
-		return 0;
+		return minIndex;
 	}
 
 };
@@ -404,10 +365,11 @@ int realSenseAttached(){
     try {
         RealSense realsense;
         realsense.startPipeline();
+		float depthScale = realsense.depthScale;
 
 		std::vector<cv::Mat> depths(AVG_FRAMES);
     	std::vector<cv::Mat> colorImages(AVG_FRAMES);
-        realsense.captureFrames([&depths, &colorImages, &frameCount](const rs2::frameset& frames) 
+        realsense.captureFrames([&depths, &colorImages, &frameCount, &depthScale](const rs2::frameset& frames) 
 		{
 			
 		    //get the average of 5 frames per second
@@ -420,6 +382,11 @@ int realSenseAttached(){
             // Convert depth frame to CV_16U Mat
             cv::Mat depth_mat(cv::Size(640, 480), CV_16UC1, (void*)depth_processed.get_data(), cv::Mat::AUTO_STEP);
             cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
+
+			// Define the row and column range
+			cv::Range rowRange(0, 480); // Rows 1 to 3
+			cv::Range colRange(0, 60); // Columns 2 to 4
+			depth_mat(rowRange, colRange) = cv::Scalar(0);
 
 			colorImages[frameCount] = color_mat.clone();
         	depths[frameCount] = depth_mat.clone();
@@ -441,16 +408,23 @@ int realSenseAttached(){
 
 				Surfaces surfaces(plane_detection);
 
+				// run once so that we can get thee plane_vertices, then run again
 				plane_detection.plane_filter.colors = surfaces.colors;
 				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 				plane_detection.plane_filter.colors = {};
 
 				Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
-				std::vector<VertexType> projectedVertices = projectOnPlane(surfaces.vertices, plane);
+				std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
 
-				cv::Mat map2d = draw2DPoints(projectedVertices, plane_detection.plane_vertices_, surfaces.groundIdx);
+				pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
+				cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx);
+
+				Forces forces = resultantForces(voxelCloud);
+				std::cout << "x force: " << forces.x << ", z force:: " << forces.z << std::endl;
 
 				cv::imshow("Processed Frame", map2d);
+				cv::imshow("Processed Frame 2",  depth_mat*50);
+				cv::imshow("Processed Frame 3",  plane_detection.seg_img_);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
 					//cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 					//cv::imwrite("depth_image.png", depth_mat*50);

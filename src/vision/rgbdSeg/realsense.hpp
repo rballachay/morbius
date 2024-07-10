@@ -18,6 +18,7 @@ private:
     void warmUpPipeline();
 
 public:
+    float depthScale;
     RealSense(const std::vector<int>& exposures = std::vector<int>());
     void startPipeline();
     rs2::pipeline_profile getPipelineProfile() const;

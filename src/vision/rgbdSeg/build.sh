@@ -80,6 +80,23 @@ check_cmake() {
     fi
 }
 
+check_pcl() {
+    if command_exists brew; then
+        if brew list pcl &>/dev/null; then
+            echo "Cmake is installed."
+        else
+            brew install pcl
+        fi
+    elif command_exists pkg-config; then
+        if pkg-config --exists pcl; then
+            echo "cmake is installed."
+        else
+            apt-get install pcl
+        fi
+    else
+        echo "Neither pkg-config nor brew found. Cannot check cmake installation."
+    fi
+}
 
 INSTALL_DEPS=false
 

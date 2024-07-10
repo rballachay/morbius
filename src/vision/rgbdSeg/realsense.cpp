@@ -43,6 +43,14 @@ void RealSense::configureCameraSettings() {
     }
 
     advanced_mode_dev.load_json(str);
+
+    rs2::depth_sensor sensor = dev.first<rs2::depth_sensor>();
+    depthScale = sensor.get_depth_scale();
+
+    // if there are no exposures set, turn on auto exposure
+    if (exposures.empty()){
+        sensor.set_option(RS2_OPTION_ENABLE_AUTO_EXPOSURE, 1);
+    }
 }
 
 void RealSense::warmUpPipeline() {
@@ -61,7 +69,6 @@ void RealSense::startPipeline() {
 
     profile = pipeline.start(config);
 
-
     configureCameraSettings();
     warmUpPipeline();
 }
@@ -73,6 +80,7 @@ rs2::pipeline_profile RealSense::getPipelineProfile() const {
 rs2::pipeline& RealSense::getPipeline() {
     return pipeline;
 }
+
 
 void RealSense::captureFrames(const std::function<void(const rs2::frameset&)>& frameHandler) {
     int i = 0; 
@@ -176,11 +184,11 @@ filter_options::filter_options(const std::string& name, rs2::filter& filter)
     : filter_name(name), filter(filter) {}
 
 rs2::frame preprocessDepth(rs2::frame& depth_frame){
-    rs2::frame filtered = depth_frame; 
+    rs2::frame filtered = depth_frame;
 
     //rs2::decimation_filter dec_filter;  // Decimation - reduces depth frame density
     rs2::threshold_filter thr_filter;   // Threshold  - removes values outside recommended range
-    thr_filter.set_option(RS2_OPTION_MAX_DISTANCE, 3.0f);
+    thr_filter.set_option(RS2_OPTION_MAX_DISTANCE, 10.0f);
 
     rs2::spatial_filter spat_filter;    // Spatial    - edge-preserving spatial smoothing
     spat_filter.set_option(RS2_OPTION_FILTER_MAGNITUDE, 5);
@@ -202,10 +210,10 @@ rs2::frame preprocessDepth(rs2::frame& depth_frame){
     // The following order of emplacement will dictate the orders in which filters are applied
     //filters.emplace_back("Decimate", dec_filter);
     filters.emplace_back("Threshold", thr_filter);
-    filters.emplace_back("Disparity", depth_to_disparity);
+    //filters.emplace_back("Disparity", depth_to_disparity);
     filters.emplace_back("Spatial", spat_filter);
     filters.emplace_back("Temporal", temp_filter);
-    filters.emplace_back("Depth",disparity_to_depth);
+    //filters.emplace_back("Depth",disparity_to_depth);
     filters.emplace_back("Hole filling", hole_filling_filter);
 
     for (auto&& filter : filters) {
