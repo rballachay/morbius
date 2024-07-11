@@ -11,14 +11,13 @@ find_package(OpenCV REQUIRED)
 find_package(realsense2 REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(PCL REQUIRED)
-find_package(JsonCpp REQUIRED)  # Use find_package to find JsonCpp
+find_package(jsoncpp REQUIRED)  # Use find_package to find JsonCpp
 
 # Add include directories
 include_directories(
     ${OpenCV_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIRS}
     ${PCL_INCLUDE_DIRS}
-    ${JsonCpp_INCLUDE_DIRS}  # Include JsonCpp include directory
     include/MRF2.2  # Add any necessary include directories
     include/plane
 )
@@ -39,5 +38,5 @@ target_link_libraries(planeSegment
     ${realsense2_LIBRARY} 
     ${EIGEN3_LIBRARIES} 
     ${PCL_LIBRARIES} 
-    ${JsonCpp_LIBRARIES}  # Link JsonCpp library
+    jsoncpp_lib
 )
