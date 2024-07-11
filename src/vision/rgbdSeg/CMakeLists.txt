@@ -38,5 +38,4 @@ target_link_libraries(planeSegment
     ${realsense2_LIBRARY} 
     ${EIGEN3_LIBRARIES} 
     ${PCL_LIBRARIES} 
-    jsoncpp_lib
 )
