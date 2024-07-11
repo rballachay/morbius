@@ -13,6 +13,14 @@ find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(PCL REQUIRED)
 find_package(jsoncpp REQUIRED)  # Use find_package to find JsonCpp
 
+if (jsoncpp_FOUND)
+    add_library(MyJsonCpp::JsonCpp UNKNOWN IMPORTED)
+    set_target_properties(MyJsonCpp::JsonCpp PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${JsonCpp_INCLUDE_DIRS}"
+        IMPORTED_LOCATION "${JsonCpp_LIBRARIES}"
+    )
+endif()
+
 # Add include directories
 include_directories(
     ${OpenCV_INCLUDE_DIRS}
