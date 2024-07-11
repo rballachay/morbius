@@ -188,7 +188,7 @@ rs2::frame preprocessDepth(rs2::frame& depth_frame){
 
     //rs2::decimation_filter dec_filter;  // Decimation - reduces depth frame density
     rs2::threshold_filter thr_filter;   // Threshold  - removes values outside recommended range
-    thr_filter.set_option(RS2_OPTION_MAX_DISTANCE, 10.0f);
+    thr_filter.set_option(RS2_OPTION_MAX_DISTANCE, 3.0f);
 
     rs2::spatial_filter spat_filter;    // Spatial    - edge-preserving spatial smoothing
     spat_filter.set_option(RS2_OPTION_FILTER_MAGNITUDE, 5);

@@ -137,6 +137,7 @@ pcl::PointCloud<pcl::PointXYZL>::Ptr filterPointCloud(pcl::PointCloud<pcl::Point
     return filteredCloud;
 }
 
+
 pcl::PointCloud<pcl::PointXYZL>::Ptr makeVoxelCloud(const std::vector<VertexType>& vertices, const std::vector<std::vector<int>>& plane_vertices) {
     // Step 2: Create a pcl::PointCloud<pcl::PointXYZ> and populate it
     pcl::PointCloud<pcl::PointXYZL>::Ptr cloudXYZ(new pcl::PointCloud<pcl::PointXYZL>);
@@ -204,7 +205,6 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         pcl::PointXYZ source = pcl::PointXYZ(0,0,0), pcl::PointXYZ dest = pcl::PointXYZ(0,0,5000)){
 
     double Dmax = findLargestManhattanDistance(voxelCloud, source);
-    std::cout << Dmax << std::endl;
     const double lambda = 0.5;
     const double hat = 5000;
     std::vector<double> thetas;
@@ -222,15 +222,117 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
     });
 
     const double phi = std::atan2(dest.x-source.x, dest.z-source.z);
-    std::cout << dest.z << std::endl;
 
     double force_z_attr = std::cos(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     double force_x_attr = std::sin(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     Forces forces;
     forces.x = force_x_attr - force_x_repulse;
     forces.z = force_z_attr - force_z_repulse;
-    std::cout << "force x: " << forces.x << ", forces z: " << forces.z << std::endl;
+    //std::cout << "force x: " << forces.x << ", forces z: " << forces.z << std::endl;
     return forces;
+}
+
+cv::Vec3b valueToColor(double value, double minVal, double maxVal) {
+    // Normalize the value between 0 and 1
+    double normalizedValue = (value - minVal) / (maxVal - minVal);
+
+    int hue = static_cast<int>(120 * normalizedValue);
+
+    cv::Mat hsv(1, 1, CV_8UC3, cv::Scalar(hue, 255, 255));
+    cv::Mat bgr;
+    cv::cvtColor(hsv, bgr, cv::COLOR_HSV2BGR);
+
+    cv::Vec3b color = bgr.at<cv::Vec3b>(0, 0);
+    
+    return color;
+}
+
+std::vector<cv::Vec3b> valuesToColors(const std::vector<double>& values) {
+    double minVal = *std::min_element(values.begin(), values.end());
+    double maxVal = *std::max_element(values.begin(), values.end());
+
+    std::vector<cv::Vec3b> colors;
+    colors.reserve(values.size());
+
+    // Convert each value to BGR color and store in the vector
+    for (double value : values) {
+        cv::Vec3b color = valueToColor(value, minVal, maxVal);
+        colors.push_back(color);
+    }
+
+    return colors;
+}
+
+double scalarProjectionMagnitude(const pcl::PointXYZ& start_point,
+                                 const pcl::PointXYZ& end_point,
+                                 const pcl::PointXYZ& point_to_project) {
+    // Compute vector from start_point to end_point (direction vector)
+    pcl::PointXYZ direction_vector;
+    direction_vector.x = end_point.x - start_point.x;
+    direction_vector.y = end_point.y - start_point.y;
+    direction_vector.z = end_point.z - start_point.z;
+
+    // Compute dot product of direction_vector and vector from start_point to point_to_project
+    double dot_product = (point_to_project.x - start_point.x) * direction_vector.x +
+                         (point_to_project.y - start_point.y) * direction_vector.y +
+                         (point_to_project.z - start_point.z) * direction_vector.z;
+
+    // Compute magnitude of direction_vector
+    double direction_magnitude = std::sqrt(direction_vector.x * direction_vector.x +
+                                           direction_vector.y * direction_vector.y +
+                                           direction_vector.z * direction_vector.z);
+
+    // Compute scalar projection magnitude
+    double scalar_projection_magnitude = dot_product / direction_magnitude;
+
+    return scalar_projection_magnitude;
+}
+
+
+cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vector<int>>& plane_vertices, 
+        int groundIdx, pcl::PointCloud<pcl::PointXYZL>::Ptr cloud, Plane plane, cv::Mat image){
+    
+    cv::Mat output_image = image.clone();
+    if (groundIdx==-1){
+        return output_image;
+    }
+
+    size_t nGround = plane_vertices[groundIdx].size();
+    std::vector<VertexType> groundVertices(nGround);
+    std::vector<std::tuple<int,int>> groundPts(nGround);
+    for (size_t i=0; i<nGround;i++){
+        size_t idx = plane_vertices[groundIdx][i];
+        groundVertices[i] = vertices[idx];
+
+        // from plane_detection.h:44 -> const int pixIdx = row * w + col;
+        int row = idx/image.cols;
+        int col = idx % image.cols;
+        groundPts[i] = std::make_tuple(row, col); 
+    }
+
+    std::vector<VertexType> projectedVertices = projectOnPlane(groundVertices, plane);
+    std::vector<double> magnitudes(nGround);
+    for (size_t i=0; i<nGround;i++){
+        VertexType vertex = projectedVertices[i];
+        pcl::PointXYZ source;
+        source.x = vertex.x();
+        source.y = vertex.y();
+        source.z = vertex.z();
+        Forces forces = resultantForces(cloud, source);
+        magnitudes[i]= calcModulus(forces.x, forces.z);
+    } 
+
+    std::vector<cv::Vec3b> rgbVals = valuesToColors(magnitudes);
+
+    for (size_t i=0; i<nGround; i++){
+        std::tuple<int,int> tup = groundPts[i];
+        int row = std::get<0>(tup);
+        double col = std::get<1>(tup);
+        output_image.at<cv::Vec3b>(row, col) = rgbVals[i];
+    }
+
+    return output_image;
+    
 }
 
 

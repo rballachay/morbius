@@ -421,7 +421,10 @@ int realSenseAttached(){
 				Forces forces = resultantForces(voxelCloud);
 				cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
 
-				cv::imshow("Processed Frame", map2d);
+				cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
+					plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, color_mat);
+
+				cv::imshow("Processed Frame", floorHeat);
 				cv::imshow("Processed Frame 2",  depth_mat*50);
 				cv::imshow("Processed Frame 3",  plane_detection.seg_img_);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
