@@ -12,6 +12,7 @@ find_package(OpenCV REQUIRED)
 find_package(realsense2 REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(PCL REQUIRED)
+find_package(JsonCpp REQUIRED)
 
 find_path(JsonCpp_INCLUDE_DIRS "json/json.h")
 find_library(JsonCpp_LIBRARIES "jsoncpp")
@@ -46,4 +47,4 @@ add_executable(planeSegment ${sources})
 
 include_directories(include ${realsense_INCLUDE_DIR})
 target_include_directories(planeSegment PRIVATE ${realsense_INCLUDE_DIR})
-target_link_libraries(planeSegment ${OpenCV_LIBS} libMRF.a ${realsense2_LIBRARY} ${EIGEN3_LIBRARIES} ${PCL_LIBRARIES} ${Jsoncpp_LIBRARY})
+target_link_libraries(planeSegment ${OpenCV_LIBS} libMRF.a ${realsense2_LIBRARY} ${EIGEN3_LIBRARIES} ${PCL_LIBRARIES})

@@ -33,10 +33,18 @@ check_realsense2() {
             brew install librealsense
         fi
     elif command_exists pkg-config; then
-        if pkg-config --exists librealsense2; then
+        if pkg-config --exists librealsense; then
             echo "librealsense (realsense2) is installed."
         else
-            apt-get install librealsense
+            apt-get install xorg-dev -y
+            apt-get install libusb-1.0-0-dev -y
+            git clone https://github.com/IntelRealSense/librealsense
+            cd librealsense
+            mkdir  build  && cd build
+            cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release -DFORCE_LIBUVC=true
+            make -j1
+            sudo make install
+            cd ../../
         fi
     else
         echo "Neither pkg-config nor brew found. Cannot check librealsense (realsense2) installation."
@@ -55,7 +63,7 @@ check_eigen3() {
         if pkg-config --exists eigen3; then
             echo "Eigen3 is installed."
         else
-            apt-get install eigen
+            apt-get install libeigen3-dev -y
         fi
     else
         echo "Neither pkg-config nor brew found. Cannot check Eigen3 installation."
@@ -73,7 +81,7 @@ check_cmake() {
         if pkg-config --exists eigen3; then
             echo "cmake is installed."
         else
-            apt-get install cmake-curses-gui
+            apt-get install cmake-curses-gui -y
         fi
     else
         echo "Neither pkg-config nor brew found. Cannot check cmake installation."
@@ -91,7 +99,7 @@ check_pcl() {
         if pkg-config --exists pcl; then
             echo "cmake is installed."
         else
-            apt-get install pcl
+            apt-get install libpcl-dev -y
         fi
     else
         echo "Neither pkg-config nor brew found. Cannot check cmake installation."
