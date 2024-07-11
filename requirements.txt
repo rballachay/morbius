@@ -19,6 +19,6 @@ torchvision
 opencv-python
 cityscapesScripts
 requests
---global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio
+pyaudio
 gdown
 git+https://github.com/resemble-ai/monotonic_align.git
