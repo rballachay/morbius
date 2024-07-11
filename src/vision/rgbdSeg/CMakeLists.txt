@@ -14,10 +14,10 @@ find_package(PCL REQUIRED)
 find_package(jsoncpp REQUIRED)  # Use find_package to find JsonCpp
 
 if (jsoncpp_FOUND)
-    add_library(MyJsonCpp::JsonCpp UNKNOWN IMPORTED)
-    set_target_properties(MyJsonCpp::JsonCpp PROPERTIES
-        INTERFACE_INCLUDE_DIRECTORIES "${JsonCpp_INCLUDE_DIRS}"
-        IMPORTED_LOCATION "${JsonCpp_LIBRARIES}"
+    add_library(JsonCpp::JsonCpp UNKNOWN IMPORTED)
+    set_target_properties(JsonCpp::JsonCpp PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${jsoncpp_INCLUDE_DIRS}"
+        IMPORTED_LOCATION "${jsoncpp_LIBRARIES}"
     )
 endif()
 
