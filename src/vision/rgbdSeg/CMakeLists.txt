@@ -11,15 +11,6 @@ find_package(OpenCV REQUIRED)
 find_package(realsense2 REQUIRED)
 find_package(Eigen3 REQUIRED NO_MODULE)
 find_package(PCL REQUIRED)
-find_package(jsoncpp REQUIRED)  # Use find_package to find JsonCpp
-
-if (jsoncpp_FOUND)
-    add_library(JsonCpp::JsonCpp UNKNOWN IMPORTED)
-    set_target_properties(JsonCpp::JsonCpp PROPERTIES
-        INTERFACE_INCLUDE_DIRECTORIES "${jsoncpp_INCLUDE_DIRS}"
-        IMPORTED_LOCATION "${jsoncpp_LIBRARIES}"
-    )
-endif()
 
 # Add include directories
 include_directories(
