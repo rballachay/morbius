@@ -24,3 +24,36 @@ chmod +x rasp/setup.sh
 sudo bash rasp/setup.sh
 ```
 
+## Running planeSegment using x11
+
+You may run the planeSegment function and display the output window(s) to your local computer over ssh. In order to do this, you must ensure a few things locally and then ssh into the computer.
+
+
+```bash
+# if on linux
+sudo apt-get install xauth
+# if on mac
+brew install xauth
+
+ssh -X rileyballachay@raspberrypi.local 
+sudo apt-get install xorg
+sudo apt-get install openbox
+```
+
+Nano into the file `/etc/ssh/sshd_config`: (`sudo nano /etc/ssh/sshd_config`) and ensure that the following lines are all enabled:
+
+```
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost no
+```
+
+And ensure that the following rules are set on your client computer (the one you're on). Inside of `~/.ssh/config`
+
+```
+Host *
+  ForwardAgent yes
+  ForwardX11 yes
+```
+
+If you run the script now, inside of `src/vision/rgbdSeg`: `./planeSegment`, you should be able to see the output in GUI windows on your host laptop.

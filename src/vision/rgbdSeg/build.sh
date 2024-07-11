@@ -40,6 +40,9 @@ check_realsense2() {
             apt-get install libusb-1.0-0-dev -y
             git clone https://github.com/IntelRealSense/librealsense
             cd librealsense
+            cp config/99-realsense-libusb.rules /etc/udev/rules.d/
+            udevadm control --reload-rules
+            udevadm trigger
             mkdir  build  && cd build
             cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release -DFORCE_LIBUVC=true
             make -j1

@@ -34,4 +34,21 @@ sudo apt-get install gcc -y
 sudo apt-get install portaudio19-dev espeak automake libtool -y
 sudo apt-get install libhdf5-dev -y
 
+# this is necessary for forwarding graphics over ssh
+sudo apt-get install xorg openbox
+
 pip install -r requirements.txt
+
+# compile libfvad to be used in voice detection for record_audio.so
+git submodule update --init submodules/libfvad/
+cd submodules/libfvad/
+autoreconf -i
+./configure
+make
+sudo make install
+cd ../../
+
+# compile the actual file
+cd src/language
+gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad 
+cd ../../
