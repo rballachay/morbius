@@ -57,3 +57,7 @@ Host *
 ```
 
 If you run the script now, inside of `src/vision/rgbdSeg`: `./planeSegment`, you should be able to see the output in GUI windows on your host laptop.
+
+## Checking space left on file system
+
+After installing everything, we can verify the amount of space left on the filesystem using the following: `df -Bm`. Look for the filesystem mounted to `/`. In this case, we have about 59 GB available, and 13 GB was used when installing the planeSegment application and language controller.py.

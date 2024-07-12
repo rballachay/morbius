@@ -205,8 +205,8 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         pcl::PointXYZ source = pcl::PointXYZ(0,0,0), pcl::PointXYZ dest = pcl::PointXYZ(0,0,5000)){
 
     double Dmax = findLargestManhattanDistance(voxelCloud, source);
-    const double lambda = 0.5;
-    const double hat = 5000;
+    const double lambda = 1;
+    const double hat = 50;
     std::vector<double> thetas;
     for (const auto& pt : voxelCloud->points) {
         double arctan_xz = std::atan2(pt.x-source.x, pt.z-source.z);
@@ -226,8 +226,11 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
     double force_z_attr = std::cos(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     double force_x_attr = std::sin(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     Forces forces;
-    forces.x = force_x_attr - force_x_repulse;
-    forces.z = force_z_attr - force_z_repulse;
+    double force_x = force_x_attr - force_x_repulse;
+    double force_z = force_z_attr - force_z_repulse;
+
+    forces.x = force_x / calcModulus(force_x, force_z);
+    forces.z = force_z / calcModulus(force_x, force_z);
     //std::cout << "force x: " << forces.x << ", forces z: " << forces.z << std::endl;
     return forces;
 }
@@ -237,7 +240,6 @@ cv::Vec3b valueToColor(double value, double minVal, double maxVal) {
     double normalizedValue = (value - minVal) / (maxVal - minVal);
 
     int hue = static_cast<int>(120 * normalizedValue);
-
     cv::Mat hsv(1, 1, CV_8UC3, cv::Scalar(hue, 255, 255));
     cv::Mat bgr;
     cv::cvtColor(hsv, bgr, cv::COLOR_HSV2BGR);
@@ -269,23 +271,20 @@ double scalarProjectionMagnitude(const pcl::PointXYZ& start_point,
     // Compute vector from start_point to end_point (direction vector)
     pcl::PointXYZ direction_vector;
     direction_vector.x = end_point.x - start_point.x;
-    direction_vector.y = end_point.y - start_point.y;
     direction_vector.z = end_point.z - start_point.z;
 
     // Compute dot product of direction_vector and vector from start_point to point_to_project
     double dot_product = (point_to_project.x - start_point.x) * direction_vector.x +
-                         (point_to_project.y - start_point.y) * direction_vector.y +
                          (point_to_project.z - start_point.z) * direction_vector.z;
 
     // Compute magnitude of direction_vector
     double direction_magnitude = std::sqrt(direction_vector.x * direction_vector.x +
-                                           direction_vector.y * direction_vector.y +
                                            direction_vector.z * direction_vector.z);
 
     // Compute scalar projection magnitude
     double scalar_projection_magnitude = dot_product / direction_magnitude;
 
-    return scalar_projection_magnitude;
+    return dot_product;
 }
 
 
@@ -310,16 +309,21 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
         groundPts[i] = std::make_tuple(row, col); 
     }
 
-    std::vector<VertexType> projectedVertices = projectOnPlane(groundVertices, plane);
     std::vector<double> magnitudes(nGround);
     for (size_t i=0; i<nGround;i++){
-        VertexType vertex = projectedVertices[i];
+        VertexType vertex = groundVertices[i];
         pcl::PointXYZ source;
+        pcl::PointXYZ destination = pcl::PointXYZ(0,0,5000);
         source.x = vertex.x();
         source.y = vertex.y();
         source.z = vertex.z();
-        Forces forces = resultantForces(cloud, source);
-        magnitudes[i]= calcModulus(forces.x, forces.z);
+        Forces forces = resultantForces(cloud, source, destination);
+
+        pcl::PointXYZ point;
+        point.x = source.x + forces.x*100;
+        point.z = source.z + forces.z*100;
+        double magnitude = scalarProjectionMagnitude(source, destination, point);
+        magnitudes[i] = magnitude;
     } 
 
     std::vector<cv::Vec3b> rgbVals = valuesToColors(magnitudes);
