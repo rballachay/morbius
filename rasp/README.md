@@ -61,3 +61,25 @@ If you run the script now, inside of `src/vision/rgbdSeg`: `./planeSegment`, you
 ## Checking space left on file system
 
 After installing everything, we can verify the amount of space left on the filesystem using the following: `df -Bm`. Look for the filesystem mounted to `/`. In this case, we have about 59 GB available, and 13 GB was used when installing the planeSegment application and language controller.py.
+
+## Increasing the swap size
+
+One problem that was frequently encountered during development was running out of memory and the system crashing. To reduce the frequency of this occurance, you can increase the swap size (the portion of disk that is used as memory when RAM is exceeded) by running the following inside of raspberry pi ssh:
+
+```bash
+sudo dphys-swapfile swapoff
+
+sudo dphys-swapfile setup
+# find the following line: CONF_SWAPSIZE=100 
+# and change to desired value, like CONF_SWAPSIZE=2048
+
+sudo dphys-swapfile setup
+sudo dphys-swapfile swapon
+sudo reboot
+```
+
+Then you can ssh back into the raspberry pi and try running your program.
+
+## Dealing with voltage issues
+
+It is possible that when you connect to a power source, you aren't supplying adequate voltage. This was the case when I started using ORB_SLAM3 with the Intel Realsense D415 with the camera plugged into my macbook. You can determine if the pi is not supplied adequate voltage with the following command: `vcgencmd get_throttled`. This should return `throttled=0x0` if all is going well and `throttled=0x5000` in the case something is wrong, which was my case. If it doesn't  recieve enough voltage, the system can/will crash.

@@ -35,7 +35,7 @@ sudo apt-get install portaudio19-dev espeak automake libtool -y
 sudo apt-get install libhdf5-dev -y
 
 # this is necessary for forwarding graphics over ssh
-sudo apt-get install xorg openbox
+sudo apt-get install xorg openbox -y
 
 pip install -r requirements.txt
 
@@ -58,3 +58,22 @@ cd src/vision/rgbdSeg
 sudo bash build.sh --include-deps
 mv planeSegment ../../../
 cd ../../../
+
+# need to install Pangolin as an ORBSLAM dependency
+cd ../
+git clone --recursive https://github.com/stevenlovegrove/Pangolin.git 
+cd Pangolin
+./scripts/install_prerequisites.sh --dry-run recommended
+cmake -B build
+cmake --build build
+cd ../morbius
+
+# compile and prepare ORBSLAM
+git submodule update --init submodules/ORB_SLAM3/
+cd submodules/ORB_SLAM3
+git checkout master 
+git reset --hard origin/master
+git pull
+chmod +x build.sh
+sed -i 's/++11/++14/g' CMakeLists.txt
+./build.sh
