@@ -1,4 +1,14 @@
+import requests
+import json
+from config import ROBOT_ID
 
+endpoint = "http://localhost:8080/{}"
+headers = {'content-type': 'application/json'}
+
+def make_body(id, param):
+    return {"id": id, "param": param}
+
+            
 class RosControllerV1:
     """For the first iteration of this, it's not clear
     how the roscontroller is going to work, so i will
@@ -44,6 +54,13 @@ class RosControllerv2:
 
     def action_move_forward(self, distance):
         self.print(f"Moving forward {distance}...")
+        response = requests.post(endpoint.format("forward"),
+                                    data=json.dumps(make_body(ROBOT_ID, distance)), headers=headers)
+        
+        if response.status_code == 200:
+            return "Robot confirmed!"
+        else:
+            return "Robot failed to move"
     
     def action_move_backward(self):
         self.print("Moving backward...")

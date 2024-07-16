@@ -22,6 +22,7 @@ DATA_PATH = "data"
 MODEL_PATH = "models"
 LOG_PATH = ".logs"
 DEVICE='cpu'
+ROBOT_ID=0
 """GLOBAL"""
 
 """TRANSCRIBE"""

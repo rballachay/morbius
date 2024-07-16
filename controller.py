@@ -100,7 +100,11 @@ class VoiceController:
                 if not SILENT_OUT:
                     self.text_to_speech.speak('.'.join(message_out))
 
-                self.__run_actions(actions_out)
+                action_messages = self.__run_actions(actions_out)
+
+                if (not action_messages is None) and (not SILENT_OUT):
+                    for msg in action_messages:
+                        self.text_to_speech.speak(msg)
 
                 # if it is asleep, or some other terminal state,
                 # we will close the conversation. will need to awake
@@ -112,7 +116,7 @@ class VoiceController:
         [{'action': 'action_move_robot', 'room': 'operating room'},
           {'action': 'action_find_object', 'object': 'stethescope'}]
         """
-
+        status_messages=[]
         for action in actions_out:
             action_name = action.pop("action", None)
             if not action_name:
@@ -123,9 +127,13 @@ class VoiceController:
             if method:
                 # at this point, the rest of the action dict should have
                 # the kwargs that will be passed to the action
-                method(**action)
+                status_message = method(**action)
+                status_messages.append(status_message)
             else:
                 print(f"Method {action_name} not found in ros controller")
+        
+        # this can be none - in that case don't say anything
+        return status_messages
 
     def __run_rasa(self, model_path, action_path, endpoint_path, rasa_logs, rasa_port, actions_port):
         """Launches the two rasa processes: action server and dialogue server."""
