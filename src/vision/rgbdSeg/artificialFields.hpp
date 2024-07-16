@@ -205,8 +205,8 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         pcl::PointXYZ source = pcl::PointXYZ(0,0,0), pcl::PointXYZ dest = pcl::PointXYZ(0,0,5000)){
 
     double Dmax = findLargestManhattanDistance(voxelCloud, source);
-    const double lambda = 1;
-    const double hat = 50;
+    const double lambda = 0.1;
+    const double hat = 500;
     std::vector<double> thetas;
     for (const auto& pt : voxelCloud->points) {
         double arctan_xz = std::atan2(pt.x-source.x, pt.z-source.z);
@@ -239,7 +239,7 @@ cv::Vec3b valueToColor(double value, double minVal, double maxVal) {
     // Normalize the value between 0 and 1
     double normalizedValue = (value - minVal) / (maxVal - minVal);
 
-    int hue = static_cast<int>(120 * normalizedValue);
+    int hue = static_cast<int>(120 * (1-normalizedValue));
     cv::Mat hsv(1, 1, CV_8UC3, cv::Scalar(hue, 255, 255));
     cv::Mat bgr;
     cv::cvtColor(hsv, bgr, cv::COLOR_HSV2BGR);
@@ -313,7 +313,7 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
     for (size_t i=0; i<nGround;i++){
         VertexType vertex = groundVertices[i];
         pcl::PointXYZ source;
-        pcl::PointXYZ destination = pcl::PointXYZ(0,0,5000);
+        pcl::PointXYZ destination = pcl::PointXYZ(0,0,1000);
         source.x = vertex.x();
         source.y = vertex.y();
         source.z = vertex.z();
@@ -339,5 +339,128 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
     
 }
 
+pcl::PointXYZ normalizeVector(const pcl::PointXYZ& vec) {
+    double magnitude = std::sqrt(vec.x * vec.x  + vec.z * vec.z);
+    return pcl::PointXYZ(vec.x / magnitude, 0, vec.z / magnitude);
+}
+
+double calculateDistance(const pcl::PointXYZ& p1, const pcl::PointXYZ& p2) {
+    return std::sqrt(std::pow(p2.x - p1.x, 2) +  std::pow(p2.z - p1.z, 2));
+}
+
+pcl::PointXYZ calculateStep(const pcl::PointXYZ& source, const Forces& dir_forces, double step_size) {
+    pcl::PointXYZ direction;
+    direction.x = dir_forces.x;
+    direction.z = dir_forces.z;
+
+    pcl::PointXYZ normalized_direction = normalizeVector(direction);
+    pcl::PointXYZ step(
+        source.x + step_size * normalized_direction.x,
+        0,
+        source.z + step_size * normalized_direction.z
+    );
+    return step;
+}
+
+double shortestDistanceToPath(const pcl::PointXYZ& point, const std::vector<pcl::PointXYZ>& path) {
+    double min_distance = std::numeric_limits<double>::max();
+    for (const auto& path_point : path) {
+        double distance = calculateDistance(point, path_point);
+        if (distance < min_distance) {
+            min_distance = distance;
+        }
+    }
+    return min_distance;
+}
+
+cv::Mat drawFloorVector(std::vector<VertexType>& vertices, std::vector<std::vector<int>>& plane_vertices,         
+        int groundIdx, pcl::PointCloud<pcl::PointXYZL>::Ptr cloud, Plane plane, cv::Mat image){
+
+        cv::Mat output_image = image.clone();
+        
+        pcl::PointXYZ source = pcl::PointXYZ(0,0,0);
+        pcl::PointXYZ destination = pcl::PointXYZ(0,0,1000);
+
+        double step = 10; // step size is 10 cm
+        double distanceThreshold = 100; // want to be within 100 cm of destination
+
+        std::vector<pcl::PointXYZ> tracedPath;
+
+        double previousDistance = calculateDistance(source, destination);
+        int tolerance=10;
+
+        tracedPath.push_back(source);
+
+        // continue loop until we reach the end position
+        while (true){
+
+            Forces forces = resultantForces(cloud, source, destination);
+            pcl::PointXYZ new_point = calculateStep(source, forces, step);
+
+            source.x=new_point.x;
+            source.z=new_point.z;
+
+            tracedPath.push_back(new_point); // add point
+
+            std::cout << "New point: (" << new_point.x << ", " << new_point.y << ", " << new_point.z << ")\n";
+
+            double currentDistance = calculateDistance(source, destination);
+
+            if (currentDistance < distanceThreshold) {
+                std::cout << "Reached the destination.\n";
+                break;
+            }
+            if (currentDistance >= previousDistance) {
+                tolerance--;
+                if (!tolerance){
+                    std::cout << "No longer approaching the destination. Exiting...\n";
+                    break;
+                }
+            }else{
+                tolerance=10;
+            }
+
+            previousDistance = currentDistance;
+
+        }
+
+        std::vector<double> distances;
+        for (const auto& idx : plane_vertices[groundIdx]){
+            VertexType vertex = vertices[idx];
+            pcl::PointXYZ sourceIdx;
+            sourceIdx.x = vertex.x();
+            sourceIdx.z = vertex.z();
+
+            double dist = shortestDistanceToPath(sourceIdx, tracedPath);
+            distances.push_back(dist);
+        }
+
+        std::vector<cv::Vec3b> rgbVals = valuesToColors(distances);
+
+        size_t nGround = plane_vertices[groundIdx].size();
+        std::vector<std::tuple<int,int>> groundPts(nGround);
+        for (size_t i=0; i<nGround; i++){
+            size_t idx = plane_vertices[groundIdx][i];
+
+            // from plane_detection.h:44 -> const int pixIdx = row * w + col;
+            int row = idx/image.cols;
+            int col = idx % image.cols;
+            groundPts[i] = std::make_tuple(row, col); 
+        }
+        
+        for (size_t i=0; i<nGround; i++){
+            std::tuple<int,int> tup = groundPts[i];
+            int row = std::get<0>(tup);
+            int col = std::get<1>(tup);
+            if (col==319){
+                output_image.at<cv::Vec3b>(row, col) = cv::Vec3b(0,0,0);
+            }else{
+                output_image.at<cv::Vec3b>(row, col) = rgbVals[i];
+            }
+        }
+
+        return output_image;
+    
+    }
 
 #endif // PLANE_OPERATIONS_H

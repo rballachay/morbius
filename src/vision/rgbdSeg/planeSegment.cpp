@@ -421,7 +421,7 @@ int realSenseAttached(){
 				Forces forces = resultantForces(voxelCloud);
 				cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
 
-				cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
+				cv::Mat floorHeat = drawFloorVector(surfaces.vertices, 
 					plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, color_mat);
 
 				cv::imshow("Processed Frame", floorHeat);
@@ -472,12 +472,23 @@ int loadProcessDefault(){
 	plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 	plane_detection.plane_filter.colors = {};
 
-	cv::Mat drawnImage = drawDistanceVectors(plane_detection.seg_img_, plane_detection, surfaces);
+	Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
+	std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
+
+	pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
+
+	Forces forces = resultantForces(voxelCloud);
+	cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
+
+	cv::Mat floorHeat = drawFloorVector(surfaces.vertices, 
+		plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, colorImage);
 
 	// Display the image in a loop
     while (true) {
-        cv::imshow("Processed Frame", drawnImage);
-        
+        cv::imshow("Processed Frame", floorHeat);
+		cv::imshow("Processed Frame 2",  depthImage*50);
+		cv::imshow("Processed Frame 3",  plane_detection.seg_img_);
+			
         // Wait for 1 ms and check if the ESC key is pressed
         int key = cv::waitKey(1);
         if (key == 27) { // ESC key has ASCII code 27
