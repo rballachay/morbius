@@ -226,12 +226,11 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
     double force_z_attr = std::cos(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     double force_x_attr = std::sin(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     Forces forces;
-    double force_x = force_x_attr - force_x_repulse;
+    double force_x = force_x_attr + force_x_repulse;
     double force_z = force_z_attr - force_z_repulse;
 
     forces.x = force_x / calcModulus(force_x, force_z);
     forces.z = force_z / calcModulus(force_x, force_z);
-    //std::cout << "force x: " << forces.x << ", forces z: " << forces.z << std::endl;
     return forces;
 }
 
@@ -452,15 +451,33 @@ cv::Mat drawFloorVector(std::vector<VertexType>& vertices, std::vector<std::vect
             std::tuple<int,int> tup = groundPts[i];
             int row = std::get<0>(tup);
             int col = std::get<1>(tup);
-            if (col==319){
-                output_image.at<cv::Vec3b>(row, col) = cv::Vec3b(0,0,0);
-            }else{
-                output_image.at<cv::Vec3b>(row, col) = rgbVals[i];
+            // Blend the original image pixel with the mask pixel using alpha
+            cv::Vec3b originalPixel = image.at<cv::Vec3b>(row, col);
+            cv::Vec3b maskPixel = rgbVals[i];
+
+            // Alpha blending
+            float alpha = 0.5;
+            cv::Vec3b blendedPixel;
+            for (int j = 0; j < 3; j++) {
+                blendedPixel[j] = static_cast<uchar>(alpha * maskPixel[j] + (1 - alpha) * originalPixel[j]);
             }
+
+            output_image.at<cv::Vec3b>(row, col) = blendedPixel;
+        }
+
+        // Draw x and z values of a few ground points on the image
+        for (size_t i = 0; i < std::min(nGround, static_cast<size_t>(640*5*10)); i+=640*5){ // Draw for the first 10 points
+            std::tuple<int, int> tup = groundPts[i];
+            int row = std::get<0>(tup);
+            int col = std::get<1>(tup);
+
+            // VertexType vertex = vertices[plane_vertices[groundIdx][i]];
+            std::string text = "(" + std::to_string(distances[i]) + ")";
+            
+            cv::putText(output_image, text, cv::Point(col, row), cv::FONT_HERSHEY_SIMPLEX, 0.25, cv::Scalar(255, 255, 255), 1);
         }
 
         return output_image;
-    
-    }
+}
 
 #endif // PLANE_OPERATIONS_H
