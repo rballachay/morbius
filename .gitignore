@@ -4,9 +4,11 @@
 
 # why is this not ignored by default? no clue
 *.DS_Store
+*.osa
 
 # ignore executable
 src/vision/rgbdSeg/planeSegment
+vision
 
 # ignore model files
 *.gz
