@@ -10,6 +10,11 @@
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/passthrough.h>
 
+/*
+This page is based off 
+https://www.researchgate.net/publication/314523066_A_3D_Anti-collision_System_based_on_Artificial_Potential_Field_Method_for_a_Mobile_Robot
+*/
+
 #define C_ATTRACT 10.
 #define C_REPULSE 5.
 
@@ -214,11 +219,11 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
     }
 
     double force_x_repulse = std::accumulate(thetas.begin(), thetas.end(), 0.0, [&lambda, &Dmax](double sum, double value) {
-        return sum + (lambda/Dmax)* std::sin(value);
+        return sum - (lambda/Dmax)* std::sin(value);
     });
 
     double force_z_repulse = std::accumulate(thetas.begin(), thetas.end(), 0.0, [&lambda, &Dmax](double sum, double value) {
-        return sum + (lambda/Dmax)* std::cos(value);
+        return sum - (lambda/Dmax)* std::cos(value);
     });
 
     const double phi = std::atan2(dest.x-source.x, dest.z-source.z);
@@ -227,7 +232,7 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
     double force_x_attr = std::sin(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     Forces forces;
     double force_x = force_x_attr + force_x_repulse;
-    double force_z = force_z_attr - force_z_repulse;
+    double force_z = force_z_attr + force_z_repulse;
 
     forces.x = force_x / calcModulus(force_x, force_z);
     forces.z = force_z / calcModulus(force_x, force_z);
