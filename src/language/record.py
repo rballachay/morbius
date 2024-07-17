@@ -38,7 +38,8 @@ def record_until_thresh():
     result = lib.record(
         SAMPLE_RATE, array_ctypes, RECORD_LENGTH, SILENCE_LENGTH, VAD_MODE
     )
-    
+    print(array[:np.argmax(array == 0)])
+
     if not result==0:
         raise Exception("Failed to record audio using record_audio.so")
 

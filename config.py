@@ -75,12 +75,13 @@ TTS_MODELS=['styleTTS2','fast_speech','espeak','nix_tts']
 if os.path.exists('/usr/lib/aarch64-linux-gnu/libespeak.so.1'):
     PHONEMIZER_ESPEAK_LIBRARY = '/usr/lib/aarch64-linux-gnu/libespeak.so.1'
 else:
-    PHONEMIZER_ESPEAK_LIBRARY = f"{find_library_path('espeak')}/libespeak-ng.dylib"
+    PHONEMIZER_ESPEAK_LIBRARY = "/opt/homebrew/Cellar/espeak/1.48.04_1/lib/libespeak.dylib"
 
 if PHONEMIZER_ESPEAK_LIBRARY is None:
     raise Exception("Ensure espeak is installed and add path to `libespeak.{dylib/so}` here")
 
 os.environ["PHONEMIZER_ESPEAK_LIBRARY"] = PHONEMIZER_ESPEAK_LIBRARY
+
 """TTS CONFIG"""
 
 """FASTSPEECH"""

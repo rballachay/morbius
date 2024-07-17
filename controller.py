@@ -104,8 +104,9 @@ class VoiceController:
 
                 if (not action_messages is None) and (not SILENT_OUT):
                     for msg in action_messages:
-                        self.text_to_speech.speak(msg)
-
+                        if msg is not None: 
+                            self.text_to_speech.speak(msg)
+                        
                 # if it is asleep, or some other terminal state,
                 # we will close the conversation. will need to awake
                 if not self.ros_controller.awake():
