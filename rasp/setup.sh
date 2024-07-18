@@ -55,6 +55,7 @@ cd ../../
 
 # compile the planeSegment
 cd src/vision/rgbdSeg
+git submodule update --init submodules/librealsense
 sudo bash build.sh --include-deps
 mv planeSegment ../../../
 cd ../../../
