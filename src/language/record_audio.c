@@ -132,9 +132,37 @@ int record(const int sampleRate, float *array, const int nSeconds,
     err = Pa_Initialize();
     if (err != paNoError) goto done;
 
-    err = Pa_OpenDefaultStream(&stream, NUM_CHANNELS, 0, paFloat32,
-                               sampleRate, FRAMES_PER_BUFFER,
-                               recordCallback, &data);
+    int numDevices;
+    PaDeviceIndex jabraDeviceID = 0;
+
+    numDevices = Pa_GetDeviceCount();
+    if (numDevices < 0) {
+        fprintf(stderr, "Error: Pa_GetDeviceCount() failed.\n");
+        return -1;
+    }
+
+    for (PaDeviceIndex i = 0; i < numDevices; ++i) {
+        const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo(i);
+        if (deviceInfo != NULL) {
+            printf("Device %d: %s\n", i, deviceInfo->name);
+            // Check if the device name contains "Jabra" (adjust according to actual name)
+            if (strstr(deviceInfo->name, "Jabra") != NULL) {
+                jabraDeviceID = i;
+                break;  // Found the Jabra device, no need to search further
+            }
+        }
+    }
+
+    PaStreamParameters inputParameters;
+    inputParameters.device = jabraDeviceID;   // Set the device ID here
+    inputParameters.channelCount = NUM_CHANNELS;
+    inputParameters.sampleFormat = paFloat32;  // Use paFloat32 as sample format
+    inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
+    inputParameters.hostApiSpecificStreamInfo = NULL;
+
+    err = Pa_OpenStream(&stream, &inputParameters, NULL, sampleRate,
+                        FRAMES_PER_BUFFER, paClipOff, recordCallback, &data);
+
     if (err != paNoError) goto done;
 
     err = Pa_StartStream(stream);

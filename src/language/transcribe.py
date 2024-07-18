@@ -8,6 +8,8 @@ from faster_whisper import WhisperModel
 import time
 from scipy.io.wavfile import write
 import numpy as np
+import subprocess
+
 
 class FasterWhisper:
     def __init__(self, model_size:str):

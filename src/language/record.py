@@ -43,7 +43,7 @@ def record_until_thresh():
         raise Exception("Failed to record audio using record_audio.so")
 
     # will return array of non-zero elements
-    return array[:np.argmax(array == 0)]
+    return np.trim_zeros(array)
 
 def __install_deps():
     os_name = platform.system()
