@@ -38,8 +38,9 @@ check_realsense2() {
         else
             apt-get install xorg-dev -y
             apt-get install libusb-1.0-0-dev -y
-            git clone https://github.com/IntelRealSense/librealsense
-            cd librealsense
+            cd ../../../submodules/librealsense
+            git submodule update --init submodules/librealsense
+            cd .librealsense
             cp config/99-realsense-libusb.rules /etc/udev/rules.d/
             udevadm control --reload-rules
             udevadm trigger

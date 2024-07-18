@@ -45,7 +45,7 @@ cd submodules/libfvad/
 autoreconf -i
 ./configure
 make
-sudo make install
+sudo make install 
 cd ../../
 
 # compile the actual file

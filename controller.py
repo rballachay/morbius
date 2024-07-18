@@ -13,8 +13,8 @@ from src.file_utils import download_model_gdrive
 
 # silent, for development, allows us to write in verbal commands via
 # the shell instead of saying them, to make it easier
-SILENT_IN = False
-SILENT_OUT = False
+SILENT_IN = True
+SILENT_OUT = True
 
 class VoiceController:
     """Object for orchestrating voice dialogue system."""
@@ -102,9 +102,13 @@ class VoiceController:
 
                 action_messages = self.__run_actions(actions_out)
 
-                if (not action_messages is None) and (not SILENT_OUT):
-                    for msg in action_messages:
-                        self.text_to_speech.speak(msg)
+                # this is the message that is returned from ros controller
+                for msg in action_messages:
+                    if not msg is None:
+                        if SILENT_OUT:
+                            self.print(msg)
+                        else:
+                            self.text_to_speech.speak(msg)
 
                 # if it is asleep, or some other terminal state,
                 # we will close the conversation. will need to awake

@@ -209,21 +209,49 @@ double calcModulus(double a, double b) {
 Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud, 
         pcl::PointXYZ source = pcl::PointXYZ(0,0,0), pcl::PointXYZ dest = pcl::PointXYZ(0,0,5000)){
 
-    double Dmax = findLargestManhattanDistance(voxelCloud, source);
-    const double lambda = 0.1;
-    const double hat = 500;
-    std::vector<double> thetas;
-    for (const auto& pt : voxelCloud->points) {
-        double arctan_xz = std::atan2(pt.x-source.x, pt.z-source.z);
-        thetas.push_back(arctan_xz);
-    }
+    const double d0 = 500;
+    const double lambda = 5;
+    const double hat = 5;
 
-    double force_x_repulse = std::accumulate(thetas.begin(), thetas.end(), 0.0, [&lambda, &Dmax](double sum, double value) {
-        return sum - (lambda/Dmax)* std::sin(value);
+    double force_x_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
+    [&lambda, &d0, &source](double sum, const pcl::PointXYZL& value) {
+        double Ur = 0;
+        double dist = calcModulus(value.x - source.x, value.z-source.z);
+        double angle_scale = 0.0;
+
+        // Calculate the vector from source to value
+        Eigen::Vector3d source_vec(source.x, 0, source.z);
+        Eigen::Vector3d value_vec(value.x, 0, value.z);
+        Eigen::Vector3d diff = value_vec - source_vec;
+
+        // Calculate the angle scale as the cosine of the angle
+        double cos_theta = diff.normalized().dot(Eigen::Vector3d(1, 0, 0)); // Assuming angle with respect to the x-axis
+        angle_scale = std::abs(cos_theta); // Use absolute value to ensure proportionality
+
+        if (dist > 0 && dist <= d0) {
+            Ur = 0.5 * lambda * std::pow(1.0 / dist - 1.0 / d0, 2);
+        }
+        return sum + angle_scale*Ur;
     });
 
-    double force_z_repulse = std::accumulate(thetas.begin(), thetas.end(), 0.0, [&lambda, &Dmax](double sum, double value) {
-        return sum - (lambda/Dmax)* std::cos(value);
+    double force_z_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
+    [&lambda, &d0, &source](double sum, const pcl::PointXYZL& value) {
+        double Ur = 0;
+        double dist = calcModulus(value.x - source.x, value.z-source.z);
+        double angle_scale = 0.0;
+        // Calculate the vector from source to value
+        Eigen::Vector3d source_vec(source.x, 0, source.z);
+        Eigen::Vector3d value_vec(value.x, 0, value.z);
+        Eigen::Vector3d diff = value_vec - source_vec;
+
+        // Calculate the angle scale as the cosine of the angle
+        double cos_theta = diff.normalized().dot(Eigen::Vector3d(0, 0, 1)); // Assuming angle with respect to the z-axis
+        angle_scale = std::abs(cos_theta); // Use absolute value to ensure proportionality
+
+        if (dist > 0 && dist <= d0) {
+            Ur = 0.5 * lambda * std::pow(1.0 / dist - 1.0 / d0, 2);
+        }
+        return sum + angle_scale * Ur;
     });
 
     const double phi = std::atan2(dest.x-source.x, dest.z-source.z);
@@ -231,8 +259,9 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
     double force_z_attr = std::cos(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     double force_x_attr = std::sin(phi)*hat/calcModulus(dest.x-source.x, dest.z-source.z);
     Forces forces;
-    double force_x = force_x_attr + force_x_repulse;
-    double force_z = force_z_attr + force_z_repulse;
+
+    double force_x = force_x_attr - force_x_repulse;
+    double force_z = force_z_attr - force_z_repulse;
 
     forces.x = force_x / calcModulus(force_x, force_z);
     forces.z = force_z / calcModulus(force_x, force_z);
@@ -379,8 +408,12 @@ double shortestDistanceToPath(const pcl::PointXYZ& point, const std::vector<pcl:
 
 cv::Mat drawFloorVector(std::vector<VertexType>& vertices, std::vector<std::vector<int>>& plane_vertices,         
         int groundIdx, pcl::PointCloud<pcl::PointXYZL>::Ptr cloud, Plane plane, cv::Mat image){
-
+        
         cv::Mat output_image = image.clone();
+
+        if (groundIdx==-1){
+            return output_image;
+        }
         
         pcl::PointXYZ source = pcl::PointXYZ(0,0,0);
         pcl::PointXYZ destination = pcl::PointXYZ(0,0,1000);
