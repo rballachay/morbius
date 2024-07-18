@@ -1,9 +1,13 @@
 from config import ACTIVE_TTS, TTS_MODELS
 import pyaudio
 import numpy as np
+import sounddevice as sd
 
 class TextToSpeech:
     def __init__(self, active_tts=ACTIVE_TTS, tts_models=TTS_MODELS):
+
+        self._sampling_rate = None
+
         if active_tts not in tts_models:
             raise Exception(f"TTS model must be one of: {', '.join(tts_models)}")
         
@@ -28,10 +32,32 @@ class TextToSpeech:
         wav_predictions = self.model(message)
 
         stream = self.pyaudio.open(format=pyaudio.paFloat32,
-                         channels=1,
-                         rate=self.model.sampling_rate,
+                         channels=self.channels,
+                         rate=self.sampling_rate,
                          output=True,
-                         output_device_index=1
+                         output_device_index=self.device_index
                          )
                 
         stream.write(wav_predictions.astype(np.float32).tostring())
+
+    @property 
+    def channels(self):
+        devices = sd.query_devices()
+        selected_device = devices[self.device_index]
+        if selected_device['name']=='Jabra SPEAK 410 USB':
+            return 2
+        return 1
+    
+    @property 
+    def device_index(self):
+        devices = sd.query_devices()
+        if devices[0]['name']=='Jabra SPEAK 410 USB':
+            return 0
+        return 1
+    
+    @property 
+    def sampling_rate(self):
+        devices = sd.query_devices()
+        if devices[0]['name']=='Jabra SPEAK 410 USB':
+            return int(self.model.sampling_rate/2)
+        return self.model.sampling_rate

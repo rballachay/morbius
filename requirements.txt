@@ -21,4 +21,5 @@ cityscapesScripts
 requests
 pyaudio
 gdown
+sounddevice
 git+https://github.com/resemble-ai/monotonic_align.git
