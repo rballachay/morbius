@@ -40,7 +40,7 @@ check_realsense2() {
             apt-get install libusb-1.0-0-dev -y
             cd ../../../submodules/librealsense
             git submodule update --init submodules/librealsense
-            cd .librealsense
+            cd librealsense
             cp config/99-realsense-libusb.rules /etc/udev/rules.d/
             udevadm control --reload-rules
             udevadm trigger
@@ -48,7 +48,7 @@ check_realsense2() {
             cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release -DFORCE_LIBUVC=true
             make -j1
             sudo make install
-            cd ../../
+            cd ../../../src/vision/rgbdSeg
         fi
     else
         echo "Neither pkg-config nor brew found. Cannot check librealsense (realsense2) installation."

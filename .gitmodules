@@ -26,3 +26,6 @@
 	path = submodules/ORB_SLAM3
 	url = https://github.com/rballachay/ORB_SLAM3
 	branch = ORB_SLAM3_MAC
+[submodule "submodules/librealsense"]
+	path = submodules/librealsense
+	url = https://github.com/IntelRealSense/librealsense
