@@ -54,8 +54,8 @@ gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad
 cd ../../
 
 # compile the planeSegment
-cd src/vision/rgbdSeg
 git submodule update --init submodules/librealsense
+cd src/vision/rgbdSeg
 sudo bash build.sh --include-deps
 mv planeSegment ../../../
 cd ../../../
