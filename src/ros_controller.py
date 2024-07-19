@@ -1,7 +1,6 @@
 import requests
 import json
 from config import ROBOT_ID
-import re
 
 endpoint = "http://localhost:8080/{}"
 headers = {'content-type': 'application/json'}
@@ -102,10 +101,15 @@ class RosControllerv2:
     def action_move_forward(self, distance):
         distance_cm = convert_number_units(distance)
         self.print(f"Moving forward {distance_cm} cm...")
-        response = requests.post(endpoint.format("forward"),
-                                    data=json.dumps(make_body(ROBOT_ID, distance_cm)), headers=headers)
+        
+        try:
+            response = requests.post(endpoint.format("forward"),
+                                        data=json.dumps(make_body(ROBOT_ID, distance_cm)), headers=headers)        
+        except requests.exceptions.ConnectionError:
+            return "Failed to communicate with robot"
         
         print(response.text)
+
         if response.status_code == 200:
             return "Robot moved forward"
         else:
@@ -113,8 +117,15 @@ class RosControllerv2:
     
     def action_move_backward(self):
         self.print(f"Moving backward {50} cm...")
-        response = requests.post(endpoint.format("forward"),
-                                    data=json.dumps(make_body(ROBOT_ID, 50)), headers=headers)
+
+        try:
+            response = requests.post(endpoint.format("backward"),
+                                        data=json.dumps(make_body(ROBOT_ID, 50)), headers=headers)
+        except requests.exceptions.ConnectionError:
+            return "Failed to communicate with robot"
+        
+        print(response.text)
+
         if response.status_code == 200:
             return "Robot moved backward"
         else:
@@ -123,8 +134,14 @@ class RosControllerv2:
     def action_turn_right(self, angle):
         self.print(f"Turning right {angle}...")  
         angle = convert_number_units(angle)
-        response = requests.post(endpoint.format("turnright"),
-                                     data=json.dumps(make_body(ROBOT_ID, angle)), headers=headers)
+
+        try:
+            response = requests.post(endpoint.format("turnright"),
+                                        data=json.dumps(make_body(ROBOT_ID, angle)), headers=headers)
+        except requests.exceptions.ConnectionError:
+            return "Failed to communicate with robot"
+        
+        print(response.text)
 
         if response.status_code == 200:
             return "Robot confirmed!"
@@ -134,9 +151,15 @@ class RosControllerv2:
     def action_turn_left(self, angle):
         self.print(f"Turning left {angle}...")  
         angle = convert_number_units(angle)
-        response = requests.post(endpoint.format("turnleft"),
-                                     data=json.dumps(make_body(ROBOT_ID, angle)), headers=headers)
 
+        try:
+            response = requests.post(endpoint.format("turnleft"),
+                                        data=json.dumps(make_body(ROBOT_ID, angle)), headers=headers)
+        except requests.exceptions.ConnectionError:
+            return "Failed to communicate with robot"
+        
+        print(response.text)
+        
         if response.status_code == 200:
             return "Robot confirmed!"
         else:

@@ -12,8 +12,6 @@ def is_raspberry_pi():
 class TextToSpeech:
     def __init__(self, active_tts=ACTIVE_TTS, tts_models=TTS_MODELS):
 
-        self._sampling_rate = None
-
         if active_tts not in tts_models:
             raise Exception(f"TTS model must be one of: {', '.join(tts_models)}")
         
@@ -32,6 +30,7 @@ class TextToSpeech:
             self.model = NixTTS()
 
         self.is_pi =  is_raspberry_pi()
+        self.devices = sd.query_devices()
 
         if self.is_pi:
             self.pyaudio=None
@@ -73,19 +72,20 @@ class TextToSpeech:
 
     @property 
     def channels(self):
-        devices = sd.query_devices()
-        selected_device = devices[self.device_index]
+        selected_device = self.devices[self.device_index]
         if selected_device['name']=='Jabra SPEAK 410 USB':
             return 2
         return 1
     
     @property 
     def device_index(self):
-        devices = sd.query_devices()
-        if devices[0]['name']=='Jabra SPEAK 410 USB':
+        if self.devices[0]['name']=='Jabra SPEAK 410 USB':
             return 0
         return 1
     
     @property 
     def sampling_rate(self):
-        return self.model.sampling_rate
+        if (self.devices[self.device_index]['name']=='Jabra SPEAK 410 USB') and not self.is_pi:
+            return int(self.model.sampling_rate/2)
+        else:
+            return self.model.sampling_rate

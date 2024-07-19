@@ -13,8 +13,8 @@ from src.file_utils import download_model_gdrive
 
 # silent, for development, allows us to write in verbal commands via
 # the shell instead of saying them, to make it easier
-SILENT_IN = True
-SILENT_OUT = True
+SILENT_IN = False
+SILENT_OUT = False
 
 class VoiceController:
     """Object for orchestrating voice dialogue system."""
