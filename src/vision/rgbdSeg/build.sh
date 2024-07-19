@@ -38,14 +38,11 @@ check_realsense2() {
         else
             apt-get install xorg-dev -y
             apt-get install libusb-1.0-0-dev -y
-            cd ../../../submodules/librealsense
-            git config --global --add safe.directory /home/user/morbius
-            git submodule update --init submodules/librealsense
-            cd librealsense
+            cd /home/user/morbius/submodules/librealsense
             cp config/99-realsense-libusb.rules /etc/udev/rules.d/
             udevadm control --reload-rules
             udevadm trigger
-            mkdir  build  && cd build
+            mkdir -p build  && cd build
             cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release -DFORCE_LIBUVC=true
             make -j1
             sudo make install
@@ -131,12 +128,13 @@ if $INSTALL_DEPS; then
     check_eigen3
     check_opencv
     check_realsense2
+    check_pcl
 fi
 
 cd include/MRF2.2
 make
 cd ../../
-mkdir build
+mkdir -p build
 cd build
 cmake ..
 make
