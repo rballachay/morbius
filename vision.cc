@@ -149,10 +149,10 @@ int main(int argc, char **argv) {
     rs2::config cfg;
 
     // RGB stream
-    cfg.enable_stream(RS2_STREAM_COLOR,640, 480, RS2_FORMAT_RGB8, 30);
+    cfg.enable_stream(RS2_STREAM_COLOR,640, 480, RS2_FORMAT_RGB8, 15);
 
     // Depth stream
-    cfg.enable_stream(RS2_STREAM_DEPTH,640, 480, RS2_FORMAT_Z16, 30);
+    cfg.enable_stream(RS2_STREAM_DEPTH,640, 480, RS2_FORMAT_Z16, 15);
     
     cv::Mat imCV, depthCV;
     int width_img, height_img;
