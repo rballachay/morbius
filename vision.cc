@@ -283,7 +283,7 @@ int main(int argc, char **argv) {
 
 				Forces forces = resultantForces(voxelCloud);
 
-				cv::Mat floorHeat = drawFloorVector(surfaces.vertices, 
+				cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
 					plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, im);
                 
                 {
