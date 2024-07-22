@@ -419,7 +419,7 @@ int realSenseAttached(){
 				pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
 
 				Forces forces = resultantForces(voxelCloud);
-				cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
+				//cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
 
 				cv::Mat floorHeat = drawFloorVector(surfaces.vertices, 
 					plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, color_mat);

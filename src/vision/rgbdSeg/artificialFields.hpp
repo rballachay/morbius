@@ -210,14 +210,13 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         pcl::PointXYZ source = pcl::PointXYZ(0,0,0), pcl::PointXYZ dest = pcl::PointXYZ(0,0,5000)){
 
     const double d0 = 500;
-    const double lambda = 5;
+    const double lambda = 0.1;
     const double hat = 5;
 
     double force_x_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
     [&lambda, &d0, &source](double sum, const pcl::PointXYZL& value) {
         double Ur = 0;
         double dist = calcModulus(value.x - source.x, value.z-source.z);
-        double angle_scale = 0.0;
 
         // Calculate the vector from source to value
         Eigen::Vector3d source_vec(source.x, 0, source.z);
@@ -226,19 +225,18 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
 
         // Calculate the angle scale as the cosine of the angle
         double cos_theta = diff.normalized().dot(Eigen::Vector3d(1, 0, 0)); // Assuming angle with respect to the x-axis
-        angle_scale = std::abs(cos_theta); // Use absolute value to ensure proportionality
 
-        if (dist > 0 && dist <= d0) {
-            Ur = 0.5 * lambda * std::pow(1.0 / dist - 1.0 / d0, 2);
+        if (dist != 0 && std::abs(dist) <= d0) {
+            Ur = 0.5 * lambda * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
         }
-        return sum + angle_scale*Ur;
+        return sum + cos_theta * Ur;
     });
 
     double force_z_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
     [&lambda, &d0, &source](double sum, const pcl::PointXYZL& value) {
         double Ur = 0;
         double dist = calcModulus(value.x - source.x, value.z-source.z);
-        double angle_scale = 0.0;
+
         // Calculate the vector from source to value
         Eigen::Vector3d source_vec(source.x, 0, source.z);
         Eigen::Vector3d value_vec(value.x, 0, value.z);
@@ -246,12 +244,11 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
 
         // Calculate the angle scale as the cosine of the angle
         double cos_theta = diff.normalized().dot(Eigen::Vector3d(0, 0, 1)); // Assuming angle with respect to the z-axis
-        angle_scale = std::abs(cos_theta); // Use absolute value to ensure proportionality
 
-        if (dist > 0 && dist <= d0) {
-            Ur = 0.5 * lambda * std::pow(1.0 / dist - 1.0 / d0, 2);
+        if (dist != 0 && std::abs(dist) <= d0) {
+            Ur = 0.5 * lambda * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
         }
-        return sum + angle_scale * Ur;
+        return sum + cos_theta * Ur;
     });
 
     const double phi = std::atan2(dest.x-source.x, dest.z-source.z);
