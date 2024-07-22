@@ -18,11 +18,11 @@ The best repository for RGBD plane detection I could find is [RGBDPlaneDetection
 
 ### Finding the ground plane
 
-Finding the ground plane in the list of planes is relatively simple. Assuming that the robots camera is correctly positioned on top of the robot (i.e. it is parallel to the ground), we know that the y-component of the normal vector for the ground surface should be approximately zero. 
+Finding the ground plane in the list of planes is relatively simple. Assuming that the robots camera is correctly positioned on top of the robot (i.e. it is parallel to the ground), we know that the y-component of the normal vector for the ground surface should be approximately -1, meaning it will be pointing directly upwards.
 
 ### Improving the depth map
 
-The depth map by default is not very good/stable. Each time it is captured, there are large holes and other artifacts that mess with the accuracy of downstream applications. A description of the full range of post-processing that may be performed [can be found here](https://dev.intelrealsense.com/docs/depth-post-processing). According to the docs, no post-processing is performed on the on-board processor, meaning that all of this is handed over to the host processer + realsense2 SDK. The filters recommended by Intel were used, which inludes the following 
+The depth map by default is not very good/stable. Each time it is captured, there are large holes and other artifacts that mess with the accuracy of downstream applications. A description of the full range of post-processing that may be performed [can be found here](https://dev.intelrealsense.com/docs/depth-post-processing). According to the docs, no post-processing is performed on the on-board processor, meaning that all of this is handed over to the host processer + realsense2 SDK. In addition, we have determined that we can greatly improve accuracy by taking the average of the color and depth map over 10 frames and performing plane Segmentation on this combined data. 
 
 
 ### Angle of incidence + reflection
@@ -37,7 +37,31 @@ The angle at which a surface is viewed using a "structured light for depth sensi
 |:--:|:--:|
 | Parallel raw image | Parallel depth image |
 
-## Building the project
+## Building and running the project
 
 In order to build the project, you need to ensure you have librealsense2 installed. You can then navigate to this folder and run: `bash ./build.sh`
 
+You may then run the project as follows (assuming you have the camera attached to your computer): `sudo ./planeSegment`.
+
+## [Artificial Potential Fields](https://www.mdpi.com/2076-3417/10/24/8987)
+
+Artificial potential fields are a local path planning algorithm for robotic motion. We use a combination of a destination point in (X,Y,Z) which has a certain attractive force and a collection of points/objects in (X,Y,Z) which have repulsive force in the direction of their normal. We summarize the attractive force of the destination and repulsive force of the obstacles, resulting in a vector which indicates the optimal direction. We can iteratively take a step in this direction (without moving) and re-calculate the direction and compute an optimal path. We can then calculate the distance of all points on our surface from this optimal path to create a heatmap. See an example of this heatmap below.
+
+<div style="display: flex; justify-content: center;">
+<img src="docs/sample_heatmap.png" alt="Sample Heat Map" title="Sample segmentation using realsense camera" width="400" />
+</div>
+
+The steps in this algorithm are as follows:
+
+1. Capture depth frame and RGB image from realsense camera
+2. Accumulate 10 different frames and take average
+3. Run plane detection on averaged depth/color image
+4. Assign ground plane based on normal 
+5. Calculate equation of ground plane using normal/center
+6. Take points from plane detection cloud and project onto ground plane
+7. Refine points on ground to ensure spacing and max/min values
+8. Calculate sum of forces from heading vector + objects
+9. Move one step in direction of sum of forces
+10. Repeat steps 8 and 9 until destination is reached 
+11. Calculate distance of all points from 'optimal path'
+12. Draw floor based on distance from optimal path

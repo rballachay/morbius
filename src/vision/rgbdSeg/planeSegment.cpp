@@ -271,6 +271,7 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 
 int realSenseAttached(){
 	int frameCount=0;
+	//int counter=0;
     try {
         RealSense realsense;
         realsense.startPipeline();
@@ -278,7 +279,7 @@ int realSenseAttached(){
 
 		std::vector<cv::Mat> depths(AVG_FRAMES);
     	std::vector<cv::Mat> colorImages(AVG_FRAMES);
-        realsense.captureFrames([&depths, &colorImages, &frameCount, &depthScale](const rs2::frameset& frames) 
+        realsense.captureFrames([&counter, &depths, &colorImages, &frameCount, &depthScale](const rs2::frameset& frames) 
 		{
 			
 		    //get the average of 5 frames per second
@@ -322,16 +323,22 @@ int realSenseAttached(){
 				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 				plane_detection.plane_filter.colors = {};
 
-				Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
-				std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
+				cv::Mat floorHeat = avgColor.clone();
 
-				pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
+				if (surfaces.groundIdx!=-1){
+					Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
+					std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
 
-				Forces forces = resultantForces(voxelCloud);
-				//cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
+					pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
 
-				cv::Mat floorHeat = drawFloorVector(surfaces.vertices, 
-					plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, color_mat);
+					floorHeat = drawFloorHeatMap(surfaces.vertices, 
+						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
+				}
+
+				/*std::string formattedString = std::to_string(counter);
+				std::string fileName = ".samples/image" + formattedString + ".png";
+				cv::imwrite(fileName, floorHeat);
+				counter++;*/
 
 				cv::imshow("Processed Frame", floorHeat);
 				cv::imshow("Processed Frame 2",  depth_mat*50);
@@ -387,9 +394,8 @@ int loadProcessDefault(){
 	pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
 
 	Forces forces = resultantForces(voxelCloud);
-	cv::Mat map2d = draw2DPoints(voxelCloud, plane_detection.plane_vertices_, surfaces.groundIdx, forces);
 
-	cv::Mat floorHeat = drawFloorVector(surfaces.vertices, 
+	cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
 		plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, colorImage);
 
 	// Display the image in a loop

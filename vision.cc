@@ -276,15 +276,17 @@ int main(int argc, char **argv) {
 				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
 				plane_detection.plane_filter.colors = {};
 
-				Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
-				std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
+				cv::Mat floorHeat = avgColor.clone();
 
-				pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
+				if (surfaces.groundIdx!=-1){
+					Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
+					std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
 
-				Forces forces = resultantForces(voxelCloud);
+					pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
 
-				cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
-					plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, im);
+					floorHeat = drawFloorHeatMap(surfaces.vertices, 
+						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
+				}
                 
                 {
                     std::lock_guard<std::mutex> lock(queueMutex);

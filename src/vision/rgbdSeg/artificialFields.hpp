@@ -11,8 +11,8 @@
 #include <pcl/filters/passthrough.h>
 
 #define C_ATTRACT 5.f // coefficient of attraction of destination point
-#define C_REPULSE 0.1f // coefficient of repulsion of each point in voxel cloud
-#define MAX_DIST 500.f // max distance to apply force in artificial field
+#define C_REPULSE 0.1 // coefficient of repulsion of each point in voxel cloud
+#define MAX_DIST 250.f // max distance to apply force in artificial field
 #define VOXEL_DENSITY 10.f // the distance we want between each voxel, in mm
 #define STEP_SIZE 10.f // step size in cm in the walking algorithm
 #define DIST_THRESH 100.f // tolerance in cm for 'arrival' at destiation
@@ -57,7 +57,7 @@ struct Surfaces{
 		{
 			if (!planes[i]) continue; // if nullptr, skip 
 			double normal = planes[i]->normal[1]; // second element is y value
-			std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
+			//std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
 			double diff = std::abs(-1.f -  normal);
 			if (diff < minDiff){
 				minDiff=diff;
@@ -421,7 +421,7 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
 
         tracedPath.push_back(new_point); // add point
 
-        std::cout << "New point: (" << new_point.x << ", " << new_point.y << ", " << new_point.z << ")\n";
+        //std::cout << "New point: (" << new_point.x << ", " << new_point.y << ", " << new_point.z << ")\n";
 
         double currentDistance = calculateDistance(source, destination);
 
