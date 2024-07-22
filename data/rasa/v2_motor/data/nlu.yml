@@ -692,6 +692,14 @@ nlu:
     - step backward please
     - move in reverse mode
     - retreat on your path 
+    - can you please back up about [a foot](distance)
+    - go back about [ten centimetres](distance)
+    - can you turn retreat, uh, about [six metres](distance)
+    - move back [three yards](distance)
+    - i need you to slide backwards about [five feet](distance)
+    - can you just reverse about [a yard](distance)
+    - go back [twenty eight centimetres](distance)
+    - retreat on your path about [eighty centimetres](distance)
 
 - intent: turn_right+move_forward
   examples: |

@@ -1,6 +1,7 @@
 import requests
 import json
-from config import ROBOT_ID
+import re
+from config import ROBOT_ID, DEFAULT_ANGLE, DEFAULT_FORWARD, DEFAULT_BACKWARD
 
 endpoint = "http://localhost:8080/{}"
 headers = {'content-type': 'application/json'}
@@ -21,6 +22,8 @@ def convert_number_units(number):
         'twenty': 20, 'thirty': 30, 'forty': 40, 'fifty': 50,
         'sixty': 60, 'seventy': 70, 'eighty': 80, 'ninety': 90,
         'hundred': 100, 'thousand': 1000, 'million': 1000000,
+    }
+    units = {
         'centimeter': 1, 'centimeters': 1, 'cm': 1,
         'meter': 100, 'meters': 100, 'metre': 100, 'metres': 100, 'm': 100,
         'millimeter': 0.1, 'millimeters': 0.1, 'mm': 0.1,
@@ -32,27 +35,28 @@ def convert_number_units(number):
         "degree":1, "degrees":1
     }
 
+
     # Split the distance string into words
-    words = number.lower().split()
+    words = re.split(r'[\s-]+', number.lower())
 
-    total_cm = 0
     current_number = 0
-    last_multiplier = 1
-
     for word in words:
-        if word in words_to_numbers:
-            if words_to_numbers[word] >= 100:
-                if current_number == 0:
-                    current_number = 1
-                current_number *= words_to_numbers[word]
-                last_multiplier = words_to_numbers[word]
-            else:
-                current_number += words_to_numbers[word] * last_multiplier
-                if words_to_numbers[word] >= 10 and words_to_numbers[word] < 100:
-                    last_multiplier = words_to_numbers[word]
+        try:
+            float_word = float(word)
+            current_number += float_word
+            continue
+        except:
+            pass
 
-    total_cm = current_number
-    return total_cm
+        if word in words_to_numbers:
+            current_number += words_to_numbers[word]
+        elif word in units:
+            if current_number==0:
+                current_number=1
+            # break once we are at units
+            current_number *= units[word]
+            break
+    return current_number
 
 
 class RosControllerV1:
@@ -99,6 +103,9 @@ class RosControllerv2:
         self.state = True
 
     def action_move_forward(self, distance):
+        if distance is None:
+            distance = DEFAULT_FORWARD
+
         distance_cm = convert_number_units(distance)
         self.print(f"Moving forward {distance_cm} cm...")
         
@@ -115,12 +122,17 @@ class RosControllerv2:
         else:
             return "Robot failed to move"
     
-    def action_move_backward(self):
-        self.print(f"Moving backward {50} cm...")
+    def action_move_backward(self, distance):
+        if distance is None:
+            distance = DEFAULT_BACKWARD
+
+        distance_cm = convert_number_units(distance)
+
+        self.print(f"Moving backward {distance_cm} cm...")
 
         try:
             response = requests.post(endpoint.format("backward"),
-                                        data=json.dumps(make_body(ROBOT_ID, 50)), headers=headers)
+                                        data=json.dumps(make_body(ROBOT_ID, distance_cm)), headers=headers)
         except requests.exceptions.ConnectionError:
             return "Failed to communicate with robot"
         
@@ -132,6 +144,8 @@ class RosControllerv2:
             return "Robot failed to move"
     
     def action_turn_right(self, angle):
+        if angle is None:
+            angle=DEFAULT_ANGLE
         self.print(f"Turning right {angle}...")  
         angle = convert_number_units(angle)
 
@@ -149,6 +163,8 @@ class RosControllerv2:
             return "Robot failed to move"
     
     def action_turn_left(self, angle):
+        if angle is None:
+            angle = DEFAULT_ANGLE
         self.print(f"Turning left {angle}...")  
         angle = convert_number_units(angle)
 

@@ -17,6 +17,8 @@ class ActionMoveForward(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
+        distance = None
+
         for entity in tracker.latest_message['entities']:
             if entity['entity'] == 'distance':
                 distance = entity['value']
@@ -36,8 +38,15 @@ class ActionMoveBackward(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(f"Moving backward")
-        dispatcher.utter_custom_json({"action": self.name()})
+        
+        distance = None
+        
+        for entity in tracker.latest_message['entities']:
+            if entity['entity'] == 'distance':
+                distance = entity['value']
+
+        dispatcher.utter_message(f"Moving backward {distance if distance else ''}")
+        dispatcher.utter_custom_json({"action": self.name(), "distance": distance})
         return []
 
 
@@ -52,6 +61,8 @@ class ActionTurnRight(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
+        
+        angle=None
         
         for entity in tracker.latest_message['entities']:
             if entity['entity'] == 'angle':
@@ -72,6 +83,8 @@ class ActionTurnLeft(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
+        
+        angle = None
         
         for entity in tracker.latest_message['entities']:
             if entity['entity'] == 'angle':
