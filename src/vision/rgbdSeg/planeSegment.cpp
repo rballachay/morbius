@@ -6,51 +6,6 @@
 #define AVG_FRAMES 10
 #define AGENT_WIDTH 20 // cm
 
-struct Surfaces{
-	std::vector<ahc::PlaneSeg::shared_ptr> planes;
-	std::vector<std::vector<int>> plane_vertices;
-	std::vector<Eigen::Vector3d> vertices;
-	std::vector<cv::Vec3b> colors;
-
-	size_t numPlanes;
-	int groundIdx; // index of the ground, if it can't be assigned, gives warning
-
-	Surfaces(PlaneDetection planeDetection) {
-		planes = planeDetection.plane_filter.extractedPlanes;
-		plane_vertices = planeDetection.plane_vertices_;
-		vertices = planeDetection.cloud.vertices;
-		numPlanes = planes.size();
-		groundIdx = assignGround();
-
-		for (int i=0; i<numPlanes; i++){
-			if (i==groundIdx){
-				colors.push_back(cv::Vec3b({0,255,0}));
-			}else{
-				colors.push_back(cv::Vec3b({0,0,255}));
-			}
-		}
-    }
-
-	int assignGround(){
-		std::vector<bool> candidates(numPlanes);
-		int minIndex = -1;
-		double minDiff = 1.;
-		for (int i = 0; i < numPlanes; i++)
-		{
-			if (!planes[i]) continue; // if nullptr, skip 
-			double normal = planes[i]->normal[1]; // second element is y value
-			std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
-			double diff = std::abs(-1.f -  normal);
-			if (diff < minDiff){
-				minDiff=diff;
-				minIndex=i;
-			}
-		}
-		return minIndex;
-	}
-
-};
-
 struct GroundVectors{
 	/* Container for holding the ground vectors and their max
 	distances so that we can calculate the max traversible distance
@@ -312,52 +267,6 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 	}
 
 	return drawnImage;
-}
-
-cv::Mat computeAverage(const std::vector<cv::Mat>& mats) {
-    /*
-    <[640,480,3],[640,480,3]> -> [640,480,3]
-    */
-    if (mats.empty()) {
-        std::cerr << "Error: Input vector is empty!" << std::endl;
-        return cv::Mat();
-    }
-
-    // Initialize sum for each channel
-    std::vector<cv::Mat> channelSums;
-    for (int c = 0; c < mats[0].channels(); ++c) {
-        cv::Mat channelSum = cv::Mat::zeros(mats[0].size(), CV_64FC1); // Sum in double for accuracy
-        channelSums.push_back(channelSum);
-    }
-
-    // Accumulate sums across all images
-    for (const auto& mat : mats) {
-        std::vector<cv::Mat> channels;
-        cv::split(mat, channels); // Split into separate channels
-
-        for (int c = 0; c < mat.channels(); ++c) {
-            cv::Mat channelFloat;
-            channels[c].convertTo(channelFloat, CV_64FC1); // Convert to double for accumulation
-            channelSums[c] += channelFloat;
-        }
-    }
-
-    // Compute average for each channel
-    std::vector<cv::Mat> channelAverages;
-    for (int c = 0; c < mats[0].channels(); ++c) {
-        cv::Mat channelAverage;
-        cv::divide(channelSums[c], static_cast<double>(mats.size()), channelAverage);
-        channelAverages.push_back(channelAverage);
-    }
-
-    // Merge channels into single output image
-    cv::Mat averageImage;
-    cv::merge(channelAverages, averageImage);
-
-    // Convert back to original type (assuming input mats are of same type)
-    averageImage.convertTo(averageImage, mats[0].type());
-
-    return averageImage;
 }
 
 int realSenseAttached(){

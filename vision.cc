@@ -14,8 +14,14 @@
 #include <librealsense2/rs.hpp>
 #include "librealsense2/rsutil.h"
 
+#include "artificialFields.hpp"
+#include <queue>
+#include <mutex>
+#include <condition_variable>
 
 #include <System.h>
+
+#define AVG_FRAMES 10
 
 using namespace std;
 
@@ -200,10 +206,19 @@ int main(int argc, char **argv) {
     double t_track = 0.f;
     rs2::frameset fs;
 
+    // all the config from the planeSegment file
+    float depthScale = 1000;
+    int frameCount=0;
+    std::vector<cv::Mat> depths(AVG_FRAMES);
+    std::vector<cv::Mat> colorImages(AVG_FRAMES);
+
+    std::queue<cv::Mat> frameQueue;
+    std::mutex queueMutex;
+    std::condition_variable frameAvailable;
+
     auto run = [&] () {
         while (!SLAM.isShutDown())
         {
-
             fs = pipe.wait_for_frames();;
 
             // Perform alignment here
@@ -234,6 +249,51 @@ int main(int argc, char **argv) {
             Eigen::Vector3f point_local = se3_transform.inverse() * point_global;
 
             std::cout << "Point in the local reference frame: " << point_local.transpose() << std::endl;
+
+            // all the processing for the planeSegment
+            colorImages[frameCount] = im.clone();
+        	depths[frameCount] = depth.clone();
+			frameCount++;
+
+            if(frameCount == AVG_FRAMES)
+        	{
+                PlaneDetection plane_detection;
+
+				cv::Mat avgColor = computeAverage(colorImages);
+				cv::Mat avgDepth = computeAverage(depths);
+				
+				plane_detection.readDepthImage(avgDepth);
+				plane_detection.readColorImage(avgColor);
+
+				// removed the plotting and moved to public member so we can change
+				// the colors and plot according to the logic out here
+				plane_detection.runPlaneDetection();
+
+				Surfaces surfaces(plane_detection);
+
+				// run once so that we can get thee plane_vertices, then run again
+				plane_detection.plane_filter.colors = surfaces.colors;
+				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
+				plane_detection.plane_filter.colors = {};
+
+				Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
+				std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
+
+				pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
+
+				Forces forces = resultantForces(voxelCloud);
+
+				cv::Mat floorHeat = drawFloorVector(surfaces.vertices, 
+					plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, im);
+                
+                {
+                    std::lock_guard<std::mutex> lock(queueMutex);
+                    frameQueue.push(floorHeat);
+                }
+                frameAvailable.notify_one();
+                
+				frameCount=0;
+        	}
         }
     };
     // create a background thread to run slam on, and run the slam viewer in 
@@ -241,6 +301,20 @@ int main(int argc, char **argv) {
     std::thread SlamThread(run);
     SlamThread.detach();
     SLAM.getViewer()->Run();
+
+    while (true) {
+        std::unique_lock<std::mutex> lock(queueMutex);
+        frameAvailable.wait(lock, [&] { return !frameQueue.empty(); });
+
+        cv::Mat frame = frameQueue.front();
+        frameQueue.pop();
+        lock.unlock();
+
+        cv::imshow("Processed Frame", frame);
+        if (cv::waitKey(1) == 27) { // Exit on ESC key
+            break;
+        }
+    }
 
     cout << "System shutdown!\n";
 }
