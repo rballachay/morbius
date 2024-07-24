@@ -57,13 +57,14 @@ struct Surfaces{
 		{
 			if (!planes[i]) continue; // if nullptr, skip 
 			double normal = planes[i]->normal[1]; // second element is y value
-			//std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
+			std::cout << "plane number: " << i << ", y-val: " << normal << std::endl;  
 			double diff = std::abs(-1.f -  normal);
 			if (diff < minDiff){
 				minDiff=diff;
 				minIndex=i;
 			}
 		}
+        std::cout << "Final ground index: " << minIndex << std::endl;
 		return minIndex;
 	}
 
@@ -404,16 +405,17 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
     }
 
     std::vector<pcl::PointXYZ> tracedPath;
-
-    double previousDistance = calculateDistance(source, destination);
-    int tolerance=10;
-
     tracedPath.push_back(source);
 
+    double previousDistance = calculateDistance(source, destination);
+
     // continue loop until we reach the end position or run out of tolerance
+    int tolerance=10;
+    int globalTolerance=50;
     while (true){
 
         Forces forces = resultantForces(cloud, source, destination);
+        
         pcl::PointXYZ new_point = calculateStep(source, forces, step_size);
 
         source.x=new_point.x;
@@ -424,6 +426,7 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
         //std::cout << "New point: (" << new_point.x << ", " << new_point.y << ", " << new_point.z << ")\n";
 
         double currentDistance = calculateDistance(source, destination);
+        //std::cout << currentDistance << std::endl;
 
         if (currentDistance < dist_thresh) {
             std::cout << "Reached the destination.\n";
@@ -431,6 +434,7 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
         }
         if (currentDistance >= previousDistance) {
             tolerance--;
+            globalTolerance--;
             if (!tolerance){
                 std::cout << "No longer approaching the destination. Exiting...\n";
                 break;
@@ -439,13 +443,17 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
             tolerance=10;
         }
 
+        if (!globalTolerance){
+            break;
+        }
+
         previousDistance = currentDistance;
 
     }
 
     std::vector<double> distances;
-    for (const auto& idx : plane_vertices[groundIdx]){
-        VertexType vertex = vertices[idx];
+    for (int i : plane_vertices[groundIdx]){
+        VertexType vertex = vertices[i];
         pcl::PointXYZ sourceIdx;
         sourceIdx.x = vertex.x();
         sourceIdx.z = vertex.z();
@@ -461,17 +469,28 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
     for (size_t i=0; i<nGround; i++){
         size_t idx = plane_vertices[groundIdx][i];
 
-        // from plane_detection.h:44 -> const int pixIdx = row * w + col;
-        int row = idx/image.cols;
+        // Ensure idx is within the valid range of image size
+        if (idx >= image.rows * image.cols) {
+            std::cerr << "Index out of bounds: " << idx << std::endl;
+            continue;
+        }
+
+        int row = idx / image.cols;
         int col = idx % image.cols;
         groundPts[i] = std::make_tuple(row, col); 
     }
-    
+
     for (size_t i=0; i<nGround; i++){
         std::tuple<int,int> tup = groundPts[i];
         int row = std::get<0>(tup);
         int col = std::get<1>(tup);
-        // Blend the original image pixel with the mask pixel using alpha
+
+        // Ensure row and col are within the valid range of the image
+        if (row < 0 || row >= image.rows || col < 0 || col >= image.cols) {
+            std::cerr << "Pixel position out of bounds: (" << row << ", " << col << ")" << std::endl;
+            continue;
+        }
+
         cv::Vec3b originalPixel = image.at<cv::Vec3b>(row, col);
         cv::Vec3b maskPixel = rgbVals[i];
 
@@ -482,11 +501,18 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
             blendedPixel[j] = static_cast<uchar>(alpha * maskPixel[j] + (1 - alpha) * originalPixel[j]);
         }
 
+        // Ensure row and col are within the valid range of the output image
+        if (row < 0 || row >= output_image.rows || col < 0 || col >= output_image.cols) {
+            std::cerr << "Output pixel position out of bounds: (" << row << ", " << col << ")" << std::endl;
+            continue;
+        }
+
         output_image.at<cv::Vec3b>(row, col) = blendedPixel;
     }
 
+
     // Draw x and z values of a few ground points on the image
-    for (size_t i = 0; i < std::min(nGround, static_cast<size_t>(640*5*10)); i+=640*5){ // Draw for the first 10 points
+    /*for (size_t i = 0; i < std::min(nGround, static_cast<size_t>(640*5*10)); i+=640*5){ // Draw for the first 10 points
         std::tuple<int, int> tup = groundPts[i];
         int row = std::get<0>(tup);
         int col = std::get<1>(tup);
@@ -495,7 +521,7 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
         std::string text = "(" + std::to_string(distances[i]) + ")";
         
         cv::putText(output_image, text, cv::Point(col, row), cv::FONT_HERSHEY_SIMPLEX, 0.25, cv::Scalar(255, 255, 255), 1);
-    }
+    }*/
 
     return output_image;
 }

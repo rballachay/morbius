@@ -265,16 +265,11 @@ int main(int argc, char **argv) {
 				plane_detection.readDepthImage(avgDepth);
 				plane_detection.readColorImage(avgColor);
 
-				// removed the plotting and moved to public member so we can change
-				// the colors and plot according to the logic out here
 				plane_detection.runPlaneDetection();
 
-				Surfaces surfaces(plane_detection);
-
-				// run once so that we can get thee plane_vertices, then run again
-				plane_detection.plane_filter.colors = surfaces.colors;
 				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
-				plane_detection.plane_filter.colors = {};
+				
+				Surfaces surfaces(plane_detection);
 
 				cv::Mat floorHeat = avgColor.clone();
 

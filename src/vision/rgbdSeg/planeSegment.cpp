@@ -279,7 +279,7 @@ int realSenseAttached(){
 
 		std::vector<cv::Mat> depths(AVG_FRAMES);
     	std::vector<cv::Mat> colorImages(AVG_FRAMES);
-        realsense.captureFrames([&counter, &depths, &colorImages, &frameCount, &depthScale](const rs2::frameset& frames) 
+        realsense.captureFrames([&depths, &colorImages, &frameCount, &depthScale](const rs2::frameset& frames) 
 		{
 			
 		    //get the average of 5 frames per second
@@ -294,9 +294,9 @@ int realSenseAttached(){
             cv::Mat color_mat(cv::Size(640, 480), CV_8UC3, (void*)rgb_frame.get_data(), cv::Mat::AUTO_STEP);
 
 			// Define the row and column range
-			cv::Range rowRange(0, 480); // Rows 1 to 3
-			cv::Range colRange(0, 60); // Columns 2 to 4
-			depth_mat(rowRange, colRange) = cv::Scalar(0);
+			//cv::Range rowRange(0, 480); // Rows 1 to 3
+			//cv::Range colRange(0, 60); // Columns 2 to 4
+			//depth_mat(rowRange, colRange) = cv::Scalar(0);
 
 			colorImages[frameCount] = color_mat.clone();
         	depths[frameCount] = depth_mat.clone();
@@ -312,18 +312,15 @@ int realSenseAttached(){
 				plane_detection.readDepthImage(avgDepth);
 				plane_detection.readColorImage(avgColor);
 
-				// removed the plotting and moved to public member so we can change
-				// the colors and plot according to the logic out here
+
 				plane_detection.runPlaneDetection();
 
+				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
+				
 				Surfaces surfaces(plane_detection);
 
-				// run once so that we can get thee plane_vertices, then run again
-				plane_detection.plane_filter.colors = surfaces.colors;
-				plane_detection.plane_filter.publicRefineDetails(&plane_detection.plane_vertices_, nullptr, &plane_detection.seg_img_);
-				plane_detection.plane_filter.colors = {};
-
-				cv::Mat floorHeat = avgColor.clone();
+				cv::Mat floorHeat;
+				floorHeat = avgColor.clone();
 
 				if (surfaces.groundIdx!=-1){
 					Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
@@ -342,7 +339,7 @@ int realSenseAttached(){
 
 				cv::imshow("Processed Frame", floorHeat);
 				cv::imshow("Processed Frame 2",  depth_mat*50);
-				cv::imshow("Processed Frame 3",  plane_detection.seg_img_);
+				//cv::imshow("Processed Frame 3",  plane_detection.seg_img_);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
 					//cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
 					//cv::imwrite("depth_image.png", depth_mat*50);
@@ -350,7 +347,6 @@ int realSenseAttached(){
 					std::exit(0);
 				}
 				frameCount=0;
-
         	}
         
 		});
