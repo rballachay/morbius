@@ -146,7 +146,11 @@ class VoiceController:
 
         while True:
             # if daemon, we are running headless
-            if not self.daemon:
+            if self.daemon:
+                self.print("Hello there, how can I help you?")
+                if not SILENT_OUT:
+                    self.text_to_speech.speak("Hello there, how can I help you?")
+            else:
                 input("Press Enter to start a conversation...")
 
             conversation = Conversation(self.rasa.rasa_url)
@@ -185,6 +189,9 @@ class VoiceController:
 
                     # if daemon, exit once its told to sleep
                     if self.daemon:
+                        self.print("Say 'Hey robot' to wake me back up")
+                        if not SILENT_OUT:
+                            self.text_to_speech.speak("Say 'Hey robot' to wake me back up")
                         return
 
     def __run_actions(self, actions_out):

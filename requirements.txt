@@ -22,4 +22,5 @@ requests
 pyaudio
 gdown
 sounddevice
+pvporcupine
 git+https://github.com/resemble-ai/monotonic_align.git

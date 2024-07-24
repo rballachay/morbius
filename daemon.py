@@ -4,7 +4,7 @@ import struct
 from config import PICO_ACCESS_KEY, PORCUPINE_MODEL_MAC, PORCUPINE_MODEL_PI
 import platform
 from controller import VoiceController, RasaManager
-
+import subprocess
 
 def controller_handler(rasa):
     vc = None
@@ -53,6 +53,13 @@ def close_audio_stream(pa, audio_stream):
     return None, None
 
 
+def speak(text):
+    try:
+        # Call espeak with the provided text
+        subprocess.run(['espeak', text], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while calling espeak: {e}")
+
 # Function to run the daemon process
 def listen_for_keyword():
     rasa = RasaManager()
@@ -68,6 +75,7 @@ def listen_for_keyword():
     audio_stream = None
 
     print("Listening for 'Hey Robot'...")
+    speak("Daemon launched")
 
     try:
         while True:
