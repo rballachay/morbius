@@ -16,23 +16,24 @@ from src.file_utils import download_model_gdrive
 SILENT_IN = False
 SILENT_OUT = False
 
-class VoiceController:
-    """Object for orchestrating voice dialogue system."""
 
+class RasaManager:
     def __init__(
         self,
         rasa_version=RASA_VERSION, # v1 or v2
         rasa_model_paths=RASA_MODEL_PATHS, # dictionary
         rasa_models_gdrive=RASA_MODELS_GDRIVE, # dictionary
         rasa_action_paths=RASA_ACTIONS_PATHS, # dictionary
-        whisper_size=WHISPER_SIZE,
         log_path=LOG_PATH,
         rasa_port=RASA_PORT,
         actions_port=ACTIONS_PORT,
-    ):
-        if not rasa_version in ['v1','v2']:
-            raise Exception("Rasa version must be one of: {v1, v2}")
+    ):  
         
+        self.rasa_version = rasa_version
+
+        if not self.rasa_version in ['v1','v2']:
+            raise Exception("Rasa version must be one of: {v1, v2}")
+
         # select rasa paths based on version
         rasa_model_path = rasa_model_paths[rasa_version]
         rasa_model_gdrive = rasa_models_gdrive[rasa_version]
@@ -60,84 +61,6 @@ class VoiceController:
         self.rasa_controller, self.action_controller = self.__run_rasa(
             rasa_model_path, rasa_action_path, rasa_endpoint_path, rasa_logs, rasa_port, actions_port
         )
-
-        self.whisper_agent = FasterWhisper(whisper_size)
-        self.whisper_agent.transcribe = timing_decorator(self.whisper_agent.transcribe)
-
-        # the controller depends on the version of rasa, as the actions 
-        # are mapped to the ROS controller
-        self.ros_controller = {
-            'v1':RosControllerV1,
-            'v2':RosControllerv2
-        }[rasa_version]()
-
-        self.text_to_speech = TextToSpeech()
-        self.text_to_speech.speak = timing_decorator(self.text_to_speech.speak)
-
-    def run(self):
-        """This is a loop that continues until it is shut down. When
-        a conversation is finished, you can press enter to re-start.
-        A conversation will prompt for input until it is asked to sleep.
-        """
-        while True:
-            input("Press Enter to start a conversation...")
-            conversation = Conversation(self.rasa_url)
-
-            # if its asleep, wake it up
-            self.ros_controller.wake_up()
-
-            while conversation.open():
-                if SILENT_IN:
-                    message_in = input("(dev mode) Type next command: ")
-                else:
-                    message_in = listen_transcribe(self.whisper_agent)
-
-                message_out, actions_out = conversation(message_in)
-
-                # report the messages
-                self.print("\n".join(message_out))
-
-                if not SILENT_OUT:
-                    self.text_to_speech.speak('.'.join(message_out))
-
-                action_messages = self.__run_actions(actions_out)
-
-                # this is the message that is returned from ros controller
-                for msg in action_messages:
-                    if not msg is None:
-                        if SILENT_OUT:
-                            self.print(msg)
-                        else:
-                            self.text_to_speech.speak(msg)
-
-                # if it is asleep, or some other terminal state,
-                # we will close the conversation. will need to awake
-                if not self.ros_controller.awake():
-                    conversation.close_conversation()
-
-    def __run_actions(self, actions_out):
-        """Parse the actions and then run ros. Actions will be a list like:
-        [{'action': 'action_move_robot', 'room': 'operating room'},
-          {'action': 'action_find_object', 'object': 'stethescope'}]
-        """
-        status_messages=[]
-        for action in actions_out:
-            action_name = action.pop("action", None)
-            if not action_name:
-                raise Exception("Missing action title in called action")
-
-            method = getattr(self.ros_controller, action_name, None)
-
-            if method:
-                # at this point, the rest of the action dict should have
-                # the kwargs that will be passed to the action
-                status_message = method(**action)
-                status_messages.append(status_message)
-            else:
-                print(f"Method {action_name} not found in ros controller")
-        
-        # this can be none - in that case don't say anything
-        return status_messages
 
     def __run_rasa(self, model_path, action_path, endpoint_path, rasa_logs, rasa_port, actions_port):
         """Launches the two rasa processes: action server and dialogue server."""
@@ -184,6 +107,109 @@ class VoiceController:
                 break
 
             time.sleep(2)
+
+    def print(self, message):
+        # this could change in the future if we want to
+        print(message)
+
+class VoiceController:
+    """Object for orchestrating voice dialogue system."""
+
+    def __init__(
+        self,
+        daemon=False, # determines if the process quits after
+        whisper_size=WHISPER_SIZE,
+        rasa=RasaManager
+    ):
+        self.daemon = daemon
+        self.rasa = rasa
+
+        self.whisper_agent = FasterWhisper(whisper_size)
+        self.whisper_agent.transcribe = timing_decorator(self.whisper_agent.transcribe)
+
+        # the controller depends on the version of rasa, as the actions 
+        # are mapped to the ROS controller
+        self.ros_controller = {
+            'v1':RosControllerV1,
+            'v2':RosControllerv2
+        }[self.rasa.rasa_version]()
+
+        self.text_to_speech = TextToSpeech()
+        self.text_to_speech.speak = timing_decorator(self.text_to_speech.speak)
+        
+
+    def run(self):
+        """This is a loop that continues until it is shut down. When
+        a conversation is finished, you can press enter to re-start.
+        A conversation will prompt for input until it is asked to sleep.
+        """
+
+        while True:
+            # if daemon, we are running headless
+            if not self.daemon:
+                input("Press Enter to start a conversation...")
+
+            conversation = Conversation(self.rasa.rasa_url)
+
+            # if its asleep, wake it up
+            self.ros_controller.wake_up()
+
+            while conversation.open():
+                if SILENT_IN:
+                    message_in = input("(dev mode) Type next command: ")
+                else:
+                    message_in = listen_transcribe(self.whisper_agent)
+
+                message_out, actions_out = conversation(message_in)
+
+                # report the messages
+                self.print("\n".join(message_out))
+
+                if not SILENT_OUT:
+                    self.text_to_speech.speak('.'.join(message_out))
+
+                action_messages = self.__run_actions(actions_out)
+
+                # this is the message that is returned from ros controller
+                for msg in action_messages:
+                    if not msg is None:
+                        if SILENT_OUT:
+                            self.print(msg)
+                        else:
+                            self.text_to_speech.speak(msg)
+
+                # if it is asleep, or some other terminal state,
+                # we will close the conversation. will need to awake
+                if not self.ros_controller.awake():
+                    conversation.close_conversation()
+
+                    # if daemon, exit once its told to sleep
+                    if self.daemon:
+                        return
+
+    def __run_actions(self, actions_out):
+        """Parse the actions and then run ros. Actions will be a list like:
+        [{'action': 'action_move_robot', 'room': 'operating room'},
+          {'action': 'action_find_object', 'object': 'stethescope'}]
+        """
+        status_messages=[]
+        for action in actions_out:
+            action_name = action.pop("action", None)
+            if not action_name:
+                raise Exception("Missing action title in called action")
+
+            method = getattr(self.ros_controller, action_name, None)
+
+            if method:
+                # at this point, the rest of the action dict should have
+                # the kwargs that will be passed to the action
+                status_message = method(**action)
+                status_messages.append(status_message)
+            else:
+                print(f"Method {action_name} not found in ros controller")
+        
+        # this can be none - in that case don't say anything
+        return status_messages
 
     def print(self, message):
         # this could change in the future if we want to
@@ -257,9 +283,10 @@ class Conversation:
 if __name__ == "__main__":
     vc = None
     try:
-        vc = VoiceController()
+        rm = RasaManager()
+        vc = VoiceController(rasa=rm)
         vc.run()
     finally:
-        if vc is not None:
-            vc.rasa_controller.terminate()
-            vc.action_controller.terminate()
+        if rm is not None:
+            rm.rasa_controller.terminate()
+            rm.action_controller.terminate()
