@@ -4,6 +4,7 @@ import struct
 from config import PICO_ACCESS_KEY, PORCUPINE_MODEL_MAC, PORCUPINE_MODEL_PI
 import platform
 from controller import VoiceController, RasaManager
+import subprocess
 
 def get_porcupine_model():
     system = platform.system()
@@ -15,6 +16,13 @@ def get_porcupine_model():
         if machine in ["armv7l", "armv6l", "aarch64"]:
             return PORCUPINE_MODEL_PI
     raise Exception("Cannot load daemon on non mac/raspberry pi")
+
+def speak(text):
+    try:
+        # Call espeak with the provided text
+        subprocess.run(['espeak', text], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while calling espeak: {e}")
 
 class Daemon:
     """
@@ -38,6 +46,7 @@ class Daemon:
     # Function to run the daemon process
     def listen(self):
         print("Listening for 'Hey Robot'...")
+        speak("Daemon launched")
 
         try:
             while True:
