@@ -85,7 +85,7 @@ gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad -I${path
 
 ## Language - running
 
-In order to run the language model once all the dependencies are installed, just run the following from the `morbius` directory:
+There are two principal modes of running the language model. The first is through the controller directly, which 
 
 ```bash python3 controller.py```
 

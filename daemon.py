@@ -5,13 +5,6 @@ from config import PICO_ACCESS_KEY, PORCUPINE_MODEL_MAC, PORCUPINE_MODEL_PI
 import platform
 from controller import VoiceController, RasaManager
 
-
-def controller_handler(rasa):
-    vc = None
-    vc = VoiceController(daemon=True, rasa=rasa)
-    vc.run()
-
-
 def get_porcupine_model():
     system = platform.system()
     machine = platform.machine()
@@ -23,72 +16,71 @@ def get_porcupine_model():
             return PORCUPINE_MODEL_PI
     raise Exception("Cannot load daemon on non mac/raspberry pi")
 
+class Daemon:
+    """
+    Manager for the 'daemon', aka the process that can run headless, and 
+    listens for the key phrase 'Hey robot'. Contains two parts:
 
-# Function to trigger the full process - this can be blocking
-def trigger_full_process(rasa):
-    print("Hey Robot detected! Triggering full process...")
-    # Add code here to start the full process, such as calling another script or service
-    controller_handler(rasa)
+    1. Keyword model Porcupine which listens for 'Hey robot' 
+    2. Voice controller with rasa manager which is launched when hey robot is said
+    """
+    def __init__(self):
+        self.rasa = RasaManager()
 
+        _keyword_path = get_porcupine_model()
+        self.porcupine = pvporcupine.create(
+            access_key=PICO_ACCESS_KEY, keyword_paths=[_keyword_path]
+        )
 
-def create_audio_stream(porcupine):
-    pa = pyaudio.PyAudio()
+        self.pa = None
+        self.audio_stream = None
 
-    audio_stream = pa.open(
-        rate=porcupine.sample_rate,
-        channels=1,
-        format=pyaudio.paInt16,
-        input=True,
-        frames_per_buffer=porcupine.frame_length,
-    )
+    # Function to run the daemon process
+    def listen(self):
+        print("Listening for 'Hey Robot'...")
 
-    return pa, audio_stream
+        try:
+            while True:
+                self.start_audio()
+                pcm = self.audio_stream.read(self.porcupine.frame_length)
+                pcm = struct.unpack_from("h" * self.porcupine.frame_length, pcm)
 
+                keyword_index = self.porcupine.process(pcm)
+                if keyword_index >= 0:
+                    pa, audio_stream = self.close_audio(pa, audio_stream)
+                    self.run()
+        except KeyboardInterrupt:
+            print("Stopping...")
+        finally:
+            self.close_audio()
+            self.porcupine.delete()
+            self.rasa.rasa_controller.terminate()
+            self.rasa.action_controller.terminate()
 
-def close_audio_stream(pa, audio_stream):
-    if not audio_stream is None:
-        audio_stream.close()
-    if not pa is None:
-        pa.terminate()
-    return None, None
+    def run(self):
+        print("Hey Robot detected! Triggering full process...")
+        vc = VoiceController(daemon=True, rasa=self.rasa)
+        vc.run()
 
+    def start_audio(self):
+        self.pa = pyaudio.PyAudio()
 
-# Function to run the daemon process
-def listen_for_keyword():
-    rasa = RasaManager()
-    keyword_path = (
-        get_porcupine_model()
-    )  # Download the "hey robot" ppn file from Picovoice Console
+        self.audio_stream = self.pa.open(
+            rate=self.porcupine.sample_rate,
+            channels=1,
+            format=pyaudio.paInt16,
+            input=True,
+            frames_per_buffer=self.porcupine.frame_length,
+        )
 
-    porcupine = pvporcupine.create(
-        access_key=PICO_ACCESS_KEY, keyword_paths=[keyword_path]
-    )
-
-    pa = None
-    audio_stream = None
-
-    print("Listening for 'Hey Robot'...")
-
-    try:
-        while True:
-            if pa is None:
-                pa, audio_stream = create_audio_stream(porcupine)
-
-            pcm = audio_stream.read(porcupine.frame_length)
-            pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
-
-            keyword_index = porcupine.process(pcm)
-            if keyword_index >= 0:
-                pa, audio_stream = close_audio_stream(pa, audio_stream)
-                trigger_full_process(rasa)
-    except KeyboardInterrupt:
-        print("Stopping...")
-    finally:
-        close_audio_stream(pa, audio_stream)
-        porcupine.delete()
-        rasa.rasa_controller.terminate()
-        rasa.action_controller.terminate()
+    def close_audio(self):
+        if not self.audio_stream is None:
+            self.audio_stream.close()
+        if not self.pa is None:
+            self.pa.terminate()
+        return None, None
 
 
 if __name__ == "__main__":
-    listen_for_keyword()
+    daemon = Daemon()
+    daemon.listen()

@@ -10,6 +10,10 @@ from scipy.io.wavfile import write
 import numpy as np
 
 class FasterWhisper:
+    """Faster version of the whisper class below, also uses int8 
+    precision. Takes raw audio data at a sampling rate of 
+    16000. Outputs the  
+    """
     def __init__(self, model_size:str):
         model_size = f"{model_size}.en"
 
@@ -21,6 +25,8 @@ class FasterWhisper:
         return ''.join([segment.text for segment in segments])
 
 class Whisper:
+    """Whisper cpp, voice-to-text model. Not quite fast enough for production. 
+    """
     def __init__(self, model_size: str):
         if not model_size in WHISPER_SIZES:
             raise Exception(f"Whisper size must be one of {', '.join(WHISPER_SIZES)}")

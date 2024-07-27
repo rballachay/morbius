@@ -10,6 +10,10 @@ import subprocess
 def record_until_thresh():
     """Create the folders leading to filename, then record audio to file. Will start
     audio recording, then record until silence threshold is met, then stop and return.
+
+    Note that this uses ctypes, which is a library which we are using to call
+    a c script from python, as c contains the voice activity detection library
+    that is best for detecting silence.
     """
 
     # Load the shared library
@@ -25,6 +29,7 @@ def record_until_thresh():
         print(result.stdout)  # Print any output from the compilation process
         print(result.stderr)
 
+    # load c function into python
     lib = ctypes.CDLL(str(libfile))
 
     # Define the argument and return types of the function

@@ -16,13 +16,21 @@ def find_library_path(library_name):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
-    
+
+"""SILENCE"""
+# silent, for development, allows us to write in verbal commands via
+# the shell instead of saying them, to make it easier
+SILENT_IN = False
+SILENT_OUT = False
+SILENT_ROBOT = False
+"""SILENCE"""
+
 """GLOBAL"""
 DATA_PATH = "data"
 MODEL_PATH = "models"
 LOG_PATH = ".logs"
 DEVICE='cpu'
-ROBOT_ID=12
+ROBOT_ID=1
 """GLOBAL"""
 
 """TRANSCRIBE"""

@@ -9,9 +9,16 @@ headers = {'content-type': 'application/json'}
 def make_body(id, param):
     return {"id": id, "param": param}
 
-
 def convert_number_units(number):
-    """convert a distance or angle into a float
+    """This is used to convert a variety of formats of string and 
+    number-format numbers into true floats, all with a consistent 
+    unit of either cm or degrees. Here are some samples:
+
+    'fifty degrees' -> 50.0
+    'a hundred fifty centimetres' -> 150.0
+    '2 yards' -> 182.88
+    'twenty' -> 20.0
+    'seventy eight degrees' -> 78.0
     """
     # Dictionary to map words to numeric values
     words_to_numbers = {

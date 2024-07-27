@@ -10,6 +10,13 @@ def is_raspberry_pi():
     return platform.machine().lower() in pi_models
 
 class TextToSpeech:
+    """Class for loading a different text to speech model baed on the config 
+    and then speaking the text into audio using pyaudio.
+
+    This will check if the script is being run on a raspberry pi, and 
+    if it is, will force using aplay, as pyaudio experiences problems
+    on the raspberry pi for some reason.
+    """
     def __init__(self, active_tts=ACTIVE_TTS, tts_models=TTS_MODELS):
 
         if active_tts not in tts_models:
@@ -47,6 +54,8 @@ class TextToSpeech:
             self.__stream(wav_predictions)
 
     def __stream(self, wav_predictions):
+        """Default form of streaming audio, uses pyaudio
+        """
         stream = self.pyaudio.open(format=pyaudio.paFloat32,
                          channels=self.channels,
                          rate=self.sampling_rate,

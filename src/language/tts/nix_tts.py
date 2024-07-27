@@ -10,6 +10,10 @@ import os
 
 
 class NixTTS:
+    """This is the best-performing text-to-speech model. For more 
+    information about now nix-tts works, see the resources:
+    https://github.com/rendchevi/nix-tts
+    """
     def __init__(self):
         self.sampling_rate=22050
 

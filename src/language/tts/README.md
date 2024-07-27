@@ -1,7 +1,3 @@
-## Compiling the speak_audio.c file:
+# Text to speech
 
-Only need to link to /opt/local if the package is installed with mac ports. Brew or manual build and install should install it to /usr/local.
-
-bash```
- gcc speak_audio.c  -lespeak-ng -o test-audio -I /opt/local/include -L /opt/local/lib
-```
+We tested out a variety of text-to-speech models, and discovered that nix-tts gave the best performance and latency. With that said, you can still use any of the different models by changing the selected model in the `config.py` file.

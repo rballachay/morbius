@@ -6,6 +6,15 @@
 #include <math.h>
 #include <fvad.h>
 
+/*
+This is the script for recording audio. It creates a session that listens
+to the microphone, taking ~512 samples of audio at a time and checking 
+if there is voice activity detected or not. If not, we say there is silence 
+detected and terminate the audio recording, then pass the data back into 
+
+
+*/
+
 // apparently the internal bitrate of vfad is 8000, so it will be downsampled 
 // when running that library, but this is 16 kHz for our recording at least
 // https://github.com/dpirch/libfvad/blob/master/include/fvad.h#L70
