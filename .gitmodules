@@ -1,0 +1,15 @@
+[submodule "language/submodules/libfvad"]
+	path = language/submodules/libfvad
+	url = https://github.com/dpirch/libfvad
+[submodule "vision/submodules/Pangolin"]
+	path = vision/submodules/Pangolin
+	url = https://github.com/stevenlovegrove/Pangolin.git
+[submodule "vision/submodules/ORB_SLAM3"]
+	path = vision/submodules/ORB_SLAM3
+	url = https://github.com/rballachay/ORB_SLAM3
+[submodule "vision/submodules/librealsense"]
+	path = vision/submodules/librealsense
+	url = https://github.com/IntelRealSense/librealsense
+[submodule "vision/submodules/ESANet"]
+	path = vision/submodules/ESANet
+	url = https://github.com/TUI-NICR/ESANet.git
