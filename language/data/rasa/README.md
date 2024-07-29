@@ -1,5 +1,42 @@
 # Rasa model
 
+The rasa model performs a mixture of intent classification and slot filling. We have a fixed number of intents, and each of those intents can have a slot associated with it. Below is an example input and output to the model:
+
+### Example 1
+
+__Input__: "Hey robot, can you move forward about 5 yards please?"
+
+__Result__: Intent: _move_forward_, Slot: _distance (5 yards)_
+
+### Example 2
+
+__Input__: "Stop there for a moment"
+
+__Result__: Intent: _stop_, Slot: N/A
+
+Once the intent and slot are parsed from the sentence, rasa validates the next step based on the rules set in data/rules.yml. See below one of the rules from `v2_motor/data/rules.yml`:
+
+```
+- rule: turn right + move forward 
+  steps:
+  - intent: turn_right+move_forward
+  - action: action_turn_right
+  - action: action_move_forward
+```
+
+This wll call the actions _action_turn_right_ and _action_move_forward_ sequentially. To see what these actions correspond to, we can proceed to `v2_motor/data/actions/actions.py`. Here, we can find the function that corresponds to those names, for example _action_turn_right_:
+
+```python
+class ActionMoveForward(Action):
+    def name(self) -> Text:
+        return "action_move_forward"
+
+    def run(self):
+        ...
+```
+
+Since we have a rule defined in the `rules.yml` and a corresponding action in python, we will trigger this action each time the user utters a phrase classified as intent _move_forward_. This sends a json `{"action": self.name(), "distance": distance}` back over our API to our controller, which will be passed to our RosController, which executes the corresponding action. 
+
 ## Rasa versioning 
 
 ### v1_full

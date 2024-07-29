@@ -1,6 +1,6 @@
 # Language Model
 
-The language model is composed of three parts: speech-to-text, text-to-command and text-to-speech. See below the entire workflow for the language model, and the associated dependencies and scripts.
+The language model is composed of three parts: speech-to-text, text-to-command and text-to-speech. See below the entire workflow for the language model, and the associated dependencies and scripts. For more information about the text-to-command section, see `data/rasa`.
 
 <img src="docs/language_diagram.png" alt="Language Model Workflow" width="1000">
 
