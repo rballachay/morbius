@@ -3,7 +3,7 @@
 import sys
 sys.path.append("src/language/tts")
 
-from nix.models.TTS import NixTTSInference
+from src.tts.nix.models.TTS import NixTTSInference
 from config import NIX_TTS_MODEL, NIX_GDRIVE_LINK
 from src.file_utils import download_model_gdrive
 import os

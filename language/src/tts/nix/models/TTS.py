@@ -5,7 +5,7 @@ import timeit
 import numpy as np
 import onnxruntime as ort
 
-from nix.tokenizers.tokenizer_en import NixTokenizerEN
+from src.tts.nix.tokenizers.tokenizer_en import NixTokenizerEN
 
 class NixTTSInference:
 

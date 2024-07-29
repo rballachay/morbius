@@ -1,4 +1,4 @@
-from src.language.record import record_until_thresh
+from src.stt.record import record_until_thresh
 from src.file_utils import download_file
 from config import CACHE_RECORDINGS, RECORDINGS_DIR, \
     WHISPER_DIR, WHISPER_LOCAL, WHISPER_SIZES, WHISPER_URL, SAMPLE_RATE, DEVICE

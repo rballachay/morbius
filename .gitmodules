@@ -1,31 +1,15 @@
-[submodule "submodules/FastSpeech2"]
-	path = submodules/FastSpeech2
-	url = https://github.com/ming024/FastSpeech2
-[submodule "submodules/whisper.cpp"]
-	path = submodules/whisper.cpp
-	url = https://github.com/ggerganov/whisper.cpp
-[submodule "submodules/StyleTTS2"]
-	path = submodules/StyleTTS2
-	url = https://github.com/yl4579/StyleTTS2.git
-[submodule "submodules/Pangolin"]
-	path = submodules/Pangolin
-	url = https://github.com/stevenlovegrove/Pangolin.git
-[submodule "submodules/rscvdnn"]
-	path = submodules/rscvdnn
-	url = https://github.com/twMr7/rscvdnn
-[submodule "submodules/ESANet"]
-	path = submodules/ESANet
-	url = https://github.com/TUI-NICR/ESANet.git
-[submodule "submodules/RGBDPlaneDetection"]
-	path = submodules/RGBDPlaneDetection
-	url = https://github.com/chaowang15/RGBDPlaneDetection
-[submodule "submodules/libfvad"]
-	path = submodules/libfvad
+[submodule "language/submodules/libfvad"]
+	path = language/submodules/libfvad
 	url = https://github.com/dpirch/libfvad
-[submodule "submodules/ORB_SLAM3"]
-	path = submodules/ORB_SLAM3
+[submodule "vision/submodules/Pangolin"]
+	path = vision/submodules/Pangolin
+	url = https://github.com/stevenlovegrove/Pangolin.git
+[submodule "vision/submodules/ORB_SLAM3"]
+	path = vision/submodules/ORB_SLAM3
 	url = https://github.com/rballachay/ORB_SLAM3
-	branch = ORB_SLAM3_MAC
-[submodule "submodules/librealsense"]
-	path = submodules/librealsense
+[submodule "vision/submodules/librealsense"]
+	path = vision/submodules/librealsense
 	url = https://github.com/IntelRealSense/librealsense
+[submodule "vision/submodules/ESANet"]
+	path = vision/submodules/ESANet
+	url = https://github.com/TUI-NICR/ESANet.git

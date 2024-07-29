@@ -1,0 +1,62 @@
+version: "3.1"
+
+rules:
+- rule: resume
+  steps:
+  - intent: resume
+  - action: action_resume
+
+- rule: sleep
+  steps:
+  - intent: sleep
+  - action: utter_confirm_sleep
+  - intent: affirm
+  - action: action_sleep
+
+- rule: help
+  steps:
+  - intent: help
+  - action: utter_confirm_help
+  - action: action_list_commands
+
+- rule: turn left
+  steps:
+  - intent: turn_left
+  - action: action_turn_left
+
+- rule: turn left + move forward 
+  steps:
+  - intent: turn_left+move_forward
+  - action: action_turn_left
+  - action: action_move_forward
+
+- rule: turn right
+  steps:
+  - intent: turn_right
+  - action: action_turn_right
+
+- rule: turn right + move forward 
+  steps:
+  - intent: turn_right+move_forward
+  - action: action_turn_right
+  - action: action_move_forward
+
+- rule: move backward
+  steps:
+  - intent: move_backward
+  - action: action_move_backward
+
+- rule: move forward
+  steps:
+  - intent: move_forward
+  - action: action_move_forward
+
+- rule: stop
+  steps:
+  - intent: stop
+  - action: action_stop
+
+- rule: unknown
+  steps:
+  - intent: unknown
+  - action: utter_confusion

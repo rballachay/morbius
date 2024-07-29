@@ -1,0 +1,53 @@
+version: "3.1"
+
+intents:
+- affirm
+- deny
+- greet
+- help
+- move_backward
+- move_forward
+- resume
+- sleep
+- stop
+- turn_left
+- turn_left+move_forward
+- turn_right
+- turn_right+move_forward
+- unknown
+
+entities:
+- distance
+- angle
+
+actions:
+- utter_hello
+- action_move_forward
+- action_move_backward
+- action_turn_right
+- action_turn_left
+- action_stop
+- action_resume
+- action_sleep
+- action_list_commands
+- utter_confusion
+
+responses:
+  utter_hello:
+  - text: Hey!
+  - text: Hello there
+  - text: Howdy
+  - text: Hey there
+
+  utter_confirm_sleep:
+  - text: You would like me to sleep?
+
+  utter_confirm_help:
+  - text: How may I be of assistance? 
+
+  utter_confusion:
+  - text: I don't understand, can you please repeat?
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

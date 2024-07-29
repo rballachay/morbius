@@ -7,8 +7,10 @@ plugins {
 group = 'ca.mcgill.ecse458'
 version = '0.0.1-SNAPSHOT'
 
+
 java {
     sourceCompatibility = '17'
+    targetCompatibility = '17'
 }
 
 repositories {
