@@ -91,7 +91,12 @@ if PHONEMIZER_ESPEAK_LIBRARY is None:
 os.environ["PHONEMIZER_ESPEAK_LIBRARY"] = PHONEMIZER_ESPEAK_LIBRARY
 """TTS CONFIG"""
 
+####################### EXPERIMENTAL #######################
+# These are experimental and can be activated by adding the submodules and necessary 
+# models to these paths.
 """FASTSPEECH"""
+# find at https://github.com/ming024/FastSpeech2
+# models at https://drive.google.com/drive/folders/1DOhZGlTLMbbAAFZmZGDdc77kz1PloS7F
 PREPROCESS_CONFIG='submodules/FastSpeech2/config/LJSpeech/preprocess.yaml'
 MODEL_CONFIG='submodules/FastSpeech2/config/LJSpeech/model.yaml'
 HIFIGAN_CONFIG='submodules/FastSpeech2/hifigan/config.json'
@@ -100,9 +105,12 @@ FAST_MODEL_PATH='models/fastspeech-model.pth.tar'
 """FASTSPEECH"""
 
 """STYLETTS2"""
+# find at https://github.com/yl4579/StyleTTS2
+# models at https://huggingface.co/yl4579/StyleTTS2-LJSpeech/tree/main
 LJ_CONFIG="models/LJSpeech/config.yml"
 LJ_MODEL="models/LJSpeech/epoch_2nd_00100.pth"
 """STYLETTS2"""
+####################### EXPERIMENTAL #######################
 
 """NIX_TTS"""
 NIX_TTS_MODEL="models/nix-ljspeech-deterministic-v0.1"

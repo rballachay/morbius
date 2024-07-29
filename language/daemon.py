@@ -45,6 +45,7 @@ class Daemon:
 
     # Function to run the daemon process
     def listen(self):
+
         print("Listening for 'Hey Robot'...")
         speak("Daemon launched")
 
@@ -68,6 +69,7 @@ class Daemon:
 
     def run(self):
         print("Hey Robot detected! Triggering full process...")
+        speak("Robot waking up")
         vc = VoiceController(daemon=True, rasa=self.rasa)
         vc.run()
 
@@ -83,9 +85,9 @@ class Daemon:
         )
 
     def close_audio(self):
-        if not self.audio_stream is None:
+        if not (self.audio_stream is None):
             self.audio_stream.close()
-        if not self.pa is None:
+        if not (self.pa is None):
             self.pa.terminate()
         return None, None
 

@@ -112,8 +112,9 @@ class RosControllerv2:
     def action_move_forward(self, distance):
         if distance is None:
             distance = DEFAULT_FORWARD
+        else:
+            distance_cm = convert_number_units(distance)
 
-        distance_cm = convert_number_units(distance)
         self.print(f"Moving forward {distance_cm} cm...")
         
         try:
@@ -131,9 +132,9 @@ class RosControllerv2:
     
     def action_move_backward(self, distance):
         if distance is None:
-            distance = DEFAULT_BACKWARD
-
-        distance_cm = convert_number_units(distance)
+            distance_cm = DEFAULT_BACKWARD
+        else:
+            distance_cm = convert_number_units(distance)
 
         self.print(f"Moving backward {distance_cm} cm...")
 
@@ -153,8 +154,10 @@ class RosControllerv2:
     def action_turn_right(self, angle):
         if angle is None:
             angle=DEFAULT_ANGLE
+        else:
+            angle = convert_number_units(angle)
+
         self.print(f"Turning right {angle}...")  
-        angle = convert_number_units(angle)
 
         try:
             response = requests.post(endpoint.format("turnright"),
@@ -172,8 +175,10 @@ class RosControllerv2:
     def action_turn_left(self, angle):
         if angle is None:
             angle = DEFAULT_ANGLE
+        else:
+            angle = convert_number_units(angle)
+            
         self.print(f"Turning left {angle}...")  
-        angle = convert_number_units(angle)
 
         try:
             response = requests.post(endpoint.format("turnleft"),
