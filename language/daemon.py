@@ -3,7 +3,7 @@ import pyaudio
 import struct
 from config import PICO_ACCESS_KEY, PORCUPINE_MODEL_MAC, PORCUPINE_MODEL_PI
 import platform
-from controller import VoiceController, RasaManager
+from src.controller import VoiceController, RasaManager
 import subprocess
 
 def get_porcupine_model():
@@ -56,7 +56,7 @@ class Daemon:
 
                 keyword_index = self.porcupine.process(pcm)
                 if keyword_index >= 0:
-                    pa, audio_stream = self.close_audio(pa, audio_stream)
+                    self.close_audio()
                     self.run()
         except KeyboardInterrupt:
             print("Stopping...")

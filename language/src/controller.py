@@ -1,4 +1,4 @@
-from src.language.transcribe import FasterWhisper, listen_transcribe
+from src.stt.transcribe import FasterWhisper, listen_transcribe
 from src.file_utils import timing_decorator
 from src.ros_controller import RosControllerV1, RosControllerv2
 from config import RASA_MODEL_PATHS, RASA_MODELS_GDRIVE, RASA_ACTIONS_PATHS, \
@@ -9,7 +9,7 @@ import time
 import os
 import requests
 import uuid
-from src.language.tts.text_to_speech import TextToSpeech
+from src.tts.text_to_speech import TextToSpeech
 from src.file_utils import download_model_gdrive
 
 
