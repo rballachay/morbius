@@ -9,6 +9,10 @@ usage() {
   exit 1
 }
 
+if [ $# -eq 0 ]; then
+  usage
+fi
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -48,8 +52,8 @@ if [ "$MINICONDA" = true ]; then
   # Initialize Miniconda
   $HOME/miniconda3/bin/conda init
 
-  # Reload shell configuration (this example assumes bash)
-  source ~/.bashrc
+  # Source the conda initialization script
+  source $HOME/miniconda3/etc/profile.d/conda.sh
 
   # Verify the installation
   conda --version
@@ -63,13 +67,28 @@ fi
 # Phase 2: Install audio system
 if [ "$AUDIO" = true ]; then
   $HOME/miniconda3/bin/conda init
+
+  if [ $? -ne 0 ]; then
+    echo "Failed to initialize conda. ensure to install miniconda first"
+    exit 1
+  fi
+
+  source $HOME/miniconda3/etc/profile.d/conda.sh
   conda activate python310
+  if [ $? -ne 0 ]; then
+    echo "Failed to activate conda environment. Ensure the environment 'python310' exists."
+    exit 1
+  fi
 
   echo "Starting audio installation and dependencies installation..."
+
+  cd language/
+
   # install all other apt packages
   sudo apt-get install gcc -y
   sudo apt-get install portaudio19-dev espeak automake libtool -y
   sudo apt-get install libhdf5-dev -y
+  sudo apt install libpulse-dev pulseaudio apulse
 
   # this is necessary for forwarding graphics over ssh
   sudo apt-get install xorg openbox -y
@@ -86,7 +105,7 @@ if [ "$AUDIO" = true ]; then
   cd ../../
 
   # compile the actual file
-  cd src/language
+  cd src/stt
   gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad 
   cd ../../
 
