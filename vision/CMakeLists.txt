@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add the source file
-set(SOURCES vision.cc ${PROJECT_SOURCE_DIR}/src/vision/rgbdSeg/include/plane/plane_detection.cpp)
+set(SOURCES vision.cpp ${PROJECT_SOURCE_DIR}/src/rgbdSeg/include/plane/plane_detection.cpp)
 
 # Check if JsonCpp target does not exist and then create it manually
 if(NOT TARGET JsonCpp::JsonCpp)
@@ -38,9 +38,9 @@ ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/include
 ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/include/CameraModels
 ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/Thirdparty/Sophus
 ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3
-${PROJECT_SOURCE_DIR}/src/vision/rgbdSeg
-${PROJECT_SOURCE_DIR}/src/vision/rgbdSeg/include/plane
-${PROJECT_SOURCE_DIR}/src/vision/rgbdSeg/include/MRF2.2
+${PROJECT_SOURCE_DIR}/src/rgbdSeg
+${PROJECT_SOURCE_DIR}/src/rgbdSeg/include/plane
+${PROJECT_SOURCE_DIR}/src/rgbdSeg/include/MRF2.2
 )
 
 # Add definitions and link directories

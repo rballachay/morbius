@@ -8,6 +8,7 @@
 
 # ignore executable
 vision/src/rgbdSeg/planeSegment
+vision/vision 
 
 # ignore model files
 *.gz
