@@ -51,7 +51,9 @@ class Daemon:
 
         try:
             while True:
-                self.start_audio()
+                if self.pa is None:
+                    self.start_audio()
+
                 pcm = self.audio_stream.read(self.porcupine.frame_length)
                 pcm = struct.unpack_from("h" * self.porcupine.frame_length, pcm)
 
@@ -87,9 +89,10 @@ class Daemon:
     def close_audio(self):
         if not (self.audio_stream is None):
             self.audio_stream.close()
+            self.audio_stream = None
         if not (self.pa is None):
             self.pa.terminate()
-        return None, None
+            self.pa = None
 
 
 if __name__ == "__main__":
