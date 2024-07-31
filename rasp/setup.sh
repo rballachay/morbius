@@ -117,17 +117,18 @@ if [ "$VISION" = true ]; then
   pwd
   echo "Starting installation and compilation of vision system"
   # compile the planeSegment
-  git config --global --add safe.directory /home/user/morbius/submodules/librealsense
-  git submodule update --init submodules/librealsense
-  cd src/vision/rgbdSeg
-  sudo bash build.sh
-  mv planeSegment ../../../
+  git config --global --add safe.directory /home/user/morbius/vision/submodules/librealsense
+  git submodule update --init vision/submodules/librealsense
+  cd vision/src/rgbdSeg
+  sudo bash build.sh --include-deps
+  mv planeSegment ../
   cd ../../../
   echo "Finished install of vision system"
 fi
 
 # Phase 4: Compile slam
 if [ "$SLAM" = true ]; then
+  sudo apt-get install -y cmake
   # need to install Pangolin as an ORBSLAM dependency
   cd ../
   git clone --recursive https://github.com/stevenlovegrove/Pangolin.git 
@@ -138,14 +139,16 @@ if [ "$SLAM" = true ]; then
   cd ../morbius
 
   # compile and prepare ORBSLAM
-  git config --global --add safe.directory /home/user/morbius/submodules/ORB_SLAM3
-  git submodule update --init submodules/ORB_SLAM3/
-  cd submodules/ORB_SLAM3
+  git config --global --add safe.directory /home/user/morbius/vision/submodules/ORB_SLAM3
+  git submodule update --init vision/submodules/ORB_SLAM3
+  cd vision/submodules/ORB_SLAM3
   git checkout master 
   git reset --hard origin/master
   git pull
   chmod +x build.sh
   sed -i 's/++11/++14/g' CMakeLists.txt
   ./build.sh
+  cd ../../
+  bash ./build.sh
   echo "Compilation of slam system complete"
 fi

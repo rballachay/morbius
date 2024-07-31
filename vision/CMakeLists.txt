@@ -51,16 +51,25 @@ link_directories(${PCL_LIBRARY_DIRS})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 add_executable(vision ${SOURCES})
 
+# Determine the library extension based on the platform
+if(APPLE)
+  set(LIB_EXT "dylib")
+  target_link_libraries(vision
+      /usr/local/Cellar/boost/1.85.0/lib/libboost_serialization.dylib
+      /usr/local/opt/openssl/lib/libcrypto.dylib
+  )
+else()
+  set(LIB_EXT "so")
+endif()
+
 # Link libraries
 target_link_libraries(vision
     ${OpenCV_LIBS}
     ${EIGEN3_LIBS}
     ${Pangolin_LIBRARIES}
     ${realsense2_LIBRARY}
-    ${PCL_LIBRARIES} 
-    ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/Thirdparty/DBoW2/lib/libDBoW2.dylib
-    ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/Thirdparty/g2o/lib/libg2o.dylib
-    /usr/local/Cellar/boost/1.85.0/lib/libboost_serialization.dylib
-    /usr/local/opt/openssl/lib/libcrypto.dylib
-    ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/lib/libORB_SLAM3.dylib
+    ${PCL_LIBRARIES}
+    ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/Thirdparty/DBoW2/lib/libDBoW2.${LIB_EXT}
+    ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/Thirdparty/g2o/lib/libg2o.${LIB_EXT}
+    ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/lib/libORB_SLAM3.${LIB_EXT}
 )

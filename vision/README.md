@@ -31,6 +31,15 @@ bash build.sh
 sudo ./vision  submodules/ORB_SLAM3/Vocabulary/ORBvoc.txt ./data/ORB_SLAM3/RealSense_D415.yaml
 ```
 
+### Building planeSegment.cpp
+
+From the current directory (`vision`), you can run the following. This will build the planeSegment algorithm, then use the following command to run
+
+```bash
+cd src/rgbdSeg
+bash build.sh
+sudo ./planeSegment
+```
 
 ## Profiling 
 

@@ -10,6 +10,9 @@
 # ignore executable
 vision/src/rgbdSeg/planeSegment
 vision/vision 
+vision/src/planeSegment
+vision/src/rgbdSeg/include/MRF2.2/libMRF.a
+vision/src/rgbdSeg/include/MRF2.2/example
 
 # ignore model files
 *.gz

@@ -58,12 +58,12 @@ check_realsense2() {
             brew install librealsense
         fi
     elif command_exists pkg-config; then
-        if pkg-config --exists librealsense; then
+        if [ -f /usr/local/lib/librealsense2.so ]; then
             echo "librealsense (realsense2) is installed."
         else
             apt-get install xorg-dev -y
             apt-get install libusb-1.0-0-dev -y
-            cd /home/user/morbius/submodules/librealsense
+            cd /home/user/morbius/vision/submodules/librealsense
             cp config/99-realsense-libusb.rules /etc/udev/rules.d/
             udevadm control --reload-rules
             udevadm trigger
@@ -71,7 +71,7 @@ check_realsense2() {
             cmake .. -DBUILD_EXAMPLES=true -DCMAKE_BUILD_TYPE=Release -DFORCE_LIBUVC=true
             make -j1
             sudo make install
-            cd ../../../src/vision/rgbdSeg
+            cd ../../src/rgbdSeg
         fi
     else
         echo "Neither pkg-config nor brew found. Cannot check librealsense (realsense2) installation."
@@ -157,6 +157,7 @@ if $INSTALL_DEPS; then
     check_pcl
 fi
 
+pwd
 cd include/MRF2.2
 make
 cd ../../
@@ -164,7 +165,6 @@ mkdir -p build
 cd build
 cmake ..
 make
-mv planeSegment ../
 cd ..
 
 echo "Built executable: planeSegment, must run with sudo"
