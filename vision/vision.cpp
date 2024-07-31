@@ -299,20 +299,6 @@ int main(int argc, char **argv) {
     SlamThread.detach();
     SLAM.getViewer()->Run();
 
-    while (true) {
-        std::unique_lock<std::mutex> lock(queueMutex);
-        frameAvailable.wait(lock, [&] { return !frameQueue.empty(); });
-
-        cv::Mat frame = frameQueue.front();
-        frameQueue.pop();
-        lock.unlock();
-
-        cv::imshow("Processed Frame", frame);
-        if (cv::waitKey(1) == 27) { // Exit on ESC key
-            break;
-        }
-    }
-
     cout << "System shutdown!\n";
 }
 

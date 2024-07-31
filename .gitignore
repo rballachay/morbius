@@ -1,6 +1,7 @@
 # ignore rasa cache
 *.rasa/
 *.metals/
+*.a
 
 # why is this not ignored by default? no clue
 *.DS_Store

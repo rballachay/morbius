@@ -5,6 +5,31 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+check_homebrew() {
+    # Check if the system is macOS
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "This is a macOS system."
+
+        # Check if Homebrew is installed
+        if ! command -v brew &> /dev/null; then
+            echo "Homebrew not found, installing..."
+            
+            # Install Homebrew
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            
+            # Add Homebrew to PATH and set up shell environment
+            echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+            
+            echo "Homebrew installation complete."
+        else
+            echo "Homebrew is already installed."
+        fi
+    else
+        echo "This is not a macOS system. Skipping brew install"
+    fi
+}
+
 # Function to check if OpenCV is installed
 check_opencv() {
     if command_exists brew; then
@@ -124,6 +149,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if $INSTALL_DEPS; then
+    check_homebrew
     check_cmake
     check_eigen3
     check_opencv

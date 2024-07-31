@@ -11,7 +11,7 @@
 #include <pcl/filters/passthrough.h>
 
 #define C_ATTRACT 5.f // coefficient of attraction of destination point
-#define C_REPULSE 0.1 // coefficient of repulsion of each point in voxel cloud
+#define C_REPULSE 100.f // coefficient of repulsion of each point in voxel cloud
 #define MAX_DIST 250.f // max distance to apply force in artificial field
 #define VOXEL_DENSITY 10.f // the distance we want between each voxel, in mm
 #define STEP_SIZE 10.f // step size in cm in the walking algorithm
@@ -263,8 +263,10 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
 
     `Artificial Potential Field with Discrete Map Transformation for Feasible Indoor Path Planning`
     */
+    int cloudSize = voxelCloud->size();
+
     double force_x_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
-    [&c_repulse, &d0, &source](double sum, const pcl::PointXYZL& value) {
+    [&c_repulse, &d0, &source, &cloudSize](double sum, const pcl::PointXYZL& value) {
         double Ur = 0;
         double dist = calcModulus(value.x - source.x, value.z-source.z);
 
@@ -277,13 +279,13 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         double cos_theta = diff.normalized().dot(Eigen::Vector3d(1, 0, 0)); // Assuming angle with respect to the x-axis
 
         if (dist != 0 && std::abs(dist) <= d0) {
-            Ur = 0.5 * c_repulse * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
+            Ur = 0.5 * (c_repulse/cloudSize) * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
         }
         return sum + cos_theta * Ur;
     });
 
     double force_z_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
-    [&c_repulse, &d0, &source](double sum, const pcl::PointXYZL& value) {
+    [&c_repulse, &d0, &source, &cloudSize](double sum, const pcl::PointXYZL& value) {
         double Ur = 0;
         double dist = calcModulus(value.x - source.x, value.z-source.z);
 
@@ -296,7 +298,7 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         double cos_theta = diff.normalized().dot(Eigen::Vector3d(0, 0, 1)); // Assuming angle with respect to the z-axis
 
         if (dist != 0 && std::abs(dist) <= d0) {
-            Ur = 0.5 * c_repulse * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
+            Ur = 0.5 * (c_repulse/cloudSize) * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
         }
         return sum + cos_theta * Ur;
     });
