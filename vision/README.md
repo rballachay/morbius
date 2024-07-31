@@ -6,8 +6,8 @@ This script is the main vision model. It can run in two different modes, mapping
 
 
 <div style="display: flex; justify-content: space-between;">
-    <img src="docs/ORB_SLAM3_features.png" alt="First Image" width="50%" />
-    <img src="docs/ORB_SLAM3_points.png" alt="Second Image" width="50%" />
+    <img src="docs/ORB_SLAM3_features.png" alt="First Image" width="45%" />
+    <img src="docs/ORB_SLAM3_points.png" alt="Second Image" width="45%" />
 </div>
 
 
