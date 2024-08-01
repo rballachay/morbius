@@ -4,6 +4,10 @@ The language model is composed of three parts: speech-to-text, text-to-command a
 
 <img src="docs/language_diagram.png" alt="Language Model Workflow" width="1000">
 
+## Running 
+
+To run the model, first ensure you have an environment with python 3.10, install the requirements using: `pip install -r requirements.txt` and then run the server/language model with: `bash ./start.sh`.
+
 
 ## Language - setup
 
