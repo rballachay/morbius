@@ -13,3 +13,6 @@
 [submodule "vision/submodules/ESANet"]
 	path = vision/submodules/ESANet
 	url = https://github.com/TUI-NICR/ESANet.git
+[submodule "vision/submodules/pistache"]
+	path = vision/submodules/pistache
+	url = https://github.com/pistacheio/pistache

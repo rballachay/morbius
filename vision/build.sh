@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# install pistache
+brew install meson
+brew install doxygen
+brew install googletest
+brew install openssl
+brew install rapidjson
+brew install howard-hinnant-date
+
+git submodule update --init submodules/pistache/
+cd submodules/pistache/
+bldscripts/mesbuild.sh
+bldscripts/mesinstall.sh
+cd ../
+
 # INTO SUBMODULE
 cd submodules/ORB_SLAM3
 
@@ -55,4 +69,5 @@ mkdir -p build
 cd build
 cmake .. 
 make
+mv vision_nav.cpython-310-darwin.so ../
 cd ../
