@@ -1,18 +1,21 @@
 #!/bin/bash
 
 # install pistache
-brew install meson
-brew install doxygen
-brew install googletest
-brew install openssl
-brew install rapidjson
-brew install howard-hinnant-date
+if [ "$(uname)" == "Darwin" ]; then
+  brew install meson
+  brew install doxygen
+  brew install googletest
+  brew install openssl
+  brew install rapidjson
+  brew install howard-hinnant-date
+fi
+
 
 git submodule update --init submodules/pistache/
 cd submodules/pistache/
 bldscripts/mesbuild.sh
 bldscripts/mesinstall.sh
-cd ../
+cd ../../
 
 # INTO SUBMODULE
 cd submodules/ORB_SLAM3
