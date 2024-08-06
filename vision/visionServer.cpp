@@ -21,16 +21,29 @@
 
 #include <System.h>
 
+#include <pistache/endpoint.h>
+#include <pistache/http.h>
+#include <pistache/peer.h>
+#include <json/json.h> // Assuming you're using JSON for parsing
+
 #define AVG_FRAMES 10
 
 using namespace std;
+using namespace Pistache;
 
-bool b_continue_session;
+pcl::PointXYZ destination(0, 0, 0);
+pcl::PointXYZ source(0, 0, 0);
+double step_size = 50;
+
+atomic<bool> b_continue_session(true);
+condition_variable cond_v;
+mutex mtx;
+sigset_t signals;
 
 void exit_loop_handler(int s){
     cout << "Finishing session" << endl;
     b_continue_session = false;
-
+    cond_v.notify_all();  // Notify any waiting threads
 }
 
 rs2_stream find_stream_to_align(const std::vector<rs2::stream_profile>& streams);
@@ -86,6 +99,45 @@ static rs2_option get_sensor_option(const rs2::sensor& sensor)
     return static_cast<rs2_option>(selected_sensor_option);
 }
 
+struct RequestHandler : public Http::Handler {
+    HTTP_PROTOTYPE(RequestHandler)
+
+    void onRequest(const Http::Request& request, Http::ResponseWriter writer) override {
+        if (request.method() == Http::Method::Post) {
+            // Extract the request body
+            auto body = request.body();
+            
+            // Parse the JSON body
+            Json::CharReaderBuilder readerBuilder;
+            Json::Value jsonData;
+            std::string errs;
+
+            std::istringstream s(body);
+            if (Json::parseFromStream(readerBuilder, s, &jsonData, &errs)) {
+                // Extract x, y, z from the JSON
+                if (jsonData.isMember("x") && jsonData.isMember("y") && jsonData.isMember("z")) {
+                    float x = jsonData["x"].asFloat();
+                    float y = jsonData["y"].asFloat();
+                    float z = jsonData["z"].asFloat();
+
+                    // Update destination
+                    destination.x = x;
+                    destination.y = y;
+                    destination.z = z;
+
+                    writer.send(Http::Code::Ok, "Updated destination successfully\n");
+                } else {
+                    writer.send(Http::Code::Bad_Request, "Missing parameters in JSON body\n");
+                }
+            } else {
+                writer.send(Http::Code::Bad_Request, "Invalid JSON format\n");
+            }
+        } else {
+            writer.send(Http::Code::Method_Not_Allowed, "Only POST method is allowed\n");
+        }
+    }
+};
+
 int main(int argc, char **argv) {
 
     if (argc < 3 || argc > 4) {
@@ -108,8 +160,11 @@ int main(int argc, char **argv) {
     sigIntHandler.sa_handler = exit_loop_handler;
     sigemptyset(&sigIntHandler.sa_mask);
     sigIntHandler.sa_flags = 0;
-
     sigaction(SIGINT, &sigIntHandler, NULL);
+
+    sigemptyset(&signals);
+    sigaddset(&signals, SIGINT);
+    
     b_continue_session = true;
 
     double offset = 0; // ms
@@ -219,6 +274,10 @@ int main(int argc, char **argv) {
     auto run = [&] () {
         while (!SLAM.isShutDown())
         {
+            if (!b_continue_session){
+                SLAM.Shutdown();
+                return;
+            }
             fs = pipe.wait_for_frames();;
 
             // Perform alignment here
@@ -279,8 +338,11 @@ int main(int argc, char **argv) {
 
 					pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
 
-					floorHeat = drawFloorHeatMap(surfaces.vertices, 
-						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
+					Forces forces = resultantForces(voxelCloud, source, destination);
+
+                    std::cout << destination.z << std::endl;
+        
+                    pcl::PointXYZ new_point = calculateStep(source, forces, step_size);
 				}
                 
                 {
@@ -293,13 +355,56 @@ int main(int argc, char **argv) {
         	}
         }
     };
+
+    // Start HTTP server in a separate thread
+    std::thread server_thread([&]() {
+        Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(9080));
+        auto opts = Pistache::Http::Endpoint::options().threads(1);
+        Pistache::Http::Endpoint server(addr);
+        server.init(opts);
+        server.setHandler(Pistache::Http::make_handler<RequestHandler>());
+
+        //log("Serving the API on %s:%d.", addr.host().c_str(), static_cast<uint16_t>(addr.port()) );
+        server.serve();
+
+        bool terminate = false;
+        while (!terminate) {
+            int number = 0;
+            int status = sigwait(&signals, &number);
+            if (status != 0) {
+                //log("sigwait() returned %d, shutting down.", status);
+                break;
+            }
+
+            switch (number) {
+                case SIGINT:
+                    std::cout << "\rCaught signal " << number << " (SIGINT)." << std::endl;
+                    terminate = true;
+                    break;
+                default:
+                    std::cout << "\rCaught signal " << number << "." << std::endl;
+                    break;
+            }
+
+        }
+
+        std::cout << "Shutting down the HTTP server." << std::endl;
+        server.shutdown();
+    });
+
+
     // create a background thread to run slam on, and run the slam viewer in 
     // the main thread
-    std::thread SlamThread(run);
-    SlamThread.detach();
-    SLAM.getViewer()->Run();
+    std::thread slam_thread(run);
+    //ORB_SLAM3::Viewer SLAM.getViewer();
+
+    // Wait for threads to finish
+    slam_thread.join();
+    server_thread.join();
 
     cout << "System shutdown!\n";
+
+    return 0;
 }
 
 rs2_stream find_stream_to_align(const std::vector<rs2::stream_profile>& streams)

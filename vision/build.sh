@@ -1,70 +1,86 @@
 #!/bin/bash
 
-# install pistache
-if [ "$(uname)" == "Darwin" ]; then
-  brew install meson
-  brew install doxygen
-  brew install googletest
-  brew install openssl
-  brew install rapidjson
-  brew install howard-hinnant-date
+# Function to display usage
+usage() {
+    echo "Usage: $0 [--skip-build]"
+    exit 1
+}
+
+# Check for flags
+SKIP_BUILD=false
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --skip-build)
+            SKIP_BUILD=true
+            shift
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+# Install Pistache and dependencies if not skipping
+if [ "$SKIP_BUILD" = false ]; then
+    if [ "$(uname)" == "Darwin" ]; then
+        brew install meson
+        brew install doxygen
+        brew install googletest
+        brew install openssl
+        brew install rapidjson
+        brew install howard-hinnant-date
+    fi
+
+    git submodule update --init submodules/pistache/
+    cd submodules/pistache/
+    bldscripts/mesbuild.sh
+    bldscripts/mesinstall.sh
+    cd ../../
 fi
 
+# Build Thirdparty components
+if [ "$SKIP_BUILD" = false ]; then
+    # INTO SUBMODULE
+    cd submodules/ORB_SLAM3
 
-git submodule update --init submodules/pistache/
-cd submodules/pistache/
-bldscripts/mesbuild.sh
-bldscripts/mesinstall.sh
-cd ../../
+    echo "Configuring and building Thirdparty/DBoW2 ..."
 
-# INTO SUBMODULE
-cd submodules/ORB_SLAM3
+    cd Thirdparty/DBoW2
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release
+    make -j
 
-echo "Configuring and building Thirdparty/DBoW2 ..."
+    cd ../../g2o
 
-cd Thirdparty/DBoW2
-mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j
+    echo "Configuring and building Thirdparty/g2o ..."
 
-cd ../../g2o
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release
+    make -j
 
-echo "Configuring and building Thirdparty/g2o ..."
+    cd ../../Sophus
 
-mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j
+    echo "Configuring and building Thirdparty/Sophus ..."
 
-cd ../../Sophus
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release
+    make -j
 
-echo "Configuring and building Thirdparty/Sophus ..."
+    cd ../../../
 
-mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j
+    echo "Uncompress vocabulary ..."
 
-cd ../../../
+    cd Vocabulary
+    tar -xf ORBvoc.txt.tar.gz
+    cd ..
 
-echo "Uncompress vocabulary ..."
-
-cd Vocabulary
-tar -xf ORBvoc.txt.tar.gz
-cd ..
-
-echo "Configuring and building ORB_SLAM3 ..."
-
-mkdir build
-cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j4
-cd ../
+    echo "Configuring and building ORB_SLAM3 ..."
 
 
-# OUT OF SUBMODULE
-cd ../../
+fi
 
 echo "Configuring and building vision ..."
 
@@ -72,5 +88,5 @@ mkdir -p build
 cd build
 cmake .. 
 make
-mv vision_nav.cpython-310-darwin.so ../
+mv visionServer ../
 cd ../
