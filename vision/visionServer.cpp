@@ -356,51 +356,40 @@ int main(int argc, char **argv) {
         }
     };
 
-    // Start HTTP server in a separate thread
-    std::thread server_thread([&]() {
-        Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(9080));
-        auto opts = Pistache::Http::Endpoint::options().threads(1);
-        Pistache::Http::Endpoint server(addr);
-        server.init(opts);
-        server.setHandler(Pistache::Http::make_handler<RequestHandler>());
+    std::thread slam_thread(run);
+    slam_thread.detach();
 
-        //log("Serving the API on %s:%d.", addr.host().c_str(), static_cast<uint16_t>(addr.port()) );
-        server.serve();
+    Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(9080));
+    auto opts = Pistache::Http::Endpoint::options().threads(1);
+    Pistache::Http::Endpoint server(addr);
+    server.init(opts);
+    server.setHandler(Pistache::Http::make_handler<RequestHandler>());
 
-        bool terminate = false;
-        while (!terminate) {
-            int number = 0;
-            int status = sigwait(&signals, &number);
-            if (status != 0) {
-                //log("sigwait() returned %d, shutting down.", status);
-                break;
-            }
+    server.serveThreaded();
 
-            switch (number) {
-                case SIGINT:
-                    std::cout << "\rCaught signal " << number << " (SIGINT)." << std::endl;
-                    terminate = true;
-                    break;
-                default:
-                    std::cout << "\rCaught signal " << number << "." << std::endl;
-                    break;
-            }
-
+    bool terminate = false;
+    while (!terminate) {
+        int number = 0;
+        int status = sigwait(&signals, &number);
+        if (status != 0) {
+            //log("sigwait() returned %d, shutting down.", status);
+            break;
         }
 
-        std::cout << "Shutting down the HTTP server." << std::endl;
-        server.shutdown();
-    });
+        switch (number) {
+            case SIGINT:
+                std::cout << "\rCaught signal " << number << " (SIGINT)." << std::endl;
+                terminate = true;
+                break;
+            default:
+                std::cout << "\rCaught signal " << number << "." << std::endl;
+                break;
+        }
 
+    }
 
-    // create a background thread to run slam on, and run the slam viewer in 
-    // the main thread
-    std::thread slam_thread(run);
-    //ORB_SLAM3::Viewer SLAM.getViewer();
-
-    // Wait for threads to finish
-    slam_thread.join();
-    server_thread.join();
+    std::cout << "Shutting down the HTTP server." << std::endl;
+    server.shutdown();
 
     cout << "System shutdown!\n";
 
