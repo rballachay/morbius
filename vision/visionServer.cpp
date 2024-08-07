@@ -31,8 +31,13 @@
 using namespace std;
 using namespace Pistache;
 
+// this is the current destination of the robot
 pcl::PointXYZ destination(0, 0, 0);
-pcl::PointXYZ source(0, 0, 0);
+
+// this is the current location of the robot
+pcl::PointXYZ location(0, 0, 0); 
+
+// this is the step size we want to take for each resultant vector
 double step_size = 50;
 
 atomic<bool> b_continue_session(true);
@@ -132,8 +137,24 @@ struct RequestHandler : public Http::Handler {
             } else {
                 writer.send(Http::Code::Bad_Request, "Invalid JSON format\n");
             }
+        } else if (request.method() == Http::Method::Get) {
+            // Create JSON response with source and destination
+            Json::Value responseData;
+            responseData["location"]["x"] = location.x;
+            responseData["location"]["y"] = location.y;
+            responseData["location"]["z"] = location.z;
+            responseData["destination"]["x"] = destination.x;
+            responseData["destination"]["y"] = destination.y;
+            responseData["destination"]["z"] = destination.z;
+
+            // Serialize JSON to string
+            Json::StreamWriterBuilder writerBuilder;
+            std::string responseString = Json::writeString(writerBuilder, responseData);
+
+            // Send JSON response
+            writer.send(Http::Code::Ok, responseString, MIME(Application, Json));
         } else {
-            writer.send(Http::Code::Method_Not_Allowed, "Only POST method is allowed\n");
+            writer.send(Http::Code::Method_Not_Allowed, "Only GET and POST methods are allowed\n");
         }
     }
 };
@@ -301,14 +322,6 @@ int main(int argc, char **argv) {
             // Pass the image to the SLAM system
             Sophus::SE3f se3_transform = SLAM.TrackRGBD(im, depth, timestamp); //, vImuMeas); depthCV
 
-            // point in the global reference frame
-            Eigen::Vector3f point_global(0.0f, 0.0f, -0.5f);
-
-            // we want to know where we are navigating to in the local reference frame
-            Eigen::Vector3f point_local = se3_transform.inverse() * point_global;
-
-            std::cout << "Point in the local reference frame: " << point_local.transpose() << std::endl;
-
             // all the processing for the planeSegment
             colorImages[frameCount] = im.clone();
         	depths[frameCount] = depth.clone();
@@ -338,11 +351,18 @@ int main(int argc, char **argv) {
 
 					pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
 
-					Forces forces = resultantForces(voxelCloud, source, destination);
+                    // the robot will always be at 0,0,0 in the local reference frame, so want 
+                    // to convert this into a global position
+                    Eigen::Vector3f robot_reference(0.0f, 0.0f, 0.0f);
+                    Eigen::Vector3f robot_location = se3_transform.inverse() * robot_reference;
 
-                    std::cout << destination.z << std::endl;
+                    location.x = robot_location.x();
+                    location.y = robot_location.y();
+                    location.z = robot_location.z();
+
+					Forces forces = resultantForces(voxelCloud, location, destination);
         
-                    pcl::PointXYZ new_point = calculateStep(source, forces, step_size);
+                    pcl::PointXYZ new_point = calculateStep(location, forces, step_size);
 				}
                 
                 {
