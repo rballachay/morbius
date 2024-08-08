@@ -32,7 +32,8 @@ ARRIVED = 200
 NOT_ARRIVED = 300
 
 # if we are moving away for more than 
-PATIENCE = 100
+PATIENCE = 1e10
+TRAJECTORIES_DIR='.trajectories'
 
 @dataclass
 class Vector3:
@@ -98,11 +99,11 @@ def main():
 
     if RECORD:
         # Ensure the .trajectories directory exists
-        os.makedirs('.trajectories', exist_ok=True)
+        os.makedirs(TRAJECTORIES_DIR, exist_ok=True)
 
         # Create a CSV file to store the trajectory
         epoch_time = int(time.time())
-        csv_file_path = f'.trajectories/trajectory_{epoch_time}.csv'
+        csv_file_path = f'{TRAJECTORIES_DIR}/trajectory_{epoch_time}.csv'
         df = pd.DataFrame(columns=['step', 'x', 'y', 'z'])
 
     # this is our destination index. once we reach 
@@ -161,9 +162,26 @@ def main():
             if dest_i==len(DESTINATIONS):
                 print("Arrived at final destination!!! Congrats")
                 break
-    except KeyboardInterrupt:
+    except:
         if RECORD:
             df.to_csv(csv_file_path, index=False)
 
+
+def plot_scatter_map():
+    import matplotlib.pyplot as plt
+
+    # take the most rejecent trajectory from the directory
+    traj_paths = os.listdir(TRAJECTORIES_DIR)
+    traj_path = max(filter(lambda x:x.endswith('.csv'),traj_paths))
+    df = pd.read_csv(f'{TRAJECTORIES_DIR}/{traj_path}',index_col=0)
+
+    plt.figure(figsize=(10, 6))
+    plt.scatter(df['x'], df['z'], c=df['y'], cmap='viridis', s=100)
+    plt.colorbar(label='Z Value')
+    plt.xlabel('X Coordinate')
+    plt.ylabel('Y Coordinate')
+    plt.title('Scatter Plot of Coordinates')
+    plt.show()
+    
 if __name__=='__main__':
     main()

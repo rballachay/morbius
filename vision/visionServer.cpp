@@ -346,23 +346,19 @@ int main(int argc, char **argv) {
 
 					pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud = makeVoxelCloud(projectedVertices, plane_detection.plane_vertices_);
 
-                    // the robot will always be at 0,0,0 in the local reference frame, so want 
-                    // to convert this into a global position
-                    Eigen::Vector3f robot_reference(0.0f, 0.0f, 0.0f);
-                    Eigen::Vector3f robot_location = se3_transform * robot_reference;
-
-                    location.x = -robot_location.x();
-                    location.y = robot_location.y();
-                    location.z = -robot_location.z();
+                    Eigen::Vector3f translation = se3_transform.translation();
+                    location.x = translation.x();
+                    location.y = translation.y();
+                    location.z = translation.z();
 
 					Forces forces = resultantForces(voxelCloud, location, destination);
         
                     local_destination = calculateStep(location, forces, step_size);
 
-                    cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
+                    /*cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
 						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
 
-                    floorHeatMaps.push_back(floorHeat);
+                    floorHeatMaps.push_back(floorHeat);*/
 				}
                 
 				frameCount=0;
