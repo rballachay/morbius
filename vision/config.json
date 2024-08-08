@@ -1,0 +1,5 @@
+{
+    "STEP_SIZE": 50,
+    "PORT" : 9080,
+    "TOLERANCE": 50
+}

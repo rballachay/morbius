@@ -6,25 +6,16 @@
 #include <chrono>
 #include <ctime>
 #include <sstream>
-
 #include <condition_variable>
-
 #include <opencv2/core/core.hpp>
-
 #include <librealsense2/rs.hpp>
 #include "librealsense2/rsutil.h"
-
 #include "artificialFields.hpp"
-#include <queue>
-#include <mutex>
-#include <condition_variable>
-
 #include <System.h>
-
 #include <pistache/endpoint.h>
 #include <pistache/http.h>
 #include <pistache/peer.h>
-#include <json/json.h> // Assuming you're using JSON for parsing
+#include <json/json.h>
 
 #define AVG_FRAMES 10
 
@@ -34,15 +25,14 @@ using namespace Pistache;
 // this is the current destination of the robot
 pcl::PointXYZ destination(0, 0, 0);
 
+// local destination - where the next robot step should take it
+pcl::PointXYZ local_destination(0, 0, 0);
+
 // this is the current location of the robot
 pcl::PointXYZ location(0, 0, 0); 
 
-// this is the step size we want to take for each resultant vector
-double step_size = 50;
-
 atomic<bool> b_continue_session(true);
 condition_variable cond_v;
-mutex mtx;
 sigset_t signals;
 
 void exit_loop_handler(int s){
@@ -143,9 +133,9 @@ struct RequestHandler : public Http::Handler {
             responseData["location"]["x"] = location.x;
             responseData["location"]["y"] = location.y;
             responseData["location"]["z"] = location.z;
-            responseData["destination"]["x"] = destination.x;
-            responseData["destination"]["y"] = destination.y;
-            responseData["destination"]["z"] = destination.z;
+            responseData["local_destination"]["x"] = local_destination.x;
+            responseData["local_destination"]["y"] = local_destination.y;
+            responseData["local_destination"]["z"] = local_destination.z;
 
             // Serialize JSON to string
             Json::StreamWriterBuilder writerBuilder;
@@ -167,6 +157,14 @@ int main(int argc, char **argv) {
              << endl;
         return 1;
     }
+
+    // load the step size from the json config
+    Json::Value config;
+    std::ifstream config_file("config.json", std::ifstream::binary);
+    config_file >> config;
+    int step_size = config["STEP_SIZE"].asInt();
+    int port = config["PORT"].asInt();
+
 
     string file_name;
     bool bFileName = false;
@@ -288,16 +286,12 @@ int main(int argc, char **argv) {
     std::vector<cv::Mat> depths(AVG_FRAMES);
     std::vector<cv::Mat> colorImages(AVG_FRAMES);
 
-    std::queue<cv::Mat> frameQueue;
-    std::mutex queueMutex;
-    std::condition_variable frameAvailable;
-
     auto run = [&] () {
         while (!SLAM.isShutDown())
         {
             if (!b_continue_session){
                 SLAM.Shutdown();
-                return;
+                break;
             }
             fs = pipe.wait_for_frames();;
 
@@ -354,22 +348,16 @@ int main(int argc, char **argv) {
                     // the robot will always be at 0,0,0 in the local reference frame, so want 
                     // to convert this into a global position
                     Eigen::Vector3f robot_reference(0.0f, 0.0f, 0.0f);
-                    Eigen::Vector3f robot_location = se3_transform.inverse() * robot_reference;
+                    Eigen::Vector3f robot_location = se3_transform * robot_reference;
 
-                    location.x = robot_location.x();
+                    location.x = -robot_location.x();
                     location.y = robot_location.y();
-                    location.z = robot_location.z();
+                    location.z = -robot_location.z();
 
 					Forces forces = resultantForces(voxelCloud, location, destination);
         
-                    pcl::PointXYZ new_point = calculateStep(location, forces, step_size);
+                    local_destination = calculateStep(location, forces, step_size);
 				}
-                
-                {
-                    std::lock_guard<std::mutex> lock(queueMutex);
-                    frameQueue.push(floorHeat);
-                }
-                frameAvailable.notify_one();
                 
 				frameCount=0;
         	}
@@ -379,12 +367,11 @@ int main(int argc, char **argv) {
     std::thread slam_thread(run);
     slam_thread.detach();
 
-    Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(9080));
+    Pistache::Address addr(Pistache::Ipv4::any(), Pistache::Port(port));
     auto opts = Pistache::Http::Endpoint::options().threads(1);
     Pistache::Http::Endpoint server(addr);
     server.init(opts);
     server.setHandler(Pistache::Http::make_handler<RequestHandler>());
-
     server.serveThreaded();
 
     bool terminate = false;
@@ -392,7 +379,6 @@ int main(int argc, char **argv) {
         int number = 0;
         int status = sigwait(&signals, &number);
         if (status != 0) {
-            //log("sigwait() returned %d, shutting down.", status);
             break;
         }
 
