@@ -8,9 +8,10 @@
 #include <sstream>
 #include <condition_variable>
 #include <opencv2/core/core.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <librealsense2/rs.hpp>
 #include "librealsense2/rsutil.h"
-#include "artificialFields.hpp"
+#include "src/rgbdSeg/artificialFields.hpp"
 #include <System.h>
 #include <pistache/endpoint.h>
 #include <pistache/http.h>
@@ -30,6 +31,8 @@ pcl::PointXYZ local_destination(0, 0, 0);
 
 // this is the current location of the robot
 pcl::PointXYZ location(0, 0, 0); 
+
+std::vector<cv::Mat> floorHeatMaps;
 
 atomic<bool> b_continue_session(true);
 condition_variable cond_v;
@@ -337,8 +340,6 @@ int main(int argc, char **argv) {
 				
 				Surfaces surfaces(plane_detection);
 
-				cv::Mat floorHeat = avgColor.clone();
-
 				if (surfaces.groundIdx!=-1){
 					Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
 					std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
@@ -357,6 +358,11 @@ int main(int argc, char **argv) {
 					Forces forces = resultantForces(voxelCloud, location, destination);
         
                     local_destination = calculateStep(location, forces, step_size);
+
+                    cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
+						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
+
+                    floorHeatMaps.push_back(floorHeat);
 				}
                 
 				frameCount=0;
@@ -398,6 +404,20 @@ int main(int argc, char **argv) {
     server.shutdown();
 
     cout << "System shutdown!\n";
+
+    // Save all collected floor heatmaps to the results/ folder
+    if (!std::filesystem::exists("results")) {
+        std::filesystem::create_directory("results");
+    }
+
+    int valInx = 0;
+    for (const auto& mat : floorHeatMaps) {
+        std::ostringstream filename;
+        filename << "results/floorHeat_" << valInx++ << ".png";
+        cv::imwrite(filename.str(), mat);
+    }
+
+    cout << "Saved all floor heatmaps to results/ directory." << endl;
 
     return 0;
 }

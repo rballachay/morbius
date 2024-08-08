@@ -3,6 +3,10 @@ import json
 import requests
 import json
 import time
+import os
+import pandas as pd
+
+RECORD=True
 
 """
 This file simulates a controller which is making calls to the vision model to:
@@ -91,53 +95,75 @@ def do_move_robot(location, local_destination):
     return True
 
 def main():
+
+    if RECORD:
+        # Ensure the .trajectories directory exists
+        os.makedirs('.trajectories', exist_ok=True)
+
+        # Create a CSV file to store the trajectory
+        epoch_time = int(time.time())
+        csv_file_path = f'.trajectories/trajectory_{epoch_time}.csv'
+        df = pd.DataFrame(columns=['step', 'x', 'y', 'z'])
+
     # this is our destination index. once we reach 
     # this, we update the index to the next
     dest_i = 0
     counter=0
-    while True:
-        dest = DESTINATIONS[dest_i]
+    step=0
 
-        # repeat until this is updated
-        status=False
-        while not status:
-            status = post(dest.x, dest.y, dest.z)
-        
-        # repeat until this is updated
+    try:
         while True:
-            package = get()
-            if package:
-                local_destination=package['local_destination']
-                location=package['location']
+            step+=1
+
+            dest = DESTINATIONS[dest_i]
+
+            # repeat until this is updated
+            status=False
+            while not status:
+                status = post(dest.x, dest.y, dest.z)
+            
+            # repeat until this is updated
+            while True:
+                package = get()
+                if package:
+                    local_destination=package['local_destination']
+                    location=package['location']
+                    break
+            
+            status=False
+            while not status:
+                status = do_move_robot(location, local_destination)
+
+            # repeat until this is updated
+            while True:
+                package = get()
+                if package:
+                    location=package['location']
+                    break
+
+            robot_status = arrived_status(location, dest)
+
+            if RECORD:
+                # Save the location to the DataFrame
+                df = pd.concat([df, pd.DataFrame.from_records([{'step': step, 'x': location['x'], 'y': location['y'], 'z': location['z']}])], ignore_index=True)
+
+            # check the 
+            if robot_status==ARRIVED:
+                print(f"Robot ARRIVED at: x={location['x']:.2f}, y={location['y']:.2f}, z={location['z']:.2f}")
+                dest_i+=1
+            elif robot_status==NOT_ARRIVED:
+                print(f"Robot now at: x={location['x']:.2f}, y={location['y']:.2f}, z={location['z']:.2f}")
+                counter+=1
+            
+            if counter==PATIENCE:
+                raise Exception("Robot is lost, please start again")
+            
+            if dest_i==len(DESTINATIONS):
+                print("Arrived at final destination!!! Congrats")
                 break
-        
-        status=False
-        while not status:
-            status = do_move_robot(location, local_destination)
-
-        # repeat until this is updated
-        while True:
-            package = get()
-            if package:
-                location=package['location']
-                break
-
-        robot_status = arrived_status(location, dest)
-
-        # check the 
-        if robot_status==ARRIVED:
-            print(f"Robot ARRIVED at: x={location['x']:.2f}, y={location['y']:.2f}, z={location['z']:.2f}")
-            dest_i+=1
-        elif robot_status==NOT_ARRIVED:
-            print(f"Robot now at: x={location['x']:.2f}, y={location['y']:.2f}, z={location['z']:.2f}")
-            counter+=1
-        
-        if counter==PATIENCE:
-            raise Exception("Robot is lost, please start again")
-        
-        if dest_i==len(DESTINATIONS):
-            print("Arrived at final destination!!! Congrats")
-            break
+    except KeyboardInterrupt:
+        if RECORD:
+            df.to_csv(csv_file_path, index=False)
 
 if __name__=='__main__':
     main()
