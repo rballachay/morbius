@@ -51,6 +51,7 @@ include_directories(
 # Add the executable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
+
 if(APPLE)
   set(LIB_EXT "dylib")
 else()
@@ -58,7 +59,7 @@ else()
 endif()
 
 # Link libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE
+set(LINK_LIBRARIES
     ${OpenCV_LIBS}
     ${EIGEN3_LIBS}
     ${Pangolin_LIBRARIES}
@@ -71,6 +72,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/Thirdparty/g2o/lib/libg2o.${LIB_EXT}
     ${PROJECT_SOURCE_DIR}/submodules/ORB_SLAM3/lib/libORB_SLAM3.${LIB_EXT}
 )
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${LINK_LIBRARIES})
 
 # Set runtime output directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})

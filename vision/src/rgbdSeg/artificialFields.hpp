@@ -11,7 +11,7 @@
 #include <pcl/filters/passthrough.h>
 
 #define C_ATTRACT 5.f // coefficient of attraction of destination point
-#define C_REPULSE 100.f // coefficient of repulsion of each point in voxel cloud
+#define C_REPULSE 0.5f // coefficient of repulsion of each point in voxel cloud
 #define MAX_DIST 250.f // max distance to apply force in artificial field
 #define VOXEL_DENSITY 10.f // the distance we want between each voxel, in mm
 #define STEP_SIZE 10.f // step size in cm in the walking algorithm
@@ -273,18 +273,18 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         // Calculate the vector from source to value
         Eigen::Vector3d source_vec(source.x, 0, source.z);
         Eigen::Vector3d value_vec(value.x, 0, value.z);
-        Eigen::Vector3d diff = value_vec - source_vec;
+        Eigen::Vector3d diff = source_vec - value_vec ;
 
         // Calculate the angle scale as the cosine of the angle
         double cos_theta = diff.normalized().dot(Eigen::Vector3d(1, 0, 0)); // Assuming angle with respect to the x-axis
 
         if (dist != 0 && std::abs(dist) <= d0) {
-            Ur = 0.5 * (c_repulse/cloudSize) * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
+            Ur = 0.5 * c_repulse * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
         }
         return sum + cos_theta * Ur;
     });
 
-    double force_z_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
+    /*double force_z_repulse = std::accumulate(voxelCloud->points.begin(), voxelCloud->points.end(), 0.0,
     [&c_repulse, &d0, &source, &cloudSize](double sum, const pcl::PointXYZL& value) {
         double Ur = 0;
         double dist = calcModulus(value.x - source.x, value.z-source.z);
@@ -298,10 +298,10 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
         double cos_theta = diff.normalized().dot(Eigen::Vector3d(0, 0, 1)); // Assuming angle with respect to the z-axis
 
         if (dist != 0 && std::abs(dist) <= d0) {
-            Ur = 0.5 * (c_repulse/cloudSize) * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
+            Ur = 0.5 * c_repulse * std::pow(1.0 / std::abs(dist) - 1.0 / d0, 2);
         }
         return sum + cos_theta * Ur;
-    });
+    });*/
 
     const double phi = std::atan2(dest.x-source.x, dest.z-source.z);
 
@@ -310,7 +310,10 @@ Forces resultantForces(pcl::PointCloud<pcl::PointXYZL>::Ptr voxelCloud,
     Forces forces;
 
     double force_x = force_x_attr - force_x_repulse;
-    double force_z = force_z_attr - force_z_repulse;
+
+    // we are ignoring repulsive forces in the z-axis, as we are taking a direct path from 0,0,0 
+    // and so it doesn't help to accumulate backwards repulsive forces
+    double force_z = force_z_attr; //- force_z_repulse;
 
     forces.x = force_x / calcModulus(force_x, force_z);
     forces.z = force_z / calcModulus(force_x, force_z);
@@ -425,10 +428,7 @@ cv::Mat drawFloorHeatMap(std::vector<VertexType>& vertices, std::vector<std::vec
 
         tracedPath.push_back(new_point); // add point
 
-        //std::cout << "New point: (" << new_point.x << ", " << new_point.y << ", " << new_point.z << ")\n";
-
         double currentDistance = calculateDistance(source, destination);
-        //std::cout << currentDistance << std::endl;
 
         if (currentDistance < dist_thresh) {
             std::cout << "Reached the destination.\n";

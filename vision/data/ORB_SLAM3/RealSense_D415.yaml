@@ -73,5 +73,5 @@ Viewer.ViewpointF: 500.0
 # System Parameters
 #--------------------------------------------------------------------------------------------
 
-#System.LoadAtlasFromFile: "../../data/ORB_SLAM3/atlas_saved"
-#System.SaveAtlasToFile: "../../data/ORB_SLAM3/atlas_saved"
+#System.LoadAtlasFromFile: "data/ORB_SLAM3/schulich_library_atlas"
+#System.SaveAtlasToFile: "schulich_library_atlas"

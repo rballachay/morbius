@@ -165,6 +165,7 @@ mkdir -p build
 cd build
 cmake ..
 make
+mv planeSegment ../
 cd ..
 
 echo "Built executable: planeSegment, must run with sudo"

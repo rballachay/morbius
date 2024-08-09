@@ -12,11 +12,16 @@
 #include <librealsense2/rs.hpp>
 #include "librealsense2/rsutil.h"
 #include "src/rgbdSeg/artificialFields.hpp"
+#include "src/rgbdSeg/planeSegment.cpp"
 #include <System.h>
 #include <pistache/endpoint.h>
 #include <pistache/http.h>
 #include <pistache/peer.h>
 #include <json/json.h>
+
+// rotation is very very bad for an un-mapped system. It is important to do all the mapping 
+// and then come back to the environment and run the localization. For more information 
+// about this, go see this link: https://github.com/raulmur/ORB_SLAM2/issues/194#issuecomment-259948302
 
 #define AVG_FRAMES 10
 
@@ -328,7 +333,12 @@ int main(int argc, char **argv) {
         	{
                 PlaneDetection plane_detection;
 
-				cv::Mat avgColor = computeAverage(colorImages);
+				cv::Mat avgColor_bgr = computeAverage(colorImages);
+
+                // this algorithm is developed on BGR images
+                cv::Mat avgColor;
+                cv::cvtColor(avgColor_bgr, avgColor, cv::COLOR_RGB2BGR);
+
 				cv::Mat avgDepth = computeAverage(depths);
 				
 				plane_detection.readDepthImage(avgDepth);
@@ -355,10 +365,10 @@ int main(int argc, char **argv) {
         
                     local_destination = calculateStep(location, forces, step_size);
 
-                    /*cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
+                    cv::Mat floorHeat = drawFloorHeatMap(surfaces.vertices, 
 						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
 
-                    floorHeatMaps.push_back(floorHeat);*/
+                    floorHeatMaps.push_back(floorHeat);
 				}
                 
 				frameCount=0;
