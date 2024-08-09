@@ -192,13 +192,13 @@ void processMask(cv::Mat& mask, int dilationSize = 5, int erosionSize = 5) {
 	fillHoles(mask);
 }
 
-std::tuple<cv::Mat, double> drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
+std::tuple<cv::Mat, double> drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces, cv::Mat mask){
     /*NOTE: We are using the image with the masked colors that has been dilated and eroded, because
     there are some random dots in the original mask which mess with the distance calculation. This
     is a hacky way of doing this, but its simple.
     */
    cv::Mat drawnImage = image.clone(); 
-   cv::Mat mask = plane_detection.seg_img_.clone();
+
    double max_distance = 0.0;
 
    	if (surfaces.groundIdx==-1){
@@ -291,4 +291,36 @@ std::tuple<cv::Mat, double> drawDistanceVectors(cv::Mat image, PlaneDetection& p
     max_distance = ground_vecs._vecMaxZ[nVecs/2];
 
 	return std::make_tuple(drawnImage, max_distance);
+}
+
+cv::Mat makeMask(PlaneDetection& plane_detection, int groundIdx){
+    int rows = plane_detection.cloud.height();
+    int cols = plane_detection.cloud.width();
+
+    cv::Mat mask(rows, cols, CV_8UC3, cv::Scalar(0, 0, 0));
+
+    for (size_t i = 0; i < plane_detection.plane_vertices_.size(); ++i) {
+        for (size_t j = 0; j < plane_detection.plane_vertices_[i].size(); ++j) {
+            int idx = plane_detection.plane_vertices_[i][j];
+            int row = idx / cols;
+            int col = idx % cols;
+
+            int r, g;
+            if (i==groundIdx){
+                r=0;
+                g=255;
+            }else{
+                r=255;
+                g=0;
+            }
+
+            cv::Vec3b color(static_cast<uchar>(0),  // Blue channel
+                            static_cast<uchar>(g),  // Green channel
+                            static_cast<uchar>(r));  // Red channel
+
+            mask.at<cv::Vec3b>(row, col) = color;
+        }
+    }
+
+    return mask;
 }

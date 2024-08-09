@@ -31,7 +31,7 @@ struct Surfaces{
 	std::vector<cv::Vec3b> colors; // colors, to be plotted using seg.img_
 
 	size_t numPlanes;
-	int groundIdx; // index of the ground, if it can't be assigned, gives warning
+	int groundIdx = -1; // index of the ground, if it can't be assigned, gives warning
 
 	Surfaces(PlaneDetection planeDetection) {
 		planes = planeDetection.plane_filter.extractedPlanes;
