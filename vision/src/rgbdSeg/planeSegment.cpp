@@ -65,6 +65,8 @@ int realSenseAttached(){
 				cv::Mat groundVecs;
 				groundVecs = avgColor.clone();
 
+				float max_distance = 0;
+
 				if (surfaces.groundIdx!=-1){
 					Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
 					std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
@@ -74,7 +76,7 @@ int realSenseAttached(){
 					floorHeat = drawFloorHeatMap(surfaces.vertices, 
 						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
 
-					groundVecs = drawDistanceVectors(avgColor, plane_detection, surfaces);
+					std::tie(groundVecs, max_distance) = drawDistanceVectors(avgColor, plane_detection, surfaces);
 				}
 
 				/*std::string formattedString = std::to_string(counter);

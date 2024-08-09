@@ -16,14 +16,14 @@ struct GroundVectors{
 	int stride; 
 	double agentWidth; 
 
-	std::vector<int> _vecMaxZ; // the real max Z, considering the agent width
+	std::vector<double> _vecMaxZ; // the real max Z, considering the agent width
 	std::vector<int> _vecMaxI; // the real max I 
 
     GroundVectors(int vecCount, int stride, double agentWidth = AGENT_WIDTH)
         : vecCount(vecCount), stride(stride), agentWidth(agentWidth) {
             vecMaxJ.resize(vecCount, 0); // Initialize vecMaxZ with vecCount elements set to 0.0
             vecMaxI.resize(vecCount, 0); // Initialize vecMaxI with vecCount elements set to 0
-			_vecMaxZ.resize(vecCount, 0);
+			_vecMaxZ.resize(vecCount, 0.0);
 			_vecMaxI.resize(vecCount, -1);
         }
 
@@ -93,7 +93,11 @@ struct GroundVectors{
 					if (jL<0){
 						break;
 					}
-					cloud.get(i, jL, xL, y, z);
+					bool exists = cloud.get(i, jL, xL, y, z);
+
+                    if (!exists){
+					    continue;
+				    }
 
                     // if we are outside the width of the agent, continue
 					if (abs(x-xL)>agentWidth){
@@ -188,16 +192,17 @@ void processMask(cv::Mat& mask, int dilationSize = 5, int erosionSize = 5) {
 	fillHoles(mask);
 }
 
-cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
+std::tuple<cv::Mat, double> drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surfaces& surfaces){
     /*NOTE: We are using the image with the masked colors that has been dilated and eroded, because
     there are some random dots in the original mask which mess with the distance calculation. This
     is a hacky way of doing this, but its simple.
     */
    cv::Mat drawnImage = image.clone(); 
    cv::Mat mask = plane_detection.seg_img_.clone();
+   double max_distance = 0.0;
 
    	if (surfaces.groundIdx==-1){
-		return drawnImage;
+		return std::make_tuple(drawnImage, max_distance);
 	}
 
     processMask(mask);
@@ -282,5 +287,8 @@ cv::Mat drawDistanceVectors(cv::Mat image, PlaneDetection& plane_detection, Surf
 		//cv::arrowedLine(drawnImage, start, end, color, thickness, lineType, shift, tipLength);
 	}
 
-	return drawnImage;
+    // is this isn't a null pointer
+    max_distance = ground_vecs._vecMaxZ[nVecs/2];
+
+	return std::make_tuple(drawnImage, max_distance);
 }

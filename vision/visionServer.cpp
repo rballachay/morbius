@@ -12,7 +12,7 @@
 #include <librealsense2/rs.hpp>
 #include "librealsense2/rsutil.h"
 #include "src/rgbdSeg/artificialFields.hpp"
-#include "src/rgbdSeg/planeSegment.cpp"
+#include "src/rgbdSeg/groundVectors.hpp"
 #include <System.h>
 #include <pistache/endpoint.h>
 #include <pistache/http.h>
@@ -36,6 +36,9 @@ pcl::PointXYZ local_destination(0, 0, 0);
 
 // this is the current location of the robot
 pcl::PointXYZ location(0, 0, 0); 
+
+// max traversible distance calculated with heading vectors
+float max_distance = 0.0; 
 
 std::vector<cv::Mat> floorHeatMaps;
 
@@ -144,6 +147,7 @@ struct RequestHandler : public Http::Handler {
             responseData["local_destination"]["x"] = local_destination.x;
             responseData["local_destination"]["y"] = local_destination.y;
             responseData["local_destination"]["z"] = local_destination.z;
+            responseData["max_distance"] = max_distance;
 
             // Serialize JSON to string
             Json::StreamWriterBuilder writerBuilder;
@@ -369,6 +373,9 @@ int main(int argc, char **argv) {
 						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
 
                     floorHeatMaps.push_back(floorHeat);
+
+                    cv::Mat groundVecs;
+                    std::tie(groundVecs, max_distance) = drawDistanceVectors(avgColor, plane_detection, surfaces);
 				}
                 
 				frameCount=0;
