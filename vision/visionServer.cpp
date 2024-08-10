@@ -353,18 +353,8 @@ int main(int argc, char **argv) {
 				
 				Surfaces surfaces(plane_detection);
 
-                cv::Mat floorHeat;
-				floorHeat = avgColor.clone();
-
-				cv::Mat groundVecs;
-				groundVecs = avgColor.clone();
-
-				cv::Mat mask = plane_detection.seg_img_;
-
-				float max_distance = 0;
-
 				if (surfaces.groundIdx!=-1){
-                    mask = makeMask(plane_detection, surfaces.groundIdx);
+                    cv::Mat mask = makeMask(plane_detection, surfaces.groundIdx);
 
 					Plane plane = computePlaneEq(surfaces.planes, surfaces.groundIdx);
 					std::vector<Eigen::Vector3d> projectedVertices = projectOnPlane(surfaces.vertices, plane);
@@ -385,7 +375,11 @@ int main(int argc, char **argv) {
 
                     floorHeatMaps.push_back(floorHeat);
 
-                    std::tie(groundVecs, max_distance) = drawDistanceVectors(avgColor, plane_detection, surfaces, mask);
+                    cv::Mat groundVecs = avgColor.clone();
+                    float maxDist = 0.0;
+                    std::tie(groundVecs, maxDist) = drawDistanceVectors(avgColor, plane_detection, surfaces, mask);
+                    max_distance = maxDist; // set the global variable
+
 				}
                 
 				frameCount=0;

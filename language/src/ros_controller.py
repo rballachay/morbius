@@ -1,8 +1,8 @@
 import requests
 import json
 import re
-from config import ROBOT_ID, DEFAULT_ANGLE, DEFAULT_FORWARD, DEFAULT_BACKWARD
-
+from config import ROBOT_ID, DEFAULT_ANGLE, DEFAULT_FORWARD, DEFAULT_BACKWARD, VISION_MODEL_PORT
+from src.vision_handler import VisionHandler
 endpoint = "http://localhost:8080/{}"
 headers = {'content-type': 'application/json'}
 
@@ -108,12 +108,21 @@ class RosControllerv2:
     """
     def __init__(self):
         self.state = True
+        self.vision_handler = VisionHandler()
 
     def action_move_forward(self, distance):
         if distance is None:
             distance = DEFAULT_FORWARD
         else:
             distance_cm = convert_number_units(distance)
+        
+        distance_vision = self.vision_handler.distance()
+
+        if distance_vision:
+            self.print(f"Robot has {distance_vision/10} cm of free space ahead")
+
+            if distance_vision<distance_cm:
+                return f"Robot failed to move {distance_cm:.0f} cm with only {distance_vision:.0f} of free space"
 
         self.print(f"Moving forward {distance_cm} cm...")
         
@@ -131,6 +140,8 @@ class RosControllerv2:
             return "Robot failed to move"
     
     def action_move_backward(self, distance):
+        # the robot can't turn around and look backwards, so ...
+
         if distance is None:
             distance_cm = DEFAULT_BACKWARD
         else:

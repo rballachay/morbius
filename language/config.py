@@ -128,3 +128,8 @@ PICO_ACCESS_KEY='HXZKfDFpC/RpSZhOkp7m6TfDWDOG63GilPtIhbKc6ARtqP6pKZT9Rw=='
 PORCUPINE_MODEL_MAC='models/Porcupine/Hey-Robot_en_mac_v3_0_0.ppn'
 PORCUPINE_MODEL_PI='models/Porcupine/Hey-Robot_en_raspberry-pi_v3_0_0.ppn'
 """VOICE KEYWORD RECOGNITION"""
+
+"""VISION MODEL PORT"""
+VISION_MODEL_PORT=9080 # this value is also in 'vision/config.json. if you are
+                       # updating it there, you need to update it here
+"""VISION MODEL PORT"""

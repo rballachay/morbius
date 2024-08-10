@@ -50,15 +50,11 @@ int realSenseAttached(){
 
 				Surfaces surfaces(plane_detection);
 
-				cv::Mat floorHeat;
-				floorHeat = avgColor.clone();
-
-				cv::Mat groundVecs;
-				groundVecs = avgColor.clone();
+				cv::Mat floorHeat = avgColor.clone();
+				cv::Mat groundVecs = avgColor.clone();
+				float max_distance = 0;
 
 				cv::Mat mask = plane_detection.seg_img_;
-
-				float max_distance = 0;
 
 				if (surfaces.groundIdx!=-1){
 					mask = makeMask(plane_detection, surfaces.groundIdx);
@@ -70,7 +66,6 @@ int realSenseAttached(){
 
 					floorHeat = drawFloorHeatMap(surfaces.vertices, 
 						plane_detection.plane_vertices_, surfaces.groundIdx, voxelCloud, plane, avgColor);
-
 
 					std::tie(groundVecs, max_distance) = drawDistanceVectors(avgColor, plane_detection, surfaces, mask);
 				}
