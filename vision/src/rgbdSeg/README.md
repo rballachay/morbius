@@ -12,7 +12,9 @@ The best repository for RGBD plane detection I could find is [RGBDPlaneDetection
 </div>
 
 <div style="display: flex; justify-content: center;">
-<img src="docs/sample_segmentation.png" alt="Sample segmentation" title="Sample segmentation using realsense camera" width="400" />
+<img src="docs/sample_segmentation.png" alt="Sample segmentation" style="width: 40%;  margin-right: 5px;"/>
+<img src="docs/ground_plane_seg.png" alt="Sample ground plane" style="width: 40%; margin-left: 5px;"/>
+
 </div>
 
 

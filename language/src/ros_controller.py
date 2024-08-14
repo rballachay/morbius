@@ -122,7 +122,8 @@ class RosControllerv2:
             self.print(f"Robot has {distance_vision/10} cm of free space ahead")
 
             if distance_vision<distance_cm:
-                return f"Robot failed to move {distance_cm:.0f} cm with only {distance_vision:.0f} of free space"
+                # the distance returned by the vision model is in mm, so it needs to be converted here
+                return f"Robot failed to move {distance_cm:.0f} cm with only {distance_vision/10:.0f} of free space"
 
         self.print(f"Moving forward {distance_cm} cm...")
         
