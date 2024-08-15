@@ -122,7 +122,9 @@ if [ "$VISION" = true ]; then
   cd vision/src/rgbdSeg
   sudo bash build.sh --include-deps
   mv planeSegment ../
-  cd ../../../
+  cd ../../
+  bash build.sh
+  cd ../
   echo "Finished install of vision system"
 fi
 
