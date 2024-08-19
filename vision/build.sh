@@ -75,9 +75,15 @@ if [ "$SKIP_BUILD" = false ]; then
 
     cd Vocabulary
     tar -xf ORBvoc.txt.tar.gz
-    cd ..
+    cd ../
 
     echo "Configuring and building ORB_SLAM3 ..."
+
+    mkdir -p build
+    cd build
+    cmake .. 
+    make
+    cd ../../../
 
 
 fi
