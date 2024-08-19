@@ -423,7 +423,7 @@ int main(int argc, char **argv) {
     cout << "System shutdown!\n";
 
     // Save all collected floor heatmaps to the results/ folder
-    if (!std::filesystem::exists("results")) {
+    /*if (!std::filesystem::exists("results")) {
         std::filesystem::create_directory("results");
     }
 
@@ -435,6 +435,7 @@ int main(int argc, char **argv) {
     }
 
     cout << "Saved all floor heatmaps to results/ directory." << endl;
+    */
 
     return 0;
 }

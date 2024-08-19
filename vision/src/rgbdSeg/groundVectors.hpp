@@ -41,7 +41,7 @@ struct GroundVectors{
 			}
 
 			int i;
-            int tolerance = 10;
+            int tolerance = 20;
 			for (i = cloud.height()-1; i >= iMax; i--){
                 int hitObject = false;
 

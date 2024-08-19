@@ -14,7 +14,7 @@
 #define C_REPULSE 0.5f // coefficient of repulsion of each point in voxel cloud
 #define MAX_DIST 250.f // max distance to apply force in artificial field
 #define VOXEL_DENSITY 10.f // the distance we want between each voxel, in mm
-#define STEP_SIZE 10.f // step size in cm in the walking algorithm
+#define STEP_SIZE 20.f // step size in mm in the walking algorithm
 #define DIST_THRESH 100.f // tolerance in cm for 'arrival' at destiation
 
 struct Surfaces{

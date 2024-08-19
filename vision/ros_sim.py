@@ -5,6 +5,7 @@ import json
 import time
 import os
 import pandas as pd
+import numpy as np
 
 RECORD=True
 
@@ -170,17 +171,47 @@ def main():
 def plot_scatter_map():
     import matplotlib.pyplot as plt
 
-    # take the most rejecent trajectory from the directory
-    traj_paths = os.listdir(TRAJECTORIES_DIR)
-    traj_path = max(filter(lambda x:x.endswith('.csv'),traj_paths))
-    df = pd.read_csv(f'{TRAJECTORIES_DIR}/{traj_path}',index_col=0)
+    # Directory containing trajectories
+    TRAJECTORIES_DIR = '.trajectories'  # Update this to your actual path
 
+    # Take the most recent trajectory from the directory
+    traj_paths = os.listdir(TRAJECTORIES_DIR)
+    traj_path = max(filter(lambda x: x.endswith('.csv'), traj_paths))
+    df = pd.read_csv(f'{TRAJECTORIES_DIR}/{traj_path}', index_col=0)
+
+    # Scatter plot
     plt.figure(figsize=(10, 6))
-    plt.scatter(df['x'], df['z'], c=df['y'], cmap='viridis', s=100)
-    plt.colorbar(label='Z Value')
-    plt.xlabel('X Coordinate')
-    plt.ylabel('Y Coordinate')
-    plt.title('Scatter Plot of Coordinates')
+    plt.scatter(-df['x'], -df['z'], s=100, c='blue', label='SLAM Locations')
+
+    # Best-fit line
+    # Fit a line to the data
+    m, b = np.polyfit(-df['x'], -df['z'], 1)
+    # Generate x values for the best-fit line
+    x_fit = np.linspace(-df['x'].min(), -df['x'].max(), 100)
+    # Generate y values for the best-fit line
+    y_fit = m * x_fit + b
+    #plt.plot(x_fit, y_fit, color='blue',linestyle='--', label='SLAM-estimated Trajectory')
+
+    # Specific line from (0,0) to (-0.5,6)
+    #plt.plot([0, 0.5], [0, 6], color='magenta', label='Real Camera Trajectory')
+    #plt.scatter([0], [0], color='pink', s=300, marker='*', label='Source')
+    #plt.scatter([0.5], [6], color='purple', s=300, marker='*', label='Destination')
+    #plt.xlim(-3, 3)
+    #plt.ylim(-0.5, 6.5)
+
+    plt.plot([0, 0], [0, 2], color='magenta', label='Real Camera Trajectory')
+    plt.plot([0, -3], [2, 2], color='magenta')
+    plt.scatter([0], [0], color='pink', s=300, marker='*', label='Source')
+    plt.scatter([0], [2], color='purple', s=300, marker='*', label='Destination 1')
+    plt.scatter([-3], [2], color='indigo', s=300, marker='*', label='Destination 1')
+    plt.xlim(-3.5, 3.5)
+    plt.ylim(-0.5, 2.5)
+
+    # Add colorbar, labels, and title
+    plt.xlabel('X Coordinate [metres] (+ive to the right)')
+    plt.ylabel('Z Coordinate [metres] (+ive forward)')
+    plt.title('Real and Estimated Coordinates from Visual Odometry')
+    plt.legend()
     plt.show()
     
 if __name__=='__main__':

@@ -1,13 +1,14 @@
 # Language Model
 
+## Running 
+
+To run the model, first ensure you have an environment with python 3.10 (you can do this most easily using [miniconda](https://docs.anaconda.com/miniconda/)), install the requirements using: `pip install -r requirements.txt` and then run the server/language model with: `bash ./start.sh`. If you have also already compiled the vision model, you may run that as well using `bash ./start.sh --vision`.
+
+## Introduction 
+
 The language model is composed of three parts: speech-to-text, text-to-command and text-to-speech. See below the entire workflow for the language model, and the associated dependencies and scripts. For more information about the text-to-command section, see `data/rasa`.
 
 <img src="docs/language_diagram.png" alt="Language Model Workflow" width="1000">
-
-## Running 
-
-To run the model, first ensure you have an environment with python 3.10, install the requirements using: `pip install -r requirements.txt` and then run the server/language model with: `bash ./start.sh`.
-
 
 ## Language - setup
 

@@ -1,8 +1,8 @@
 # Vision Model
 
-## vision.cpp
+## visionServer.cpp
 
-This script is the main vision model. It can run in two different modes, mapping and localization. In mapping mode, we run ORB_SLAM3 and create a map file which is written permanently to disk. In localization mode, we load a map (must already have saved a map to disk) and then localize the camera in that space. We then use a destination point in the original map, and use our planeSegment algorithm to help and navigate to our destination. Here are the sample frames from running localize:
+This script is the main vision model. It can run in two different modes, mapping and localization. In mapping mode, we run ORB_SLAM3 and create a map file which is written permanently to disk. In localization mode, we load a map (must already have saved a map to disk) and then localize the camera in that space. We then use a destination point in the original map, and use our planeSegment algorithm to help and navigate to our destination. Here are the sample frames from running localize: 
 
 
 <div style="display: flex; justify-content: space-between;">
@@ -10,6 +10,47 @@ This script is the main vision model. It can run in two different modes, mapping
     <img src="docs/ORB_SLAM3_points.png" alt="Second Image" width="45%" />
 </div>
 
+Note that the only difference between the mapping and localization mode is a single argument passed to the command line. (You can also run localization without mapping first, but it will be less accurate)
+
+__Mapping mode__
+```bash
+sudo ./visionServer ./submodules/ORB_SLAM3/Vocabulary/ORBvoc.txt ./data/ORB_SLAM3/RealSense_D415.yaml
+```
+
+__Localization mode__
+```bash
+sudo ./visionServer ./submodules/ORB_SLAM3/Vocabulary/ORBvoc.txt ./data/ORB_SLAM3/RealSense_D415.yaml ./data/ORB_SLAM3/atlas_saved.osa
+```
+
+The other important part of the visionServer is a REST API which can be used to update the parameters x, y, z (aka the destination of the robot) and retrieve a variety of parameters from the server. Here is how to update the destination and retrieve information from the server, once the script is running:
+
+__Updating the destination__
+```bash
+curl -X POST http://localhost:9080 \
+     -H "Content-Type: application/json" \
+     -d '{"x": 100.0, "y": 0.0, "z": 3040.0}'
+```
+
+__Getting the Parameters__
+```bash
+curl -X GET http://localhost:9080
+```
+_response_
+```c
+{ 
+    'location': { 
+        'x': 100.0,
+        'y': 0.0,
+        'z': 3040.0
+    }, // global desination 
+    'local_destination': { 
+        'x': 5.5,
+        'y': 0.0,
+        'z': 56.5
+    }, // local destination from artificial fields vector
+    'max_distance': 100.0 // max distance traversible directly forward
+}
+```
 
 ## src/rgbdSeg/planeSegment.cpp
 

@@ -74,9 +74,9 @@ int realSenseAttached(){
 				cv::imshow("Processed Frame 2",  groundVecs);
 				cv::imshow("Processed Frame 3",  mask);
 				if (cv::waitKey(1) == 27) { // Exit on ESC key
-					//cv::imwrite("sample_segmentation.png", plane_detection.seg_img_);
-					//cv::imwrite("depth_image.png", depth_mat*50);
-					//cv::imwrite("raw_image.png", color_mat);
+					//cv::imwrite("docs/results/sample_segmentation.png",mask);
+					//cv::imwrite("docs/results/floor_heat.png", floorHeat);
+					//cv::imwrite("docs/results/ground_vectors.png", groundVecs);
 					std::exit(0);
 				}
 				frameCount=0;
