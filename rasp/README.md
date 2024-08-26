@@ -10,6 +10,7 @@ In order to set up a raspberry pi from scratch, you must first install the OS to
 ssh user@raspberrypi.local 
 # the password is test12345 
 sudo raspi-config
+# now update the wifi to include the router
 sudo reboot
 # follow all the other instructions to set up the wifi
 ```
