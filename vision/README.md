@@ -79,8 +79,26 @@ From the current directory (`vision`), you can run the following. This will buil
 ```bash
 cd src/rgbdSeg
 bash build.sh
-sudo ./planeSegment
+./planeSegment
 ```
+
+### Running planeSegment.cpp over ssh
+
+In order to run the planeSegment algorithm on the raspberry pi and forward the graphics onto your local computer, you must first install xquartz and then run the program.
+
+```bash
+brew install --cask xquartz
+# now, re-start your computer so that xquartz can load
+xlock # this is a way of checking that xquartz is working
+```
+
+Ensure that you re-start your computer, and re-create the ssh connection:
+
+```brew
+ssh -X user@raspberrypi.local
+```
+
+Now, when you run the program and the graphics will be forwarded from the pi to your computer.
 
 ## Profiling 
 
