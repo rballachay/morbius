@@ -81,13 +81,13 @@ Now you may compile the file:
 Note that you will need to run this again if you're in a new shell 
 ```bash
 output=$(brew link portaudio 2>&1)
-path=$(echo "$output" | grep -oE '/[^ ]+/portaudio/[0-9]+\.[0-9]+\.[0-9]+')
-echo "Extracted path: $path"
+portpath=$(echo "$output" | grep -oE '/[^ ]+/portaudio/[0-9]+\.[0-9]+\.[0-9]+')
+echo "Extracted path: $portpath"
 ```
 
 ```bash
 cd src/stt
-gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad -I${path}/include  -L${path}/lib
+gcc -shared -o record_audio.so -fPIC record_audio.c  -lportaudio -lfvad -I${portpath}/include  -L${portpath}/lib
 ```
 
 ## Language - running

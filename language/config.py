@@ -82,6 +82,8 @@ TTS_MODELS=['styleTTS2','fast_speech','espeak','nix_tts']
 
 if os.path.exists('/usr/lib/aarch64-linux-gnu/libespeak.so.1'):
     PHONEMIZER_ESPEAK_LIBRARY = '/usr/lib/aarch64-linux-gnu/libespeak.so.1'
+elif os.path.exists('/opt/homebrew/lib/libespeak.dylib'):
+    PHONEMIZER_ESPEAK_LIBRARY = '/opt/homebrew/lib/libespeak.dylib'
 else:
     PHONEMIZER_ESPEAK_LIBRARY = f"{find_library_path('espeak')}/libespeak-ng.dylib"
 
