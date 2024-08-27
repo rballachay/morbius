@@ -83,7 +83,7 @@ class TextToSpeech:
     def channels(self):
         selected_device = self.devices[self.device_index]
         if selected_device['name']=='Jabra SPEAK 410 USB':
-            return 1
+            return 2
         return 1
     
     @property 
